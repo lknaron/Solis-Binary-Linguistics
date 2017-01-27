@@ -5,12 +5,18 @@ const fs = require('fs');
 const https = require('https');
 const path = require('path');
 var mysql = require('mysql');
+var bodyParser = require('body-parser');
 
 const app = express();
 const directoryToServe = 'client';
-const port = 3443;
+const port = 3443;	
 
-app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
+// Directs to angular module to have module stored locally
+app.use('/angular', express.static(path.join(__dirname, '..', 'node_modules/angular')));
+
+// Use body Parser for reading sent data   -------------Necessary for later
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Use ssl certificate and key
 const httpsOptions = {
@@ -21,5 +27,21 @@ const httpsOptions = {
 // Create https server
 https.createServer(httpsOptions, app)
   .listen(port, function () {
-    console.log(`Serving the ${directoryToServe}/ directory at https://localhost:${port}`);
+    console.log(`Server running at https://localhost:${port}`);
+});
+
+// Create a connection to MySql Server and Database
+var connection = mysql.createConnection({
+    host : 'localhost',
+    user : 'user',
+    password : 'password',
+    database: 'testDB', 
+});
+
+connection.connect(function(err){
+  if(!err) {
+      console.log("Database is connected");    
+  } else {
+      console.log("Error connecting database");    
+  }
 });
