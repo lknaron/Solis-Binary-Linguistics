@@ -1,1 +1,8 @@
-<div></div>
+<div ng-controller='loginController'>
+    <!--temporary layout--login routes to homepage (student)-->
+    <form ng-submit='submitLogin()'>
+        Name<input ng-model='username'/><br>
+        Password<input ng-model='password'/><br>
+        <button type='submit'>Login</button>
+    </form>
+</div>

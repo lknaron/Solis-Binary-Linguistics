@@ -1,3 +1,4 @@
 /*
- * services.js used for common services within app
+ * File: services.js
+ * Description: Used for common custom services within the web application
  */
