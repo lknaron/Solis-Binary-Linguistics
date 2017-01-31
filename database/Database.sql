@@ -1,7 +1,5 @@
 -- Database Tables
 
-DEFAULT CHARACTER SET utf8;
-
 -- -----------------------------------------------------
 -- User Table
 -- -----------------------------------------------------
@@ -17,7 +15,7 @@ CREATE TABLE IF NOT EXISTS User_ (
   isActive TINYINT(1)  NOT NULL,
   LoginTime TIMESTAMP NOT NULL,
   PRIMARY KEY (ASURITE_ID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
 -- Offer Table
@@ -29,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Offer (
   PRIMARY KEY (OfferID),
   FOREIGN KEY (ASURITE_ID)
     REFERENCES User_ (ASURITE_ID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Student Evaluation Table
@@ -49,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   PRIMARY KEY (EvaluationID),
   FOREIGN KEY (ASURITE_ID)
     REFERENCES User_ (ASURITE_ID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Schedule Table
@@ -69,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   FirstName VARCHAR(45),
   LastName VARCHAR(45),
   PRIMARY KEY (ScheduleID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Student Request Table
@@ -84,7 +82,7 @@ CREATE TABLE IF NOT EXISTS Student_Request (
     REFERENCES Schedule_ (ScheduleID),
   FOREIGN KEY (ASURITE_ID)
     REFERENCES User_ (ASURITE_ID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Placement Table
@@ -104,7 +102,7 @@ CREATE TABLE IF NOT EXISTS Placement (
   PRIMARY KEY (PlaceID),
   FOREIGN KEY (ScheduleID)
     REFERENCES Schedule_ (ScheduleID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Application Table
@@ -142,7 +140,7 @@ CREATE TABLE IF NOT EXISTS Application (
   PRIMARY KEY (AppID),
   FOREIGN KEY (ASURITE_ID)
     REFERENCES User_ (ASURITE_ID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Calendar Table
@@ -156,7 +154,7 @@ CREATE TABLE IF NOT EXISTS Calendar (
   PRIMARY KEY (CalendarID),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Attachment Table
@@ -171,7 +169,7 @@ CREATE TABLE IF NOT EXISTS Attachment (
   PRIMARY KEY (AttachmentID),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Languages Table
@@ -201,7 +199,7 @@ CREATE TABLE IF NOT EXISTS Languages (
   PRIMARY KEY (LanguagesID),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- IDEs Table
@@ -218,7 +216,7 @@ CREATE TABLE IF NOT EXISTS IDEs (
   PRIMARY KEY (IDEid),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Collaborative Tools Table
@@ -233,7 +231,7 @@ CREATE TABLE IF NOT EXISTS Collaborative_Tools (
   PRIMARY KEY (ToolID),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Course Competencies Table
@@ -282,7 +280,7 @@ CREATE TABLE IF NOT EXISTS Course_Competencies (
   PRIMARY KEY (CompetenciesID),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
 -- Courses Taught Table
@@ -328,7 +326,7 @@ CREATE TABLE IF NOT EXISTS Courses_Taught (
   isSER423 TINYINT(1) DEFAULT NULL,
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
-  PRIMARY KEY (CompetenciesID),
+  PRIMARY KEY (TaughtID),
   FOREIGN KEY (AppID)
     REFERENCES Application (AppID)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
