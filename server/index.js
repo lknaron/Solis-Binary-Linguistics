@@ -11,6 +11,8 @@ const app = express();
 const directoryToServe = 'client';
 const port = 3443;	
 
+app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
+
 // Directs to angular module to have module stored locally
 app.use('/angular', express.static(path.join(__dirname, '..', 'node_modules/angular')));
 
@@ -28,6 +30,18 @@ const httpsOptions = {
 https.createServer(httpsOptions, app)
   .listen(port, function () {
     console.log(`Server running at https://localhost:${port}`);
+});
+
+// test login post method
+app.post('/login', function(req, res, next) {
+    console.log('received ' + req.body.username + ' ' + req.body.password);
+    next();
+}, function (req, res, next) {
+    // determine if account exists middleware
+    // determine user type middleware
+    // temp assignment - pretend 1 is student
+    var userType = {"typeUser":1}
+    res.send(userType);
 });
 
 // Create a connection to MySql Server and Database

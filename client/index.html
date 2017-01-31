@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
+    <!--angular dependencies-->
+    <script src="angular/angular.min.js"></script>   
+    <script src="angular/angular-route.min.js"></script>
+    <!--module javascript source files-->
+    <script src="app/app.js"></script>
+    <script src="app/login/login.js"></script>
+	<title>TITLE</title>
 </head>
 <body ng-app='app'>
-    <div ng-include="'templates/header.html'"></div>
-    <div ng-view>
-    </div>
-    <div ng-include="'temps/footer.html'"></div>
+    <div ng-include="'app/header.html'"></div>
+    <div ng-view></div>
+    <div ng-include="'app/footer.html'"></div>
 </body>
 </html>
