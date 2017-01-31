@@ -2,12 +2,10 @@
 /*
  * File: app.js 
  * Description: Top level control of the application
- * Date: 1/28/2017
  */
 
 // setup main app module and other modules
-var app = angular.module('app', ['ngRoute',
-                                 'app.login']);
+var app = angular.module('app', ['ngRoute', 'app.login', 'app.account']);
 
 // main app routing
 app.config(function($routeProvider) {
@@ -21,6 +19,14 @@ app.config(function($routeProvider) {
         })
         .when('/studentHome', {
             templateUrl : 'app/users/studentView.html'
+        })
+        .when('/createAccount', {
+            templateUrl : 'app/account/createAccountView.html',
+            controller : 'createAccountController'
+        })
+        .when('/viewAccount', {
+            templateUrl : 'app/account/accountView.html',
+            controller : 'viewAccountController'
         })
         .when('/badrequest', {
             templateUrl : 'app/errors/404.html'
