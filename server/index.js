@@ -32,6 +32,20 @@ https.createServer(httpsOptions, app)
     console.log(`Server running at https://localhost:${port}`);
 });
 
+//-----------TESTS---------------------------------------------------
+// test get user name
+app.post('/getStudent', function(req, res) {
+    console.log('looking for ' + req.body.loginName);
+    // test 
+    if (req.body.loginName === "aabbcc") {
+        res.send({"firstName":'jamie',"lastName":'shmoe'});
+    } else if (req.body.loginName === "ccbbaa") {
+        res.send({"firstName":'joe',"lastName":'shmoe'});
+    } else {
+        res.send({"firstName":'no',"lastName":'name'});
+    }
+});
+
 // test login post method
 app.post('/login', function(req, res, next) {
     console.log('received ' + req.body.username + ' ' + req.body.password);
@@ -43,6 +57,7 @@ app.post('/login', function(req, res, next) {
     var userType = {"typeUser":1}
     res.send(userType);
 });
+//--------------------------------------------------------------------
 
 // Create a connection to MySql Server and Database
 var connection = mysql.createConnection({

@@ -5,7 +5,10 @@
  */
 
 // setup main app module and other modules
-var app = angular.module('app', ['ngRoute', 'app.login', 'app.account']);
+var app = angular.module('app', ['ngRoute',
+                                 'app.login',
+                                 'app.account',
+                                 'app.student']);
 
 // main app routing
 app.config(function($routeProvider) {
@@ -18,7 +21,7 @@ app.config(function($routeProvider) {
             controller : 'loginController'
         })
         .when('/studentHome', {
-            templateUrl : 'app/users/studentView.html'
+            templateUrl : 'app/users/studentView-test.html'
         })
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',
@@ -34,4 +37,16 @@ app.config(function($routeProvider) {
         .otherwise({
             redirectTo : '/badrequest'
         });
+});
+
+// service to store username to send get method to retriece user data for landing page
+// Possibly move this to Services.js file (if needed)
+app.service('LoginNameService', function() {
+    this.loginName = '';
+    this.setLoginName = function(name) {
+        this.loginName = name;
+    }
+    this.getLoginName = function() {
+       return this.loginName;
+    }
 });

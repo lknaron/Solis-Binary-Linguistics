@@ -1,11 +1,11 @@
 'use-strict'
 /*
  * File: account.js
- * Description: Modules and controllers for user account creation and management.
+ * Description: Modules and controllers for user account creation and viewing.
  */
 
 // setup account module
-var account = angular.module('app.account', [])
+var account = angular.module('app.account', []);
 
 // account pages controllers
 account.controller('createAccountController', function($scope, $location, $http) {
