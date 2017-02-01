@@ -13,11 +13,10 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
     $scope.password = '';
     $scope.submitLogin = function() {
         var loginData = {'username':$scope.username, 'password':$scope.password};
-<<<<<<< HEAD
+
         //!!!!-put service here to capture username after form submit!!!!
         LoginNameService.setLoginName($scope.username);
-=======
->>>>>>> b9435c207e18d5c54b2a97134634cc1c0084a628
+        
         $http.post('/login', loginData).then(function successCallback(response) {
             console.log('successful post');
             UserInfoService.setUserId($scope.username);
