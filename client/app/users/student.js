@@ -8,6 +8,7 @@
 // setup student module
 var student = angular.module('app.student', []);
 
+<<<<<<< HEAD
 // student view page controllers - notice LoginNameService service injected
 student.controller('studentNameController', function($scope, $http, LoginNameService) {
     // this will be the call (or one of the calls) to get user details to display on the student landing
@@ -24,4 +25,9 @@ student.controller('studentNameController', function($scope, $http, LoginNameSer
     }
         // get user name (and more later) from server
         $scope.getName();
+=======
+// student view page controllers - notice UserInfoService service injected
+student.controller('studentInfoController', function($scope, UserInfoService) {
+    $scope.name = UserInfoService.getUserName();
+>>>>>>> b9435c207e18d5c54b2a97134634cc1c0084a628
 });
