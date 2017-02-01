@@ -32,6 +32,7 @@ https.createServer(httpsOptions, app)
     console.log(`Server running at https://localhost:${port}`);
 });
 
+//-----------TEST---------------------------------------------------
 // test login post method
 app.post('/login', function(req, res, next) {
     console.log('received ' + req.body.username + ' ' + req.body.password);
@@ -39,10 +40,16 @@ app.post('/login', function(req, res, next) {
 }, function (req, res, next) {
     // determine if account exists middleware
     // determine user type middleware
-    // temp assignment - pretend 1 is student
-    var userType = {"typeUser":1}
-    res.send(userType);
+    // pretend it is student
+    if (req.body.username === "a") {
+        res.send({"firstName":'jamie',"lastName":'shmoe',"type": 'student'});
+    } else if (req.body.username === "b") {
+        res.send({"firstName":'joe',"lastName":'shmoe',"type":'student'});
+    } else {
+        res.send({"firstName":'',"lastName":req.body.username,"type":'student'});
+    }
 });
+//--------------------------------------------------------------------
 
 // Create a connection to MySql Server and Database
 var connection = mysql.createConnection({

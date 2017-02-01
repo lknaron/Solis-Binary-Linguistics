@@ -8,15 +8,17 @@
 var login = angular.module('app.login', ['ngRoute']);
 
 // login page controller
-login.controller('loginController', function($scope, $location, $http) {
-    $scope.username = 'my name';
-    $scope.password = 'my password';
+login.controller('loginController', function($scope, $location, $http, UserInfoService) {
+    $scope.username = '';
+    $scope.password = '';
     $scope.submitLogin = function() {
         var loginData = {'username':$scope.username, 'password':$scope.password};
-        $http.post('https://localhost:3443/login', loginData).then(function successCallback(response) {
+        $http.post('/login', loginData).then(function successCallback(response) {
             console.log('successful post');
-            console.log(response.data.typeUser);
-            if (response.data.typeUser === 1) {
+            UserInfoService.setUserId($scope.username);
+            UserInfoService.setUserName(response.data.firstName + ' ' + response.data.lastName);
+            UserInfoService.setUserType(response.data.type);
+            if (response.data.type === 'student') {
                 // go to student home
                 $location.path('/studentHome');
             }            
