@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   QFourComments VARCHAR(500) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (EvaluationID),
-  FOREIGN KEY (ASURITE_ID)
-    REFERENCES User_ (ASURITE_ID)
+  KEY ASURITE_ID (ASURITE_ID),
+  CONSTRAINT student_evaluation_fk_1 FOREIGN KEY (ASURITE_ID) REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -78,10 +78,10 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   ScheduleID INT NOT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (RequestID),
-  FOREIGN KEY (ScheduleID)
-    REFERENCES Schedule_ (ScheduleID),
-  FOREIGN KEY (ASURITE_ID)
-    REFERENCES User_ (ASURITE_ID)
+  KEY ScheduleID (ScheduleID),
+  KEY ASURITE_ID (ASURITE_ID),
+  CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) REFERENCES Schedule_ (ScheduleID),
+  CONSTRAINT student_request_fk_2 FOREIGN KEY (ASURITE_ID) REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -100,8 +100,8 @@ CREATE TABLE IF NOT EXISTS Placement (
   GraderTwoHours INT,
   ScheduleID INT NOT NULL,
   PRIMARY KEY (PlaceID),
-  FOREIGN KEY (ScheduleID)
-    REFERENCES Schedule_ (ScheduleID)
+  KEY ScheduleID (ScheduleID),
+  CONSTRAINT placement_fk_1 FOREIGN KEY (ScheduleID) REFERENCES Schedule_ (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -138,8 +138,8 @@ CREATE TABLE IF NOT EXISTS Application (
   LastSaved VARCHAR(100),
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AppID),
-  FOREIGN KEY (ASURITE_ID)
-    REFERENCES User_ (ASURITE_ID)
+  KEY ASURITE_ID (ASURITE_ID),
+  CONSTRAINT application_fk_1 FOREIGN KEY (ASURITE_ID) REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -153,8 +153,8 @@ CREATE TABLE IF NOT EXISTS Calendar (
   StopHour TIMESTAMP,
   AppID INT NOT NULL,
   PRIMARY KEY (CalendarID),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT calendar_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -168,8 +168,8 @@ CREATE TABLE IF NOT EXISTS Attachment (
   UploadDate TIMESTAMP NOT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (AttachmentID),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT attachment_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -214,8 +214,8 @@ CREATE TABLE IF NOT EXISTS Languages (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (LanguagesID),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT languages_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -231,8 +231,8 @@ CREATE TABLE IF NOT EXISTS IDEs (
   Other VARCHAR(100)DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (IDEid),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT ides_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -246,8 +246,8 @@ CREATE TABLE IF NOT EXISTS Collaborative_Tools (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (ToolID),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT collaborative_tools_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -295,8 +295,8 @@ CREATE TABLE IF NOT EXISTS Course_Competencies (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (CompetenciesID),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT course_compentencies_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -344,6 +344,6 @@ CREATE TABLE IF NOT EXISTS Courses_Taught (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (TaughtID),
-  FOREIGN KEY (AppID)
-    REFERENCES Application (AppID)
+  KEY AppID (AppID),
+  CONSTRAINT courses_taught_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
