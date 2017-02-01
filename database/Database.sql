@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS Application (
   SpeakTest INT,
   FirstSession VARCHAR(10),
   GraduationDate VARCHAR(20),
-  TimeCommitment EMUN ('20 hours per week', '10 hours per week') DEFAULT NULL,
+  TimeCommitment ENUM ('20 hours per week', '10 hours per week') DEFAULT NULL,
   isTA TINYINT(1) DEFAULT NULL,
   isGrader TINYINT(1) DEFAULT NULL,
   CurrentEmployer VARCHAR(45),

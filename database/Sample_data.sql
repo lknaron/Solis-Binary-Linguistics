@@ -35,7 +35,7 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
 'Central City', 'Missouri', 'Ph.D Computer Engineering', 4.2, 'Electrical Engineering', 0,
 0, 0, NULL, '08/15/2016', 'Spring 2020', '10 hours per week', 1, 0, NULL, NULL, 
-'incomplete', '2017-01-03 00:12:32', NULL, '/employment', 'ballen');
+'incomplete', '2017-01-03 00:12:32', NULL, NULL, NULL, '/employment', 'ballen');
 
 -- -----------------------------------------------------
 -- IDEs Table
