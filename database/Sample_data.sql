@@ -60,3 +60,15 @@ isCSE566, isSER215, isSER216, isSER222, isSER315, isSER316, isSER321, isSER322, 
 isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, AppID) VALUES
 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 1, 1, 1, 1, 1, 1, 1, 1, NULL, 1);
+
+-- -----------------------------------------------------
+-- Languages Table
+-- -----------------------------------------------------
+INSERT INTO Languages (LanguagesID, isC, CLevel, isCSharp, CSharpLevel, isCPlusPlus, 
+CPlusPlusLevel, isCSS, CSSLevel, isHTML, HTMLLevel, isJava, JavaLevel, isJavascript,
+JavascriptLevel, isJSON, JSONLevel, isScheme, SchemeLevel, isPHP, PHPLevel, isPLP, 
+PLPLevel, isProlog, PrologLevel, isPython, PythonLevel, isSQL, SQLLevel, isSwift, 
+SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, AppID) VALUES
+(1, 1, 'Proficient', 1, 'Proficient', 1, 'Expert', 1, 'Expert', 1, 'Expert', 1, 
+'Proficient', 1, 'Expert', 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
+'Expert', 1, 'Expert', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 1);
