@@ -1,5 +1,5 @@
 {
-  "name": "https-app",
+  "name": "SBL",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,6 +13,7 @@
     "express": "^4.14.0",
     "mysql": "^2.5.4",
     "angular": "^1.6.1",
+    "angular-route" : "^1.6.2",
     "body-parser": "^1.16.0"
   }
 }
