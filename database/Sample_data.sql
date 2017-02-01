@@ -33,22 +33,28 @@ isAcademicProbation, isFourPlusOne, isInternationalStudent, SpeakTest, FirstSess
 GraduationDate, TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours, AppStatus,
 DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
-'Central City', 'Missouri', 'Ph.D Computer Engineering', 4.2, 'Electrical Engineering', 0,
-0, 0, NULL, '08/15/2016', 'Spring 2020', '10 hours per week', 1, 0, NULL, NULL, 
-'incomplete', '2017-01-03 00:12:32', NULL, NULL, NULL, '/employment', 'ballen');
+'Central City', 'Missouri', 10001, 'Ph.D Computer Engineering', 4.2, 
+'Electrical Engineering', 0, 0, 0, NULL, '08/15/2016', 'Spring 2020', '10 hours per week', 
+1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/employment', 'ballen');
+(2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
+'Star City', 20020, 'California', 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
+0, 0, NULL, '08/15/2014', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
+'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 'oqueen');
 
 -- -----------------------------------------------------
 -- IDEs Table
 -- -----------------------------------------------------
 INSERT INTO IDEs (IDEid, isAndriodStudio, isBrackets, isIntelliJ, isNetBeans, isXcode,
 Other, AppID) VALUES
-(1, 1, 1, 1, 1, 1, 'Eclipse', 1);
+(1, 1, 1, 1, 1, 1, 'Eclipse', 1),
+(2, 0, 1, 1, 1, 0, 'Eclipse', 2);
 
 -- -----------------------------------------------------
 -- Collaborative Tools Table
 -- -----------------------------------------------------
 INSERT INTO Collaborative_Tools (ToolID, isGitHub, isTaiga, isSlack, Other, AppID) VALUES
-(1, 1, 1, 1, 'Skype', 1);
+(1, 1, 1, 1, 'Skype', 1),
+(2, 1, 1, 1, 'Skype', 2);
 
 -- -----------------------------------------------------
 -- Course Competencies Table
@@ -59,7 +65,9 @@ isSER432, isSER515, isSER516, isSER501, isSER502, isSER517, isSER518, isCSE563, 
 isCSE566, isSER215, isSER216, isSER222, isSER315, isSER316, isSER321, isSER322, isSER334,
 isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, AppID) VALUES
 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
-1, 1, 1, 1, 1, 1, 1, 1, NULL, 1);
+1, 1, 1, 1, 1, 1, 1, 1, NULL, 1),
+(2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0,
+1, 1, 1, 1, 1, 1, 1, 1, NULL, 2);
 
 -- -----------------------------------------------------
 -- Languages Table
@@ -70,5 +78,15 @@ JavascriptLevel, isJSON, JSONLevel, isScheme, SchemeLevel, isPHP, PHPLevel, isPL
 PLPLevel, isProlog, PrologLevel, isPython, PythonLevel, isSQL, SQLLevel, isSwift, 
 SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, AppID) VALUES
 (1, 1, 'Proficient', 1, 'Proficient', 1, 'Expert', 1, 'Expert', 1, 'Expert', 1, 
-'Proficient', 1, 'Expert', 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 1, 'Expert', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 1);
+'Proficient', 1, 'Proficient', 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
+'Expert', 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 1),
+(2, 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
+'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
+'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', NULL, 2);
+
+-- -----------------------------------------------------
+-- Attachment Table
+-- -----------------------------------------------------
+INSERT INTO Attachment (AttachmentID, AttachmentName, AttachmentType, AttachmentSize,
+UploadDate, AppID) VALUES
+(1, 'Barry Allen Resume', 'PDF', 131, '2017-01-03 11:35:18', 1);
