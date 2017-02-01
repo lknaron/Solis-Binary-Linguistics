@@ -13,7 +13,7 @@ student.controller('studentNameController', function($scope, $http, LoginNameSer
     // this will be the call (or one of the calls) to get user details to display on the student landing
     $scope.getName = function() {
         var data = {'loginName':LoginNameService.getLoginName()};
-        $http.post('https://localhost:3443/getStudent', data).then(function successCallback(response) {
+        $http.post('/getStudent', data).then(function successCallback(response) {
                 console.log('successful post');
                 var returnedName = response.data.firstName + ' ' + response.data.lastName;
                 $scope.name = returnedName;           

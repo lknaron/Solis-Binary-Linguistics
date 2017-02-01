@@ -15,7 +15,7 @@ login.controller('loginController', function($scope, $location, $http, LoginName
         var loginData = {'username':$scope.username, 'password':$scope.password};
         //!!!!-put service here to capture username after form submit!!!!
         LoginNameService.setLoginName($scope.username);
-        $http.post('https://localhost:3443/login', loginData).then(function successCallback(response) {
+        $http.post('/login', loginData).then(function successCallback(response) {
             console.log('successful post');
             if (response.data.typeUser === 1) {
                 // go to student home

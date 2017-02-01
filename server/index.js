@@ -1,26 +1,28 @@
 'use strict'
 
-const express = require('express');
-const fs = require('fs');
-const https = require('https');
-const path = require('path');
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
+var express = require('express'),
+    fs = require('fs'),
+    //https = require('https'),
+    http = require('http'),
+    path = require('path'),
+    mysql = require('mysql'),
+    bodyParser = require('body-parser');
 
-const app = express();
-const directoryToServe = 'client';
-const port = 3443;	
+var app = express();
+var directoryToServe = 'client';
+var port = 3443;	
 
 app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
 
-// Directs to angular module to have module stored locally
+// Directs to angular modules to have modules stored locally
 app.use('/angular', express.static(path.join(__dirname, '..', 'node_modules/angular')));
+app.use('/angular-route', express.static(path.join(__dirname, '..', 'node_modules/angular-route')));
 
 // Use body Parser for reading sent data   -------------Necessary for later
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// Use ssl certificate and key
+/*// Use ssl certificate and key
 const httpsOptions = {
   cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
   key: fs.readFileSync(path.join(__dirname, 'ssl', 'server.key'))
@@ -30,7 +32,13 @@ const httpsOptions = {
 https.createServer(httpsOptions, app)
   .listen(port, function () {
     console.log(`Server running at https://localhost:${port}`);
-});
+});*/
+
+//  Running http server until we get SSL certificates
+http.createServer(app)
+  .listen(port, function () {
+    console.log("Server Running at https://192.168.1.100:3443");
+  });
 
 //-----------TESTS---------------------------------------------------
 // test get user name
@@ -62,9 +70,9 @@ app.post('/login', function(req, res, next) {
 // Create a connection to MySql Server and Database
 var connection = mysql.createConnection({
     host : 'localhost',
-    user : 'user',
-    password : 'password',
-    database: 'testDB', 
+    user : 'root',
+    password : 'sblpass1',
+    database: 'sblDB'
 });
 
 connection.connect(function(err){
