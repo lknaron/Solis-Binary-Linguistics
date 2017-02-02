@@ -63,13 +63,13 @@ app.post('/login', function(req, res, next) {
       if(err2) {
         console.log('Error performing query: ' + err2);
         throw err2;
+      } else if (rows && rows[0].UserPassword == req.body.password) {
+        res.send({"error" : 0, "firstName" : rows[0].FirstName,"lastName": rows[0].LastName,"type": rows[0].UserRole});
       } else if (!rows.length) {
         res.send({"error" : 1});  // Responds error 1 if no user found
       } else if (rows && rows[0].UserPassword != req.body.password) {
         res.send({"error" : 2});  // Responds error 2 if incorrect password
-      } else if (rows && rows[0].UserPassword == req.body.password) {
-        res.send({"firstName" : rows[0].FirstName ,"lastName": rows[0].LastName,"type": rows[0].UserRole});
-      }
+      } 
       connection.release();
     });
   });
