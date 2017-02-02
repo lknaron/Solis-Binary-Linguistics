@@ -19,7 +19,7 @@ services.service('UserInfoService', function() {
         this.userId = loginId;
     }
     
-    this.setUserName = function(name) {
+    this.setFullName = function(name) {
         this.userName = name;
     }
     
@@ -31,7 +31,7 @@ services.service('UserInfoService', function() {
         return this.userId;
     }
     
-    this.getUserName = function() {
+    this.getFullName = function() {
         return this.userName;
     }
     

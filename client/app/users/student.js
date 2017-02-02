@@ -10,5 +10,5 @@ var student = angular.module('app.student', []);
 
 // student view page controllers - notice UserInfoService service injected
 student.controller('studentInfoController', function($scope, UserInfoService) {
-    $scope.name = UserInfoService.getUserName();
+    $scope.name = UserInfoService.getFullName();
 });
