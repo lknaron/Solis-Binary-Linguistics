@@ -5,15 +5,17 @@ var express = require('express'),
     //https = require('https'),
     http = require('http'),
     path = require('path'),
-    mysql = require('mysql'),
     bodyParser = require('body-parser');
 
 var app = express();
 var directoryToServe = 'client';
-var port = 3443;	
+var port = 3443;
 
+// Request routers
+var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js');	
+
+// Directs to client folder to serve static files
 app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
-
 // Directs to angular modules to have modules stored locally
 app.use('/angular', express.static(path.join(__dirname, '..', 'node_modules/angular')));
 app.use('/angular-route', express.static(path.join(__dirname, '..', 'node_modules/angular-route')));
@@ -40,37 +42,5 @@ http.createServer(app)
     console.log("Server Running at https://192.168.1.100:3443");
   });
 
-//-----------TEST---------------------------------------------------
-// test login post method
-app.post('/login', function(req, res, next) {
-    console.log('received ' + req.body.username + ' ' + req.body.password);
-    next();
-}, function (req, res, next) {
-    // determine if account exists middleware
-    // determine user type middleware
-    // pretend it is student
-    if (req.body.username === "a") {
-        res.send({"firstName":'jamie',"lastName":'shmoe',"type": 'student'});
-    } else if (req.body.username === "b") {
-        res.send({"firstName":'joe',"lastName":'shmoe',"type":'student'});
-    } else {
-        res.send({"firstName":'',"lastName":req.body.username,"type":'student'});
-    }
-});
-//--------------------------------------------------------------------
-
-// Create a connection to MySql Server and Database
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : 'sblpass1',
-    database: 'sblDB'
-});
-
-connection.connect(function(err){
-  if(!err) {
-      console.log("Database is connected");    
-  } else {
-      console.log("Error connecting database");    
-  }
-});
+//  Send requests to correct router
+app.use('/login', logInRouter);
