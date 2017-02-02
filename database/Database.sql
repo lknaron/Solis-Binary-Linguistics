@@ -1,5 +1,9 @@
 -- Database Tables
 
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+
 -- -----------------------------------------------------
 -- User Table
 -- -----------------------------------------------------
@@ -25,8 +29,8 @@ CREATE TABLE IF NOT EXISTS Offer (
   isOfferAccept TINYINT(1) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (OfferID),
-  FOREIGN KEY (ASURITE_ID)
-    REFERENCES User_ (ASURITE_ID)
+  CONSTRAINT offer_fk FOREIGN KEY (ASURITE_ID)
+  REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -45,8 +49,8 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   QFourComments VARCHAR(500) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (EvaluationID),
-  KEY ASURITE_ID (ASURITE_ID),
-  CONSTRAINT student_evaluation_fk_1 FOREIGN KEY (ASURITE_ID) REFERENCES User_ (ASURITE_ID)
+  CONSTRAINT student_evaluation_fk FOREIGN KEY (ASURITE_ID) 
+  REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -62,8 +66,8 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   CourseTitle VARCHAR(45),
   Units INT,
   Days VARCHAR(45),
-  StartHours TIMESTAMP,
-  EndHours TIMESTAMP,
+  StartHours TIME,
+  EndHours TIME,
   FirstName VARCHAR(45),
   LastName VARCHAR(45),
   PRIMARY KEY (ScheduleID)
@@ -78,10 +82,10 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   ScheduleID INT NOT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (RequestID),
-  KEY ScheduleID (ScheduleID),
-  KEY ASURITE_ID (ASURITE_ID),
-  CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) REFERENCES Schedule_ (ScheduleID),
-  CONSTRAINT student_request_fk_2 FOREIGN KEY (ASURITE_ID) REFERENCES User_ (ASURITE_ID)
+  CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) 
+  REFERENCES Schedule_ (ScheduleID),
+  CONSTRAINT student_request_fk_2 FOREIGN KEY (ASURITE_ID) 
+  REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -100,8 +104,8 @@ CREATE TABLE IF NOT EXISTS Placement (
   GraderTwoHours INT,
   ScheduleID INT NOT NULL,
   PRIMARY KEY (PlaceID),
-  KEY ScheduleID (ScheduleID),
-  CONSTRAINT placement_fk_1 FOREIGN KEY (ScheduleID) REFERENCES Schedule_ (ScheduleID)
+  CONSTRAINT placement_fk FOREIGN KEY (ScheduleID) 
+  REFERENCES Schedule_ (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -138,8 +142,8 @@ CREATE TABLE IF NOT EXISTS Application (
   LastSaved VARCHAR(100),
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AppID),
-  KEY ASURITE_ID (ASURITE_ID),
-  CONSTRAINT application_fk_1 FOREIGN KEY (ASURITE_ID) REFERENCES User_ (ASURITE_ID)
+  CONSTRAINT application_fk FOREIGN KEY (ASURITE_ID) 
+  REFERENCES User_ (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -149,12 +153,12 @@ CREATE TABLE IF NOT EXISTS Calendar (
   CalendarID INT NOT NULL AUTO_INCREMENT,
   CalendarName VARCHAR(20),
   CalendarDay VARCHAR(20),
-  StartHour TIMESTAMP,
-  StopHour TIMESTAMP,
+  StartHour TIME,
+  StopHour TIME,
   AppID INT NOT NULL,
   PRIMARY KEY (CalendarID),
-  KEY AppID (AppID),
-  CONSTRAINT calendar_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT calendar_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -168,8 +172,8 @@ CREATE TABLE IF NOT EXISTS Attachment (
   UploadDate TIMESTAMP NOT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (AttachmentID),
-  KEY AppID (AppID),
-  CONSTRAINT attachment_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT attachment_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -214,8 +218,8 @@ CREATE TABLE IF NOT EXISTS Languages (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (LanguagesID),
-  KEY AppID (AppID),
-  CONSTRAINT languages_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT languages_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -231,8 +235,8 @@ CREATE TABLE IF NOT EXISTS IDEs (
   Other VARCHAR(100)DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (IDEid),
-  KEY AppID (AppID),
-  CONSTRAINT ides_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT ides_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -246,8 +250,8 @@ CREATE TABLE IF NOT EXISTS Collaborative_Tools (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (ToolID),
-  KEY AppID (AppID),
-  CONSTRAINT collaborative_tools_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT collaborative_tools_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -295,8 +299,8 @@ CREATE TABLE IF NOT EXISTS Course_Competencies (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (CompetenciesID),
-  KEY AppID (AppID),
-  CONSTRAINT course_compentencies_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT course_compentencies_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -344,6 +348,10 @@ CREATE TABLE IF NOT EXISTS Courses_Taught (
   Other VARCHAR(100) DEFAULT NULL,
   AppID INT NOT NULL,
   PRIMARY KEY (TaughtID),
-  KEY AppID (AppID),
-  CONSTRAINT courses_taught_fk_1 FOREIGN KEY (AppID) REFERENCES Application (AppID)
+  CONSTRAINT courses_taught_fk FOREIGN KEY (AppID) 
+  REFERENCES Application (AppID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

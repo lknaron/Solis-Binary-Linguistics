@@ -16,7 +16,7 @@ UserRole, RegTime, isActive, LoginTime) VALUES
 ('ahelsing', 'Abraham', 'Van', 'Helsing', 'ahelsing@asu.edu', 'password5', 'faculty', 
 '2017-01-02 00:00:55', 1, '2017-01-02 00:01:48'),
 ('hmccoy', 'Henry', 'Philip', 'McCoy', 'hmccoy@asu.edu', 'password6', 'faculty', 
-'2017-01-01 00:02:03', 1, '2017-01-01 00:03:00'),
+'2017-01-01 00:02:03', 1, '2017-01-01 00:03:23'),
 ('rbanner', 'Robert', 'Bruce', 'Banner', 'rbanner@asu.edu', 'password7', 'faculty', 
 '2017-01-03 00:12:11', 1, '2017-01-03 00:15:05'),
 ('fsmoak', 'Felicity', 'Megan', 'Smoak', 'fsmoak@asu.edu', 'password8', 'administrative', 
@@ -37,7 +37,7 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 'Electrical Engineering', 0, 0, 0, NULL, '08/15/2016', 'Spring 2020', '10 hours per week', 
 1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/employment', 'ballen');
 (2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
-'Star City', 20020, 'California', 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
+'Star City', 'California', 20020, 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
 0, 0, NULL, '08/15/2014', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
 'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 'oqueen');
 
