@@ -43,10 +43,10 @@ http.createServer(app)
 //  Create mysql connection pool
 var mysql_pool  = mysql.createPool({
     connectionLimit : 100,
-    host        : 'localhost',
-    user        : 'root',
-    password    : 'sblpass1',
-    database    : 'sblDB'
+    host            : 'localhost',
+    user            : 'root',
+    password        : 'sblpass1',
+    database        : 'sblDB'
 });
 
 // Log in authentication
