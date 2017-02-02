@@ -40,37 +40,37 @@ http.createServer(app)
     console.log("Server Running at https://192.168.1.100:3443");
   });
 
-//-----------TEST---------------------------------------------------
-// test login post method
+//  Create mysql connection pool
+var mysql_pool  = mysql.createPool({
+    connectionLimit : 100,
+    host        : 'localhost',
+    user        : 'root',
+    password    : 'sblpass1',
+    database    : 'sblDB'
+});
+
+// Log in authentication
 app.post('/login', function(req, res, next) {
-    console.log('received ' + req.body.username + ' ' + req.body.password);
-    next();
-}, function (req, res, next) {
-    // determine if account exists middleware
-    // determine user type middleware
-    // pretend it is student
-    if (req.body.username === "a") {
-        res.send({"firstName":'jamie',"lastName":'shmoe',"type": 'student'});
-    } else if (req.body.username === "b") {
-        res.send({"firstName":'joe',"lastName":'shmoe',"type":'student'});
-    } else {
-        res.send({"firstName":'',"lastName":req.body.username,"type":'student'});
+  // Get connection to pool
+  mysql_pool.getConnection(function(err, connection) {
+    if (err) {
+      connection.release();
+      console.log('Error getting mysql_pool connection: ' + err);
+      throw err;
     }
-});
-//--------------------------------------------------------------------
-
-// Create a connection to MySql Server and Database
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : 'sblpass1',
-    database: 'sblDB'
-});
-
-connection.connect(function(err){
-  if(!err) {
-      console.log("Database is connected");    
-  } else {
-      console.log("Error connecting database");    
-  }
+    //  Use connection to query log in credentials
+    connection.query("SELECT * FROM User_ WHERE ASURITE_ID = ?", [req.body.username], function(err2, rows){
+      if(err2) {
+        console.log('Error performing query: ' + err2);
+        throw err2;
+      } else if (!rows.length) {
+        res.send({"error" : 1});  // Responds error 1 if no user found
+      } else if (rows && rows[0].UserPassword != req.body.password) {
+        res.send({"error" : 2});  // Responds error 2 if incorrect password
+      } else if (rows && rows[0].UserPassword == req.body.password) {
+        res.send({"firstName" : rows[0].FirstName ,"lastName": rows[0].LastName,"type": rows[0].UserRole});
+      }
+      connection.release();
+    });
+  });
 });
