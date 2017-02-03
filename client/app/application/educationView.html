@@ -1,5 +1,23 @@
 <div ng-controller='educationInfoController'>
-    Education
+    Education<br>
+    Education Level <select ng-model="selectedDegree" ng-options="x for x in degrees"></select><br>
+    GPA <input ng-model='gpa' type="text"><br>
+    
+    <div ng-if="selectedDegree==='Ph.D Other' || selectedDegree==='M.S. Other'">
+        Degree Program <input ng-model='otherDegree' type="text"><br>
+    </div>
+    
+    
+    I'm currently on academic probation <input ng-model='probation' type="checkbox" ng-true-value='1' ng-false-value='0'> <br>
+    
+    I'm in the 4 + 1 program <input ng-model='fourPlusOne' type="checkbox" ng-true-value='1' ng-false-value='0'> <br>
+    
+    I'm an international student <input ng-model='international' type="checkbox" ng-true-value='1' ng-false-value='0'> <br>
+    
+    <div ng-if="international===1">
+        Speak Test <input ng-model='speakTest' type="text"><br>
+    </div>
+    
     <button type='button' ng-click='saveEducation(false)'>Save</button>
     <button type='button' ng-click='saveEducation(true)'>Save and Continue</button>
 </div>
