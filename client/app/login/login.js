@@ -9,8 +9,6 @@ var login = angular.module('app.login', ['ngRoute']);
 
 // login page controller
 login.controller('loginController', function($scope, $location, $http, UserInfoService) {
-    $scope.username = '';
-    $scope.password = '';
     $scope.message = '';
     $scope.submitLogin = function() {
         $scope.message = '';

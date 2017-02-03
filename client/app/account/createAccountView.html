@@ -1,6 +1,14 @@
 <div ng-controller='createAccountController'>
     <form ng-submit='submitAccount()'>
         Create an Account Here<br>
+        firstname<input ng-model='firstname'/><br>
+        middlename<input ng-model='middlename'/><br>
+        lastname<input ng-model='lastname'/><br>
+        asuriteID<input ng-model='asuriteID'/><br>
+        email<input ng-model='email'/><br>
+        password1<input ng-model='password1'/><br>
+        password2<input ng-model='password2'/><br>
         <button type='submit'>Submit</button>
     </form>
+    <p ng-model='message'>{{message}}</p>
 </div>
