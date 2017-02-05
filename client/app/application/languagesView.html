@@ -1,5 +1,25 @@
 <div ng-controller='languagesInfoController'>
-    Languages
+    <div>
+        Languages<br>
+
+        <input type='checkbox' ng-model='c' ng-checked='c===1' ng-true-value='1' ng-false-value='0'>C
+        <input ng-disabled='!c' type='radio' ng-model='c_group' value='Expert'>Expert
+        <input ng-disabled='!c' type='radio' ng-model='c_group' value='Proficient'>Proficient
+        <input ng-disabled='!c' type='radio' ng-model='c_group' value='Novice'>Novice
+        <br>
+
+        <input type='checkbox' ng-model='csharp' ng-checked='csharp===1' ng-true-value='1' ng-false-value='0'>C#
+        <input ng-disabled='!csharp' type='radio' ng-model='csharp_group' value='Expert'>Expert
+        <input ng-disabled='!csharp' type='radio' ng-model='csharp_group' value='Proficient'>Proficient
+        <input ng-disabled='!csharp' type='radio' ng-model='csharp_group' value='Novice'>Novice
+        <br>
+
+        <input type='checkbox' ng-model='cplusplus' ng-checked='cplusplus===1' ng-true-value='1' ng-false-value='0'>C++
+        <input ng-disabled='!cplusplus' type='radio' ng-model='cpp_group' value='Expert'>Expert
+        <input ng-disabled='!cplusplus' type='radio' ng-model='cpp_group' value='Proficient'>Proficient
+        <input ng-disabled='!cplusplus' type='radio' ng-model='cpp_group' value='Novice'>Novice
+        <br>
+    </div>
     <button type='button' ng-click='saveLanguages(false)'>Save</button>
     <button type='button' ng-click='saveLanguages(true)'>Save and Continue</button>
 </div>
