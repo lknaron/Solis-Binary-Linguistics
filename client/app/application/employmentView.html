@@ -1,5 +1,11 @@
 <div ng-controller='employmentInfoController'>
-    Employment
+    Employment<br>
+    <input type='radio' ng-model='hours' value='20 hours per week'>20 hours per week<br>
+    <input type='radio' ng-model='hours' value='10 hours per week'>10 hours per week<br>
+    <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0'>Teaching Assistant<br>
+    <input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0'>Grader<br>
+    Current Employer <input type='text' ng-model='employer'><br>
+    Work Hours <input type='number' ng-model='workHours' min='0' max='40'><br>
     <button type='button' ng-click='saveEmployment(false)'>Save</button>
     <button type='button' ng-click='saveEmployment(true)'>Save and Continue</button>
 </div>

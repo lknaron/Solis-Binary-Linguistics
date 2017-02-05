@@ -1,5 +1,20 @@
 <div ng-controller='availabilityInfoController'>
     Availability
+    <!--tab headers-->
+    <ul ng-model='semester' ng-init="semester='semester1'">
+        <li><a href='javascript:void(0)' ng-click="semester='semester1'">Semester 1</a></li>
+        <li><a href='javascript:void(0)' ng-click="semester='semester2'">Semester 2</a></li>
+    </ul>
+    <hr>
+    <!--tab body-->
+    <div ng-switch='semester'>
+        <div ng-switch-when='semester1'>
+            Semester 1 Schedule
+        </div>
+        <div ng-switch-when='semester2'>
+            Semester 2 Schedule
+        </div>
+    </div>
     <button type='button' ng-click='saveAvailability(false)'>Save</button>
     <button type='button' ng-click='saveAvailability(true)'>Save and Continue</button>
 </div>

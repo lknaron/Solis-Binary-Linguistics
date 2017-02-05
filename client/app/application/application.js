@@ -34,7 +34,6 @@ application.controller('contactInfoController', function($scope, $location, $htt
             $scope.state = response.data.AddressState;
             $scope.zip = response.data.AddressZip;        
         }, function errorCallback(response) {
-                console.log('unsuccessful post');
                 //TODO
         });
     }
@@ -50,6 +49,12 @@ application.controller('educationInfoController', function($scope, $location, $h
                       "M.S. Computer Engineering",
                       "M.C.S Computer Science",
                       "M.S. Other"];
+    $scope.gradDates = ["Fall 2017",
+                        "Spring 2018",
+                        "Fall 2018",
+                        "Sping 2019",
+                        "Fall 2019",
+                        "Spring 2020"];
     getEducationInfo();
     
     // saves data and posts - routes if the user chose to continue
@@ -102,14 +107,35 @@ application.controller('educationInfoController', function($scope, $location, $h
             $scope.fourPlusOne = response.data.isFourPlusOne;
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
+            $scope.session = response.data.FirstSession;
+            switch (response.data.GraduationDatel) {
+                case "Fall 2017":
+                    $scope.gradDate = $scope.gradDates[0];
+                    break;
+                case "Spring 2018":
+                    $scope.gradDate = $scope.gradDates[1];
+                    break;
+                case "Fall 2018":
+                    $scope.gradDate = $scope.gradDates[2];
+                    break;
+                case "Spring 2019":
+                    $scope.gradDate = $scope.gradDates[3];
+                    break;
+                case "Fall 2019":
+                    $scope.gradDate = $scope.gradDates[4];
+                    break;
+                case "Spring 2020":
+                    $scope.gradDate = $scope.gradDates[5];
+            }
         }, function errorCallback(response) {
-           // console.log('unsuccessful post');
             //TODO
         });
     }
 });
 
 application.controller('employmentInfoController', function($scope, $location, $http) {
+    getEmploymentInfo();
+    
     $scope.saveEmployment = function(doRoute) {
         /*
         $http.post(route, data).then(function successCallback(response) {
@@ -122,9 +148,24 @@ application.controller('employmentInfoController', function($scope, $location, $
            $location.path('/availability'); 
         }
     }
+    
+    // populates Employment Page
+    function getEmploymentInfo() {
+        
+        $http.get('route').then(function successCallback(response) {
+            $scope.hours = response.data.TimeCommitment;
+            $scope.ta = response.data.isTA;
+            $scope.grader = response.data.isGrader;
+            $scope.employer = response.data.CurrentEmployer;
+            $scope.workHours = response.data.WorkHours;
+        }, function errorCallback(response) {
+                //TODO
+        });
+    }
 });
 
 application.controller('availabilityInfoController', function($scope, $location, $http) {
+    
     $scope.saveAvailability = function(doRoute) {
         /*
         $http.post(route, data).then(function successCallback(response) {
@@ -140,6 +181,7 @@ application.controller('availabilityInfoController', function($scope, $location,
 });
 
 application.controller('languagesInfoController', function($scope, $location, $http) {
+    getLanguagesInfo();
     $scope.saveLanguages= function(doRoute) {
         /*
         $http.post(route, data).then(function successCallback(response) {
@@ -151,6 +193,20 @@ application.controller('languagesInfoController', function($scope, $location, $h
         if (doRoute === true) {
            $location.path('/courses'); 
         }
+    }
+    
+    function getLanguagesInfo() {
+                
+        $http.get('route').then(function successCallback(response) {
+            $scope.c = response.data.isC;
+            $scope.c_group = response.data.CLevel;
+            $scope.csharp = response.data.isCSharp;
+            $scope.csharp_group = response.data.CSharpLevel;
+            $scope.cplusplus = response.data.isCPlusPlus;
+            $scope.cpp_group = response.data.CPlusPlusLevel;
+        }, function errorCallback(response) {
+                //TODO
+        });
     }
 });
 
