@@ -44,7 +44,7 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 -- -----------------------------------------------------
 -- IDEs Table
 -- -----------------------------------------------------
-INSERT INTO IDEs (IDEid, isAndriodStudio, isBrackets, isIntelliJ, isNetBeans, isXcode,
+INSERT INTO IDEs (IDEid, isAndroidStudio, isBrackets, isIntelliJ, isNetBeans, isXcode,
 Other, AppID) VALUES
 (1, 1, 1, 1, 1, 1, 'Eclipse', 1),
 (2, 0, 1, 1, 1, 0, 'Eclipse', 2);
@@ -89,4 +89,18 @@ SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, AppID) VALUES
 -- -----------------------------------------------------
 INSERT INTO Attachment (AttachmentID, AttachmentName, AttachmentType, AttachmentSize,
 UploadDate, AppID) VALUES
-(1, 'Barry Allen Resume', 'PDF', 131, '2017-01-03 11:35:18', 1);
+(1, 'Barry Allen Resume', 'PDF', 131, '2017-01-03 11:35:18', 1),
+(2, 'Barry Allen Transcript', 'PDF', 162, '2017-01-03 11:55:42', 1);
+
+-- -----------------------------------------------------
+-- Calendar Table
+-- -----------------------------------------------------
+INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, EndHour, AppID) VALUES
+(1, 'Current Semester', 'Monday', '08:00:00', '09:00:00', 1), 
+(2, 'Current Semester', 'Monday', '09:00:00', '10:00:00', 1),
+(3, 'Current Semester', 'Monday', '13:00:00', '14:00:00', 1),
+(4, 'Current Semester', 'Monday', '14:00:00', '15:00:00', 1),
+(5, 'Current Semester', 'Wednesday', '08:00:00', '09:00:00', 1), 
+(6, 'Current Semester', 'Wednesday', '09:00:00', '10:00:00', 1),
+(7, 'Current Semester', 'Wednesday', '13:00:00', '14:00:00', 1),
+(8, 'Current Semester', 'Wednesday', '14:00:00', '15:00:00', 1);

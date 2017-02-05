@@ -151,8 +151,8 @@ CREATE TABLE IF NOT EXISTS Application (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Calendar (
   CalendarID INT NOT NULL AUTO_INCREMENT,
-  CalendarName VARCHAR(20),
-  CalendarDay VARCHAR(20),
+  CalendarName ENUM ('Current Semester', 'Next Semester'),
+  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
   StartHour TIME,
   StopHour TIME,
   AppID INT NOT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS Languages (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS IDEs (
   IDEid INT NOT NULL AUTO_INCREMENT,
-  isAndriodStudio TINYINT(1),
+  isAndroidStudio TINYINT(1),
   isBrackets TINYINT(1) DEFAULT NULL,
   isIntelliJ TINYINT(1) DEFAULT NULL,
   isNetBeans TINYINT(1) DEFAULT NULL,
