@@ -1,20 +1,67 @@
+<style>
+    table, th , td  {
+      border: 1px solid grey;
+      border-collapse: collapse;
+      padding: 5px;
+    }
+    table tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+    table tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+</style>
 <div ng-controller='availabilityInfoController'>
-    Availability
+ Availability<br>
+<body>
+    <button type='button' ng-click="resetAll('fall',false)">Clear All</button>
+    <button type='button' ng-click="setPreviousSchedule('fall',false)">Last Saved</button>
+	<button type='button' ng-click="saveAvailability(false)">Save</button>
+    <button type='button' ng-click="saveAvailability(true)">Save and Continue</button>
     <!--tab headers-->
-    <ul ng-model='semester' ng-init="semester='semester1'">
-        <li><a href='javascript:void(0)' ng-click="semester='semester1'">Semester 1</a></li>
-        <li><a href='javascript:void(0)' ng-click="semester='semester2'">Semester 2</a></li>
+    <ul ng-model='semester' ng-init="semester=true">
+        <li><a href='javascript:void(0)' ng-click="semester=true">Fall</a></li>
+        <li><a href='javascript:void(0)' ng-click="semester=false">Spring</a></li>
     </ul>
     <hr>
     <!--tab body-->
-    <div ng-switch='semester'>
-        <div ng-switch-when='semester1'>
-            Semester 1 Schedule
-        </div>
-        <div ng-switch-when='semester2'>
-            Semester 2 Schedule
-        </div>
+    <div ng-show="semester">
+    	<h3>Fall Schedule</h3><br>
+        <table>
+  			<tr>
+     			<th>Time</th>
+     			<th ng-repeat='day in days'>{{day}}</th> 
+   			</tr>
+  			<tr ng-repeat="time in times">
+   				<td>{{time.startHour}}-{{time.endHour}}</td>
+    			<td><input name='fall_Sunday' type='checkbox' value={{time}}></td>
+    			<td><input name='fall_Monday' type='checkbox' value={{time}}></td>
+    			<td><input name='fall_Tuesday' type='checkbox' value={{time}}></td>
+    			<td><input name='fall_Wednesday' type='checkbox' value={{time}}></td>
+    			<td><input name='fall_Thursday' type='checkbox' value={{time}}></td>
+    			<td><input name='fall_Friday' type='checkbox' value={{time}}></td>
+    			<td><input name='fall_Saturday' type='checkbox' value={{time}}></td>
+  			</tr>
+		</table>
     </div>
-    <button type='button' ng-click='saveAvailability(false)'>Save</button>
-    <button type='button' ng-click='saveAvailability(true)'>Save and Continue</button>
+    <div ng-hide="semester">
+    	<h3>Spring Schedule</h3><br>
+          <table>
+  			<tr>
+    			<th>Time</th>
+     			<th ng-repeat='day in days'>{{day}}</th> 
+   			</tr>
+  			<tr ng-repeat="time in times">
+   				<td>{{time.startHour}}-{{time.endHour}}</td>
+    			<td><input name='spring_Sunday' type='checkbox' value={{time}}></td>
+    			<td><input name='spring_Monday' type='checkbox' value={{time}}></td>
+    			<td><input name='spring_Tuesday' type='checkbox' value={{time}}></td>
+    			<td><input name='spring_Wednesday' type='checkbox' value={{time}}></td>
+    			<td><input name='spring_Thursday' type='checkbox' value={{time}}></td>
+    			<td><input name='spring_Friday' type='checkbox' value={{time}}></td>
+    			<td><input name='spring_Saturday' type='checkbox' value={{time}}></td>
+  			</tr>
+		</table>
+    </div>
+</body>   
 </div>
