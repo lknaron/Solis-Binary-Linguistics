@@ -12,7 +12,8 @@ var directoryToServe = 'client';
 var port = 3443;
 
 // Request routers
-var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js');	
+var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js');
+var createAccountRouter = require('./serverRoutes/createAccountRouter/createAccountRouter.js');	
 
 // Directs to client folder to serve static files
 app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
@@ -44,3 +45,4 @@ http.createServer(app)
 
 //  Send requests to correct router
 app.use('/login', logInRouter);
+app.use('/createAccount', createAccountRouter);
