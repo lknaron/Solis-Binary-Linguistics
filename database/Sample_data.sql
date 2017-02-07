@@ -35,7 +35,7 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
 'Central City', 'Missouri', 10001, 'Ph.D Computer Engineering', 4.2, 
 'Electrical Engineering', 0, 0, 0, NULL, '08/15/2016', 'Spring 2020', '10 hours per week', 
-1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/employment', 'ballen');
+1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/employment', 'ballen'),
 (2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
 'Star City', 'California', 20020, 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
 0, 0, NULL, '08/15/2014', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
@@ -95,7 +95,7 @@ UploadDate, AppID) VALUES
 -- -----------------------------------------------------
 -- Calendar Table
 -- -----------------------------------------------------
-INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, EndHour, AppID) VALUES
+INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour, AppID) VALUES
 (1, 'Current Semester', 'Monday', '08:00:00', '09:00:00', 1), 
 (2, 'Current Semester', 'Monday', '09:00:00', '10:00:00', 1),
 (3, 'Current Semester', 'Monday', '13:00:00', '14:00:00', 1),
