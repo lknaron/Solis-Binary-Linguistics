@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS Offer (
   PRIMARY KEY (OfferID),
   CONSTRAINT offer_fk FOREIGN KEY (ASURITE_ID)
   REFERENCES User_ (ASURITE_ID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   PRIMARY KEY (EvaluationID),
   CONSTRAINT student_evaluation_fk FOREIGN KEY (ASURITE_ID) 
   REFERENCES User_ (ASURITE_ID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -86,6 +88,7 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   REFERENCES Schedule_ (ScheduleID),
   CONSTRAINT student_request_fk_2 FOREIGN KEY (ASURITE_ID) 
   REFERENCES User_ (ASURITE_ID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -144,6 +147,7 @@ CREATE TABLE IF NOT EXISTS Application (
   PRIMARY KEY (AppID),
   CONSTRAINT application_fk FOREIGN KEY (ASURITE_ID) 
   REFERENCES User_ (ASURITE_ID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -159,6 +163,7 @@ CREATE TABLE IF NOT EXISTS Calendar (
   PRIMARY KEY (CalendarID),
   CONSTRAINT calendar_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -174,6 +179,7 @@ CREATE TABLE IF NOT EXISTS Attachment (
   PRIMARY KEY (AttachmentID),
   CONSTRAINT attachment_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -220,6 +226,7 @@ CREATE TABLE IF NOT EXISTS Languages (
   PRIMARY KEY (LanguagesID),
   CONSTRAINT languages_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -237,6 +244,7 @@ CREATE TABLE IF NOT EXISTS IDEs (
   PRIMARY KEY (IDEid),
   CONSTRAINT ides_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -252,6 +260,7 @@ CREATE TABLE IF NOT EXISTS Collaborative_Tools (
   PRIMARY KEY (ToolID),
   CONSTRAINT collaborative_tools_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -301,6 +310,7 @@ CREATE TABLE IF NOT EXISTS Course_Competencies (
   PRIMARY KEY (CompetenciesID),
   CONSTRAINT course_compentencies_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -350,6 +360,7 @@ CREATE TABLE IF NOT EXISTS Courses_Taught (
   PRIMARY KEY (TaughtID),
   CONSTRAINT courses_taught_fk FOREIGN KEY (AppID) 
   REFERENCES Application (AppID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 SET SQL_MODE=@OLD_SQL_MODE;
