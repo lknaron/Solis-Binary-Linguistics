@@ -1,37 +1,31 @@
 <div ng-controller='languagesInfoController'>
-    <div>
-        Languages<br>
-
-        <input type='checkbox' ng-model='c' ng-checked='c===1' ng-true-value='1' ng-false-value='0'>C
-        <input ng-disabled='!c' type='radio' ng-model='c_group' value='Expert'>Expert
-        <input ng-disabled='!c' type='radio' ng-model='c_group' value='Proficient'>Proficient
-        <input ng-disabled='!c' type='radio' ng-model='c_group' value='Novice'>Novice
-        <br>
-
-        <input type='checkbox' ng-model='csharp' ng-checked='csharp===1' ng-true-value='1' ng-false-value='0'>C#
-        <input ng-disabled='!csharp' type='radio' ng-model='csharp_group' value='Expert'>Expert
-        <input ng-disabled='!csharp' type='radio' ng-model='csharp_group' value='Proficient'>Proficient
-        <input ng-disabled='!csharp' type='radio' ng-model='csharp_group' value='Novice'>Novice
-        <br>
-
-        <input type='checkbox' ng-model='cplusplus' ng-checked='cplusplus===1' ng-true-value='1' ng-false-value='0'>C++
-        <input ng-disabled='!cplusplus' type='radio' ng-model='cpp_group' value='Expert'>Expert
-        <input ng-disabled='!cplusplus' type='radio' ng-model='cpp_group' value='Proficient'>Proficient
-        <input ng-disabled='!cplusplus' type='radio' ng-model='cpp_group' value='Novice'>Novice
-        <br>
-        
-        <input type='checkbox' ng-model='css' ng-checked='css===1' ng-true-value='1' ng-false-value='0'>CSS
-        <input ng-disabled='!css' type='radio' ng-model='css_group' value='Expert'>Expert
-        <input ng-disabled='!css' type='radio' ng-model='css_group' value='Proficient'>Proficient
-        <input ng-disabled='!css' type='radio' ng-model='css_group' value='Novice'>Novice
-        <br>
-        
-        <input type='checkbox' ng-model='html' ng-checked='html===1' ng-true-value='1' ng-false-value='0'>HTML
-        <input ng-disabled='!html' type='radio' ng-model='html_group' value='Expert'>Expert
-        <input ng-disabled='!html' type='radio' ng-model='html_group' value='Proficient'>Proficient
-        <input ng-disabled='!html' type='radio' ng-model='html_group' value='Novice'>Novice
-        <br>
+    <h3>Languages</h3>
+    <div ng-repeat="language in languages">
+    	<input type='checkbox' ng-model=language.box ng-init='language.box=0' ng-true-value='1' ng-false-value='0'  ng-change="clearUnselected()">{{language.name}}
+        <span ng-init="language.group=null">
+        	<input ng-disabled='!language.box' type='radio' ng-model='language.level' value='Expert'>Expert
+        	<input ng-disabled='!language.box' type='radio' ng-model='language.level' value='Proficient'>Proficient
+        	<input ng-disabled='!language.box' type='radio' ng-model='language.level' value='Novice'>Novice
+        	<br>
+        </span>
     </div>
+    Other(s)<input type='text' ng-model='otherLanguage' ng-init='otherLanguage=null'>
+    <!--end div of languages section-->
+    <hr>
+    <h3>IDEs</h3>
+    <div ng-repeat="ide in ides">
+    	<input type='checkbox' ng-model=ide.box ng-init='ide.box=0' ng-true-value='1' ng-false-value='0'>{{ide.name}}
+    </div>
+    Other(s)<input type='text' ng-model='otherIde' ng-init='otherIde=null'>
+    <!--end div of IDE section-->
+    <hr>
+    <h3>Collaborative Tools</h3>
+    <div ng-repeat="tool in tools">
+    	<input type='checkbox' ng-model=tool.box ng-init='tool.box=0' ng-true-value='1' ng-false-value='0'>{{tool.name}}
+    </div>
+    Other(s)<input type='text' ng-model='otherTool' ng-init='otherTool=null'>
+    <!--end div of tools section-->
+    <br>
     <button type='button' ng-click='saveLanguages(false)'>Save</button>
     <button type='button' ng-click='saveLanguages(true)'>Save and Continue</button>
 </div>
