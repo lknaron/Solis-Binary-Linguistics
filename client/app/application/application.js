@@ -8,30 +8,53 @@ var application = angular.module('app.application', []);
 
 application.controller('contactInfoController', function($scope, $location, $http) {
     // populates the Contact Info page        
-    $http.get('route').then(function successCallback(response) {
-        $scope.phoneNumber = response.data.PhoneNumber;
-        $scope.mobileNumber = response.data.MobilePhone;
-        $scope.country = response.data.AddressCountry;
-        $scope.addressOne = response.data.AddressOne;
-        if (response.data.AddressTwo != null) {
-            $scope.addressTwo = response.data.AddressTwo;
-        }
-        $scope.city = response.data.AddressCity;
-        $scope.state = response.data.AddressState;
-        $scope.zip = response.data.AddressZip;        
-    }, function errorCallback(response) {
-            //TODO
-    });
-    $scope.saveContact = function(doRoute) {
-        /*$http.post(route, data).then(function successCallback(response) {
-            console.log('successful post');
+    angular.element(document).ready(function() {
+        var user = { 'user' : UserInfoService.getUserId() };
+        $http.post('/contactInfo/getContactInfo', user).then(function successCallback(response) {           
+            $scope.phoneNumber = response.data.PhoneNumber;
+            $scope.mobileNumber = response.data.MobileNumber;
+            $scope.country = response.data.AddressCountry;
+            $scope.addressOne = response.data.AddressOne;
+            if (response.data.AddressTwo != null) {
+                $scope.addressTwo = response.data.AddressTwo;
+            }
+            $scope.city = response.data.AddressCity;
+            $scope.state = response.data.AddressState;
+            $scope.zip = response.data.AddressZip;        
         }, function errorCallback(response) {
-            console.log('unsuccessful post');
             //TODO
-        });*/
+        });   
+    });
+    // Saves Contact Information into Database
+    $scope.saveContact = function(doRoute) {
+        var lastSaved = '';
         if (doRoute === true) {
-           $location.path('/education'); 
+            lastSaved = '/education';
+        } else {
+            lastSaved = '/contactInfo';
         }
+        // In Sprint 2 address the AppStatus when someone comes back to edit their application and once they complete this it's complete and not incomplete
+        // Maybe Change do Route to pass a number, 1 for true, 2 for false, 3 for changing status to complete
+        var contactInfoData = {
+                "PhoneNumber"       : $scope.phoneNumber,
+                "MobileNumber"      : $scope.mobileNumber,
+                "AddressOne"        : $scope.addressOne,
+                "AddressTwo"        : $scope.addressTwo,
+                "AddressCountry"    : $scope.country,
+                "AddressCity"       : $scope.city,
+                "AddressState"      : $scope.state,
+                "AddressZip"        : $scope.zip,
+                "AppStatus"         : 'Incomplete',
+                "LastSaved"         : lastSaved,
+                "ASURITE_ID"        : UserInfoService.getUserId()
+            };
+        $http.post('/contactInfo', contactInfoData).then(function successCallback(response) {
+            if (doRoute === true) {
+                $location.path('/education'); 
+            }
+        }, function errorCallback(response) {
+            //TODO
+        });
     }
 });
 

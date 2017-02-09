@@ -11,15 +11,23 @@ var app = express();
 var directoryToServe = 'client';
 var port = 3443;
 
+// Maybe create a seperate file for the routers
 // Request routers
 var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js');
-var createAccountRouter = require('./serverRoutes/createAccountRouter/createAccountRouter.js');	
+var createAccountRouter = require('./serverRoutes/createAccountRouter/createAccountRouter.js');
+var contactInfoRouter = require('./serverRoutes/applicationRouters/contactInfoRouter.js');	
 
 // Directs to client folder to serve static files
 app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
 // Directs to angular modules to have modules stored locally
 app.use('/angular', express.static(path.join(__dirname, '..', 'node_modules/angular')));
 app.use('/angular-route', express.static(path.join(__dirname, '..', 'node_modules/angular-route')));
+
+//  Send requests to correct router
+app.use('/login', logInRouter);
+app.use('/createAccount', createAccountRouter);
+app.use('/contactInfo', contactInfoRouter);
+app.use('/contactInfo/getContactInfo', contactInfoRouter);
 
 // Use body Parser for reading sent data   -------------Necessary for later
 app.use(bodyParser.json()); // support json encoded bodies
@@ -43,6 +51,3 @@ http.createServer(app)
     console.log("Server Running at https://192.168.1.100:3443");
   });
 
-//  Send requests to correct router
-app.use('/login', logInRouter);
-app.use('/createAccount', createAccountRouter);
