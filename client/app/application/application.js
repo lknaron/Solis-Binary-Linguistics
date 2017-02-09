@@ -6,7 +6,7 @@
 // setup module
 var application = angular.module('app.application', []);
 
-application.controller('contactInfoController', function($scope, $location, $http) {
+application.controller('contactInfoController', function($scope, $location, $http, UserInfoService) {
     // populates the Contact Info page        
     angular.element(document).ready(function() {
         var user = { 'user' : UserInfoService.getUserId() };
