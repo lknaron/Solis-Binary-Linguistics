@@ -23,12 +23,6 @@ app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
 app.use('/angular', express.static(path.join(__dirname, '..', 'node_modules/angular')));
 app.use('/angular-route', express.static(path.join(__dirname, '..', 'node_modules/angular-route')));
 
-//  Send requests to correct router
-app.use('/login', logInRouter);
-app.use('/createAccount', createAccountRouter);
-app.use('/contactInfo', contactInfoRouter);
-app.use('/contactInfo/getContactInfo', contactInfoRouter);
-
 // Use body Parser for reading sent data   -------------Necessary for later
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -51,3 +45,8 @@ http.createServer(app)
     console.log("Server Running at https://192.168.1.100:3443");
   });
 
+//  Send requests to correct router
+app.use('/login', logInRouter);
+app.use('/createAccount', createAccountRouter);
+app.use('/contactInfo', contactInfoRouter);
+app.use('/contactInfo/getContactInfo', contactInfoRouter);

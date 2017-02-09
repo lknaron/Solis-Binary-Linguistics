@@ -20,7 +20,6 @@ var mysql_pool  = mysql.createPool({
 
 // Saves/Updates user entered information into application
 router.post('/', function(req, res) {
-  console.log(req.body.ASURITE_ID);
   mysql_pool.getConnection(function(err, connection) {
     if (err) {
       connection.release();
@@ -36,13 +35,17 @@ router.post('/', function(req, res) {
           if(err3) {
             console.log('Error performing query: ' + err3);
             throw err3;
-          } 
+          } else {
+            res.sendStatus(200);
+          }
         });
       } else if (rows) {
         connection.query('UPDATE Application SET ? WHERE ASURITE_ID = ?', [req.body, req.body.ASURITE_ID], function(err4) {
           if(err4) {
             console.log('Error performing query: ' + err4);
             throw err4;
+          } else {
+            res.sendStatus(200);
           }
         }); 
       }
