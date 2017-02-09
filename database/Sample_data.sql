@@ -35,7 +35,7 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
 'Central City', 'Missouri', 10001, 'Ph.D Computer Engineering', 4.2, 
 'Electrical Engineering', 0, 0, 0, NULL, '2016-08-15', 'Spring 2020', '10 hours per week', 
-1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/employment', 'ballen'),
+1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/availability', 'ballen'),
 (2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
 'Star City', 'California', 20020, 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
 0, 0, NULL, '2014-08-15', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
@@ -43,7 +43,7 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (3, '342-443-1341', '342-234-1322', '1407 Graymalkin Lane', NULL, 'United States', 
 'Salem Center', 'New York', 10501, 'M.S. Computer Engineering', 2.8, 'Computer Science', 1,
 1, 1, 250, '2012-08-15', 'Spring 2017', '10 hours per week', 0, 1, NULL, NULL, 
-'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', '/availability', 'jgrey');
+'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', '/employment', 'jgrey');
 
 -- -----------------------------------------------------
 -- IDEs Table
@@ -51,14 +51,16 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 INSERT INTO IDEs (IDEid, isAndroidStudio, isBrackets, isIntelliJ, isNetBeans, isXcode,
 Other, AppID) VALUES
 (1, 1, 1, 1, 1, 1, 'Eclipse', 1),
-(2, 0, 1, 1, 1, 0, 'Eclipse', 2);
+(2, 0, 1, 1, 1, 0, 'Eclipse', 2),
+(3, 1, 1, 0, 1, 0, NULL, 3);
 
 -- -----------------------------------------------------
 -- Collaborative Tools Table
 -- -----------------------------------------------------
 INSERT INTO Collaborative_Tools (ToolID, isGitHub, isTaiga, isSlack, Other, AppID) VALUES
 (1, 1, 1, 1, 'Skype', 1),
-(2, 1, 1, 1, 'Skype', 2);
+(2, 1, 1, 1, 'Skype', 2),
+(3, 1, 0, 1, NULL, 3);
 
 -- -----------------------------------------------------
 -- Course Competencies Table
@@ -86,7 +88,10 @@ SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, AppID) VALUES
 'Expert', 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 1),
 (2, 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', NULL, 2);
+'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', NULL, 2),
+(3, 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
+'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
+'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 0, NULL, 0, NULL, NULL, 3);
 
 -- -----------------------------------------------------
 -- Attachment Table
