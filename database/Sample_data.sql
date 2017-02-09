@@ -34,12 +34,16 @@ GraduationDate, TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours, AppS
 DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
 'Central City', 'Missouri', 10001, 'Ph.D Computer Engineering', 4.2, 
-'Electrical Engineering', 0, 0, 0, NULL, '08/15/2016', 'Spring 2020', '10 hours per week', 
+'Electrical Engineering', 0, 0, 0, NULL, '2016-08-15', 'Spring 2020', '10 hours per week', 
 1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/employment', 'ballen'),
 (2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
 'Star City', 'California', 20020, 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
-0, 0, NULL, '08/15/2014', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
-'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 'oqueen');
+0, 0, NULL, '2014-08-15', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
+'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 'oqueen'),
+(3, '342-443-1341', '342-234-1322', '1407 Graymalkin Lane', NULL, 'United States', 
+'Salem Center', 'New York', 10501, 'M.S. Computer Engineering', 2.8, 'Computer Science', 1,
+1, 1, 250, '2012-08-15', 'Spring 2017', '10 hours per week', 0, 1, NULL, NULL, 
+'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', '/availability', 'jgrey');
 
 -- -----------------------------------------------------
 -- IDEs Table
@@ -104,3 +108,10 @@ INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour
 (6, 'Current Semester', 'Wednesday', '09:00:00', '10:00:00', 1),
 (7, 'Current Semester', 'Wednesday', '13:00:00', '14:00:00', 1),
 (8, 'Current Semester', 'Wednesday', '14:00:00', '15:00:00', 1);
+
+-- -----------------------------------------------------
+-- Offer Table
+-- -----------------------------------------------------
+INSERT INTO Offer (OfferID, isOfferAccept, ASURITE_ID) VALUES
+(1, NULL, 'ballen'),
+(2, NULL, 'oqueen');
