@@ -105,14 +105,14 @@ UploadDate, AppID) VALUES
 -- Calendar Table
 -- -----------------------------------------------------
 INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour, AppID) VALUES
-(1, 'Current Semester', 'Monday', '08:00:00', '09:00:00', 1), 
-(2, 'Current Semester', 'Monday', '09:00:00', '10:00:00', 1),
-(3, 'Current Semester', 'Monday', '13:00:00', '14:00:00', 1),
-(4, 'Current Semester', 'Monday', '14:00:00', '15:00:00', 1),
-(5, 'Current Semester', 'Wednesday', '08:00:00', '09:00:00', 1), 
-(6, 'Current Semester', 'Wednesday', '09:00:00', '10:00:00', 1),
-(7, 'Current Semester', 'Wednesday', '13:00:00', '14:00:00', 1),
-(8, 'Current Semester', 'Wednesday', '14:00:00', '15:00:00', 1);
+(1, 'Summer Semester', 'Monday', '08:00:00', '09:00:00', 1), 
+(2, 'Summer Semester', 'Monday', '09:00:00', '10:00:00', 1),
+(3, 'Summer Semester', 'Monday', '13:00:00', '14:00:00', 1),
+(4, 'Summer Semester', 'Monday', '14:00:00', '15:00:00', 1),
+(5, 'Summer Semester', 'Wednesday', '08:00:00', '09:00:00', 1), 
+(6, 'Summer Semester', 'Wednesday', '09:00:00', '10:00:00', 1),
+(7, 'Summer Semester', 'Wednesday', '13:00:00', '14:00:00', 1),
+(8, 'Summer Semester', 'Wednesday', '14:00:00', '15:00:00', 1);
 
 -- -----------------------------------------------------
 -- Offer Table
