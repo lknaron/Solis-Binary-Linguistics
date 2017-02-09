@@ -191,7 +191,7 @@ application.controller('availabilityInfoController', function($scope, $location,
             var data = $scope.processAvailability('fall',false,availableSlots);
             // TEST--displays on the console the saved values--TEST
   			for (var i = 0; i < data.length; i++) {
-    			console.log(data[i]);
+    			console.log(data[i]); // TEST--displays data that will be POST'd
   			}
             /*
             $http.post(route, data).then(function successCallback(response) {
@@ -241,12 +241,16 @@ application.controller('availabilityInfoController', function($scope, $location,
                 }
             }
         } 
-        //------GET-------RETRIEVE SAVED DATA---HTTP COMMENTED OUT-------------
+        //------GET-------RETRIEVE SAVED DATA---COMMENT OUT HTTP TO WORK-------------
+        
+        // when page loads, runs setPreviousSchedule which poplulates fiels with 
+        // previously saved data
         angular.element(document).ready(function(){
         	$scope.setPreviousSchedule('fall',false);
         });
+    
         $scope.setPreviousSchedule = function(semesterName, finish) {
-            // TEST DATA SET
+            // TEST DATA SET START-----------------------------------------------
             var response = {'data':[{'calendarDay':'Sunday',
                         'calendarName':'fall',
                         'startHour':'12:00am'},
@@ -269,7 +273,9 @@ application.controller('availabilityInfoController', function($scope, $location,
                         'calendarName':'fall',
                         'startHour':'07:00pm'}
                        ]};
-            //$http.get('route').then(function successCallback(response) {
+            //---END TEST DATA----------------------------------------------
+            
+            $http.get('route').then(function successCallback(response) {
                 var slots = [];
         	    var hour = '';
                 var day = '';
@@ -288,59 +294,283 @@ application.controller('availabilityInfoController', function($scope, $location,
         	    if (finish !== true) {
         		  $scope.setPreviousSchedule('spring', true);
         	    }
-            //}, function errorCallback(response) {
+            }, function errorCallback(response) {
                 //TODO
-            //});
+            });
         }
 });
 
 application.controller('languagesInfoController', function($scope, $location, $http) {
+	// try moving this to Service as an angular.value or constant
+	// ordered as in the database
+	$scope.languages = [{'name':'C','box':'c_box','level':'c_group'},
+                  	  	{'name':'C#','box':'csharp_box','level':'csharp_group'},
+                  	  	{'name':'C++','box':'cpp_box','level':'cpp_group'},
+                  	  	{'name':'CSS','box':'css_box','level':'css_group'},
+                  	  	{'name':'HTML','box':'html_box','level':'html_group'},
+                  	  	{'name':'Java','box':'java_box','level':'java_group'},
+                  	  	{'name':'Javascript','box':'js_box','level':'js_group'},
+                  	  	{'name':'JSON','box':'json_box','level':'json_group'},
+                  	  	{'name':'List/Scheme','box':'list_scheme_box','level':'list_scheme_group'},
+                  	  	{'name':'PHP','box':'php_box','level':'php_group'},
+                      		{'name':'PLP','box':'plp_box','level':'plp_group'},
+                 		{'name':'Prolog','box':'prolog_box','level':'prolog_group'},
+                  		{'name':'Python','box':'python_box','level':'python_group'},
+                  		{'name':'SQL','box':'sql_box','level':'sql_group'},
+                  		{'name':'Swift','box':'swift_box','level':'swift_group'},
+                  		{'name':'Verilog','box':'verilog_box','level':'verilog_group'},
+                  		{'name':'XML','box':'xml_box','level':'xml_group'}
+                 	   ];
+                       
+     $scope.ides = [{'name':'Android Studio','box':'as_box'},
+     		    {'name':'Brackets','box':'brackets_box'},
+                    {'name':'IntelliJ','box':'intellij_box'},
+                    {'name':'NetBeans','box':'netbeans_box'},
+                    {'name':'Xcode','box':'xcode_box'}
+     		   ];
+                   
+     $scope.tools = [{'name':'Github','box':'github_box'},
+     		     {'name':'Taiga','box':'taiga_box'},
+                     {'name':'Slack','box':'slack_box'}
+     		    ];
+                 
+    //on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
         $http.get('route').then(function successCallback(response) {
-            $scope.c = response.data.isC;
-            $scope.c_group = response.data.CLevel;
-            $scope.csharp = response.data.isCSharp;
-            $scope.csharp_group = response.data.CSharpLevel;
-            $scope.cplusplus = response.data.isCPlusPlus;
-            $scope.cpp_group = response.data.CPlusPlusLevel;
-            $scope.css_group = response.data.CSSLevel;
-            $scope.html_group = response.data.HTMLLevel;
+                // TEST TEST TEST ---example data return---
+           		var response = {'data':{'languageData':{'selectionArray':[
+                                                                          {'name':'C++','value':1,'level':'Expert'},
+                    		   						                      {'name':'C','value':0,'level':null},
+                               						     	              {'name':'C#','value':1,'level':'Novice'},
+                                        				 	              {'name':'List/Scheme','value':1,'level':'Proficient'},
+                                                                          {'name':'SQL','value':1,'level':'Expert'}
+                                                        			     ],
+                                                                          'other':'Ada'
+                                                       },               					   
+                                        'ideData':{'selectionArray':[
+                                                                     {'name':'Brackets','value':1},
+                                       					             {'name':'IntelliJ','value':1}
+                                       					            ],
+                                                                     'other':'Eclipse'
+                                                  },
+                                        'toolData':{'selectionArray':[
+                                                                      {'name':'Github','value':1},
+                                                                      {'name':'Slack','value':1}
+                                        			                 ],
+                                                                      'other':'Skype'
+                                                   }                                                  
+                                       }                 			            
+                                }; // close json
+
+                // fill previous saved language selections
+            	for (var i = 0; i < $scope.languages.length; i++) {
+                	for (var k = 0; k < response.data.languageData.selectionArray.length; k++) {
+                    		if ($scope.languages[i].name === response.data.languageData.selectionArray[k].name) {
+                       			$scope.languages[i].box = response.data.languageData.selectionArray[k].value;
+                        		$scope.languages[i].level = response.data.languageData.selectionArray[k].level;
+                    		}
+                	}
+            	}
+                $scope.otherLanguage = response.data.languageData.other;
+                
+                // fill previous saved IDEs
+                for (var i = 0; i < $scope.ides.length; i++) {
+                	for (var k = 0; k < response.data.ideData.selectionArray.length; k++) {
+                    		if ($scope.ides[i].name === response.data.ideData.selectionArray[k].name) {
+                       			$scope.ides[i].box = response.data.ideData.selectionArray[k].value;
+                    		}
+                    	}
+                }
+                $scope.otherIde = response.data.ideData.other;
+                
+                // fill previous saved tools
+                for (var i = 0; i < $scope.tools.length; i++) {
+                	for (var k = 0; k < response.data.toolData.selectionArray.length; k++) {
+                    		if ($scope.tools[i].name === response.data.toolData.selectionArray[k].name) {
+                       			$scope.tools[i].box = response.data.toolData.selectionArray[k].value;
+                    		}
+                    	}
+                }
+                $scope.otherTool = response.data.toolData.other;
         }, function errorCallback(response) {
             //TODO
         });
     });
+
+    // saves all data on page
     $scope.saveLanguages= function(doRoute) {
-        /*
-        $http.post(route, data).then(function successCallback(response) {
-            console.log('successful post');            
+        var selectedLanguages = [];
+        var selectedIdes = [];
+        var selectedTools = [];
+        var languageObj = {};
+        var ideObj = {};
+        var toolObj = {};
+        var languageData = {};
+        var ideData = {};
+        var toolData = {};
+        var dataPackage = {};
+        
+        // gather language data
+        for (var i = 0; i < $scope.languages.length; i++) {
+            if ($scope.languages[i].box === 0) {
+                $scope.languages[i].level = null;
+            }
+            if ($scope.languages[i].level === null) {
+                $scope.languages[i].box = 0
+            }
+            languageObj = {'name':$scope.languages[i].name, 'value':$scope.languages[i].box, 'level':$scope.languages[i].level};
+            selectedLanguages.push(languageObj);
+        }
+        languageData = {'selectionArray':selectedLanguages,'other':$scope.otherLanguage};
+        
+        // gather IDE data
+        for (var j = 0; j < $scope.ides.length; j++) {
+        	ideObj = {'name':$scope.ides[j].name, 'value':$scope.ides[j].box};
+            selectedIdes.push(ideObj);
+        }
+        ideData = {'selectionArray':selectedIdes,'other':$scope.otherIde};
+        
+        // gather tools data
+        for (var k = 0; k < $scope.tools.length; k++) {
+        	toolObj = {'name':$scope.tools[k].name, 'value':$scope.tools[k].box};
+            selectedTools.push(toolObj);
+        }
+        toolData = {'selectionArray':selectedTools, 'other':$scope.otherTool};
+        dataPackage = {'languageData':languageData,'ideData':ideData,'toolData':toolData}; 
+        
+        // TEST TEST -- displays data contents as it will be sent-------------------------------
+         for (var x = 0; x < dataPackage.languageData.selectionArray.length;x++) {
+            console.log(dataPackage.languageData.selectionArray[x].name +' '+ dataPackage.languageData.selectionArray[x].value + ' ' + dataPackage.languageData.selectionArray[x].level);
+        }
+        console.log(dataPackage.languageData.other);
+        for (var y = 0; y < dataPackage.ideData.selectionArray.length; y++) {
+        	console.log(dataPackage.ideData.selectionArray[y].name +' '+ dataPackage.ideData.selectionArray[y].value);
+        }
+        console.log(dataPackage.ideData.other);
+        for (var z = 0; z < dataPackage.toolData.selectionArray.length; z++) {
+        	console.log(dataPackage.toolData.selectionArray[z].name +' '+ dataPackage.toolData.selectionArray[z].value);
+        }
+        console.log(dataPackage.toolData.other);
+        //--------------------------------------------------------------------------------------
+        
+        /*$http.post('route', dataPackage).then(function successCallback(response) {
+            console.log('successful post');
+            // move the doRoute check here so the page routes after successful data save
         }, function errorCallback(response) {
             console.log('unsuccessful post');
-            //TODO
+            // if an error occurs, notify user -- page will also not route (see success post above)
         });*/
+
         if (doRoute === true) {
-           $location.path('/courses'); 
+            $location.path('/courses'); 
         }
-    }
+    } // end saveLanguages
+    
+    $scope.clearUnselected = function() {
+    	for (var i = 0; i < $scope.languages.length; i++) {
+        	if ($scope.languages[i].box === 0) {
+            	$scope.languages[i].level = null;
+            }
+        }
+    }        
 });
 
 application.controller('coursesInfoController', function($scope, $location, $http) {
+	// LATER - try moving this to Service as an angular.value or constant
+	$scope.courses = [{'name':'ASU 101','box':'asu101_box'},
+                        {'name':'CSE 110','box':'cse110_box'},
+                        {'name':'CSE 205','box':'cse205_box'},
+                        {'name':'CSE 230','box':'cse230_box'},
+                        {'name':'CSE 240','box':'cse240_box'},
+                        {'name':'CSE 563','box':'cse563_box'}, 
+                        {'name':'CSE 564','box':'cse564_box'}, 
+                        {'name':'CSE 566','box':'cse566_box'},  
+                        {'name':'EEE/CSE 120','box':'eee_cse120_box'}, 
+                        {'name':'FSE 100','box':'fse100_box'},
+                        {'name':'SER 215','box':'ser215_box'},
+                        {'name':'SER 216','box':'ser216_box'},
+                        {'name':'SER 222','box':'ser222_box'}, 
+                        {'name':'SER 315','box':'ser315_box'},
+                        {'name':'SER 316','box':'ser316_box'}, 
+                        {'name':'SER 321','box':'ser321_box'},
+                        {'name':'SER 322','box':'ser322_box'},
+                        {'name':'SER 332','box':'ser332_box'}, 
+                        {'name':'SER 334','box':'ser334_box'},
+                        {'name':'SER 401','box':'ser401_box'},
+                        {'name':'SER 402','box':'ser402_box'},
+                        {'name':'SER 415','box':'ser415_box'},
+                        {'name':'SER 416','box':'ser416_box'},
+                        {'name':'SER 421','box':'ser421_box'},
+                        {'name':'SER 422','box':'ser422_box'},
+                        {'name':'SER 423','box':'ser423_box'}, 
+                        {'name':'SER 431','box':'ser431_box'},  
+                        {'name':'SER 432','box':'ser432_box'},
+                        {'name':'SER 450','box':'ser450_box'}, 
+                        {'name':'SER 456','box':'ser456_box'},
+                        {'name':'SER 486','box':'ser486_box'}, 
+                        {'name':'SER 501','box':'ser501_box'},
+                        {'name':'SER 502','box':'ser502_box'},
+                        {'name':'SER 515','box':'ser515_box'},
+                        {'name':'SER 516','box':'ser516_box'}, 
+                        {'name':'SER 517','box':'ser517_box'},
+                        {'name':'SER 518','box':'ser518_box'}
+                       ];
+                         
+    //on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
         $http.get('route').then(function successCallback(response) {
-            //TODO
+	       // TEST TEST TEST ---TEST DATA-------------------------------------------
+           var response = {'data':{'courses':[
+                				              {'name':'SER 215','value':1},
+                                              {'name':'SER 315','value':1},
+                                              {'name':'SER 316','value':1},
+                                              {'name':'SER 401','value':1}
+                                             ],'other':'EEE 200'}};
+            //---END TEST DATA-------------------------------------------------------    
+            
+            for (var i = 0; i < $scope.courses.length; i++) {
+                for (var k = 0; k < response.data.courses.length; k++) {
+                        if ($scope.courses[i].name === response.data.courses[k].name) {
+                            $scope.courses[i].box = response.data.courses[k].value;
+                        }
+                }
+            }
+            $scope.otherCourse = response.data.other;
         }, function errorCallback(response) {
-            //TODO
+
         });
     });
-    $scope.saveCourses= function(doRoute) {
-        /*
-        $http.post(route, data).then(function successCallback(response) {
-            console.log('successful post');          
+
+    $scope.saveCourses = function(doRoute) {
+        var courseSelections = [];
+        var courseObj = {};
+        var coursesData = {};
+        
+        // gather courses data
+        for (var i = 0; i < $scope.courses.length; i++) {
+        	courseObj = {'name':$scope.courses[i].name, 'value':$scope.courses[i].box};
+            courseSelections.push(courseObj);
+        }
+        coursesData = {'courses':courseSelections, 'other':$scope.otherCourse};
+        
+        // TEST TEST -- displays data contents as it will be sent--------------------
+		for (var i = 0; i < coursesData.courses.length; i++) {
+        	console.log(coursesData.courses[i].name +' '+ coursesData.courses[i].value);
+        }
+        console.log(coursesData.other);
+        //----------------------------------------------------------------------------
+        
+        /*$http.post('route', dataPackage).then(function successCallback(response) {
+            console.log('successful post');
+            // move the doRoute check here so the page routes after successful data save
         }, function errorCallback(response) {
             console.log('unsuccessful post');
-            //TODO
+            // if an error occurs, notify user -- page will also not route (see success post above)
         });*/
+        
         if (doRoute === true) {
-           $location.path('/studentHome'); 
+            $location.path('/studentHome'); 
         }
-    }
+    } // end saveLanguages
+
 });
