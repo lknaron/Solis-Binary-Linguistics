@@ -49,18 +49,18 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 -- IDEs Table
 -- -----------------------------------------------------
 INSERT INTO IDEs (IDEid, isAndroidStudio, isBrackets, isIntelliJ, isNetBeans, isXcode,
-Other, AppID) VALUES
-(1, 1, 1, 1, 1, 1, 'Eclipse', 1),
-(2, 0, 1, 1, 1, 0, 'Eclipse', 2),
-(3, 1, 1, 0, 1, 0, NULL, 3);
+Other, ASURITE_ID) VALUES
+(1, 1, 1, 1, 1, 1, 'Eclipse', 'ballen'),
+(2, 0, 1, 1, 1, 0, 'Eclipse', 'oqueen'),
+(3, 1, 1, 0, 1, 0, NULL, 'jgrey');
 
 -- -----------------------------------------------------
 -- Collaborative Tools Table
 -- -----------------------------------------------------
-INSERT INTO Collaborative_Tools (ToolID, isGitHub, isTaiga, isSlack, Other, AppID) VALUES
-(1, 1, 1, 1, 'Skype', 1),
-(2, 1, 1, 1, 'Skype', 2),
-(3, 1, 0, 1, NULL, 3);
+INSERT INTO Collaborative_Tools (ToolID, isGitHub, isTaiga, isSlack, Other, ASURITE_ID) VALUES
+(1, 1, 1, 1, 'Skype', 'ballen'),
+(2, 1, 1, 1, 'Skype', 'oqueen'),
+(3, 1, 0, 1, NULL, 'jgrey');
 
 -- -----------------------------------------------------
 -- Course Competencies Table
@@ -69,11 +69,11 @@ INSERT INTO Course_Competencies (CompetenciesID, isCSE110, isCSE205, isCSE230, i
 isCSE120, isFSE100, isASU101, isSER422, isSER450, isSER456, isSER486, isSER332, isSER431, 
 isSER432, isSER515, isSER516, isSER501, isSER502, isSER517, isSER518, isCSE563, isCSE564,
 isCSE566, isSER215, isSER216, isSER222, isSER315, isSER316, isSER321, isSER322, isSER334,
-isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, AppID) VALUES
+isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, ASURITE_ID) VALUES
 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
-1, 1, 1, 1, 1, 1, 1, 1, NULL, 1),
+1, 1, 1, 1, 1, 1, 1, 1, NULL, 'ballen'),
 (2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0,
-1, 1, 1, 1, 1, 1, 1, 1, NULL, 2);
+1, 1, 1, 1, 1, 1, 1, 1, NULL, 'oqueen');
 
 -- -----------------------------------------------------
 -- Languages Table
@@ -82,37 +82,37 @@ INSERT INTO Languages (LanguagesID, isC, CLevel, isCSharp, CSharpLevel, isCPlusP
 CPlusPlusLevel, isCSS, CSSLevel, isHTML, HTMLLevel, isJava, JavaLevel, isJavascript,
 JavascriptLevel, isJSON, JSONLevel, isScheme, SchemeLevel, isPHP, PHPLevel, isPLP, 
 PLPLevel, isProlog, PrologLevel, isPython, PythonLevel, isSQL, SQLLevel, isSwift, 
-SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, AppID) VALUES
+SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, ASURITE_ID) VALUES
 (1, 1, 'Proficient', 1, 'Proficient', 1, 'Expert', 1, 'Expert', 1, 'Expert', 1, 
 'Proficient', 1, 'Proficient', 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 1),
+'Expert', 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 'ballen'),
 (2, 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', NULL, 2),
+'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', NULL, 'oqueen'),
 (3, 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 0, NULL, 0, NULL, NULL, 3);
+'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 0, NULL, 0, NULL, NULL, 'jgrey');
 
 -- -----------------------------------------------------
 -- Attachment Table
 -- -----------------------------------------------------
 INSERT INTO Attachment (AttachmentID, AttachmentName, AttachmentType, AttachmentSize,
-UploadDate, AppID) VALUES
-(1, 'Barry Allen Resume', 'PDF', 131, '2017-01-03 11:35:18', 1),
-(2, 'Barry Allen Transcript', 'PDF', 162, '2017-01-03 11:55:42', 1);
+UploadDate, ASURITE_ID) VALUES
+(1, 'Barry Allen Resume', 'PDF', 131, '2017-01-03 11:35:18', 'ballen'),
+(2, 'Barry Allen Transcript', 'PDF', 162, '2017-01-03 11:55:42', 'ballen');
 
 -- -----------------------------------------------------
 -- Calendar Table
 -- -----------------------------------------------------
-INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour, AppID) VALUES
-(1, 'Summer Semester', 'Monday', '08:00:00', '09:00:00', 1), 
-(2, 'Summer Semester', 'Monday', '09:00:00', '10:00:00', 1),
-(3, 'Summer Semester', 'Monday', '13:00:00', '14:00:00', 1),
-(4, 'Summer Semester', 'Monday', '14:00:00', '15:00:00', 1),
-(5, 'Summer Semester', 'Wednesday', '08:00:00', '09:00:00', 1), 
-(6, 'Summer Semester', 'Wednesday', '09:00:00', '10:00:00', 1),
-(7, 'Summer Semester', 'Wednesday', '13:00:00', '14:00:00', 1),
-(8, 'Summer Semester', 'Wednesday', '14:00:00', '15:00:00', 1);
+INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES
+(1, 'Summer Semester', 'Monday', '08:00:00', '09:00:00', 'ballen'), 
+(2, 'Summer Semester', 'Monday', '09:00:00', '10:00:00', 'ballen'),
+(3, 'Summer Semester', 'Monday', '13:00:00', '14:00:00', 'ballen'),
+(4, 'Summer Semester', 'Monday', '14:00:00', '15:00:00', 'ballen'),
+(5, 'Summer Semester', 'Wednesday', '08:00:00', '09:00:00', 'ballen'), 
+(6, 'Summer Semester', 'Wednesday', '09:00:00', '10:00:00', 'ballen'),
+(7, 'Summer Semester', 'Wednesday', '13:00:00', '14:00:00', 'ballen'),
+(8, 'Summer Semester', 'Wednesday', '14:00:00', '15:00:00', 'ballen');
 
 -- -----------------------------------------------------
 -- Offer Table
