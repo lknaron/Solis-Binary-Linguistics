@@ -76,6 +76,17 @@ isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, ASURITE_ID) V
 1, 1, 1, 1, 1, 1, 1, 1, NULL, 'oqueen');
 
 -- -----------------------------------------------------
+-- Courses Taught Table
+-- -----------------------------------------------------
+INSERT INTO Courses_Taught (TaughtID, isCSE110, isCSE205, isCSE230, isCSE240, 
+isCSE120, isFSE100, isASU101, isSER422, isSER450, isSER456, isSER486, isSER332, isSER431, 
+isSER432, isSER515, isSER516, isSER501, isSER502, isSER517, isSER518, isCSE563, isCSE564,
+isCSE566, isSER215, isSER216, isSER222, isSER315, isSER316, isSER321, isSER322, isSER334,
+isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, ASURITE_ID) VALUES
+(1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 0, 0, NULL, 'ballen');
+
+-- -----------------------------------------------------
 -- Languages Table
 -- -----------------------------------------------------
 INSERT INTO Languages (LanguagesID, isC, CLevel, isCSharp, CSharpLevel, isCPlusPlus, 
@@ -120,3 +131,34 @@ INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour
 INSERT INTO Offer (OfferID, isOfferAccept, ASURITE_ID) VALUES
 (1, NULL, 'ballen'),
 (2, NULL, 'oqueen');
+
+-- -----------------------------------------------------
+-- Student Evaluation Table
+-- -----------------------------------------------------
+INSERT INTO Student_Evaluation (EvaluationID, DateCreated, QOneScore, QOneComments, 
+QTwoScore, QTwoComments, QThreeScore, QThreeComments, QFourScore, QFourComments, 
+ASURITE_ID_1, ASURITE_ID_2) VALUES
+(1, '2017-01-12 13:05:11', 4, 'Great job on feedback.', 4, 'Always on time.', 4, 
+"Always answered student's questions in class and after class.", 4, 'Overall great job.', 
+'rbanner','ballen');
+
+-- -----------------------------------------------------
+-- Schedule Table
+-- -----------------------------------------------------
+INSERT INTO Schedule_ (ScheduleID, SessionIs, Location, Subject, CatalogNumber, CourseNumber, 
+CourseTitle, Units, Days, StartHours, EndHours, FirstName, LastName) VALUES
+(1, 'A', 'ASUOnline', 'SER', 100, 10201, 'Object-Oriented Software', 3, NULL, NULL, NULL,
+'Abraham', 'Helsing');
+
+-- -----------------------------------------------------
+-- Student Request Table
+-- -----------------------------------------------------
+INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, ASURITE_ID) VALUES
+(1, '2017-01-10 11:28:01', 1, 'ballen');
+
+-- -----------------------------------------------------
+-- Placement Table
+-- -----------------------------------------------------
+INSERT INTO Placement (PlaceID, EnrollmentNumPrev, EnrollmentNumCurrent, EnrollmentDiff, 
+TA, GraderOne, GraderTwo, TAHours, GraderOneHours, GraderTwoHours, ScheduleID) VALUES
+(1, 40, 50, 10, 'Barry Allen', 'Oliver Queen', NULL, 10, 10, NULL, 1);
