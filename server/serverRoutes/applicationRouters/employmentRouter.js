@@ -1,6 +1,6 @@
 /*
- * File: contactInfoRouter.js
- * Description: Processes all requests routed from the server made to /contactInfo
+ * File: employmentRouter.js
+ * Description: Processes all requests routed from the server made to /employment
  */
 
 var express  = require('express');
@@ -48,7 +48,7 @@ router.post('/', function(req, res) {
                         console.log('Error performing query: ' + err4);
                         throw err4;
                     } else {
-                    res.sendStatus(200);
+                        res.sendStatus(200);
                     }
                 }); 
             }
@@ -57,23 +57,22 @@ router.post('/', function(req, res) {
     });
 });
 
-// Returns data to populate application page if user already saved contact information
-router.post('/getContactInfo', function(req, res) {
+// Returns data to populate application page if user already saved employment information
+router.post('/getEmploymentInfo', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT PhoneNumber, MobileNumber, AddressOne, AddressTwo, AddressCountry, AddressCity, AddressState, AddressZip FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+        connection.query('SELECT TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
             } else if (!rows.length) {
                 res.sendStatus(200);
             } else if (rows) {
-                res.send({'PhoneNumber' : rows[0].PhoneNumber, 'MobileNumber' : rows[0].MobileNumber, 'AddressCountry' : rows[0].AddressCountry, 'AddressOne' : rows[0].AddressOne, 
-                          'AddressTwo' : rows[0].AddressTwo, 'AddressCity' : rows[0].AddressCity, 'AddressState' : rows[0].AddressState, 'AddressZip' : rows[0].AddressZip});
+                res.send({'TimeCommitment' : rows[0].TimeCommitment, 'isTA' : rows[0].isTA, 'isGrader' : rows[0].isGrader, 'CurrentEmployer' : rows[0].CurrentEmployer, 'WorkHours' : rows[0].WorkHours});
             } 
             connection.release();
         });

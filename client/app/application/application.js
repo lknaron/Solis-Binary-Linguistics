@@ -27,6 +27,7 @@ application.controller('contactInfoController', function($scope, $location, $htt
     });
     // Saves Contact Information into Database
     $scope.saveContact = function(doRoute) {
+        var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var lastSaved = '';
         if (doRoute === true) {
             lastSaved = '/education';
@@ -46,6 +47,8 @@ application.controller('contactInfoController', function($scope, $location, $htt
                 "AddressZip"        : $scope.zip,
                 "AppStatus"         : 'Incomplete',
                 "LastSaved"         : lastSaved,
+                "DateCreated"       : dateObj,
+                "ModifiedDate"      : dateObj,
                 "ASURITE_ID"        : UserInfoService.getUserId()
             };
         $http.post('/contactInfo', contactInfoData).then(function successCallback(response) {
@@ -58,7 +61,7 @@ application.controller('contactInfoController', function($scope, $location, $htt
     }
 });
 
-application.controller('educationInfoController', function($scope, $location, $http) {
+application.controller('educationInfoController', function($scope, $location, $http, UserInfoService) {
     // degree options - possbily move to more configurable location
     $scope.degrees = ["Ph.D Computer Science",
                       "Ph.D Computer Engineering",
@@ -74,8 +77,11 @@ application.controller('educationInfoController', function($scope, $location, $h
                         "Sping 2019",
                         "Fall 2019",
                         "Spring 2020"];
-    angular.element(document).ready(function(){
-        $http.get('route').then(function successCallback(response) {
+    
+    // populates the Education page        
+    angular.element(document).ready(function() {        
+        var user = { 'user' : UserInfoService.getUserId() };
+        $http.post('/education/getEducationInfo', user).then(function successCallback(response) {  
             switch (response.data.EducationLevel) {
                 case "Ph.D Computer Science":
                     $scope.selectedDegree = $scope.degrees[0];
@@ -103,11 +109,11 @@ application.controller('educationInfoController', function($scope, $location, $h
             }
             $scope.gpa = response.data.GPA;
             $scope.otherDegree = response.data.DegreeProgram;
-            $scope.probation = response.data.isAcademicProbabtion;
+            $scope.probation = response.data.isAcademicProbation;
             $scope.fourPlusOne = response.data.isFourPlusOne;
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
-            $scope.session = response.data.FirstSession;
+            $scope.session = new Date(response.data.FirstSession);
             switch (response.data.GraduationDatel) {
                 case "Fall 2017":
                     $scope.gradDate = $scope.gradDates[0];
@@ -134,22 +140,42 @@ application.controller('educationInfoController', function($scope, $location, $h
     
     // saves data and posts - routes if the user chose to continue
     $scope.saveEducation = function(doRoute) {
-        /*
-        $http.post(route, educationData).then(function successCallback(response) {
-            console.log('successful post');           
-        }, function errorCallback(response) {
-            console.log('unsuccessful post');
-            //TODO
-        });*/
+        var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var lastSaved = '';
         if (doRoute === true) {
-           $location.path('/employment'); 
+            lastSaved = '/employment';
+        } else {
+            lastSaved = '/education';
         }
+        var educationData = {
+                "EducationLevel"            : $scope.selectedDegree,
+                "GPA"                       : $scope.gpa,
+                "DegreeProgram"             : $scope.otherDegree,
+                "isAcademicProbation"       : $scope.probation,
+                "isFourPlusOne"             : $scope.fourPlusOne,
+                "isInternationalStudent"    : $scope.international,
+                "SpeakTest"                 : $scope.speakTest,
+                "FirstSession"              : $scope.session = new Date($scope.session),
+                "GraduationDate"            : $scope.gradDate,
+                "LastSaved"                 : lastSaved,
+                "ModifiedDate"              : dateObj,
+                "ASURITE_ID"                : UserInfoService.getUserId()
+            };
+        
+        $http.post('/education', educationData).then(function successCallback(response) {
+            if (doRoute === true) {
+                $location.path('/employment'); 
+            }
+        }, function errorCallback(response) {
+            //TODO
+        });
     }
 });
 
-application.controller('employmentInfoController', function($scope, $location, $http) {
+application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService) {
+    var user = { 'user' : UserInfoService.getUserId() };
     angular.element(document).ready(function(){
-        $http.get('route').then(function successCallback(response) {
+        $http.post('/employment/getEmploymentInfo', user ).then(function successCallback(response) {
             $scope.hours = response.data.TimeCommitment;
             $scope.ta = response.data.isTA;
             $scope.grader = response.data.isGrader;
@@ -160,170 +186,201 @@ application.controller('employmentInfoController', function($scope, $location, $
         });
     });
     
+    // saves data and posts - routes if the user chose to continue
     $scope.saveEmployment = function(doRoute) {
-        /*
-        $http.post(route, data).then(function successCallback(response) {
-            console.log('successful post');          
-        }, function errorCallback(response) {
-            console.log('unsuccessful post');
-            //TODO
-        });*/
+        var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var lastSaved = '';
         if (doRoute === true) {
-           $location.path('/availability'); 
+            lastSaved = '/availability';
+        } else {
+            lastSaved = '/employment';
         }
+        var employmentData = {
+                "TimeCommitment"    : $scope.hours,
+                "isTA"              : $scope.ta,
+                "isGrader"          : $scope.grader,
+                "CurrentEmployer"   : $scope.employer,
+                "WorkHours"         : $scope.workHours,
+                "LastSaved"         : lastSaved,
+                "ModifiedDate"      : dateObj,
+                "ASURITE_ID"        : UserInfoService.getUserId()
+            };
+        
+        $http.post('/employment', employmentData).then(function successCallback(response) {
+            if (doRoute === true) {
+                $location.path('/availability'); 
+            }
+        }, function errorCallback(response) {
+            //TODO
+        });
     }
 });
 
-application.controller('availabilityInfoController', function($scope, $location, $http) {
-        $scope.times = [
-            {'startHour':'12:00am','endHour':'01:00am'},
-            {'startHour':'01:00am','endHour':'02:00am'},
-            {'startHour':'02:00am','endHour':'03:00am'},
-            {'startHour':'03:00am','endHour':'04:00am'},
-            {'startHour':'04:00am','endHour':'05:00am'},
-            {'startHour':'05:00am','endHour':'06:00am'},
-            {'startHour':'06:00am','endHour':'07:00am'},
-            {'startHour':'07:00am','endHour':'08:00am'},
-            {'startHour':'08:00am','endHour':'09:00am'},
-            {'startHour':'09:00am','endHour':'10:00am'},
-            {'startHour':'10:00am','endHour':'11:00am'},
-            {'startHour':'11:00am','endHour':'12:00pm'},
-            {'startHour':'12:00pm','endHour':'01:00pm'},
-            {'startHour':'01:00pm','endHour':'02:00pm'},
-            {'startHour':'02:00pm','endHour':'03:00pm'},
-            {'startHour':'03:00pm','endHour':'04:00pm'},
-            {'startHour':'04:00pm','endHour':'05:00pm'},
-            {'startHour':'05:00pm','endHour':'06:00pm'},
-            {'startHour':'06:00pm','endHour':'07:00pm'},
-            {'startHour':'07:00pm','endHour':'08:00pm'},
-            {'startHour':'08:00pm','endHour':'09:00pm'},
-            {'startHour':'09:00pm','endHour':'10:00pm'},
-            {'startHour':'10:00pm','endHour':'11:00pm'},
-            {'startHour':'11:00pm','endHour':'12:00am'}];
-            
-        $scope.days = ['Sunday',
-                       'Monday',
-                       'Tuesday',
-                       'Wednesday',
-                       'Thursday',
-                       'Friday',
-                       'Saturday'];
-    
-        $scope.saveAvailability = function(doRoute) {
-            var availableSlots = [];
-            var data = $scope.processAvailability('fall',false,availableSlots);
-            // TEST--displays on the console the saved values--TEST
-            for (var i = 0; i < data.length; i++) {
-                console.log(data[i]); // TEST--displays data that will be POST'd
-            }
-            /*
-            $http.post(route, data).then(function successCallback(response) {
-                console.log('successful post');          
+application.controller('availabilityInfoController', function($scope, $location, $http, UserInfoService) {
+    $scope.times = [
+        {'startHour':'12:00 AM','stopHour':'1:00 AM'},
+        {'startHour':'1:00 AM','stopHour':'2:00 AM'},
+        {'startHour':'2:00 AM','stopHour':'3:00 AM'},
+        {'startHour':'3:00 AM','stopHour':'4:00 AM'},
+        {'startHour':'4:00 AM','stopHour':'5:00 AM'},
+        {'startHour':'5:00 AM','stopHour':'6:00 AM'},
+        {'startHour':'6:00 AM','stopHour':'7:00 AM'},
+        {'startHour':'7:00 AM','stopHour':'8:00 AM'},
+        {'startHour':'8:00 AM','stopHour':'9:00 AM'},
+        {'startHour':'9:00 AM','stopHour':'10:00 AM'},
+        {'startHour':'10:00 AM','stopHour':'11:00 AM'},
+        {'startHour':'11:00 AM','stopHour':'12:00 PM'},
+        {'startHour':'12:00 PM','stopHour':'1:00 PM'},
+        {'startHour':'1:00 PM','stopHour':'2:00 PM'},
+        {'startHour':'2:00 PM','stopHour':'3:00 PM'},
+        {'startHour':'3:00 PM','stopHour':'4:00 PM'},
+        {'startHour':'4:00 PM','stopHour':'5:00 PM'},
+        {'startHour':'5:00 PM','stopHour':'6:00 PM'},
+        {'startHour':'6:00 PM','stopHour':'7:00 PM'},
+        {'startHour':'7:00 PM','stopHour':'8:00 PM'},
+        {'startHour':'8:00 PM','stopHour':'9:00 PM'},
+        {'startHour':'9:00 PM','stopHour':'10:00 PM'},
+        {'startHour':'10:00 PM','stopHour':'11:00 PM'},
+        {'startHour':'11:00 PM','stopHour':'12:00 AM'}];
+        
+    $scope.days = ['Sunday',
+                   'Monday',
+                   'Tuesday',
+                   'Wednesday',
+                   'Thursday',
+                   'Friday',
+                   'Saturday'];
+
+    // saves data and posts - routes if the user chose to continue
+    $scope.saveAvailability = function(doRoute) {
+        var availableSlots = [];
+        var user = UserInfoService.getUserId();
+        var user2 = { 'user' : UserInfoService.getUserId() };
+        $scope.processAvailability('Fall Semester', false, false, user, availableSlots);
+        if (availableSlots.length > 0) {
+            $http.post('/availability', availableSlots).then(function successCallback(response) {
+                if (doRoute === true) {
+                    $location.path('/languages'); 
+                }
             }, function errorCallback(response) {
-                console.log('unsuccessful post');
                 //TODO
-            });*/
-            if (doRoute === true) {
-               $location.path('/languages'); 
+            });     
+        } else {
+            $http.post('/availability', user2).then(function successCallback(response) {
+                if (doRoute === true) {
+                    $location.path('/languages'); 
+                }
+            }, function errorCallback(response) {
+                //TODO
+            }); 
+        } 
+    }
+
+    // saves all checked values
+    $scope.processAvailability = function(semesterName, finish, summer, user, availableSlots) {
+        var timeslotObj = [];
+        var hours = '';
+        var day = '';
+        for (var x = 0; x < 7; x++) {
+            day = $scope.days[x];
+            for (var i = 0; i < 24; i++) {
+                if (document.getElementsByName(semesterName +'_'+ day)[i].checked === true) {
+                    hours = JSON.parse(document.getElementsByName(semesterName +'_'+ day)[i].value);
+                    timeslotObj = [semesterName, day, convertTime12to24(hours.startHour), convertTime12to24(hours.stopHour), user];
+                    availableSlots.push(timeslotObj);
+                }
             }
         }
-        
+        if (finish !== true) {
+            $scope.processAvailability('Spring Semester', true, false, user, availableSlots);
+        } else if (summer !== true) {
+            $scope.processAvailability('Summer Semester', true, true, user, availableSlots);
+        }
+    }
 
-        // saves all checked values
-        $scope.processAvailability = function(semesterName, finish, availableSlots) {
-            var timeslotObj = '';
-            var hours = '';
-            var day = '';
-            for (var x = 0; x < 7; x++) {
-                day = $scope.days[x];
-                for (var i = 0; i < 24; i++) {
-                    if (document.getElementsByName(semesterName +'_'+ day)[i].checked === true) {
-                        hours = JSON.parse(document.getElementsByName(semesterName +'_'+ day)[i].value);
-                        timeslotObj = {'calendarName':semesterName,'calendarDay':day, 
-                                       'startHour':hours.startHour,'endHour':hours.endHour};
-                        availableSlots.push(timeslotObj);
-                    }
-                }
+    function convertTime12to24(time12h) {
+        const [time, modifier] = time12h.split(' ');
+        let [hours, minutes] = time.split(':');
+        if (hours === '12') {
+            hours = '00';
+        }
+          
+        if (modifier === 'PM') {
+            hours = parseInt(hours, 10) + 12;
+        }
+        return hours + ':' + minutes + ':' + '00';
+    }   
+    
+    // unchecks all boxes
+    $scope.resetAll = function(semesterName, finish, summer) {
+        for (var x = 0; x < 7; x++) {
+            day = $scope.days[x];
+            for (var i = 0; i < 24; i++) {
+                document.getElementsByName(semesterName +'_'+ day)[i].checked = false;
             }
             if (finish !== true) {
-                $scope.processAvailability('spring', true, availableSlots);
+                $scope.resetAll('Spring Semester', true, false);
+            } else if (summer !== true) {
+                $scope.resetAll('Summer Semester', true, true);
             }
-            //package data up HERE to POST --> need to figure out format
-            return availableSlots;
-        }   
-        
-        // unchecks all boxes
-        $scope.resetAll = function(semesterName, finish) {
-            for (var x = 0; x < 7; x++) {
-                day = $scope.days[x];
-                for (var i = 0; i < 24; i++) {
-                    document.getElementsByName(semesterName +'_'+ day)[i].checked = false;
-                }
-                if (finish !== true) {
-                    $scope.resetAll('spring',true);
-                }
-            }
-        } 
-        //------GET-------RETRIEVE SAVED DATA---COMMENT OUT HTTP TO WORK-------------
-        
-        // when page loads, runs setPreviousSchedule which poplulates fiels with 
-        // previously saved data
-        angular.element(document).ready(function(){
-            $scope.setPreviousSchedule('fall',false);
-        });
+        }
+    } 
     
-        $scope.setPreviousSchedule = function(semesterName, finish) {
-            // TEST DATA SET START-----------------------------------------------
-            var response = {'data':[{'calendarDay':'Sunday',
-                        'calendarName':'fall',
-                        'startHour':'12:00am'},
-                        {'calendarDay':'Sunday',
-                        'calendarName':'fall',
-                        'startHour':'01:00am'},
-                        {'calendarDay':'Monday',
-                        'calendarName':'fall',
-                        'startHour':'03:00am'},
-                        {'calendarDay':'Sunday',
-                        'calendarName':'spring',
-                        'startHour':'06:00am'},
-                        {'calendarDay':'Wednesday',
-                        'calendarName':'spring',
-                        'startHour':'01:00am'},
-                        {'calendarDay':'Tuesday',
-                        'calendarName':'fall',
-                        'startHour':'12:00am'},
-                        {'calendarDay':'Friday',
-                        'calendarName':'fall',
-                        'startHour':'07:00pm'}
-                       ]};
-            //---END TEST DATA----------------------------------------------
-            
-            $http.get('route').then(function successCallback(response) {
+    // when page loads, runs setPreviousSchedule which poplulates fiels with 
+    // previously saved data
+    angular.element(document).ready(function(){
+        $scope.setPreviousSchedule('Fall Semester', false, false);
+    });
+    
+    $scope.setPreviousSchedule = function(semesterName, finish, summer) {
+        var user = { 'user' : UserInfoService.getUserId() };
+        $http.post('/availability/getAvailabilityInfo', user).then(function successCallback(response) {
+            var res = JSON.parse(JSON.stringify(response.data));
+            if (res.data) {
                 var slots = [];
                 var hour = '';
                 var day = '';
                 for (var x = 0; x < 7; x++) {
                     day = $scope.days[x];
                     for (var i = 0; i < 24; i++) {
-                       for (var y = 0; y < response.data.length; y++) {
-                         if(semesterName === response.data[y].calendarName && 
-                            day === response.data[y].calendarDay && 
-                           (JSON.parse(document.getElementsByName(semesterName +'_'+ day)[i].value).startHour) === response.data[y].startHour) {
+                        for (var y = 0; y < res.data.length; y++) {
+                            if(semesterName === res.data[y].calendarName && 
+                            day === res.data[y].calendarDay && 
+                           (JSON.parse(document.getElementsByName(semesterName +'_'+ day)[i].value).startHour) === convertTime24to12(res.data[y].startHour)) {
                                document.getElementsByName(semesterName +'_'+ day)[i].checked = true;
                            }
                         }
                     }
                 }
                 if (finish !== true) {
-                  $scope.setPreviousSchedule('spring', true);
+                    $scope.setPreviousSchedule('Spring Semester', true, false);
+                } else if (summer !== true) {
+                    $scope.setPreviousSchedule('Summer Semester', true, true);
                 }
-            }, function errorCallback(response) {
-                //TODO
-            });
+            }
+        }, function errorCallback(response) {
+            //TODO
+        });
+    }
+
+    function convertTime24to12(isoTime) {
+        var hours   = parseInt(isoTime.substring(0, 2), 10),
+        minutes = isoTime.substring(3, 5),
+        ampm    = 'AM';
+
+        if (hours == 12) {
+            ampm = 'PM';
+        } else if (hours == 0) {
+            hours = 12;
+        } else if (hours > 12) {
+            hours -= 12;
+            ampm = 'PM';
         }
+        return hours + ':' + minutes + ' ' + ampm;
+    }
 });
 
-application.controller('languagesInfoController', function($scope, $location, $http) {
+application.controller('languagesInfoController', function($scope, $location, $http, UserInfoService) {
     // try moving this to Service as an angular.value or constant
     // ordered as in the database
     $scope.languages = [{'name':'C','box':'c_box','level':'c_group'},
@@ -357,64 +414,41 @@ application.controller('languagesInfoController', function($scope, $location, $h
                      {'name':'Slack','box':'slack_box'}
                 ];
                  
-    //on page load, retrieve prior saved data                  
+    // on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
-        $http.get('route').then(function successCallback(response) {
-                // TEST TEST TEST ---example data return---
-                var response = {'data':{'languageData':{'selectionArray':[
-                                                                          {'name':'C++','value':1,'level':'Expert'},
-                                                                          {'name':'C','value':0,'level':null},
-                                                                          {'name':'C#','value':1,'level':'Novice'},
-                                                                          {'name':'List/Scheme','value':1,'level':'Proficient'},
-                                                                          {'name':'SQL','value':1,'level':'Expert'}
-                                                                         ],
-                                                                          'other':'Ada'
-                                                       },                                      
-                                        'ideData':{'selectionArray':[
-                                                                     {'name':'Brackets','value':1},
-                                                                     {'name':'IntelliJ','value':1}
-                                                                    ],
-                                                                     'other':'Eclipse'
-                                                  },
-                                        'toolData':{'selectionArray':[
-                                                                      {'name':'Github','value':1},
-                                                                      {'name':'Slack','value':1}
-                                                                     ],
-                                                                      'other':'Skype'
-                                                   }                                                  
-                                       }                                        
-                                }; // close json
-
-                // fill previous saved language selections
-                for (var i = 0; i < $scope.languages.length; i++) {
-                    for (var k = 0; k < response.data.languageData.selectionArray.length; k++) {
-                            if ($scope.languages[i].name === response.data.languageData.selectionArray[k].name) {
-                                $scope.languages[i].box = response.data.languageData.selectionArray[k].value;
-                                $scope.languages[i].level = response.data.languageData.selectionArray[k].level;
-                            }
+        var user = { 'user' : UserInfoService.getUserId() };
+        $http.post('/languages/getLanguagesInfo', user).then(function successCallback(response) {
+            var res = JSON.parse(JSON.stringify(response.data));
+            // fill previous saved language selections
+            for (var i = 0; i < $scope.languages.length; i++) {
+                for (var k = 0; k < res.data.languageData.selectionArray.length; k++) {
+                    if ($scope.languages[i].name === res.data.languageData.selectionArray[k].name) {
+                        $scope.languages[i].box = res.data.languageData.selectionArray[k].value;
+                        $scope.languages[i].level = res.data.languageData.selectionArray[k].level;
                     }
                 }
-                $scope.otherLanguage = response.data.languageData.other;
+            }
+            $scope.otherLanguage = res.data.languageData.other;
                 
-                // fill previous saved IDEs
-                for (var i = 0; i < $scope.ides.length; i++) {
-                    for (var k = 0; k < response.data.ideData.selectionArray.length; k++) {
-                            if ($scope.ides[i].name === response.data.ideData.selectionArray[k].name) {
-                                $scope.ides[i].box = response.data.ideData.selectionArray[k].value;
-                            }
-                        }
+            // fill previous saved IDEs
+            for (var i = 0; i < $scope.ides.length; i++) {
+                for (var k = 0; k < res.data.ideData.selectionArray.length; k++) {
+                    if ($scope.ides[i].name === res.data.ideData.selectionArray[k].name) {
+                        $scope.ides[i].box = res.data.ideData.selectionArray[k].value;
+                    }
                 }
-                $scope.otherIde = response.data.ideData.other;
+            }
+            $scope.otherIde = res.data.ideData.other;
                 
-                // fill previous saved tools
-                for (var i = 0; i < $scope.tools.length; i++) {
-                    for (var k = 0; k < response.data.toolData.selectionArray.length; k++) {
-                            if ($scope.tools[i].name === response.data.toolData.selectionArray[k].name) {
-                                $scope.tools[i].box = response.data.toolData.selectionArray[k].value;
-                            }
-                        }
+            // fill previous saved tools
+            for (var i = 0; i < $scope.tools.length; i++) {
+                for (var k = 0; k < res.data.toolData.selectionArray.length; k++) {
+                    if ($scope.tools[i].name === res.data.toolData.selectionArray[k].name) {
+                        $scope.tools[i].box = res.data.toolData.selectionArray[k].value;
+                    }
                 }
-                $scope.otherTool = response.data.toolData.other;
+            }
+                $scope.otherTool = res.data.toolData.other;
         }, function errorCallback(response) {
             //TODO
         });
@@ -422,16 +456,19 @@ application.controller('languagesInfoController', function($scope, $location, $h
 
     // saves all data on page
     $scope.saveLanguages= function(doRoute) {
-        var selectedLanguages = [];
-        var selectedIdes = [];
-        var selectedTools = [];
-        var languageObj = {};
-        var ideObj = {};
-        var toolObj = {};
-        var languageData = {};
-        var ideData = {};
-        var toolData = {};
-        var dataPackage = {};
+        var sendData = {
+            languages: [],
+            ide: [],
+            tools: [],
+            'user' : UserInfoService.getUserId()
+        };
+        var lNames = ['isC', 'isCSharp', 'isCPlusPlus', 'isCSS', 'isHTML', 'isJava', 'isJavascript', 'isJSON', 'isScheme', 'isPHP', 'isPLP', 'isProlog', 'isPython', 'isSQL', 'isSwift', 'isVerilog', 'isXML', 'XMLLevel', 'Other'];
+        var lLevels = ['CLevel', 'CSharpLevel', 'CPlusPlusLevel', 'CSSLevel', 'HTMLLevel', 'JavaLevel', 'JavascriptLevel', 'JSONLevel', 'SchemeLevel', 'PHPLevel', 'PLPLevel', 'PrologLevel', 'PythonLevel', 'SQLLevel', 'SwiftLevel', 'VerilogLevel', 'XMLLevel']
+        var iNames = ['isAndroidStudio', 'isBrackets', 'isIntelliJ', 'isNetBeans', 'isXcode', 'Other'];
+        var tNames = ['isGitHub', 'isTaiga', 'isSlack', 'Other'];
+        var languages = {};
+        var ides = {};
+        var tools = {};
         
         // gather language data
         for (var i = 0; i < $scope.languages.length; i++) {
@@ -441,64 +478,66 @@ application.controller('languagesInfoController', function($scope, $location, $h
             if ($scope.languages[i].level === null) {
                 $scope.languages[i].box = 0
             }
-            languageObj = {'name':$scope.languages[i].name, 'value':$scope.languages[i].box, 'level':$scope.languages[i].level};
-            selectedLanguages.push(languageObj);
+            if (i === $scope.languages.length - 1) {
+                languages[lNames[i]] = $scope.languages[i].box;
+                languages[lLevels[i]] = $scope.languages[i].level;
+                languages[lNames[lNames.length - 1]] = $scope.otherLanguage;
+                languages['ASURITE_ID'] = UserInfoService.getUserId(); 
+            } else {
+                languages[lNames[i]] = $scope.languages[i].box;
+                languages[lLevels[i]] = $scope.languages[i].level; 
+            }
         }
-        languageData = {'selectionArray':selectedLanguages,'other':$scope.otherLanguage};
-        
-        // gather IDE data
+        sendData.languages.push(languages);
+
+        // gather ide data
         for (var j = 0; j < $scope.ides.length; j++) {
-            ideObj = {'name':$scope.ides[j].name, 'value':$scope.ides[j].box};
-            selectedIdes.push(ideObj);
+            if ($scope.ides[j].box === null) {
+                $scope.ides[j].box = 0
+            }
+            ides[iNames[j]] = $scope.ides[j].box;
         }
-        ideData = {'selectionArray':selectedIdes,'other':$scope.otherIde};
-        
+        ides[iNames[iNames.length - 1]] = $scope.otherIde;
+        ides['ASURITE_ID'] = UserInfoService.getUserId();
+        sendData.ide.push(ides);
+
         // gather tools data
         for (var k = 0; k < $scope.tools.length; k++) {
-            toolObj = {'name':$scope.tools[k].name, 'value':$scope.tools[k].box};
-            selectedTools.push(toolObj);
+            if ($scope.tools[k].box === null) {
+                $scope.tools[k].box = 0
+            }
+            tools[tNames[k]] = $scope.tools[k].box;
         }
-        toolData = {'selectionArray':selectedTools, 'other':$scope.otherTool};
-        dataPackage = {'languageData':languageData,'ideData':ideData,'toolData':toolData}; 
+        tools[tNames[tNames.length - 1]] = $scope.otherTool;
+        tools['ASURITE_ID'] = UserInfoService.getUserId(); 
+        sendData.tools.push(tools);
         
-        // TEST TEST -- displays data contents as it will be sent-------------------------------
-         for (var x = 0; x < dataPackage.languageData.selectionArray.length;x++) {
-            console.log(dataPackage.languageData.selectionArray[x].name +' '+ dataPackage.languageData.selectionArray[x].value + ' ' + dataPackage.languageData.selectionArray[x].level);
-        }
-        console.log(dataPackage.languageData.other);
-        for (var y = 0; y < dataPackage.ideData.selectionArray.length; y++) {
-            console.log(dataPackage.ideData.selectionArray[y].name +' '+ dataPackage.ideData.selectionArray[y].value);
-        }
-        console.log(dataPackage.ideData.other);
-        for (var z = 0; z < dataPackage.toolData.selectionArray.length; z++) {
-            console.log(dataPackage.toolData.selectionArray[z].name +' '+ dataPackage.toolData.selectionArray[z].value);
-        }
-        console.log(dataPackage.toolData.other);
-        //--------------------------------------------------------------------------------------
-        
-        /*$http.post('route', dataPackage).then(function successCallback(response) {
-            console.log('successful post');
-            // move the doRoute check here so the page routes after successful data save
-        }, function errorCallback(response) {
-            console.log('unsuccessful post');
-            // if an error occurs, notify user -- page will also not route (see success post above)
-        });*/
+        $http.post('/languages', sendData).then(function successCallback(response) {
+            if (doRoute === true) {
+                $location.path('/courses'); 
+            }
 
-        if (doRoute === true) {
-            $location.path('/courses'); 
-        }
+        }, function errorCallback(response) {
+            // TO DO
+        });
     } // end saveLanguages
-    
+
+    // Not functioning -- Still need to clear ides and tools
     $scope.clearUnselected = function() {
         for (var i = 0; i < $scope.languages.length; i++) {
             if ($scope.languages[i].box === 0) {
                 $scope.languages[i].level = null;
             }
         }
-    }        
+    }       
 });
 
 application.controller('coursesInfoController', function($scope, $location, $http) {
+    var courseNames = ['isASU101','isCSE110','isCSE205','isCSE230','isCSE240','isCSE563','isCSE564','isCSE566','isCSE120','isFSE100','isSER215',
+                       'isSER216','isSER222','isSER315','isSER316','isSER321','isSER322','isSER332','isSER334','isSER401','isSER402','isSER415',
+                       'isSER416','isSER421','isSER422','isSER423','isSER431','isSER432','isSER450','isSER456','isSER486','isSER501','isSER502',
+                       'isSER515','isSER516','isSER517','isSER518'];
+
     // LATER - try moving this to Service as an angular.value or constant
     $scope.courses = [{'name':'ASU 101','box':'asu101_box'},
                         {'name':'CSE 110','box':'cse110_box'},
@@ -539,61 +578,44 @@ application.controller('coursesInfoController', function($scope, $location, $htt
                         {'name':'SER 518','box':'ser518_box'}
                        ];
                          
-    //on page load, retrieve prior saved data                  
+    // on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
-        $http.get('route').then(function successCallback(response) {
-           // TEST TEST TEST ---TEST DATA-------------------------------------------
-           var response = {'data':{'courses':[
-                                              {'name':'SER 215','value':1},
-                                              {'name':'SER 315','value':1},
-                                              {'name':'SER 316','value':1},
-                                              {'name':'SER 401','value':1}
-                                             ],'other':'EEE 200'}};
-            //---END TEST DATA-------------------------------------------------------    
-            
-            for (var i = 0; i < $scope.courses.length; i++) {
-                for (var k = 0; k < response.data.courses.length; k++) {
-                        if ($scope.courses[i].name === response.data.courses[k].name) {
-                            $scope.courses[i].box = response.data.courses[k].value;
+        var user = { 'user' : UserInfoService.getUserId() };
+        var index = [];
+        $http.post('/courses/getCoursesInfo', user).then(function successCallback(response) {
+            var res = JSON.parse(JSON.stringify(response.data));
+            var index = [];
+            if (res.data) {
+                for (var i = 0; i < courseNames.length; i++) {
+                    for (var key in res.data.courses[0]) {
+                        if (res.data.courses[0].hasOwnProperty(key) && key == courseNames[i]) {
+                            $scope.courses[i].box = res.data.courses[0][key];
                         }
+                    }
                 }
+                $scope.otherCourse = res.data.other;
             }
-            $scope.otherCourse = response.data.other;
         }, function errorCallback(response) {
-
+            // TO DO
         });
     });
 
+    // saves data and posts - routes if the user chose to continue
     $scope.saveCourses = function(doRoute) {
-        var courseSelections = [];
-        var courseObj = {};
-        var coursesData = {};
-        
+        var courses = {};     
         // gather courses data
         for (var i = 0; i < $scope.courses.length; i++) {
-            courseObj = {'name':$scope.courses[i].name, 'value':$scope.courses[i].box};
-            courseSelections.push(courseObj);
+            courses[courseNames[i]] = $scope.courses[i].box;
         }
-        coursesData = {'courses':courseSelections, 'other':$scope.otherCourse};
-        
-        // TEST TEST -- displays data contents as it will be sent--------------------
-        for (var i = 0; i < coursesData.courses.length; i++) {
-            console.log(coursesData.courses[i].name +' '+ coursesData.courses[i].value);
-        }
-        console.log(coursesData.other);
-        //----------------------------------------------------------------------------
-        
-        /*$http.post('route', dataPackage).then(function successCallback(response) {
-            console.log('successful post');
-            // move the doRoute check here so the page routes after successful data save
-        }, function errorCallback(response) {
-            console.log('unsuccessful post');
-            // if an error occurs, notify user -- page will also not route (see success post above)
-        });*/
-        
-        if (doRoute === true) {
-            $location.path('/studentHome'); 
-        }
-    } // end saveLanguages
+        courses['ASURITE_ID'] = UserInfoService.getUserId();
+        courses['Other'] = $scope.otherCourse;
 
+        $http.post('/courses', courses).then(function successCallback(response) {
+            if (doRoute === true) {
+                $location.path('/studentHome'); 
+            }
+        }, function errorCallback(response) {
+            // TO DO
+        });
+    } // end saveLanguages
 });

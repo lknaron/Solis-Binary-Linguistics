@@ -1,14 +1,14 @@
 <div ng-controller='educationInfoController'>
     Education<br>
     Education Level <select ng-model="selectedDegree" ng-options="x for x in degrees"></select><br>
-    <div ng-if="selectedDegree==='Ph.D Other' || selectedDegree==='M.S. Other'">
+    <div ng-show="selectedDegree==='Ph.D Other' || selectedDegree==='M.S. Other'">
         Degree Program <input ng-model='otherDegree' type="text"><br>
     </div>
     GPA <input ng-model='gpa' type="text"><br>
     I'm currently on academic probation <input ng-model='probation' type="checkbox" ng-true-value='1' ng-false-value='0' ng-init='probation=0'> <br>
     I'm in the 4 + 1 program <input ng-model='fourPlusOne' type="checkbox" ng-true-value='1' ng-false-value='0' ng-init='fourPlusOne=0'> <br>
     I'm an international student <input ng-model='international' type="checkbox" ng-true-value='1' ng-false-value='0' ng-init='international=0'> <br>
-    <div ng-if="international===1">
+    <div ng-show="international===1">
         Speak Test <input ng-model='speakTest' type="text"><br>
     </div>
     Date of First Session <input ng-model='session' type="date"><br>

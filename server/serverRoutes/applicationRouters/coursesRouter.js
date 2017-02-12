@@ -1,6 +1,6 @@
 /*
- * File: contactInfoRouter.js
- * Description: Processes all requests routed from the server made to /contactInfo
+ * File: coursesRouter.js
+ * Description: Processes all requests routed from the server made to /courses
  */
 
 var express  = require('express');
@@ -29,12 +29,12 @@ router.post('/', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT * FROM Application WHERE ASURITE_ID = ?', [req.body.ASURITE_ID], function(err2, rows) { 
+        connection.query('SELECT * FROM Courses_Taught WHERE ASURITE_ID = ?', [req.body.ASURITE_ID], function(err2, rows) { 
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
             } else if (!rows.length) {
-                connection.query('INSERT INTO Application SET ?', [req.body], function(err3) {
+                connection.query('INSERT INTO Courses_Taught SET ?', [req.body], function(err3) {
                     if(err3) {
                         console.log('Error performing query: ' + err3);
                         throw err3;
@@ -43,12 +43,12 @@ router.post('/', function(req, res) {
                     }
                 });
             } else if (rows) {
-                connection.query('UPDATE Application SET ? WHERE ASURITE_ID = ?', [req.body, req.body.ASURITE_ID], function(err4) {
+                connection.query('UPDATE Courses_Taught SET ? WHERE ASURITE_ID = ?', [req.body, req.body.ASURITE_ID], function(err4) {
                     if(err4) {
                         console.log('Error performing query: ' + err4);
                         throw err4;
                     } else {
-                    res.sendStatus(200);
+                        res.sendStatus(200);
                     }
                 }); 
             }
@@ -57,23 +57,31 @@ router.post('/', function(req, res) {
     });
 });
 
-// Returns data to populate application page if user already saved contact information
-router.post('/getContactInfo', function(req, res) {
+// Returns data to populate application page if user already saved courses information
+router.post('/getCoursesInfo', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT PhoneNumber, MobileNumber, AddressOne, AddressTwo, AddressCountry, AddressCity, AddressState, AddressZip FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+        connection.query('SELECT * FROM Courses_Taught WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
             } else if (!rows.length) {
                 res.sendStatus(200);
             } else if (rows) {
-                res.send({'PhoneNumber' : rows[0].PhoneNumber, 'MobileNumber' : rows[0].MobileNumber, 'AddressCountry' : rows[0].AddressCountry, 'AddressOne' : rows[0].AddressOne, 
-                          'AddressTwo' : rows[0].AddressTwo, 'AddressCity' : rows[0].AddressCity, 'AddressState' : rows[0].AddressState, 'AddressZip' : rows[0].AddressZip});
+                for (key in rows[0]) {
+                    if (rows[0].hasOwnProperty(key) && rows[0][key] == 0) {
+                        delete rows[0][key];
+                    }
+                }
+                var otherCourses = rows[0]['Other'];
+                delete rows[0]['TaughtID'];
+                delete rows[0]['ASURITE_ID'];
+                delete rows[0]['Other'];
+                res.send({'data':{'courses': rows, 'other' : otherCourses}});
             } 
             connection.release();
         });
