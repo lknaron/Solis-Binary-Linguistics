@@ -1,0 +1,13 @@
+<div ng-controller='contactInfoController'>
+    Contact Info<br>
+    Phone Number <input ng-model='phoneNumber' type="text"><br>
+    Mobile Number <input ng-model='mobileNumber' type="text"><br>
+    Country <input ng-model='country' type="text"><br>
+    Address 1<input ng-model='addressOne' type="text"><br>
+    Address 2<input ng-model='addressTwo' type="text"><br>
+    City <input ng-model='city' type="text"><br>
+    State<input ng-model='state' type="text"><br>
+    Zip <input ng-model='zip' type="text"><br>
+    <button type='button' ng-click='saveContact(false)'>Save</button>
+    <button type='button' ng-click='saveContact(true)'>Save and Continue</button>
+</div>

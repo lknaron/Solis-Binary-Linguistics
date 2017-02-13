@@ -9,6 +9,7 @@ var app = angular.module('app', ['ngRoute',
                                  'app.login',
                                  'app.account',
                                  'app.student',
+                                 'app.application',
                                  'app.services']);
 
 // main app routing
@@ -34,6 +35,24 @@ app.config(function($routeProvider) {
         })
         .when('/badrequest', {
             templateUrl : 'app/errors/404.html'
+        })
+        .when('/contactInfo', {
+            templateUrl : 'app/application/contactInfoView.html'
+        })
+        .when('/education', {
+            templateUrl : 'app/application/educationView.html'
+        })
+        .when('/employment', {
+            templateUrl : 'app/application/employmentView.html'
+        })
+        .when('/availability', {
+            templateUrl : 'app/application/availabilityView.html'
+        })
+        .when('/languages', {
+            templateUrl : 'app/application/languagesView.html'
+        })
+        .when('/courses', {
+            templateUrl : 'app/application/coursesView.html'
         })
         .otherwise({
             redirectTo : '/badrequest'
