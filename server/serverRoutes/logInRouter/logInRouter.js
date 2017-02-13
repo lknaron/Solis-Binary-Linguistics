@@ -28,7 +28,8 @@ router.post('/', function(req, res) {
       throw err;
     }
     //  Use connection to query log in credentials
-    connection.query('SELECT * FROM User_ WHERE ASURITE_ID = ?', [req.body.username], function(err2, rows){
+    connection.query('SELECT User_.*, Application.LastSaved, Application.AppStatus FROM User_ LEFT JOIN Application ON ' +
+                     'User_.ASURITE_ID = Application.ASURITE_ID WHERE User_.ASURITE_ID = ?', [req.body.username], function(err2, rows){
       if(err2) {
         console.log('Error performing query: ' + err2);
         throw err2;
@@ -37,7 +38,8 @@ router.post('/', function(req, res) {
       } else if (rows && rows[0].UserPassword != req.body.password) {
         res.send({'error' : 2});  // Responds error 2 if incorrect password
       } else if (rows && rows[0].UserPassword == req.body.password) {
-        res.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole});
+        res.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 
+              'lastSaved' : rows[0].LastSaved, 'appStatus' : rows[0].AppStatus});
         updateLoginDate(req.body.username);
       }
       connection.release();
