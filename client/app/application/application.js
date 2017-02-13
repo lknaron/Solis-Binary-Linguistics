@@ -624,7 +624,7 @@ application.controller('coursesInfoController', function($scope, $location, $htt
         // gather courses data
         for (var i = 0; i < $scope.courses.length; i++) {
             coursesComp[courseNames[i]] = $scope.courses[i].box;
-            coursesTaught[courseNames[i]] = $scope.courses[i].box;
+            coursesTaught[courseNames[i]] = $scope.courses[i].pbox;
         }
         coursesComp['ASURITE_ID'] = UserInfoService.getUserId();
         coursesComp['Other'] = $scope.otherCourse;
