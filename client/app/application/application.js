@@ -605,7 +605,6 @@ application.controller('coursesInfoController', function($scope, $location, $htt
             if (res.data) {
                 for (var i = 0; i < courseNames.length; i++) {
                     for (var key in res.data.courses[0]) {
-                        console.log(key);
                         if (res.data.courses[0].hasOwnProperty(key) && key == courseNames[i]) {
                             $scope.courses[i].pbox = res.data.courses[0][key];
                         }
