@@ -57,11 +57,17 @@ services.service('UserInfoService', function($window) {
     }
 });
 
+/*
+* Checks user session status (authentication) and if the user is authorized to
+* view the route
+*/
 services.service('UserAuthService', function(UserInfoService, USER_ROLES) {
     this.isAuthenticated = function() {
-        // !!
-        return !!UserInfoService.getUserId();
+        // converts a truthy string to boolen true or false
+        // checks if user is logged in
+        return !!UserInfoService.getUserId() && !!UserInfoService.getToken();
     }
+    // checks if user type is authorized
     this.isAuthorized = function(authRoles) {
         if (authRoles.indexOf(USER_ROLES.all) !== -1) {
             return true;
@@ -70,14 +76,38 @@ services.service('UserAuthService', function(UserInfoService, USER_ROLES) {
     }
 });
 
-services.service('AuthInterceptor', function($injector, UserInfoService) {
+/*
+ * request: adds the stored token to the http call Authorization header     
+ * responseError: andles unauthorized response from server
+ */
+services.service('AuthInterceptor', function($injector, $location, UserInfoService) {
    return {
        request : function(config) {
            config.headers.Authorization = 'Bearer ' + UserInfoService.getToken();
            return config;
        },
        responseError : function(response) {
-           //TODO - if 401 error comes back, set isAuthenticated to FALSE
+           // user no longer authenticated - server responded with 401
+           console.log(response);
+           UserInfoService.clearUserSession();
+           $location.path('/unauthorized');
        }
    } 
+});
+
+/*
+ * Notifies user of successful account creation
+ */
+services.service('FirstTimeLoginService', function() {
+    this.firstTime = false;
+    
+    this.setFirstTime = function(val) {
+        this.firstTime = val;
+    }
+    this.isFirstTime = function() {
+        return this.firstTime;
+    }
+    this.firstTimeMessage = function() {
+        return 'Account creation successful. Please login to continue';
+    }
 });

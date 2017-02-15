@@ -22,8 +22,9 @@ app.constant('USER_ROLES', {
     student: 'student'
 });
 
+// upon a change in route, this checks if the user is logged in and is the correct user type to view the route
 app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_ROLES) {
-   $rootScope.$on('$routeChangeStart', function(event, next) {
+    $rootScope.$on('$routeChangeStart', function(event, next) {
        var authRoles = next.permissions;
        if (!UserAuthService.isAuthorized(authRoles)) {
            event.preventDefault();
@@ -36,13 +37,13 @@ app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_R
            } else {
                // user is not or no longer logged in - 401
                UserInfoService.clearUserSession();
-               $location.path('/unauthorized');
+               $location.path('/unauthorized');     
            }
        }
    }); 
 });
 
-app.config(function($routeProvider, $httpProvider, USER_ROLES) {
+app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES) {
     $routeProvider
         .when('/', {
             redirectTo : '/login',
@@ -56,6 +57,10 @@ app.config(function($routeProvider, $httpProvider, USER_ROLES) {
         .when('/studentHome', {
             templateUrl : 'app/users/studentView.html',
             permissions : [USER_ROLES.student]
+        })
+        .when('/facultyHome', {
+            templateUrl : 'app/users/dummyFacultyView.html',
+            permissions : [USER_ROLES.faculty]
         })
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',
@@ -106,14 +111,15 @@ app.config(function($routeProvider, $httpProvider, USER_ROLES) {
         })
         .when('/courses', {
             templateUrl : 'app/application/coursesView.html',
-            controller : 'coursesInfoController ',
+            controller : 'coursesInfoController',
             permissions : [USER_ROLES.student]
         })
         .otherwise({
             redirectTo : '/badrequest',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.all]
         });
     
+    // adds http interceptor for adding token to Auth header
     $httpProvider.interceptors.push([
         '$injector',
         function($injector) {

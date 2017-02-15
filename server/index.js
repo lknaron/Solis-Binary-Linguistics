@@ -30,7 +30,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Use JWT for token authorization
-app.use(expressJWT({secret:'sblapp123'}).unless({path:['/', '/login', '/createAccount']})); // token secret - not needed for 'unless' routes
+app.use(expressJWT({secret:'sblapp123'}).unless({path:['/', '/login', '/createAccount', '/favicon.ico']})); // token secret - not needed for 'unless' routes
 
 // Maybe create a seperate file for the routers or other app.use paths and body parser
 // Request routers

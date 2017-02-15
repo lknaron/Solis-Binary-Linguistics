@@ -6,16 +6,38 @@
 // setup module
 var header = angular.module('app.header', ['ngRoute']);
 
-header.controller('logoutController', function($scope, $location, $http, UserInfoService) {
-    $scope.logout = function() {
-        UserInfoService.clearUserSession();
+header.controller('logoutController', function($scope, $location, UserInfoService, UserAuthService) {
+
+    $scope.goHome = function() {
+        if (UserInfoService.getUserType() === 'student') {
+            $location.path('/studentHome');
+        } else if (UserInfoService.getUserType() === 'faculty') {
+            $location.path('/facultyHome');
+        }
+        // else other types TODO
+    }
+    
+    $scope.displayHome = function() {
+        if (UserAuthService.isAuthenticated()) {
+            return true;
+        }
+    }
+    
+    $scope.login = function() {
         $location.path('/login');
     }
     
-    $scope.goHome = function() {
-        console.log(UserInfoService.getUserType());
-        if (UserInfoService.getUserType() === 'student') {
-            $location.path('/studentHome');
-        } // else other types TODO
+    $scope.displayLogin = function() {
+        return !UserAuthService.isAuthenticated();
+
+    }
+       
+    $scope.logout = function() {
+        UserInfoService.clearUserSession();
+        $location.path('/login');
+    }   
+    
+    $scope.displayLogout = function() {
+        return UserAuthService.isAuthenticated();
     }
 });
