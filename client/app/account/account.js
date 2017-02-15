@@ -8,7 +8,7 @@
 var account = angular.module('app.account', ['ngRoute']);
 
 // account pages controllers
-account.controller('createAccountController', function($scope, $location, $http, UserInfoService) {
+account.controller('createAccountController', function($scope, $location, $http, UserInfoService, FirstTimeLoginService) {
     var regTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     $scope.submitAccount = function() {     
         $scope.message = '';        
@@ -34,8 +34,9 @@ account.controller('createAccountController', function($scope, $location, $http,
                 if (response.data.error === 0) {
                     UserInfoService.setUserId($scope.username);
                     UserInfoService.setFullName($scope.firstname + ' ' + $scope.lastname);
-                    UserInfoService.setUserType('student'); 
-                    $location.path('/studentHome');               
+                    UserInfoService.setUserType('student');
+                    FirstTimeLoginService.setFirstTime(true);
+                    $location.path('/login');               
                 } else if(response.data.error === 1) {
                     console.log(response.data.error);
                     $scope.message = 'User already exists';

@@ -3,6 +3,7 @@
 var express  = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var jwt = require('jsonwebtoken');
 
 // invoked for any requested passed to this router
 router.use(function(req, res, next) {
@@ -38,8 +39,9 @@ router.post('/', function(req, res) {
       } else if (rows && rows[0].UserPassword != req.body.password) {
         res.send({'error' : 2});  // Responds error 2 if incorrect password
       } else if (rows && rows[0].UserPassword == req.body.password) {
+        var token = jwt.sign({username:req.body.username}, 'sblapp123');
         res.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 
-              'lastSaved' : rows[0].LastSaved, 'appStatus' : rows[0].AppStatus});
+              'lastSaved' : rows[0].LastSaved, 'appStatus' : rows[0].AppStatus, 'token':token});
         updateLoginDate(req.body.username);
       }
       connection.release();
