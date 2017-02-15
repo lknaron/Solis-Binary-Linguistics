@@ -1,9 +1,25 @@
-<div ng-controller='loginController'>
-    <a href='#!/createAccount'>Create Account</a><br>
+<div class="form" ng-controller='loginController'>
+  <ul class="tab-group">
+    <li class="tab active"><a href="#!/login">Login</a></li>
+    <li class="tab"><a href='#!/createAccount'>Create Account</a></li>
+  </ul>
+  <div class="tab-content"></div><!--Tab Content-->
+  	
+  <div id="login">   
+    <h1>Welcome Back!</h1><br>       
     <form ng-submit='submitLogin()'>
-        Name<input ng-model='username'/><br>
-        Password<input ng-model='password'/><br>
-        <button type='submit'>Login</button>
+      <div class="field-wrap">
+        <label>ASURITE ID:<span class="req">*</span></label><br>
+        <input type="asurite" ng-model='username' required autocomplete="off"/>
+      </div>
+            
+      <div class="field-wrap">
+        <label>Password:<span class="req">*</span></label><br>
+        <input type="password" ng-model='password' required autocomplete="off"/>
+      </div>
+      <p class="error" ng-model='message'>{{message}}</p>
+      <p class="forgot"><a href="#">Forgot Password?</a></p>
+      <button class="button" type='submit'>Log In</button> 
     </form>
-    <p ng-model='message'>{{message}}</p>
-</div>
+  </div><!--form-->
+</div><!--Log In-->	

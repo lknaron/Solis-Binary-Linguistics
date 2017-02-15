@@ -20,7 +20,8 @@ application.controller('contactInfoController', function($scope, $location, $htt
             }
             $scope.city = response.data.AddressCity;
             $scope.state = response.data.AddressState;
-            $scope.zip = response.data.AddressZip;        
+            $scope.zip = response.data.AddressZip;  
+            $scope.name = UserInfoService.getFullName();      
         }, function errorCallback(response) {
             //TODO
         });   

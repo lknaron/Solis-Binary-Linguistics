@@ -1,4 +1,7 @@
-// Log in router ('/login')
+/*
+ * File: logInRouter.js
+ * Description: Processes all requests routed from the server made to /login
+ */
 
 var express  = require('express');
 var router = express.Router();
@@ -49,7 +52,7 @@ router.post('/', function(req, res) {
   });
 });
 
-// Update users last log in date/time
+// Update users last login date/time
 function updateLoginDate (user) {
   var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
     mysql_pool.getConnection(function(err, connection) {
