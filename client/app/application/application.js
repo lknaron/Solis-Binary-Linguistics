@@ -114,7 +114,11 @@ application.controller('educationInfoController', function($scope, $location, $h
             $scope.fourPlusOne = response.data.isFourPlusOne;
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
-            $scope.session = new Date(response.data.FirstSession);
+            if (response.data.FirstSession != null) {
+                $scope.session = new Date(response.data.FirstSession);    
+            } else {
+                $scope.FirstSession = new Date();
+            } 
             switch (response.data.GraduationDatel) {
                 case "Fall 2017":
                     $scope.gradDate = $scope.gradDates[0];
