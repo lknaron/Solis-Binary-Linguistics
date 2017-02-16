@@ -22,10 +22,22 @@ app.constant('USER_ROLES', {
     student: 'student'
 });
 
-// upon a change in route, this checks if the user is logged in and is the correct user type to view the route
+/* Upon a change in route, this checks if the user is logged in and is the correct 
+ * user type to view the route. 
+ * Sets the css layout for the next page. 
+ * Reroutes a logged in user to home page if they attempt to access login page.
+ */
 app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_ROLES) {
     $rootScope.$on('$routeChangeStart', function(event, next) {
-       $rootScope.layout = next.layout;
+       // reroute logged in user from hitting login page
+       if (next.templateUrl === 'app/login/loginView.html' && UserAuthService.isAuthenticated()) {
+           if (UserInfoService.getUserType() === USER_ROLES.student) {
+                $location.path('/studentHome'); 
+           } else if (UserInfoService.getUserType() === USER_ROLES.faculty) {
+                $location.path('/facultyHome'); 
+           }    // rest TODO
+       }
+       // checks if a user is authorized to view a page
        var authRoles = next.permissions;
        if (!UserAuthService.isAuthorized(authRoles)) {
            event.preventDefault();
@@ -41,6 +53,10 @@ app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_R
                $location.path('/unauthorized');     
            }
        }
+   }); 
+   $rootScope.$on('$routeChangeSuccess', function(event, current, next) {
+        // this is here to grab the layout after path changes in routeChangeStart above
+        $rootScope.layout = current.layout;
    }); 
 });
 
@@ -73,7 +89,9 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/viewAccount', {
             templateUrl : 'app/account/accountView.html',
             controller : 'viewAccountController',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.student, USER_ROLES.faculty,
+                           USER_ROLES.administrative, USER_ROLES.human_resources,
+                           USER_ROLES.program_chair]
         })
         .when('/badrequest', {
             templateUrl : 'app/errors/404.html',

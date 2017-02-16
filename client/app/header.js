@@ -6,7 +6,7 @@
 // setup module
 var header = angular.module('app.header', ['ngRoute']);
 
-header.controller('logoutController', function($scope, $location, UserInfoService, UserAuthService) {
+header.controller('headerController', function($scope, $location, UserInfoService, UserAuthService) {
 
     $scope.goHome = function() {
         if (UserInfoService.getUserType() === 'student') {
@@ -28,8 +28,7 @@ header.controller('logoutController', function($scope, $location, UserInfoServic
     }
     
     $scope.displayLogin = function() {
-        return !UserAuthService.isAuthenticated();
-
+        return $location.path() === '/unauthorized';
     }
        
     $scope.logout = function() {
