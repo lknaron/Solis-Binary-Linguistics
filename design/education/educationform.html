@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Education</title>
+<link rel="stylesheet" href="css/educationform.css">
+
+
+</head>
+<body>
+<div class="form-education">
+<form>
+<fieldset>
+<legend><span class="number">1</span>Education</legend>
+
+<label for="programs">Current Degree Program:</label>
+<select id="program" name="program" onchange="onSelectChange()" required>
+<optgroup label="Doctorate">
+  <option value="phd-computer-science">Ph.D. Computer Science</option>
+  <option value="phd-computer-engineering">Ph.D. Computer Engineering</option>
+  <option value="phd-smacs">Ph.D. SMACS</option>
+  <option value="phd-other">Ph.D. Other</option>
+</optgroup>
+<optgroup label="Masters">
+  <option value="ms-software-engineering">M.S. Software Engineering</option>
+  <option value="ms-computer-engineering">M.S. Computer Engineering</option>
+  <option value="mcs-computer-science">M.C.S. Computer Science</option>
+  <option value="ms-other">M.S. Other</option>
+</optgroup>
+</select>  
+<input type="text" name="gpa" placeholder="GPA *" required>
+
+<textarea id="textphd" name="otherphd" placeholder="Type in the name of your doctorate " style="display: none"></textarea>
+<textarea id="textms" name="otherms" placeholder="Type in the name of your masters " style="display: none"></textarea>
+
+
+</fieldset>
+<script> function onSelectChange(){
+    var sel = document.getElementById('program');
+    var strUser = sel.options[sel.selectedIndex].text;  //getting the selected option's text
+		
+    if(strUser == 'Ph.D. Other'){  
+   		document.getElementById('textphd').style.display = "block";
+   		document.getElementById('textms').style.display = "none";       
+	
+    }
+    else if(strUser == 'M.S. Other'){ 
+   		document.getElementById('textms').style.display = "block"; 
+   		document.getElementById('textphd').style.display = "none";     
+		
+    }else{
+   		document.getElementById('textms').style.display = "none"; 
+   		document.getElementById('textphd').style.display = "none"; 
+	}
+}</script>
+	</form> 
+<fieldset>
+<legend><span class="number">2</span> Additional Information</legend>
+ <form>
+  <input type="checkbox" id="probation-chk" name="academic-probation" value="academic-probation"> I am on academic probation<br>
+  <div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+	  <p><center>Your application won't be considered until the academic probation has been cleared.</center></p>
+  </div>
+  
+</div>
+  
+ <script>
+		// Get the modal
+	var modal = document.getElementById('myModal');
+
+	// Get the checkbox that opens the modal
+	var chkbx = document.getElementById("probation-chk");
+	chkbx.onchange = function() {
+		if(chkbx.checked){
+			modal.style.display = "block";				
+		}
+	}
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+</script> 
+  
+  
+  
+  <input type="checkbox" name="4to1" value="4to1" checked> I'm in the 4 to 1 program<br>
+  <input type="checkbox" id="international-student" name="international-student"  onclick="speakScore()"/> I'm an international student<br><br>
+  
+  <style>
+	 .hidden{
+		 display: none;
+		 	 }
+	 </style>
+	 
+ <textarea class="hidden" id="speak-test" name="speak-test" placeholder="Type in your speak test score"></textarea>
+ 
+ <script type="text/javascript">
+	 function speakScore() {
+	var check = document.getElementById('international-student');
+	if (check.checked){ 
+		document.getElementById('speak-test').style.display = "block";
+	}
+		 else{ document.getElementById('speak-test').style.display = "none";
+		
+	}
+		 
+		 
+	 }
+	 </script>
+	 <label>Date You Started At Arizona State University:</label>
+	 <input type="date" name="date">
+	 
+	 <label>Graduation Date:</label>
+<select>
+<optgroup label="Spring">
+  <option value="spring-2017">Spring 2017</option>
+  <option value="spring-2018">Spring 2018</option>
+  <option value="spring-2019">Spring 2019</option>
+  <option value="spring-2020">Spring 2020</option>
+  <option value="spring-2021">Spring 2021</option>
+</optgroup>
+<optgroup label="Fall">
+ <option value="fall-2017">Fall 2017</option>
+ <option value="fall-2018">Fall 2018</option>
+ <option value="fall-2019">Fall 2019</option>
+ <option value="fall-2020">Fall 2020</option>
+  <option value="fall-2021">Fall 2021</option>
+</optgroup>
+</select>  
+
+	
+</form>
+	</fieldset>	
+	
+	<form>
+<fieldset>
+<legend><span class="number">3</span>File Attachment</legend>
+
+<label>iPOS:</label>
+
+<input type="text" name="ipos" required>
+<a href="#" class="myButton">Browse</a><br><br>
+<label>Resume:</label>
+<input type="text" name="ipos" required>
+        
+<a href="#" class="myButton">Browse</a><br><br>
+	
+
+</fieldset>
+	</form>	
+	
+ <input type="submit" value="Save and Continue"/>
+	</div><!--Form div-->
+</body>
+</html>
