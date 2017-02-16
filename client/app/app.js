@@ -25,6 +25,7 @@ app.constant('USER_ROLES', {
 // upon a change in route, this checks if the user is logged in and is the correct user type to view the route
 app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_ROLES) {
     $rootScope.$on('$routeChangeStart', function(event, next) {
+       $rootScope.layout = next.layout;
        var authRoles = next.permissions;
        if (!UserAuthService.isAuthorized(authRoles)) {
            event.preventDefault();
@@ -52,7 +53,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/login', {
             templateUrl : 'app/login/loginView.html',
             controller : 'loginController',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.all],
+            layout : "/app/login/css/login.css"
         })
         .when('/studentHome', {
             templateUrl : 'app/users/studentView.html',
@@ -65,7 +67,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',
             controller : 'createAccountController',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.all],
+            layout : "/app/account/css/createAccount.css"
         })
         .when('/viewAccount', {
             templateUrl : 'app/account/accountView.html',
@@ -87,7 +90,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/contactInfo', {
             templateUrl : 'app/application/contactInfoView.html',
             controller : 'contactInfoController',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            layout : "/app/application/css/contactInfo.css"
         })
         .when('/education', {
             templateUrl : 'app/application/educationView.html',

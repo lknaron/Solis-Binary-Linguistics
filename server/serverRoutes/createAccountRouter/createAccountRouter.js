@@ -1,4 +1,7 @@
-// Create Account router ('/createAccount')
+/*
+ * File: createAccountRouter.js
+ * Description: Processes all requests routed from the server made to /createAccount
+ */
 
 var express  = require('express');
 var router = express.Router();
@@ -18,11 +21,8 @@ var mysql_pool  = mysql.createPool({
     database        : 'sblDB'
 });
 
+// Checks if user already exists, if so alerts user, if not saves account
 router.post('/', function(req, res) {
-  checkDuplicate(req, res);
-});
-
-function checkDuplicate(req, res) {
   mysql_pool.getConnection(function(err, connection) {
     if (err) {
       connection.release();
@@ -30,39 +30,24 @@ function checkDuplicate(req, res) {
       throw err;
     }
     connection.query('SELECT * FROM User_ WHERE ASURITE_ID = ?', [req.body.ASURITE_ID], function(err2, rows) {
-      console.log("Rows  " + rows);
       if(err2) {
         console.log('Error performing query: ' + err2);
         throw err2;
       } else if (!rows.length) {
-        saveAccount(req, res);
+        connection.query('INSERT INTO User_ SET ?', [req.body], function(err2) {
+          if(err2) {
+            console.log('Error performing query: ' + err2);
+            throw err2;
+          } else {     
+            res.send({'error' : 0});
+          }
+        });
       } else if (rows) {
         res.send({'error' : 1});
       }
       connection.release();
     });
   });
-}
-
-function saveAccount(req, res) {
-  mysql_pool.getConnection(function(err, connection) {
-    if (err) {
-      connection.release();
-      console.log('Error getting mysql_pool connection: ' + err);
-      throw err;
-    }
-    connection.query('INSERT INTO User_ SET ?', [req.body], function(err2) {
-      if(err2) {
-        console.log('Error performing query: ' + err2);
-        throw err2;
-      } else {     
-        console.log("Inserted");
-        res.send({'error' : 0});
-        console.log("error sent");
-      }
-      connection.release();
-    });
-  });
-}
+});
 
 module.exports = router;

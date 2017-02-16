@@ -149,8 +149,7 @@ router.post('/getLanguagesInfo', function(req, res) {
           				'level' : subset2[2] 
       				});
 				}	
-      		}
-      			
+      		}		
     	});
     	connection.query('SELECT * FROM IDEs WHERE ASURITE_ID = ?', [req.body.user], function(err3, rows) {
     		if(err3) {
@@ -176,8 +175,7 @@ router.post('/getLanguagesInfo', function(req, res) {
           				'value' : arr[i],
       				});
 				}
-      		}
-      		
+      		}	
     	});
     	connection.query('SELECT * FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body.user], function(err4, rows) {
     		if(err4) {
