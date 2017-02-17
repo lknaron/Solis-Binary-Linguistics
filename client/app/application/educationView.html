@@ -5,7 +5,7 @@
             <label for="programs">Current Degree Program:</label>
             <select ng-model="selectedDegree" ng-options="x for x in degrees" id="program" name="program" required></select>
             <div ng-show="selectedDegree==='Ph.D Other' || selectedDegree==='M.S. Other'">
-                <input ng-model='otherDegree' type="text" id="textphd" name="otherphd" placeholder="Type in the name of your doctorate "><br>
+                <input ng-model='otherDegree' type="text" id="textphd" name="otherphd" placeholder="Type in the name of your degree program"><br>
             </div>
             <input ng-model='gpa' type="text" name="gpa" placeholder="GPA *" required>
         </fieldset>
