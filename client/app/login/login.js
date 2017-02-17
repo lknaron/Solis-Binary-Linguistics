@@ -33,11 +33,8 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                 }
                 /* other types TODO */
             } else if (response.data.error === 1) {
-                // no such user exists
-                $scope.message = 'Login name not found';
-            } else if (response.data.error === 2) {
-                // incorrect password
-                $scope.message = 'Incorrect password';
+                // Incorrect Credentials
+                $scope.message = 'Username/Password Incorrect';
             } else {
                 // TODO
             }      

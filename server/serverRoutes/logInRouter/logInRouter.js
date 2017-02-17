@@ -37,10 +37,8 @@ router.post('/', function(req, res) {
       if(err2) {
         console.log('Error performing query: ' + err2);
         throw err2;
-      } else if (!rows.length) {
-        res.send({'error' : 1});  // Responds error 1 if no user found
-      } else if (rows && rows[0].UserPassword != req.body.password) {
-        res.send({'error' : 2});  // Responds error 2 if incorrect password
+      } else if (!rows.length || rows && rows[0].UserPassword != req.body.password) {
+        res.send({'error' : 1});  // Responds error 1 if incorrect password or username
       } else if (rows && rows[0].UserPassword == req.body.password) {
         var token = jwt.sign({username:req.body.username}, 'sblapp123');
         res.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 

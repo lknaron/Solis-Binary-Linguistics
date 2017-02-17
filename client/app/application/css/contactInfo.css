@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-.form{
+.form {
     max-width: 500px;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -10,17 +10,21 @@
     border-radius: 8px;
     font-family: Georgia, "Times New Roman", Times, serif;
 }
-.form fieldset{
+
+.form fieldset {
     border: none;
 }
+
 .form legend {
     font-size: 1.4em;
     margin-bottom: 10px;
 }
+
 .form label {
     display: block;
     margin-bottom: 8px;
 }
+
 .form input[type="text"],
 .form input[type="date"],
 .form input[type="datetime"],
@@ -47,9 +51,9 @@
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
-   
+    margin-bottom: 30px; 
 }
+
 .form input[type="text"]:focus,
 .form input[type="date"]:focus,
 .form input[type="datetime"]:focus,
@@ -59,13 +63,15 @@
 .form input[type="time"]:focus,
 .form input[type="url"]:focus,
 .form textarea:focus,
-.form select:focus{
+.form select:focus {
     background: #d2d9dd;
 }
-.form select{
+
+.form select {
     -webkit-appearance: menulist-button;
     height:35px;
 }
+
 .form .number {
     background: #1abc9c;
     color: #fff;
@@ -80,8 +86,7 @@
     border-radius: 15px 15px 15px 0px;
 }
 
-.form input[type="button"]
-{
+.form input[type="button"] {
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
@@ -96,8 +101,8 @@
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
 }
+
 .form input[type="submit"]:hover,
-.form input[type="button"]:hover
-{
+.form input[type="button"]:hover {
     background: #109177;
 }

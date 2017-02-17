@@ -72,72 +72,35 @@ application.controller('educationInfoController', function($scope, $location, $h
                       "M.S. Computer Engineering",
                       "M.C.S Computer Science",
                       "M.S. Other"];
-    $scope.gradDates = ["Fall 2017",
-                        "Spring 2018",
-                        "Fall 2018",
-                        "Sping 2019",
-                        "Fall 2019",
-                        "Spring 2020"];
+    $scope.gradDates = [];
+
+    var today = new Date();
+    var year = today.getFullYear();
+
+    for(var i = 0; i < 3; i++) {
+        $scope.gradDates.push("Fall " + (year + i));
+        $scope.gradDates.push("Spring " + (year + (i + 1)));
+        $scope.gradDates.push("Summer " + (year + (i + 1)));
+    }
     
     // populates the Education page        
     angular.element(document).ready(function() {        
         var user = { 'user' : UserInfoService.getUserId() };
         $http.post('/education/getEducationInfo', user).then(function successCallback(response) {  
-            switch (response.data.EducationLevel) {
-                case "Ph.D Computer Science":
-                    $scope.selectedDegree = $scope.degrees[0];
-                    break;
-                case "Ph.D Computer Engineering":
-                    $scope.selectedDegree = $scope.degrees[1];
-                    break;
-                case "Ph.D SMACS":
-                    $scope.selectedDegree = $scope.degrees[2];
-                    break;
-                case "Ph.D Other":
-                    $scope.selectedDegree = $scope.degrees[3];
-                    break;
-                case "M.S. Software Engineering":
-                    $scope.selectedDegree = $scope.degrees[4];
-                    break;
-                case "M.S. Computer Engineering":
-                    $scope.selectedDegree = $scope.degrees[5];
-                    break;
-                case "M.S. Computer Science":
-                    $scope.selectedDegree = $scope.degrees[6];
-                    break;
-                case "M.S. Other":
-                    $scope.selectedDegree = $scope.degrees[7];     
-            }
+            $scope.selectedDegree = response.data.EducationLevel;
             $scope.gpa = response.data.GPA;
             $scope.otherDegree = response.data.DegreeProgram;
             $scope.probation = response.data.isAcademicProbation;
+            if (response.data.isAcademicProbation === 1) {
+                $scope.probationMessage = "Your application won't be considered until the academic probation has been cleared.";
+            }
             $scope.fourPlusOne = response.data.isFourPlusOne;
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
             if (response.data.FirstSession != null) {
                 $scope.session = new Date(response.data.FirstSession);    
-            } else {
-                $scope.FirstSession = new Date();
             } 
-            switch (response.data.GraduationDatel) {
-                case "Fall 2017":
-                    $scope.gradDate = $scope.gradDates[0];
-                    break;
-                case "Spring 2018":
-                    $scope.gradDate = $scope.gradDates[1];
-                    break;
-                case "Fall 2018":
-                    $scope.gradDate = $scope.gradDates[2];
-                    break;
-                case "Spring 2019":
-                    $scope.gradDate = $scope.gradDates[3];
-                    break;
-                case "Fall 2019":
-                    $scope.gradDate = $scope.gradDates[4];
-                    break;
-                case "Spring 2020":
-                    $scope.gradDate = $scope.gradDates[5];
-            }
+            $scope.gradDate = response.data.GraduationDatel;
         }, function errorCallback(response) {
             //TODO
         });
