@@ -91,9 +91,6 @@ application.controller('educationInfoController', function($scope, $location, $h
             $scope.gpa = response.data.GPA;
             $scope.otherDegree = response.data.DegreeProgram;
             $scope.probation = response.data.isAcademicProbation;
-            if (response.data.isAcademicProbation === 1) {
-                $scope.probationMessage = "Your application won't be considered until the academic probation has been cleared.";
-            }
             $scope.fourPlusOne = response.data.isFourPlusOne;
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
