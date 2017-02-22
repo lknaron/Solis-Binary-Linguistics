@@ -114,7 +114,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/education', {
             templateUrl : 'app/application/educationView.html',
             controller : 'educationInfoController',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            layout : "/app/application/css/education.css"
         })
         .when('/employment', {
             templateUrl : 'app/application/employmentView.html',
