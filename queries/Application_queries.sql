@@ -1,4 +1,6 @@
+-- -----------------------------------------------------
 -- Application Table
+-- -----------------------------------------------------
 
 -- Insert Application Table
 INSERT INTO Application SET?
@@ -21,20 +23,38 @@ UPDATE Application SET MobileNumber = ? WHERE ASURITE_ID = ?
 -- Select Address 
 SELECT AddressOne, AddressTwo, AddressCity, AddressState, AddressZip, AddressCountry FROM Application WHERE ASURITE_ID = ?
 
+-- Select Address One
+SELECT AddressOne FROM Application WHERE ASURITE_ID = ?
+
 -- Update Address One
 UPDATE Application SET AddressOne = ? WHERE ASURITE_ID = ?
+
+-- Select Address Two
+SELECT AddressTwo FROM Application WHERE ASURITE_ID = ?
 
 -- Update Address Two
 UPDATE Application SET AddressTwo = ? WHERE ASURITE_ID = ?
 
+-- Select Address Country
+SELECT AddressCountry FROM Application WHERE ASURITE_ID = ?
+
 -- Update Address Country
 UPDATE Application SET AddressCountry = ? WHERE ASURITE_ID = ?
+
+-- Select Address City
+SELECT AddressCity FROM Application WHERE ASURITE_ID = ?
 
 -- Update Address City
 UPDATE Application SET AddressCity = ? WHERE ASURITE_ID = ?
 
+-- Select Address State
+SELECT AddressState FROM Application WHERE ASURITE_ID = ?
+
 -- Update Address State
 UPDATE Application SET AddressState = ? WHERE ASURITE_ID = ?
+
+-- Select Address Zip
+SELECT AddressZip FROM Application WHERE ASURITE_ID = ?
 
 -- Update Address Zip
 UPDATE Application SET AddressZip = ? WHERE ASURITE_ID = ?
@@ -75,7 +95,10 @@ SELECT isInternationalStudent, SpeakTest FROM Application WHERE ASURITE_ID = ?
 -- Update International Student
 UPDATE Application SET isInternationalStudent = ? WHERE ASURITE_ID = ?
 
--- Update Speak test
+-- Select Speak Test
+SELECT SpeakTest FROM Application WHERE ASURITE_ID = ?
+
+-- Update Speak Test
 UPDATE Application SET SpeakTest = ? WHERE ASURITE_ID = ?
 
 -- Select First Session
@@ -108,11 +131,14 @@ SELECT isGrader FROM Application WHERE ASURITE_ID = ?
 -- Update Grader
 UPDATE Application SET isGrader = ? WHERE ASURITE_ID = ?
 
--- Select Current Work
-SELECT CurrentEmployer, WorkHours FROM Application WHERE ASURITE_ID = ?
+-- Select Current Employer
+SELECT CurrentEmployer FROM Application WHERE ASURITE_ID = ?
 
 -- Update Current Employer 
 UPDATE Application SET CurrentEmployer = ? WHERE ASURITE_ID = ?
+
+-- Select Work Hours
+SELECT WorkHours FROM Application WHERE ASURITE_ID = ?
 
 -- Update Work Hours
 UPDATE Application SET WorkHours = ? WHERE ASURITE_ID = ?
@@ -141,761 +167,518 @@ SELECT ModifiedDate FROM Application WHERE ASURITE_ID = ?
 -- Update Modified Date
 UPDATE Application SET ModifiedDate = ? WHERE ASURITE_ID = ?
 
--- Update Last Saved location
-UPDATE Application SET LastSaved = ? WHERE ASURITE_ID = ?
 
+-- -----------------------------------------------------
 -- Calendar Table
+-- -----------------------------------------------------
 
 -- Insert Calendar Table
 INSERT INTO Calendar SET?
 
 -- Select Calendar
-SELECT * FROM Calendar WHERE AppID = ?
+SELECT * FROM Calendar WHERE ASURITE_ID = ?
 
 -- Update Calendar Name
-UPDATE Calendar SET CalendarName = ? WHERE AppID = ?
+UPDATE Calendar SET CalendarName = ? WHERE ASURITE_ID = ?
 
--- Update Calendar Day
-UPDATE Calendar SET CalendarDay = ? WHERE AppID = ?
+-- Update Calendar Day for Fall
+UPDATE Calendar SET CalendarDay = ? WHERE CalendarName = 'Fall Semester' AND ASURITE_ID = ?
 
--- Update Start Hour
-UPDATE Calendar SET StartHour = ? WHERE AppID = ?
+-- Update Calendar Day for Spring
+UPDATE Calendar SET CalendarDay = ? WHERE CalendarName = 'Spring Semester' AND ASURITE_ID = ?
 
--- Update Stop Hour
-UPDATE Calendar SET StopHour = ? WHERE AppID = ?
+-- Update Calendar Day for Summer
+UPDATE Calendar SET CalendarDay = ? WHERE CalendarName = 'Summer Semester' AND ASURITE_ID = ?
+
+-- Update Start Hour for Fall on Monday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Monday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Fall on Tuesday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Tuesday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Fall on Wednesday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Wednesday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Fall on Thursday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Thursday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Fall on Friday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Friday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Spring on Monday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Monday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Spring on Tuesday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Tuesday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Spring on Wednesday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Wednesday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Spring on Thursday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Thursday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Spring on Friday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Friday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Summer on Monday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Monday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Summmer on Tuesday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Tuesday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Summer on Wednesday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Wednesday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Summer on Thursday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Thursday' AND ASURITE_ID = ?
+
+-- Update Start Hour for Summer on Friday
+UPDATE Calendar SET StartHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Friday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Fall on Monday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Monday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Fall on Tuesday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Tuesday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Fall on Wednesday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Wednesday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Fall on Thursday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Thursday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Fall on Friday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Fall Semster' AND CalendarDay = 'Friday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Spring on Monday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Monday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Spring on Tuesday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Tuesday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Spring on Wednesday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Wednesday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Spring on Thursday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Thursday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Spring on Friday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Spring Semster' AND CalendarDay = 'Friday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Summer on Monday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Monday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Summmer on Tuesday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Tuesday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Summer on Wednesday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Wednesday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Summer on Thursday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Thursday' AND ASURITE_ID = ?
+
+-- Update Stop Hour for Summer on Friday
+UPDATE Calendar SET StopHour = ? WHERE CalendarName = 'Summer Semster' AND CalendarDay = 'Friday' AND ASURITE_ID = ?
 
 
+-- -----------------------------------------------------
 -- Attachment Table
+-- -----------------------------------------------------
 
 -- Insert Attachment Table
 INSERT INTO Attachment SET?
 
 -- Select Attachment
-SELECT * FROM Attachment WHERE AppID = ?
+SELECT * FROM Attachment WHERE ASURITE_ID = ?
 
 -- Update Attachment Name
-UPDATE Attachment SET AttachmentName = ? WHERE AppID = ?
+UPDATE Attachment SET AttachmentName = ? WHERE ASURITE_ID = ?
 
 -- Update Attachment Type
-UPDATE Attachment SET AttachmentType = ? WHERE AppID = ?
+UPDATE Attachment SET AttachmentType = ? WHERE ASURITE_ID = ?
 
 -- Update Attachment Size
-UPDATE Attachment SET AttachmentSize = ? WHERE AppID = ?
+UPDATE Attachment SET AttachmentSize = ? WHERE ASURITE_ID = ?
 
 -- Update Upload Date
-UPDATE Attachment SET UploadDate = ? WHERE AppID = ?
+UPDATE Attachment SET UploadDate = ? WHERE ASURITE_ID = ?
 
+
+-- -----------------------------------------------------
 -- Languages Table
+-- -----------------------------------------------------
 
 -- Insert Languages Table
 INSERT INTO Languages SET?
 
 -- Select Languages
-SELECT * FROM Languages WHERE AppID = ?
+SELECT * FROM Languages WHERE ASURITE_ID = ?
 
--- Select C
-SELECT isC, CLevel FROM Languages WHERE AppID = ?
+-- Select C Language and Level
+SELECT isLanguage = 'C', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update C
-UPDATE Languages SET isC = ? WHERE AppID = ?
+-- Update C Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'C' AND ASURITE_ID = ?
 
--- Update C Level
-UPDATE Languages SET CLevel = ? WHERE AppID = ?
+-- Select C++ Language and Level
+SELECT isLanguage = 'C++', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select C#
-SELECT isCSharp, CSharpLevel FROM Languages WHERE AppID = ?
+-- Update C++ Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'C++' AND ASURITE_ID = ?
 
--- Update C#
-UPDATE Languages SET isCSharp = ? WHERE AppID = ?
+-- Select C Language and Level
+SELECT isLanguage = 'CSS', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update C# Level
-UPDATE Languages SET CSharpLevel = ? WHERE AppID = ?
+-- Update CSS Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'CSS' AND ASURITE_ID = ?
 
--- Select C++
-SELECT isCPlusPlus, CPlusPlusLevel FROM Languages WHERE AppID = ?
+-- Select HTML Language and Level
+SELECT isLanguage = 'HTML', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update C++
-UPDATE Languages SET isCPlusPlus = ? WHERE AppID = ?
+-- Update HTML Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'HTML' AND ASURITE_ID = ?
 
--- Update C++ Level
-UPDATE Languages SET CPlusPlusLevel = ? WHERE AppID = ?
+-- Select Java Language and Level
+SELECT isLanguage = 'Java', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select CSS
-SELECT isCSS, CSSLevel FROM Languages WHERE AppID = ?
+-- Update Java Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Java' AND ASURITE_ID = ?
 
--- Update CSS
-UPDATE Languages SET isCSS = ? WHERE AppID = ?
+-- Select JavaScript Language and Level
+SELECT isLanguage = 'JavaScript', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update CSS Level
-UPDATE Languages SET CSSLevel = ? WHERE AppID = ?
+-- Update JavaScript Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'JavaScript' AND ASURITE_ID = ?
 
--- Select HTML
-SELECT isHTML, HTMLLevel FROM Languages WHERE AppID = ?
+-- Select JSON Language and Level
+SELECT isLanguage = 'JSON', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update HTML
-UPDATE Languages SET isHTML = ? WHERE AppID = ?
+-- Update JSON Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'JSON' AND ASURITE_ID = ?
 
--- Update HTML Level
-UPDATE Languages SET HTMLLevel = ? WHERE AppID = ?
+-- Select Python Language and Level
+SELECT isLanguage = 'Python', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select Java
-SELECT isJava, JavaLevel FROM Languages WHERE AppID = ?
+-- Update Python Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Python' AND ASURITE_ID = ?
 
--- Update Java
-UPDATE Languages SET isJava = ? WHERE AppID = ?
+-- Select SQL Language and Level
+SELECT isLanguage = 'SQL', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update Java Level
-UPDATE Languages SET JavaLevel = ? WHERE AppID = ?
+-- Update SQL Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'SQL' AND ASURITE_ID = ?
 
--- Select Javascript
-SELECT isJavascript, JavascriptLevel FROM Languages WHERE AppID = ?
+-- Select Swift Language and Level
+SELECT isLanguage = 'Swift', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update Javascript
-UPDATE Languages SET isJavascript = ? WHERE AppID = ?
+-- Update Swift Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Swift' AND ASURITE_ID = ?
 
--- Update Javascript Level
-UPDATE Languages SET JavascriptLevel = ? WHERE AppID = ?
+-- Select Verilog Language and Level
+SELECT isLanguage = 'Verilog', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select JSON
-SELECT isJSON, JSONLevel FROM Languages WHERE AppID = ?
+-- Update Verilog Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Verilog' AND ASURITE_ID = ?
 
--- Update JSON
-UPDATE Languages SET isJSON = ? WHERE AppID = ?
+-- Select XML Language and Level
+SELECT isLanguage = 'XML', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update JSON Level
-UPDATE Languages SET JSONLevel = ? WHERE AppID = ?
+-- Update XML Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'XML' AND ASURITE_ID = ?
 
--- Select Scheme
-SELECT isScheme, SchemeLevel FROM Languages WHERE AppID = ?
 
--- Update Scheme
-UPDATE Languages SET isScheme = ? WHERE AppID = ?
-
--- Update Scheme Level
-UPDATE Languages SET SchemeLevel = ? WHERE AppID = ?
-
--- Select PHP
-SELECT isPHP, PHPLevel FROM Languages WHERE AppID = ?
-
--- Update PHP
-UPDATE Languages SET isPHP = ? WHERE AppID = ?
-
--- Update PHP Level
-UPDATE Languages SET PHPLevel = ? WHERE AppID = ?
-
--- Select PLP
-SELECT isPLP, PLPLevel FROM Languages WHERE AppID = ?
-
--- Update PLP 
-UPDATE Languages SET isPLP = ? WHERE AppID = ?
-
--- Update PLP Level
-UPDATE Languages SET PLPLevel = ? WHERE AppID = ?
-
--- Select Prolog
-SELECT isProlog, PrologLevel FROM Languages WHERE AppID = ?
-
--- Update Prolog
-UPDATE Languages SET isProlog = ? WHERE AppID = ?
-
--- Update Prolog Level
-UPDATE Languages SET PrologLevel = ? WHERE AppID = ?
-
--- Select Python
-SELECT isPython, PythonLevel FROM Languages WHERE AppID = ?
-
--- Update Python
-UPDATE Languages SET isPython = ? WHERE AppID = ?
-
--- Update Python Level
-UPDATE Languages SET PythonLevel = ? WHERE AppID = ?
-
--- Select SQL
-SELECT isSQL, SQLLevel FROM Languages WHERE AppID = ?
-
--- Update SQL
-UPDATE Languages SET isSQL = ? WHERE AppID = ?
-
--- Update SQL Level
-UPDATE Languages SET SQLLevel = ? WHERE AppID = ?
-
--- Select Swift
-SELECT isSwift, SwiftLevel FROM Languages WHERE AppID = ?
-
--- Update Swift
-UPDATE Languages SET isSwift = ? WHERE AppID = ?
-
--- Update Swift Level
-UPDATE Languages SET SwiftLevel = ? WHERE AppID = ?
-
--- Select Verilog
-SELECT isVerilog, VerilogLevel FROM Languages WHERE AppID = ?
-
--- Update Verilog
-UPDATE Application SET isVerilog = ? WHERE AppID = ?
-
--- Update Verilog Level
-UPDATE Languages SET VerilogLevel = ? WHERE AppID = ?
-
--- Select XML
-SELECT isXML, XMLLevel FROM Languages WHERE AppID = ?
-
--- Update XML
-UPDATE Languages SET isXML = ? WHERE AppID = ?
-
--- Update XML Level
-UPDATE Languages SET XMLLevel = ? WHERE AppID = ?
-
--- Select Other
-SELECT Other FROM Languages WHERE AppID = ?
-
--- Update Other
-UPDATE Languages SET Other = ? WHERE AppID = ?
-
+-- -----------------------------------------------------
 -- IDEs Table
+-- -----------------------------------------------------
 
 -- Insert IDEs Table
 INSERT INTO IDEs SET?
 
 -- Select IDEs
-SELECT * FROM IDEs WHERE AppID = ?
+SELECT * FROM IDEs WHERE ASURITE_ID = ?
 
 -- Select Android Studio
-SELECT isAndroidStudio FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'Android Studio' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update Android Studio
-UPDATE IDEs SET isAndroidStudio = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'Android Studio' AND ASURITE_ID = ?
 
 -- Select Brackets
-SELECT isBrackets FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'Brackets' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update Brackets
-UPDATE IDEs SET isBrackets = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'Brackets' AND ASURITE_ID = ?
 
 -- Select IntelliJ
-SELECT isIntelliJ FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'IntelliJ' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update IntelliJ
-UPDATE IDEs SET isIntelliJ = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'IntelliJ' AND ASURITE_ID = ?
 
 -- Select NetBeans
-SELECT isNetBeans FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'NetBeans' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update NetBeans
-UPDATE IDEs SET isNetBeans = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'NetBeans' AND ASURITE_ID = ?
 
 -- Select Xcode
-SELECT isXcode FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'Xcode' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update Xcode
-UPDATE IDEs SET isXcode = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'Xcode' AND ASURITE_ID = ?
 
--- Select Other
-SELECT Other FROM IDEs WHERE AppID = ?
 
--- Update Other
-UPDATE IDEs SET Other = ? WHERE AppID = ?
-
+-- -----------------------------------------------------
 -- Collaborative Tools Table
+-- -----------------------------------------------------
 
 -- Insert Collaborative Tools Table
 INSERT INTO Collaborative_Tools SET?
 
--- Select Collaborative Tools
-SELECT * FROM Collaborative_Tools WHERE AppID = ?
+-- Select Collaborative Tools Table
+SELECT * FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
--- Select Github
-SELECT isGithub FROM Collaborative_Tools WHERE AppID = ?
+-- Select GitHub
+SELECT isTool = 'GitHub' FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
 -- Update GitHub
-UPDATE Collaborative_Tools SET isGitHub = ? WHERE AppID = ?
+UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'GitHub' AND ASURITE_ID = ?
 
 -- Select Taiga
-SELECT isTaiga FROM Collaborative_Tools WHERE AppID = ?
+SELECT isTool = 'Taiga' FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
 -- Update Taiga
-UPDATE Collaborative_Tools SET isTaiga = ? WHERE AppID = ?
+UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'Taiga' AND ASURITE_ID = ?
 
 -- Select Slack
-SELECT isSlack FROM Collaborative_Tools WHERE AppID = ?
+SELECT isTool = 'Slack' FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
 -- Update Slack
-UPDATE Collaborative_Tools SET isSlack = ? WHERE AppID = ?
+UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'Slack' AND ASURITE_ID = ?
 
--- Select Other
-SELECT Other FROM Collaborative_Tools WHERE AppID = ?
 
--- Update Other
-UPDATE Collaborative_Tools SET Other = ? WHERE AppID = ?
-
+-- -----------------------------------------------------
 -- Course Competencies Table
+-- -----------------------------------------------------
 
--- Insert Course Competencies
+-- Insert Competencies Table
 INSERT INTO Course_Competencies SET?
 
--- Select Course Competences
-SELECT * FROM Course_Competencies WHERE AppID = ?
-
--- Select CSE 110
-SELECT isCSE110 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 110
-UPDATE Course_Competencies SET isCSE110 = ? WHERE AppID = ?
-
--- Select CSE 205
-SELECT isCSE205 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 205
-UPDATE Course_Competencies SET isCSE205 = ? WHERE AppID = ?
-
--- Select CSE 230
-SELECT isCSE230 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 230
-UPDATE Course_Competencies SET isCSE230 = ? WHERE AppID = ?
-
--- Select CSE 240
-SELECT isCSE240 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 240
-UPDATE Course_Competencies SET isCSE240 = ? WHERE AppID = ?
-
--- Select CSE 120
-SELECT isCSE120 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 120
-UPDATE Course_Competencies SET isCSE120 = ? WHERE AppID = ?
-
--- Select FSE 100
-SELECT isFSE100 FROM Course_Competencies WHERE AppID = ?
-
--- Update FSE 100
-UPDATE Course_Competencies SET isFSE100 = ? WHERE AppID = ?
+-- Select Course Compentencies Table
+SELECT * FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Select ASU 101
-SELECT isASU101 FROM Course_Competencies WHERE AppID = ?
+SELECT isCourse = 'ASU 101', CourseTitle = 'The ASU Experience', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update ASU 101
-UPDATE Course_Competencies SET isASU101 = ? WHERE AppID = ?
-
--- Select SER 422
-SELECT isSER422 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 422
-UPDATE Course_Competencies SET isSER422 = ? WHERE AppID = ?
-
--- Select SER 450
-SELECT isSER450 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 450
-UPDATE Course_Competencies SET isSER450 = ? WHERE AppID = ?
-
--- Select SER 456
-SELECT isSER456 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 456
-UPDATE Course_Competencies SET isSER456 = ? WHERE AppID = ?
-
--- Select SER 486
-SELECT isSER486 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 486
-UPDATE Course_Competencies SET isSER486 = ? WHERE AppID = ?
-
--- Select SER 332
-SELECT isSER332 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 332
-UPDATE Course_Competencies SET isSER332 = ? WHERE AppID = ?
-
--- Select SER 431
-SELECT isSER431 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 431
-UPDATE Course_Competencies SET isSER431 = ? WHERE AppID = ?
-
--- Select SER 432
-SELECT isSER432 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 432
-UPDATE Course_Competencies SET isSER432 = ? WHERE AppID = ?
-
--- Select SER 515
-SELECT isSER515 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 515
-UPDATE Course_Competencies SET isSER515 = ? WHERE AppID = ?
-
--- Select SER 516
-SELECT isSER516 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 516
-UPDATE Course_Competencies SET isSER516 = ? WHERE AppID = ?
-
--- Select SER 501
-SELECT isSER501 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 501
-UPDATE Course_Competencies SET isSER501 = ? WHERE AppID = ?
-
--- Select SER 502
-SELECT isSER502 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 502
-UPDATE Course_Competencies SET isSER502 = ? WHERE AppID = ?
-
--- Select SER 517
-SELECT isSER517 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 517
-UPDATE Course_Competencies SET isSER517 = ? WHERE AppID = ?
-
--- Select SER 518
-SELECT isSER518 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 518
-UPDATE Course_Competencies SET isSER518 = ? WHERE AppID = ?
-
--- Select SER 563
-SELECT isSER563 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 563
-UPDATE Course_Competencies SET isSER563 = ? WHERE AppID = ?
-
--- Select SER 564
-SELECT isSER564 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 564
-UPDATE Course_Competencies SET isSER564 = ? WHERE AppID = ?
-
--- Select SER 566
-SELECT isSER566 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 566
-UPDATE Course_Competencies SET isSER566 = ? WHERE AppID = ?
-
--- Select SER 215
-SELECT isSER215 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 215
-UPDATE Course_Competencies SET isSER215 = ? WHERE AppID = ?
-
--- Select SER 216
-SELECT isSER216 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 216
-UPDATE Course_Competencies SET isSER216 = ? WHERE AppID = ?
-
--- Select SER 222
-SELECT isSER222 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 222
-UPDATE Course_Competencies SET isSER222 = ? WHERE AppID = ?
-
--- Select SER 315
-SELECT isSER315 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 315
-UPDATE Course_Competencies SET isSER315 = ? WHERE AppID = ?
-
--- Select SER 316
-SELECT isSER316 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 316
-UPDATE Course_Competencies SET isSER316 = ? WHERE AppID = ?
-
--- Select SER 321
-SELECT isSER321 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 321
-UPDATE Course_Competencies SET isSER321 = ? WHERE AppID = ?
-
--- Select SER 322
-SELECT isSER322 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 322
-UPDATE Course_Competencies SET isSER322 = ? WHERE AppID = ?
-
--- Select SER 334
-SELECT isSER334 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 334
-UPDATE Course_Competencies SET isSER334 = ? WHERE AppID = ?
-
-- -Select SER 401
-SELECT isSER401 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 401
-UPDATE Course_Competencies SET isSER401 = ? WHERE AppID = ?
-
-- Select SER 402
-SELECT isSER402 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 402
-UPDATE Course_Competencies SET isSER402 = ? WHERE AppID = ?
-
--- Select SER 415
-SELECT isSER415 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 415
-UPDATE Course_Competencies SET isSER415 = ? WHERE AppID = ?
-
--- Select SER 416
-SELECT isSER416 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 416
-UPDATE Course_Competencies SET isSER416 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'ASU 101' AND CourseTitle = 'The ASU Experience' AND ASURITE_ID = ?
 
 -- Select SER 421
-SELECT isSER421 FROM Course_Competencies WHERE AppID = ?
+SELECT isCourse = 'SER 421', CourseTitle = 'Web-Based Applications and Mobile Systems', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 421
-UPDATE Course_Competencies SET isSER421 = ? WHERE AppID = ?
-
--- Select SER 423
-SELECT isSER423 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 423
-UPDATE Course_Competencies SET isSER423 = ? WHERE AppID = ?
-
--- Select Other
-SELECT Other FROM Course_Competencies WHERE AppID = ?
-
--- Update Other
-UPDATE Course_Competencies SET Other = ? WHERE AppID = ?
-
--- Courses Taught Table
-
--- Insert Courses Taught Table
-INSERT INTO Courses_Taught SET?
-
--- Select Courses Taught
-SELECT * FROM Courses_Taught WHERE AppID = ?
-
--- Select CSE 110
-SELECT isCSE110 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 110
-UPDATE Courses_Taught SET isCSE110 = ? WHERE AppID = ?
-
--- Select CSE 205
-SELECT isCSE205 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 205
-UPDATE Courses_Taught SET isCSE205 = ? WHERE AppID = ?
-
--- Select CSE 230
-SELECT isCSE230 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 230
-UPDATE Courses_Taught SET isCSE230 = ? WHERE AppID = ?
-
--- Select CSE 240
-SELECT isCSE240 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 240
-UPDATE Courses_Taught SET isCSE240 = ? WHERE AppID = ?
-
--- Select CSE 120
-SELECT isCSE120 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 120
-UPDATE Courses_Taught SET isCSE120 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 421' AND CourseTitle = 'Web-Based Applications and Mobile Systems' AND ASURITE_ID = ?
 
 -- Select FSE 100
-SELECT isFSE100 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'FSE 100', CourseTitle = 'Introduction to Engineering', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update FSE 100
-UPDATE Courses_Taught SET isFSE100 = ? WHERE AppID = ?
-
--- Select ASU 101
-SELECT isASU101 FROM Courses_Taught WHERE AppID = ?
-
--- Update ASU 101
-UPDATE Courses_Taught SET isASU101 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'FSE 100' AND CourseTitle = 'Introduction to Engineering' AND ASURITE_ID = ?
 
 -- Select SER 422
-SELECT isSER422 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 422', CourseTitle = 'Web Application Programming', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 422
-UPDATE Courses_Taught SET isSER422 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 422' AND CourseTitle = 'Web Application Programming' AND ASURITE_ID = ?
 
--- Select SER 450
-SELECT isSER450 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 110
+SELECT isCourse = 'CSE 110', CourseTitle = 'Principles of Programming', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 450
-UPDATE Courses_Taught SET isSER450 = ? WHERE AppID = ?
+-- Update CSE 110
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 110' AND CourseTitle = 'Principles of Programming' AND ASURITE_ID = ?
 
--- Select SER 456
-SELECT isSER456 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 423
+SELECT isCourse = 'CSE 423', CourseTitle = 'Systems Capstone Project I', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 456
-UPDATE Courses_Taught SET isSER456 = ? WHERE AppID = ?
+-- Update CSE 423
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 423' AND CourseTitle = 'Systems Capstone Project I' AND ASURITE_ID = ?
 
--- Select SER 486
-SELECT isSER486 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 120
+SELECT isCourse = 'CSE 120', CourseTitle = 'Digital Design Fundamentals', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 486
-UPDATE Courses_Taught SET isSER486 = ? WHERE AppID = ?
+-- Update CSE 120
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 120' AND CourseTitle = 'Digital Design Fundamentals' AND ASURITE_ID = ?
 
--- Select SER 332
-SELECT isSER332 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 205
+SELECT isCourse = 'CSE 205', CourseTitle = 'Object-Oriented Programming and Data Structures', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 332
-UPDATE Courses_Taught SET isSER332 = ? WHERE AppID = ?
-
--- Select SER 431
-SELECT isSER431 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 431
-UPDATE Courses_Taught SET isSER431 = ? WHERE AppID = ?
+-- Update CSE 205
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 205' AND CourseTitle = 'Object-Oriented Programming and Data Structures' AND ASURITE_ID = ?
 
 -- Select SER 432
-SELECT isSER432 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 432', CourseTitle = 'Game Engine Architecture', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 432
-UPDATE Courses_Taught SET isSER432 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 432' AND CourseTitle = 'Game Engine Architecture' AND ASURITE_ID = ?
 
--- Select SER 515
-SELECT isSER515 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 230
+SELECT isCourse = 'CSE 230', CourseTitle = 'Computer Organization and Assembly Language Programming', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 515
-UPDATE Courses_Taught SET isSER515 = ? WHERE AppID = ?
+-- Update CSE 230
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 230' AND CourseTitle = 'Computer Organization and Assembly Language Programming' AND ASURITE_ID = ?
 
--- Select SER 516
-SELECT isSER516 FROM Courses_Taught WHERE AppID = ?
+-- Select SER 450
+SELECT isCourse = 'SER 450', CourseTitle = 'Computer Architecture', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 516
-UPDATE Courses_Taught SET isSER516 = ? WHERE AppID = ?
+-- Update SER 450
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 450' AND CourseTitle = 'Computer Architecture' AND ASURITE_ID = ?
 
--- Select SER 501
-SELECT isSER501 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 240
+SELECT isCourse = 'CSE 240', CourseTitle = 'Introduction to Programming Languages', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 501
-UPDATE Courses_Taught SET isSER501 = ? WHERE AppID = ?
+-- Update CSE 240
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 240' AND CourseTitle = 'Introduction to Programming Languages' AND ASURITE_ID = ?
 
--- Select SER 502
-SELECT isSER502 FROM Courses_Taught WHERE AppID = ?
+-- Select SER 456
+SELECT isCourse = 'SER 456', CourseTitle = 'Embedded Interfaces: Sensors and Actuators', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 502
-UPDATE Courses_Taught SET isSER502 = ? WHERE AppID = ?
-
--- Select SER 517
-SELECT isSER517 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 517
-UPDATE Courses_Taught SET isSER517 = ? WHERE AppID = ?
-
--- Select SER 518
-SELECT isSER518 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 518
-UPDATE Courses_Taught SET isSER518 = ? WHERE AppID = ?
-
--- Select SER 563
-SELECT isSER563 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 563
-UPDATE Courses_Taught SET isSER563 = ? WHERE AppID = ?
-
--- Select SER 564
-SELECT isSER564 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 564
-UPDATE Courses_Taught SET isSER564 = ? WHERE AppID = ?
-
--- Select SER 566
-SELECT isSER566 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 566
-UPDATE Courses_Taught SET isSER566 = ? WHERE AppID = ?
+-- Update SER 456
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 456' AND CourseTitle = 'Embedded Interfaces: Sensors and Actuators' AND ASURITE_ID = ?
 
 -- Select SER 215
-SELECT isSER215 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 215', CourseTitle = 'Software Enterprise: Personal Process', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 215
-UPDATE Courses_Taught SET isSER215 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 215' AND CourseTitle = 'Software Enterprise: Personal Process' AND ASURITE_ID = ?
+
+-- Select SER 486
+SELECT isCourse = 'SER 486', CourseTitle = 'Embedded C Programming', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 486
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 486' AND CourseTitle = 'Embedded C Programming' AND ASURITE_ID = ?
 
 -- Select SER 216
-SELECT isSER216 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 216', CourseTitle = 'Software Enterprise: Testing and Quality', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 216
-UPDATE Courses_Taught SET isSER216 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 216' AND CourseTitle = 'Software Enterprise: Testing and Quality' AND ASURITE_ID = ?
+
+-- Select SER 501
+SELECT isCourse = 'SER 501', CourseTitle = 'Advanced Data Structures and Algorithms', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 501
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 501' AND CourseTitle = 'Advanced Data Structures and Algorithms' AND ASURITE_ID = ?
 
 -- Select SER 222
-SELECT isSER222 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 222', CourseTitle = 'Design and Analysis of Data Structures and Algorithms', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 222
-UPDATE Courses_Taught SET isSER222 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 222' AND CourseTitle = 'Design and Analysis of Data Structures and Algorithms' AND ASURITE_ID = ?
+
+-- Select SER 502
+SELECT isCourse = 'SER 502', CourseTitle = 'Emerging Languages and Programming Paradigms', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 502
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 502' AND CourseTitle = 'Emerging Languages and Programming Paradigms' AND ASURITE_ID = ?
 
 -- Select SER 315
-SELECT isSER315 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 315', CourseTitle = 'Software Enterprise: Design and Process', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 315
-UPDATE Courses_Taught SET isSER315 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 315' AND CourseTitle = 'Software Enterprise: Design and Process' AND ASURITE_ID = ?
+
+-- Select SER 515
+SELECT isCourse = 'SER 515', CourseTitle = 'Software Enterprise: Inception and Elaboration', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 515
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 515' AND CourseTitle = 'Software Enterprise: Inception and Elaboration' AND ASURITE_ID = ?
 
 -- Select SER 316
-SELECT isSER316 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 316', CourseTitle = 'Software Enterprise: Construction and Transition', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 316
-UPDATE Courses_Taught SET isSER316 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 316' AND CourseTitle = 'Software Enterprise: Construction and Transition' AND ASURITE_ID = ?
+
+-- Select SER 516
+SELECT isCourse = 'SER 516', CourseTitle = 'Software Enterprise: Project and Process Management', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 516
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 516' AND CourseTitle = 'Software Enterprise: Project and Process Management' AND ASURITE_ID = ?
 
 -- Select SER 321
-SELECT isSER321 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 321', CourseTitle = 'Principles of Distributed Software Systems', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 321
-UPDATE Courses_Taught SET isSER321 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 321' AND CourseTitle = 'Principles of Distributed Software Systems' AND ASURITE_ID = ?
+
+-- Select SER 517
+SELECT isCourse = 'SER 517', CourseTitle = 'Software Factory I', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 517
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 517' AND CourseTitle = 'Software Factory I' AND ASURITE_ID = ?
 
 -- Select SER 322
-SELECT isSER322 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 322', CourseTitle = 'Principles of Database Management', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 322
-UPDATE Courses_Taught SET isSER322 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 322' AND CourseTitle = 'Principles of Database Management' AND ASURITE_ID = ?
+
+-- Select SER 518
+SELECT isCourse = 'SER 518', CourseTitle = 'Software Factory II', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 518
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 518' AND CourseTitle = 'Software Factory II' AND ASURITE_ID = ?
+
+-- Select SER 332
+SELECT isCourse = 'SER 332', CourseTitle = 'Introduction to Graphics and Game Development', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 332
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 332' AND CourseTitle = 'Introduction to Graphics and Game Development' AND ASURITE_ID = ?
+
+-- Select CSE 563
+SELECT isCourse = 'CSE 563', CourseTitle = 'Software Requirements and Specification', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update CSE 563
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 563' AND CourseTitle = 'Software Requirements and Specification' AND ASURITE_ID = ?
 
 -- Select SER 334
-SELECT isSER334 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 334', CourseTitle = 'Operating Systems and Networks', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 334
-UPDATE Course_Competencies SET isSER334 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 334' AND CourseTitle = 'Operating Systems and Networks' AND ASURITE_ID = ?
+
+-- Select CSE 564
+SELECT isCourse = 'CSE 564', CourseTitle = 'Software Design', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update CSE 564
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 564' AND CourseTitle = 'Software Design' AND ASURITE_ID = ?
 
 -- Select SER 401
-SELECT isSER401 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 401', CourseTitle = 'Computing Capstone Project I', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 401
-UPDATE Courses_Taught SET isSER401 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 401' AND CourseTitle = 'Computing Capstone Project I' AND ASURITE_ID = ?
+
+-- Select CSE 566
+SELECT isCourse = 'CSE 566', CourseTitle = 'Software Project, Process, and Quality Management', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update CSE 566
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'CSE 566' AND CourseTitle = 'Software Project, Process, and Quality Management' AND ASURITE_ID = ?
 
 -- Select SER 402
-SELECT isSER402 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 402', CourseTitle = 'Computing Capstone Project II', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 402
-UPDATE Courses_Taught SET isSER402 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 402' AND CourseTitle = 'Computing Capstone Project II' AND ASURITE_ID = ?
 
 -- Select SER 415
-SELECT isSER415 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 415', CourseTitle = 'Software Enterprise: Inception and Elaboration', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 415
-UPDATE Courses_Taught SET isSER415 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 415' AND CourseTitle = 'Software Enterprise: Inception and Elaboration' AND ASURITE_ID = ?
 
 -- Select SER 416
-SELECT isSER416 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 416', CourseTitle = 'Software Enterprise: Project and Process Management', CourseSelect FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 416
-UPDATE Courses_Taught SET isSER416 = ? WHERE AppID = ?
-
--- Select SER 421
-SELECT isSER421 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 421
-UPDATE Courses_Taught SET isSER421 = ? WHERE AppID = ?
-
--- Select SER 423
-SELECT isSER423 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 423
-UPDATE Courses_Taught SET isSER423 = ? WHERE AppID = ?
-
--- Select Other
-SELECT Other FROM Courses_Taught WHERE AppID = ?
-
--- Update Other
-UPDATE Courses_Taught SET Other = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 416' AND CourseTitle = 'Software Enterprise: Project and Process Management' AND ASURITE_ID = ?

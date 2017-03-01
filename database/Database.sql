@@ -13,13 +13,14 @@ CREATE TABLE IF NOT EXISTS User_ (
   MiddleName VARCHAR(45),
   LastName VARCHAR(45) NOT NULL,
   UserEmail VARCHAR(45) NOT NULL,
-  UserPassword VARCHAR(45) NOT NULL,
+  UserPassword VARCHAR(200) NOT NULL,
   UserRole VARCHAR(45) NOT NULL,
   RegTime TIMESTAMP NOT NULL,
   isActive TINYINT(1)  NOT NULL,
   LoginTime TIMESTAMP NOT NULL,
   PRIMARY KEY (ASURITE_ID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 
 -- -----------------------------------------------------
 -- Offer Table
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS Offer (
   REFERENCES User_ (ASURITE_ID)
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 
 -- -----------------------------------------------------
 -- Student Evaluation Table
@@ -58,6 +60,7 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Schedule Table
 -- -----------------------------------------------------
@@ -78,6 +81,7 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   PRIMARY KEY (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Student Request Table
 -- -----------------------------------------------------
@@ -94,14 +98,12 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Placement Table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Placement (
   PlaceID INT NOT NULL AUTO_INCREMENT,
-  EnrollmentNumPrev INT,
-  EnrollmentNumCurrent INT,
-  EnrollmentDiff INT,
   TA VARCHAR(45),
   GraderOne VARCHAR(45),
   GraderTwo VARCHAR(45),
@@ -110,9 +112,26 @@ CREATE TABLE IF NOT EXISTS Placement (
   GraderTwoHours INT,
   ScheduleID INT NOT NULL,
   PRIMARY KEY (PlaceID),
-  CONSTRAINT placement_fk FOREIGN KEY (ScheduleID) 
+  CONSTRAINT placement_fk_1 FOREIGN KEY (ScheduleID) 
   REFERENCES Schedule_ (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+-- -----------------------------------------------------
+-- Enrollment Table
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Enrollment (
+ EnrollmentID INT NOT NULL AUTO_INCREMENT,
+ EnrollmentNumPrev INT,
+ EnrollmentNumCurrent INT,
+ EnrollmentDiff INT,
+ DateEntered Date,
+ ScheduleID INT NOT NULL, 
+ PRIMARY KEY (EnrollmentID),
+ CONSTRAINT enrollment_fk FOREIGN KEY (ScheduleID)
+ REFERENCES Schedule_ (ScheduleID)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 
 -- -----------------------------------------------------
 -- Application Table
@@ -141,11 +160,17 @@ CREATE TABLE IF NOT EXISTS Application (
   isGrader TINYINT(1) DEFAULT NULL,
   CurrentEmployer VARCHAR(45) DEFAULT NULL,
   WorkHours INT DEFAULT NULL,
+  isWorkedASU TINYINT(1) DEFAULT NULL,
   AppStatus VARCHAR(45) DEFAULT NULL,
   DateCreated TIMESTAMP,
   DateSubmitted TIMESTAMP,
   ModifiedDate TIMESTAMP,
-  LastSaved VARCHAR(100),
+  isContactComplete TINYINT(1) DEFAULT NULL,
+  isEducationComplete TINYINT(1) DEFAULT NULL,
+  isEmploymentComplete TINYINT(1) DEFAULT NULL,
+  isAvailabilityComplete TINYINT(1) DEFAULT NULL,
+  isLanguagesComplete TINYINT(1) DEFAULT NULL,
+  isCoursesComplete TINYINT(1) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AppID),
   CONSTRAINT application_fk FOREIGN KEY (ASURITE_ID) 
@@ -153,13 +178,14 @@ CREATE TABLE IF NOT EXISTS Application (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Calendar Table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Calendar (
   CalendarID INT NOT NULL AUTO_INCREMENT,
   CalendarName ENUM ('Fall Semester', 'Summer Semester', 'Spring Semester'),
-  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'),
   StartHour TIME,
   StopHour TIME,
   ASURITE_ID VARCHAR(45) NOT NULL,
@@ -168,6 +194,7 @@ CREATE TABLE IF NOT EXISTS Calendar (
   REFERENCES Application (ASURITE_ID)
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 
 -- -----------------------------------------------------
 -- Attachment Table
@@ -185,46 +212,17 @@ CREATE TABLE IF NOT EXISTS Attachment (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Languages Table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Languages (
   LanguagesID INT NOT NULL AUTO_INCREMENT,
-  isC TINYINT(1) DEFAULT NULL,
-  CLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isCSharp TINYINT(1) DEFAULT NULL,
-  CSharpLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isCPlusPlus TINYINT(1) DEFAULT NULL,
-  CPlusPlusLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isCSS TINYINT(1) DEFAULT NULL,
-  CSSLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isHTML TINYINT(1) DEFAULT NULL,
-  HTMLLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isJava TINYINT(1) DEFAULT NULL,
-  JavaLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isJavascript TINYINT(1) DEFAULT NULL,
-  JavascriptLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isJSON TINYINT(1) DEFAULT NULL,
-  JSONLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isScheme TINYINT(1) DEFAULT NULL,
-  SchemeLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isPHP TINYINT(1) DEFAULT NULL,
-  PHPLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isPLP TINYINT(1) DEFAULT NULL,
-  PLPLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isProlog TINYINT(1) DEFAULT NULL,
-  PrologLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isPython TINYINT(1) DEFAULT NULL,
-  PythonLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isSQL TINYINT(1) DEFAULT NULL,
-  SQLLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isSwift TINYINT(1) DEFAULT NULL,
-  SwiftLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isVerilog TINYINT(1) DEFAULT NULL,
-  VerilogLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  isXML TINYINT(1) DEFAULT NULL,
-  XMLLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
-  Other VARCHAR(100) DEFAULT NULL,
+  isLanguage ENUM ('C', 'C++', 'CSS', 'HTML', 'Java', 'JavaScript', 'JSON', 'Python',
+  'SQL', 'Swift', 'Verilog', 'XML') DEFAULT NULL,
+  LanguageLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
+  OtherLanguage VARCHAR(45) DEFAULT NULL,
+  OtherLevel ENUM ('Expert', 'Proficient', 'Novice') DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (LanguagesID),
   CONSTRAINT languages_fk FOREIGN KEY (ASURITE_ID) 
@@ -232,17 +230,14 @@ CREATE TABLE IF NOT EXISTS Languages (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- IDEs Table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS IDEs (
   IDEid INT NOT NULL AUTO_INCREMENT,
-  isAndroidStudio TINYINT(1),
-  isBrackets TINYINT(1) DEFAULT NULL,
-  isIntelliJ TINYINT(1) DEFAULT NULL,
-  isNetBeans TINYINT(1) DEFAULT NULL,
-  isXcode TINYINT(1) DEFAULT NULL,
-  Other VARCHAR(100)DEFAULT NULL,
+  isIDE ENUM ('Android Studio', 'Brackets', 'IntelliJ', 'NetBeans', 'Xcode') DEFAULT NULL,
+  OtherIDE VARCHAR(45) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (IDEid),
   CONSTRAINT ides_fk FOREIGN KEY (ASURITE_ID) 
@@ -250,15 +245,14 @@ CREATE TABLE IF NOT EXISTS IDEs (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Collaborative Tools Table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Collaborative_Tools (
   ToolID INT NOT NULL AUTO_INCREMENT,
-  isGitHub TINYINT(1) DEFAULT NULL,
-  isTaiga TINYINT(1) DEFAULT NULL,
-  isSlack TINYINT(1) DEFAULT NULL,
-  Other VARCHAR(100) DEFAULT NULL,
+  isTool ENUM ('GitHub', 'Taiga', 'Slack') DEFAULT NULL,
+  OtherTool VARCHAR(45) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (ToolID),
   CONSTRAINT collaborative_tools_fk FOREIGN KEY (ASURITE_ID) 
@@ -266,102 +260,62 @@ CREATE TABLE IF NOT EXISTS Collaborative_Tools (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+
 -- -----------------------------------------------------
 -- Course Competencies Table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Course_Competencies (
   CompetenciesID INT NOT NULL AUTO_INCREMENT,
-  isCSE110 TINYINT(1) DEFAULT NULL,
-  isCSE205 TINYINT(1) DEFAULT NULL,
-  isCSE230 TINYINT(1) DEFAULT NULL,
-  isCSE240 TINYINT(1) DEFAULT NULL,
-  isCSE120 TINYINT(1) DEFAULT NULL,
-  isFSE100 TINYINT(1) DEFAULT NULL,
-  isASU101 TINYINT(1) DEFAULT NULL,
-  isSER422 TINYINT(1) DEFAULT NULL,
-  isSER450 TINYINT(1) DEFAULT NULL,
-  isSER456 TINYINT(1) DEFAULT NULL,
-  isSER486 TINYINT(1) DEFAULT NULL,
-  isSER332 TINYINT(1) DEFAULT NULL,
-  isSER431 TINYINT(1) DEFAULT NULL,
-  isSER432 TINYINT(1) DEFAULT NULL,
-  isSER515 TINYINT(1) DEFAULT NULL,
-  isSER516 TINYINT(1) DEFAULT NULL,
-  isSER501 TINYINT(1) DEFAULT NULL,
-  isSER502 TINYINT(1) DEFAULT NULL,
-  isSER517 TINYINT(1) DEFAULT NULL,
-  isSER518 TINYINT(1) DEFAULT NULL,
-  isCSE563 TINYINT(1) DEFAULT NULL,
-  isCSE564 TINYINT(1) DEFAULT NULL,
-  isCSE566 TINYINT(1) DEFAULT NULL,
-  isSER215 TINYINT(1) DEFAULT NULL,
-  isSER216 TINYINT(1) DEFAULT NULL,
-  isSER222 TINYINT(1) DEFAULT NULL,
-  isSER315 TINYINT(1) DEFAULT NULL,
-  isSER316 TINYINT(1) DEFAULT NULL,
-  isSER321 TINYINT(1) DEFAULT NULL,
-  isSER322 TINYINT(1) DEFAULT NULL,
-  isSER334 TINYINT(1) DEFAULT NULL,
-  isSER401 TINYINT(1) DEFAULT NULL,
-  isSER402 TINYINT(1) DEFAULT NULL,
-  isSER415 TINYINT(1) DEFAULT NULL,
-  isSER416 TINYINT(1) DEFAULT NULL,
-  isSER421 TINYINT(1) DEFAULT NULL,
-  isSER423 TINYINT(1) DEFAULT NULL,
-  Other VARCHAR(100) DEFAULT NULL,
+  isCourse ENUM ('ASU 101', 'SER 421', 'FSE 100', 'SER 422', 'CSE 110', 
+  'CSE 423', 'CSE 120', 'CSE 205', 'SER 432', 'CSE 230', 'SER 450', 
+  'CSE 240', 'SER 456', 'SER 215', 'SER 486', 'SER 216', 'SER 501', 
+  'SER 222', 'SER 502', 'SER 315', 'SER 515', 'SER 316', 'SER 516', 
+  'SER 321', 'SER 517', 'SER 322', 'SER 518', 'SER 332', 'CSE 563', 
+  'SER 334', 'CSE 564', 'SER 401', 'CSE 566', 'SER 402', 'SER 415', 
+  'SER 416') DEFAULT NULL,
+  CourseTitle ENUM (
+  'The ASU Experience', 
+  'Web-Based Applications and Mobile Systems', 
+  'Introduction to Engineering', 
+  'Web Application Programming', 
+  'Principles of Programming', 
+  'Systems Capstone Project I', 
+  'Digital Design Fundamentals', 
+  'Object-Oriented Programming and Data Structures', 
+  'Game Engine Architecture', 
+  'Computer Organization and Assembly Language Programming', 
+  'Computer Architecture', 
+  'Introduction to Programming Languages', 
+  'Embedded Interfaces: Sensors and Actuators', 
+  'Software Enterprise: Personal Process', 
+  'Embedded C Programming', 
+  'Software Enterprise: Testing and Quality', 
+  'Advanced Data Structures and Algorithms', 
+  'Design and Analysis of Data Structures and Algorithms', 
+  'Emerging Languages and Programming Paradigms', 
+  'Software Enterprise: Design and Process', 
+  'Software Enterprise: Inception and Elaboration', 
+  'Software Enterprise: Construction and Transition', 
+  'Software Enterprise: Project and Process Management', 
+  'Principles of Distributed Software Systems', 
+  'Software Factory I', 
+  'Principles of Database Management', 
+  'Software Factory II', 
+  'Introduction to Graphics and Game Development', 
+  'Software Requirements and Specification', 
+  'Operating Systems and Networks', 
+  'Software Design',
+  'Computing Capstone Project I', 
+  'Software Project, Process, and Quality Management', 
+  'Computing Capstone Project II', 
+  'Software Enterprise: Inception and Elaboration', 
+  'Software Enterprise: Project and Process Management') DEFAULT NULL,
+  CourseSelect ENUM ('Prefer', 'Qualified', 'Previously TA', 'Previously Grader')  DEFAULT NULL,
+  OtherCourse VARCHAR(45) DEFAULT NULL,
+  OtherSelect ENUM ('Prefer', 'Qualified', 'Previously TA', 'Previously Grader')  DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (CompetenciesID),
   CONSTRAINT course_compentencies_fk FOREIGN KEY (ASURITE_ID) 
-  REFERENCES Application (ASURITE_ID)
-  ON DELETE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
--- -----------------------------------------------------
--- Courses Taught Table
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Courses_Taught (
-  TaughtID INT NOT NULL AUTO_INCREMENT,
-  isCSE110 TINYINT(1) DEFAULT NULL,
-  isCSE205 TINYINT(1) DEFAULT NULL,
-  isCSE230 TINYINT(1) DEFAULT NULL,
-  isCSE240 TINYINT(1) DEFAULT NULL,
-  isCSE120 TINYINT(1) DEFAULT NULL,
-  isFSE100 TINYINT(1) DEFAULT NULL,
-  isASU101 TINYINT(1) DEFAULT NULL,
-  isSER422 TINYINT(1) DEFAULT NULL,
-  isSER450 TINYINT(1) DEFAULT NULL,
-  isSER456 TINYINT(1) DEFAULT NULL,
-  isSER486 TINYINT(1) DEFAULT NULL,
-  isSER332 TINYINT(1) DEFAULT NULL,
-  isSER431 TINYINT(1) DEFAULT NULL,
-  isSER432 TINYINT(1) DEFAULT NULL,
-  isSER515 TINYINT(1) DEFAULT NULL,
-  isSER516 TINYINT(1) DEFAULT NULL,
-  isSER501 TINYINT(1) DEFAULT NULL,
-  isSER502 TINYINT(1) DEFAULT NULL,
-  isSER517 TINYINT(1) DEFAULT NULL,
-  isSER518 TINYINT(1) DEFAULT NULL,
-  isCSE563 TINYINT(1) DEFAULT NULL,
-  isCSE564 TINYINT(1) DEFAULT NULL,
-  isCSE566 TINYINT(1) DEFAULT NULL,
-  isSER215 TINYINT(1) DEFAULT NULL,
-  isSER216 TINYINT(1) DEFAULT NULL,
-  isSER222 TINYINT(1) DEFAULT NULL,
-  isSER315 TINYINT(1) DEFAULT NULL,
-  isSER316 TINYINT(1) DEFAULT NULL,
-  isSER321 TINYINT(1) DEFAULT NULL,
-  isSER322 TINYINT(1) DEFAULT NULL,
-  isSER334 TINYINT(1) DEFAULT NULL,
-  isSER401 TINYINT(1) DEFAULT NULL,
-  isSER402 TINYINT(1) DEFAULT NULL,
-  isSER415 TINYINT(1) DEFAULT NULL,
-  isSER416 TINYINT(1) DEFAULT NULL,
-  isSER421 TINYINT(1) DEFAULT NULL,
-  isSER423 TINYINT(1) DEFAULT NULL,
-  Other VARCHAR(100) DEFAULT NULL,
-  ASURITE_ID VARCHAR(45) NOT NULL,
-  PRIMARY KEY (TaughtID),
-  CONSTRAINT courses_taught_fk FOREIGN KEY (ASURITE_ID) 
   REFERENCES Application (ASURITE_ID)
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
