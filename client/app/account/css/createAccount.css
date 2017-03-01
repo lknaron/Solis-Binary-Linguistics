@@ -177,6 +177,7 @@ textarea {
 }
 
 .error {
+    white-space: pre-line;
     margin-top: -20px;
     text-align: left;
     color: #FFFFFF

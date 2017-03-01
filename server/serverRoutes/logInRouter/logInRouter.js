@@ -7,6 +7,7 @@ var express  = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
 
 // invoked for any requested passed to this router
 router.use(function(req, res, next) {
@@ -24,6 +25,7 @@ var mysql_pool  = mysql.createPool({
 
 // Log in authentication
 router.post('/', function(req, res) {
+  var pass = checkHash;
   // Get connection to pool
   mysql_pool.getConnection(function(err, connection) {
     if (err) {
@@ -37,9 +39,9 @@ router.post('/', function(req, res) {
       if(err2) {
         console.log('Error performing query: ' + err2);
         throw err2;
-      } else if (!rows.length || rows && rows[0].UserPassword != req.body.password) {
+      } else if (!rows.length || rows && !pass) {
         res.send({'error' : 1});  // Responds error 1 if incorrect password or username
-      } else if (rows && rows[0].UserPassword == req.body.password) {
+      } else if (rows && pass) {
         var token = jwt.sign({username:req.body.username}, 'sblapp123');
         res.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 
               'lastSaved' : rows[0].LastSaved, 'appStatus' : rows[0].AppStatus, 'token':token});
@@ -49,6 +51,13 @@ router.post('/', function(req, res) {
     });
   });
 });
+
+// Test if user entered password matches hash
+function checkHash(storedPassword, enteredPassword) {
+  bcrypt.compare(enteredPassword, storedPassword, function(err, res) {
+    return res;
+  });
+}
 
 // Update users last login date/time
 function updateLoginDate (user) {
