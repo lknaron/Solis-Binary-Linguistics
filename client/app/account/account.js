@@ -23,7 +23,7 @@ account.controller('createAccountController', function($scope, $location, $http,
             $scope.password1 = '';
             $scope.password2 = '';
         } else if (!checkPassword($scope.password1)) {
-            $scope.message = 'Password Requirements:\n  -Min. 8 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)';
+            $scope.message = 'Password Requirements:\n  -8-20 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)';
             $scope.password1 = '';
             $scope.password2 = '';
         } else {
@@ -58,7 +58,7 @@ account.controller('createAccountController', function($scope, $location, $http,
     }
     
     function checkPassword(password) {
-        var requirement = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+        var requirement = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$");
         var res = requirement.test(password);
         return res;
     }
