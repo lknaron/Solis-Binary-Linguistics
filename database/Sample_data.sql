@@ -48,19 +48,43 @@ DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 -- -----------------------------------------------------
 -- IDEs Table
 -- -----------------------------------------------------
-INSERT INTO IDEs (IDEid, isAndroidStudio, isBrackets, isIntelliJ, isNetBeans, isXcode,
-Other, ASURITE_ID) VALUES
-(1, 1, 1, 1, 1, 1, 'Eclipse', 'ballen'),
-(2, 0, 1, 1, 1, 0, 'Eclipse', 'oqueen'),
-(3, 1, 1, 0, 1, 0, NULL, 'jgrey');
+INSERT INTO IDEs (IDEid, isIDE, OtherIDE, ASURITE_ID) VALUES
+(1, 'Android Studio', NULL, 'ballen'),
+(2, 'Brackets', NULL, 'ballen'),
+(3, 'IntelliJ', NULL, 'ballen'),
+(4, 'NetBeans', NULL, 'ballen'),
+(5, 'Xcode', NULL, 'ballen'),
+(6, 'Android Studio', NULL, 'oqueen'),
+(7, 'Brackets', NULL, 'oqueen'),
+(8, 'IntelliJ', NULL, 'oqueen'),
+(9, 'NetBeans', NULL, 'oqueen'),
+(10, NULL, 'Eclipse', 'oqueen'),
+(11, 'Android Studio', NULL, 'jgrey'),
+(12, 'Brackets', NULL, 'jgrey'),
+(13, 'IntelliJ', NULL, 'jgrey'),
+(14, 'NetBeans', NULL, 'jgrey'),
+(15, 'Xcode', NULL, 'jgrey'),
+(16, NULL, 'Eclipse', 'jgrey'),
+(17, NULL, 'Atom', 'jgrey');
 
 -- -----------------------------------------------------
 -- Collaborative Tools Table
 -- -----------------------------------------------------
-INSERT INTO Collaborative_Tools (ToolID, isGitHub, isTaiga, isSlack, Other, ASURITE_ID) VALUES
-(1, 1, 1, 1, 'Skype', 'ballen'),
-(2, 1, 1, 1, 'Skype', 'oqueen'),
-(3, 1, 0, 1, NULL, 'jgrey');
+INSERT INTO Collaborative_Tools (ToolID, isTool, OtherTool, ASURITE_ID) VALUES
+(1, 'GitHub', NULL, 'ballen'),
+(2, 'Taiga', NULL, 'ballen'),
+(3, 'Slack', NULL, 'ballen'),
+(5, NULL, 'Skype', 'ballen'),
+(6, NULL, 'Zoom', 'ballen'),
+(7, 'GitHub', NULL, 'oqueen'),
+(8, 'Taiga', NULL, 'oqueen'),
+(9, 'Slack', NULL, 'oqueen'),
+(10, NULL, 'Skype', 'oqueen'),
+(11, NULL, 'Adobe Connect', 'oqueen'),
+(12, 'GitHub', NULL, 'jgrey'),
+(13, 'Taiga', NULL, 'jgrey'),
+(14, 'Slack', NULL, 'jgrey'),
+(15, NULL, 'Skype', 'jgrey');
 
 -- -----------------------------------------------------
 -- Course Competencies Table
@@ -89,20 +113,44 @@ isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, ASURITE_ID) V
 -- -----------------------------------------------------
 -- Languages Table
 -- -----------------------------------------------------
-INSERT INTO Languages (LanguagesID, isC, CLevel, isCSharp, CSharpLevel, isCPlusPlus, 
-CPlusPlusLevel, isCSS, CSSLevel, isHTML, HTMLLevel, isJava, JavaLevel, isJavascript,
-JavascriptLevel, isJSON, JSONLevel, isScheme, SchemeLevel, isPHP, PHPLevel, isPLP, 
-PLPLevel, isProlog, PrologLevel, isPython, PythonLevel, isSQL, SQLLevel, isSwift, 
-SwiftLevel, isVerilog, VerilogLevel, isXML, XMLLevel, Other, ASURITE_ID) VALUES
-(1, 1, 'Proficient', 1, 'Proficient', 1, 'Expert', 1, 'Expert', 1, 'Expert', 1, 
-'Proficient', 1, 'Proficient', 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Expert', 1, 'Expert', NULL, 'ballen'),
-(2, 1, 'Proficient', 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
-'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 1, 'Novice', 1, 'Novice', NULL, 'oqueen'),
-(3, 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 'Novice', 1, 
-'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 'Proficient', 0, NULL, 1, 
-'Expert', 0, NULL, 1, 'Proficient', 1, 'Novice', 0, NULL, 0, NULL, NULL, 'jgrey');
+INSERT INTO Languages (LanguagesID, isLanguage, LanguageLevel, OtherLanguage, OtherLevel, ASURITE_ID) VALUES
+(1, 'C', 'Proficient', NULL, NULL, 'ballen'),
+(2, 'C++', 'Expert', NULL, NULL, 'ballen'),
+(3, 'CSS', 'Expert', NULL, NULL, 'ballen'),
+(4, 'HTML', 'Expert', NULL, NULL, 'ballen'),
+(5, 'Java', 'Novice', NULL, NULL, 'ballen'),
+(6, 'JavaScript', 'Proficient', NULL, NULL, 'ballen'),
+(7, 'JSON', 'Proficient', NULL, NULL, 'ballen'),
+(8, 'Python', 'Expert', NULL, NULL, 'ballen'),
+(9, 'SQL', 'Proficient', NULL, NULL, 'ballen'),
+(10, 'Verilog', 'Expert', NULL, NULL, 'ballen'),
+(11, 'XML', 'Novice', NULL, NULL, 'ballen'),
+(12, NULL, NULL, 'C#', 'Proficient', 'ballen'),
+(13, NULL, NULL, 'Ruby', 'Proficient', 'ballen'),
+(14, 'C', 'Novice', NULL, NULL, 'oqueen'),
+(15, 'C++', 'Novice', NULL, NULL, 'oqueen'),
+(16, 'CSS', 'Expert', NULL, NULL, 'oqueen'),
+(17, 'HTML', 'Expert', NULL, NULL, 'oqueen'),
+(18, 'Java', 'Novice', NULL, NULL, 'oqueen'),
+(19, 'JavaScript', 'Expert', NULL, NULL, 'oqueen'),
+(20, 'JSON', 'Expert', NULL, NULL, 'oqueen'),
+(21, 'Python', 'Expert', NULL, NULL, 'oqueen'),
+(22, 'SQL', 'Proficient', NULL, NULL, 'oqueen'),
+(23, 'Swift', 'Novice', NULL, NULL, 'oqueen'),
+(24, NULL, NULL, 'Ruby', 'Proficient', 'oqueen'),
+(25, 'C', 'Novice', NULL, NULL, 'jgrey'),
+(26, 'C++', 'Novice', NULL, NULL, 'jgrey'),
+(27, 'CSS', 'Expert', NULL, NULL, 'jgrey'),
+(28, 'HTML', 'Expert', NULL, NULL, 'jgrey'),
+(29, 'Java', 'Novice', NULL, NULL, 'jgrey'),
+(30, 'JavaScript', 'Expert', NULL, NULL, 'jgrey'),
+(31, 'JSON', 'Proficient', NULL, NULL, 'jgrey'),
+(32, 'Python', 'Expert', NULL, NULL, 'jgrey'),
+(33, 'SQL', 'Proficient', NULL, NULL, 'jgrey'),
+(34, 'Swift', 'Novice', NULL, NULL, 'jgrey'),
+(35, NULL, NULL, 'C#', 'Novice', 'jgrey'),
+(36, NULL, NULL, 'Ruby', 'Proficient', 'jgrey'),
+(37, NULL, NULL, 'Prolog', 'Novice', 'jgrey');
 
 -- -----------------------------------------------------
 -- Attachment Table
