@@ -65,7 +65,7 @@ router.post('/getEducationInfo', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT EducationLevel, GPA, DegreeProgram, isAcademicProbation, isFourPlusOne, isInternationalStudent, SpeakTest, FirstSession, GraduationDate FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+        connection.query('SELECT EducationLevel, GPA, DegreeProgram, isAcademicProbation, isFourPlusOne, FirstSession, GraduationDate FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
@@ -73,7 +73,7 @@ router.post('/getEducationInfo', function(req, res) {
                 res.sendStatus(200);
             } else if (rows) {
                 res.send({'EducationLevel' : rows[0].EducationLevel, 'GPA' : rows[0].GPA, 'DegreeProgram' : rows[0].DegreeProgram, 'isAcademicProbation' : rows[0].isAcademicProbation, 
-                          'isFourPlusOne' : rows[0].isFourPlusOne, 'isInternationalStudent' : rows[0].isInternationalStudent, 'SpeakTest' : rows[0].SpeakTest, 'FirstSession' : rows[0].FirstSession, 'GraduationDatel' : rows[0].GraduationDate});
+                          'isFourPlusOne' : rows[0].isFourPlusOne, 'FirstSession' : rows[0].FirstSession, 'GraduationDatel' : rows[0].GraduationDate});
             } 
             connection.release();
         });

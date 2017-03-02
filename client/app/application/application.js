@@ -6,6 +6,11 @@
 // setup module
 var application = angular.module('app.application', []);
 
+application.constant('WORK_HOURS', {
+    international: 20,
+    us: 25
+});
+
 application.controller('contactInfoController', function($scope, $location, $http, UserInfoService) {
     // populates the Contact Info page        
     angular.element(document).ready(function() {
@@ -92,8 +97,6 @@ application.controller('educationInfoController', function($scope, $location, $h
             $scope.otherDegree = response.data.DegreeProgram;
             $scope.probation = response.data.isAcademicProbation;
             $scope.fourPlusOne = response.data.isFourPlusOne;
-            $scope.international = response.data.isInternationalStudent;
-            $scope.speakTest = response.data.SpeakTest;
             if (response.data.FirstSession != null) {
                 $scope.session = new Date(response.data.FirstSession);    
             } 
@@ -118,8 +121,6 @@ application.controller('educationInfoController', function($scope, $location, $h
                 "DegreeProgram"             : $scope.otherDegree,
                 "isAcademicProbation"       : $scope.probation,
                 "isFourPlusOne"             : $scope.fourPlusOne,
-                "isInternationalStudent"    : $scope.international,
-                "SpeakTest"                 : $scope.speakTest,
                 "FirstSession"              : $scope.session = new Date($scope.session),
                 "GraduationDate"            : $scope.gradDate,
                 "LastSaved"                 : lastSaved,
@@ -137,11 +138,19 @@ application.controller('educationInfoController', function($scope, $location, $h
     }
 });
 
-application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService) {
+    
+    $scope.doCheck = function() {
+        $scope.hoursWarning = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours).isOver;
+        $scope.enteredHours = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours).hours;
+    }
+    
     var user = { 'user' : UserInfoService.getUserId() };
     angular.element(document).ready(function(){
         $http.post('/employment/getEmploymentInfo', user ).then(function successCallback(response) {
             $scope.hours = response.data.TimeCommitment;
+            $scope.international = response.data.isInternationalStudent;
+            $scope.speakTest = response.data.SpeakTest;
             $scope.ta = response.data.isTA;
             $scope.grader = response.data.isGrader;
             $scope.employer = response.data.CurrentEmployer;
@@ -160,15 +169,20 @@ application.controller('employmentInfoController', function($scope, $location, $
         } else {
             lastSaved = '/employment';
         }
+        if ($scope.international === 0) {
+            $scope.speakTest = null;
+        }
         var employmentData = {
-                "TimeCommitment"    : $scope.hours,
-                "isTA"              : $scope.ta,
-                "isGrader"          : $scope.grader,
-                "CurrentEmployer"   : $scope.employer,
-                "WorkHours"         : $scope.workHours,
-                "LastSaved"         : lastSaved,
-                "ModifiedDate"      : dateObj,
-                "ASURITE_ID"        : UserInfoService.getUserId()
+                "TimeCommitment"            : $scope.hours,
+                "isInternationalStudent"    : $scope.international,
+                "SpeakTest"                 : $scope.speakTest,
+                "isTA"                      : $scope.ta,
+                "isGrader"                  : $scope.grader,
+                "CurrentEmployer"           : $scope.employer,
+                "WorkHours"                 : $scope.workHours,
+                "LastSaved"                 : lastSaved,
+                "ModifiedDate"              : dateObj,
+                "ASURITE_ID"                : UserInfoService.getUserId()
             };
         
         $http.post('/employment', employmentData).then(function successCallback(response) {

@@ -18,10 +18,6 @@
                 <p class="probation" ng-model='probationMessage' style="color:red;">Your application won't be considered until the academic probation has been cleared.</p>
             </div>
             <input ng-model='fourPlusOne' ng-true-value='1' ng-false-value='0' ng-init='fourPlusOne=0' type="checkbox" name="4to1" value="4to1"/> I'm in the 4 to 1 program<br>
-            <input ng-model='international' ng-true-value='1' ng-false-value='0' ng-init='international=0' type="checkbox" id="international-student" name="international-student"/> I'm an international student<br><br>
-            <div ng-show="international===1">
-                <input ng-model='speakTest' type="text" class="hidden" id="speak-test" name="speak-test" placeholder="Type in your speak test score"><br>
-            </div>
             <label>Date You Started At Arizona State University:</label>
             <input ng-model='session' type="date" name="date"><br>
          
