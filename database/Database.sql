@@ -158,8 +158,7 @@ CREATE TABLE IF NOT EXISTS Application (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Calendar (
   CalendarID INT NOT NULL AUTO_INCREMENT,
-  CalendarName ENUM ('Fall Semester', 'Summer Semester', 'Spring Semester'),
-  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'),
   StartHour TIME,
   StopHour TIME,
   ASURITE_ID VARCHAR(45) NOT NULL,
