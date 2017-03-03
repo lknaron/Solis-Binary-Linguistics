@@ -140,7 +140,7 @@ application.controller('educationInfoController', function($scope, $location, $h
 
 application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService) {
     
-    $scope.doCheck = function() {
+    $scope.doHoursCheck = function() {
         $scope.hoursWarning = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours).isOver;
         $scope.enteredHours = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours).hours;
     }
@@ -155,6 +155,7 @@ application.controller('employmentInfoController', function($scope, $location, $
             $scope.grader = response.data.isGrader;
             $scope.employer = response.data.CurrentEmployer;
             $scope.workHours = response.data.WorkHours;
+            $scope.hasWorked = response.data.isWorkedASU;
         }, function errorCallback(response) {
             //TODO
         });
@@ -180,6 +181,7 @@ application.controller('employmentInfoController', function($scope, $location, $
                 "isGrader"                  : $scope.grader,
                 "CurrentEmployer"           : $scope.employer,
                 "WorkHours"                 : $scope.workHours,
+                "isWorkedASU"               : $scope.hasWorked,
                 "LastSaved"                 : lastSaved,
                 "ModifiedDate"              : dateObj,
                 "ASURITE_ID"                : UserInfoService.getUserId()
