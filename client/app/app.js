@@ -11,7 +11,9 @@ var app = angular.module('app', ['ngRoute',
                                  'app.account',
                                  'app.student',
                                  'app.application',
-                                 'app.services']);
+                                 'app.services',
+                                 'app.directives'
+                                 ]);
 
 app.constant('USER_ROLES', {
     all: '*',
