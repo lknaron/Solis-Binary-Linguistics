@@ -30,12 +30,12 @@ router.post('/', function(req, res) {
 		      	console.log('Error getting mysql_pool connection: ' + err);
 		      	throw err;
 		    }
-		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.body[0][4]], function(err2) {
+		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.body[0][3]], function(err2) {
 		        if(err2) {
 		        	console.log('Error performing query: ' + err2);
 		            throw err2;
 		        } else {
-		            connection.query('INSERT INTO Calendar (CalendarName, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body], function(err2) { 
+		            connection.query('INSERT INTO Calendar (CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body], function(err2) { 
 						if(err2) {
 					    	console.log('Error performing query: ' + err2);
 					        throw err2;
