@@ -106,9 +106,9 @@ label.highlight {
     color: #ffffff;
 }
 
-input, textarea {
+input {
     font-size: 22px;
-    display: block;
+    display: inline;
     width: 100%;
     height: 100%;
     padding: 5px 10px;
@@ -121,34 +121,20 @@ input, textarea {
     transition: border-color .25s ease, box-shadow .25s ease;
 }
 
-input:focus, textarea:focus {
+input:focus {
     outline: 0;
     border-color: #1ab188;
 }
 
-textarea {
-  border: 2px solid #a0b3b0;
-  resize: vertical;
-}
 .field-wrap {
     position: relative;
     margin-bottom: 20px;
 }
 
-.top-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.top-row > div {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-}
-
-.top-row > div:last-child {
-    margin: 0;
+.help img {
+  position: absolute;
+  bottom: 6px;
+  right: 5px;
 }
 
 .create-button {
@@ -177,6 +163,7 @@ textarea {
 }
 
 .error {
+    white-space: pre-line;
     margin-top: -20px;
     text-align: left;
     color: #FFFFFF

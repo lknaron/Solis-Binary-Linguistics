@@ -322,36 +322,31 @@ application.controller('availabilityInfoController', function($scope, $location,
 application.controller('languagesInfoController', function($scope, $location, $http, UserInfoService) {
     // try moving this to Service as an angular.value or constant
     // ordered as in the database
-    $scope.languages = [{'name':'C','box':'c_box','level':'c_group'},
-                        {'name':'C#','box':'csharp_box','level':'csharp_group'},
-                        {'name':'C++','box':'cpp_box','level':'cpp_group'},
-                        {'name':'CSS','box':'css_box','level':'css_group'},
-                        {'name':'HTML','box':'html_box','level':'html_group'},
-                        {'name':'Java','box':'java_box','level':'java_group'},
-                        {'name':'Javascript','box':'js_box','level':'js_group'},
-                        {'name':'JSON','box':'json_box','level':'json_group'},
-                        {'name':'List/Scheme','box':'list_scheme_box','level':'list_scheme_group'},
-                        {'name':'PHP','box':'php_box','level':'php_group'},
-                            {'name':'PLP','box':'plp_box','level':'plp_group'},
-                        {'name':'Prolog','box':'prolog_box','level':'prolog_group'},
-                        {'name':'Python','box':'python_box','level':'python_group'},
-                        {'name':'SQL','box':'sql_box','level':'sql_group'},
-                        {'name':'Swift','box':'swift_box','level':'swift_group'},
-                        {'name':'Verilog','box':'verilog_box','level':'verilog_group'},
-                        {'name':'XML','box':'xml_box','level':'xml_group'}
+    $scope.languages = [{'name':'C','level':'c_group'},
+                        {'name':'C++','level':'cpp_group'},
+                        {'name':'CSS','level':'css_group'},
+                        {'name':'HTML','level':'html_group'},
+                        {'name':'Java','level':'java_group'},
+                        {'name':'Javascript','level':'js_group'},
+                        {'name':'JSON','level':'json_group'},
+                        {'name':'Python','level':'python_group'},
+                        {'name':'SQL','level':'sql_group'},
+                        {'name':'Swift','level':'swift_group'},
+                        {'name':'Verilog','level':'verilog_group'},
+                        {'name':'XML','level':'xml_group'}
                        ];
                        
      $scope.ides = [{'name':'Android Studio','box':'as_box'},
-                {'name':'Brackets','box':'brackets_box'},
+                    {'name':'Brackets','box':'brackets_box'},
                     {'name':'IntelliJ','box':'intellij_box'},
                     {'name':'NetBeans','box':'netbeans_box'},
                     {'name':'Xcode','box':'xcode_box'}
-               ];
+                   ];
                    
      $scope.tools = [{'name':'Github','box':'github_box'},
-                 {'name':'Taiga','box':'taiga_box'},
+                     {'name':'Taiga','box':'taiga_box'},
                      {'name':'Slack','box':'slack_box'}
-                ];
+                    ];
                  
     // on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
@@ -359,35 +354,50 @@ application.controller('languagesInfoController', function($scope, $location, $h
         $http.post('/languages/getLanguagesInfo', user).then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             // fill previous saved language selections
+            // loads all other languages into array
+            for (var k = 0; k < res.data.languageData.length; k++) {
+                if(res.data.languageData[k].OtherLanguage != null) {
+                    $scope.languages.push({'name' : res.data.languageData[k].OtherLanguage, 'level' : res.data.languageData[k].OtherLevel});   
+                }
+            }
+            // populates page of previous language selections
             for (var i = 0; i < $scope.languages.length; i++) {
-                for (var k = 0; k < res.data.languageData.selectionArray.length; k++) {
-                    if ($scope.languages[i].name === res.data.languageData.selectionArray[k].name) {
-                        $scope.languages[i].box = res.data.languageData.selectionArray[k].value;
-                        $scope.languages[i].level = res.data.languageData.selectionArray[k].level;
+                for (var j = 0; j < res.data.languageData.length; j++) {
+                    if ($scope.languages[i].name === res.data.languageData[j].isLanguage) {
+                        $scope.languages[i].level = res.data.languageData[j].LanguageLevel;
                     }
                 }
             }
-            $scope.otherLanguage = res.data.languageData.other;
-                
-            // fill previous saved IDEs
-            for (var i = 0; i < $scope.ides.length; i++) {
-                for (var k = 0; k < res.data.ideData.selectionArray.length; k++) {
-                    if ($scope.ides[i].name === res.data.ideData.selectionArray[k].name) {
-                        $scope.ides[i].box = res.data.ideData.selectionArray[k].value;
-                    }
+            // fill previous saved ide selections
+            // loads all other ides into array
+            for (var p = 0; p < res.data.ideData.length; p++) {
+                if(res.data.ideData[p].OtherIDE != null) {
+                    $scope.ides.push({'name' : res.data.ideData[p].OtherIDE, 'box' : 1});     
                 }
             }
-            $scope.otherIde = res.data.ideData.other;
-                
-            // fill previous saved tools
-            for (var i = 0; i < $scope.tools.length; i++) {
-                for (var k = 0; k < res.data.toolData.selectionArray.length; k++) {
-                    if ($scope.tools[i].name === res.data.toolData.selectionArray[k].name) {
-                        $scope.tools[i].box = res.data.toolData.selectionArray[k].value;
-                    }
+            // populates page of previous ide selections
+            for (var m = 0; m < $scope.ides.length; m++) {
+                for (var n = 0; n < res.data.ideData.length; n++) {
+                    if ($scope.ides[m].name === res.data.ideData[n].isIDE) {
+                        $scope.ides[m].box = 1;
+                    }  
                 }
             }
-                $scope.otherTool = res.data.toolData.other;
+            // fill previous saved tools selections
+            // loads all other tools into array
+            for (var s = 0; s < res.data.toolData.length; s++) {
+                if(res.data.toolData[s].OtherTool != null) {
+                    $scope.tools.push({'name' : res.data.toolData[s].OtherTool, 'box' : 1});     
+                }
+            }
+            // populates page of previous tool selections
+            for (var q = 0; q < $scope.tools.length; q++) {
+                for (var r = 0; r < res.data.toolData.length; r++) {
+                    if ($scope.tools[q].name === res.data.toolData[r].isTool) {
+                        $scope.tools[q].box = 1;
+                    }  
+                }
+            }
         }, function errorCallback(response) {
             //TODO
         });
@@ -395,80 +405,116 @@ application.controller('languagesInfoController', function($scope, $location, $h
 
     // saves all data on page
     $scope.saveLanguages= function(doRoute) {
-        var sendData = {
-            languages: [],
-            ide: [],
-            tools: [],
-            'user' : UserInfoService.getUserId()
-        };
-        var lNames = ['isC', 'isCSharp', 'isCPlusPlus', 'isCSS', 'isHTML', 'isJava', 'isJavascript', 'isJSON', 'isScheme', 'isPHP', 'isPLP', 'isProlog', 'isPython', 'isSQL', 'isSwift', 'isVerilog', 'isXML', 'XMLLevel', 'Other'];
-        var lLevels = ['CLevel', 'CSharpLevel', 'CPlusPlusLevel', 'CSSLevel', 'HTMLLevel', 'JavaLevel', 'JavascriptLevel', 'JSONLevel', 'SchemeLevel', 'PHPLevel', 'PLPLevel', 'PrologLevel', 'PythonLevel', 'SQLLevel', 'SwiftLevel', 'VerilogLevel', 'XMLLevel']
-        var iNames = ['isAndroidStudio', 'isBrackets', 'isIntelliJ', 'isNetBeans', 'isXcode', 'Other'];
-        var tNames = ['isGitHub', 'isTaiga', 'isSlack', 'Other'];
-        var languages = {};
-        var ides = {};
-        var tools = {};
-        
-        // gather language data
-        for (var i = 0; i < $scope.languages.length; i++) {
-            if ($scope.languages[i].box === 0) {
-                $scope.languages[i].level = null;
-            }
-            if ($scope.languages[i].level === null) {
-                $scope.languages[i].box = 0
-            }
-            if (i === $scope.languages.length - 1) {
-                languages[lNames[i]] = $scope.languages[i].box;
-                languages[lLevels[i]] = $scope.languages[i].level;
-                languages[lNames[lNames.length - 1]] = $scope.otherLanguage;
-                languages['ASURITE_ID'] = UserInfoService.getUserId(); 
-            } else {
-                languages[lNames[i]] = $scope.languages[i].box;
-                languages[lLevels[i]] = $scope.languages[i].level; 
+        var data = [];
+        var languages = [];
+        var ides = [];
+        var tools = [];
+        var user = [];
+        // 12 is number of hard coded languages in $scope.languages
+        for (var i = 0; i < 12; i++) {
+            if ($scope.languages[i].level === 'Expert' || $scope.languages[i].level === 'Proficient' || $scope.languages[i].level === 'Novice') {
+                var arr = [$scope.languages[i].name, $scope.languages[i].level, null, null, UserInfoService.getUserId()];
+                languages.push(arr);
+            }   
+        }
+        // Grabs any pre-populated Other Languages
+        for (var j = 12; j < $scope.languages.length; j++) {
+            if ($scope.languages[j].level === 'Expert' || $scope.languages[i].level === 'Proficient' || $scope.languages[i].level === 'Novice') {
+                var arr = [null, null, $scope.languages[j].name, $scope.languages[j].level, UserInfoService.getUserId()];
+                languages.push(arr);
             }
         }
-        sendData.languages.push(languages);
+        // Grabs any new Other Languages
+        var count = document.getElementById('spaceforlanguages').getElementsByTagName('input').length / 4; // Each other language has 4 inputs (text, 3 radio buttons)
+        if ($scope.otherLanguage != null) {
+            for (var k = 0; k < count; k++) {    
+                if ($scope.otherLanguage[k+1] != null && $scope.otherLanguageLevel[k+1] != null) {
+                    var arr = [null, null, $scope.otherLanguage[k+1], $scope.otherLanguageLevel[k+1], UserInfoService.getUserId()]; 
+                    languages.push(arr);  
+                }
+            } 
+        }      
+        data.push(languages);
 
-        // gather ide data
-        for (var j = 0; j < $scope.ides.length; j++) {
-            if ($scope.ides[j].box === null) {
-                $scope.ides[j].box = 0
-            }
-            ides[iNames[j]] = $scope.ides[j].box;
+        // 5 is number of hard coded ides in $scope.ides
+        for (var i = 0; i < 5; i++) {
+            if ($scope.ides[i].box === 1) {
+                var arr = [$scope.ides[i].name, null, UserInfoService.getUserId()];
+                ides.push(arr);
+            }   
         }
-        ides[iNames[iNames.length - 1]] = $scope.otherIde;
-        ides['ASURITE_ID'] = UserInfoService.getUserId();
-        sendData.ide.push(ides);
+        // Grabs any pre-populated Other IDEs
+        for (var j = 5; j < $scope.ides.length; j++) {
+            if ($scope.ides[j].box === 1) {
+                var arr = [null, $scope.ides[i].name, UserInfoService.getUserId()];
+                ides.push(arr);
+            }
+        }
+        // Grabs any new Other IDEs
+        var count = document.getElementById('spaceforides').getElementsByTagName('input').length;
+        if ($scope.otherIDE != null) {
+            for (var k = 0; k < count; k++) {
+                if ($scope.otherIDE[k+1] != null) {
+                    var arr = [null, $scope.otherIDE[k+1], UserInfoService.getUserId()]; 
+                    ides.push(arr);  
+                }
+            }   
+        }       
+        data.push(ides);
 
-        // gather tools data
-        for (var k = 0; k < $scope.tools.length; k++) {
-            if ($scope.tools[k].box === null) {
-                $scope.tools[k].box = 0
-            }
-            tools[tNames[k]] = $scope.tools[k].box;
+        // 3 is number of hard coded tools in $scope.tools
+        for (var i = 0; i < 3; i++) {
+            if ($scope.tools[i].box === 1) {
+                var arr = [$scope.tools[i].name, null, UserInfoService.getUserId()];
+                tools.push(arr);
+            }   
         }
-        tools[tNames[tNames.length - 1]] = $scope.otherTool;
-        tools['ASURITE_ID'] = UserInfoService.getUserId(); 
-        sendData.tools.push(tools);
-        
-        $http.post('/languages', sendData).then(function successCallback(response) {
+        // Grabs any pre-populated Other Tools
+        for (var j = 3; j < $scope.tools.length; j++) {
+            if ($scope.tools[j].box === 1) {
+                var arr = [null, $scope.tools[i].name, UserInfoService.getUserId()];
+                tools.push(arr);
+            }
+        }
+        // Grabs any new Other Tools
+        var count = document.getElementById('spacefortools').getElementsByTagName('input').length;
+        if ($scope.otherTool != null) {
+            for (var k = 0; k < count; k++) {
+                if ($scope.otherTool[k+1] != null) {
+                    var arr = [null, $scope.otherTool[k+1], UserInfoService.getUserId()]; 
+                    tools.push(arr);  
+                }
+            }
+        }
+        data.push(tools);
+        user.push(UserInfoService.getUserId());
+        data.push(user);
+
+        $http.post('/languages', data).then(function successCallback(response) {
             if (doRoute === true) {
                 $location.path('/courses'); 
             }
-
         }, function errorCallback(response) {
             // TO DO
         });
     } // end saveLanguages
 
+    $scope.deselectLevel = function(element, count) {
+        if (element.language) {
+            element.language.level = null;   
+        } else if (count)  {
+            element.otherLanguageLevel[count] = null;
+        }  
+    }
+
     // Not functioning -- Still need to clear ides and tools
-    $scope.clearUnselected = function() {
+    /*$scope.clearUnselected = function() {
         for (var i = 0; i < $scope.languages.length; i++) {
             if ($scope.languages[i].box === 0) {
                 $scope.languages[i].level = null;
             }
         }
-    }       
+    }*/       
 });
 
 application.controller('coursesInfoController', function($scope, $location, $http, UserInfoService) {

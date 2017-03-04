@@ -17,6 +17,15 @@ account.controller('createAccountController', function($scope, $location, $http,
             $scope.message = 'Passwords do not match. Please try again.';
             $scope.password1 = '';
             $scope.password2 = '';
+        } else if (!checkEmail($scope.email)) {
+            $scope.message = 'You must use your ASU email.';
+            $scope.email = '';
+            $scope.password1 = '';
+            $scope.password2 = '';
+        } else if (!checkPassword($scope.password1)) {
+            $scope.message = 'Password Requirements:\n  -8-20 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)';
+            $scope.password1 = '';
+            $scope.password2 = '';
         } else {
             var createAccountData = {
                "ASURITE_ID" : $scope.asuriteID,
@@ -46,6 +55,21 @@ account.controller('createAccountController', function($scope, $location, $http,
                 //TODO
             });
         }
+    }
+    
+    function checkPassword(password) {
+        var requirement = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$");
+        var res = requirement.test(password);
+        return res;
+    }
+
+    function checkEmail(email) {
+        var require = 'asu.edu';
+        var end = email.split('@')[1];
+        if (end === require) {
+            return true;
+        }
+        return false;
     }
 });
 

@@ -280,248 +280,165 @@ UPDATE Attachment SET AttachmentSize = ? WHERE AppID = ?
 -- Update Upload Date
 UPDATE Attachment SET UploadDate = ? WHERE AppID = ?
 
+-- -----------------------------------------------------
 -- Languages Table
+-- -----------------------------------------------------
 
 -- Insert Languages Table
 INSERT INTO Languages SET?
 
 -- Select Languages
-SELECT * FROM Languages WHERE AppID = ?
+SELECT * FROM Languages WHERE ASURITE_ID = ?
 
--- Select C
-SELECT isC, CLevel FROM Languages WHERE AppID = ?
+-- Select C Language and Level
+SELECT isLanguage = 'C', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update C
-UPDATE Languages SET isC = ? WHERE AppID = ?
+-- Update C Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'C' AND ASURITE_ID = ?
 
--- Update C Level
-UPDATE Languages SET CLevel = ? WHERE AppID = ?
+-- Select C++ Language and Level
+SELECT isLanguage = 'C++', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select C#
-SELECT isCSharp, CSharpLevel FROM Languages WHERE AppID = ?
+-- Update C++ Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'C++' AND ASURITE_ID = ?
 
--- Update C#
-UPDATE Languages SET isCSharp = ? WHERE AppID = ?
+-- Select C Language and Level
+SELECT isLanguage = 'CSS', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update C# Level
-UPDATE Languages SET CSharpLevel = ? WHERE AppID = ?
+-- Update CSS Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'CSS' AND ASURITE_ID = ?
 
--- Select C++
-SELECT isCPlusPlus, CPlusPlusLevel FROM Languages WHERE AppID = ?
+-- Select HTML Language and Level
+SELECT isLanguage = 'HTML', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update C++
-UPDATE Languages SET isCPlusPlus = ? WHERE AppID = ?
+-- Update HTML Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'HTML' AND ASURITE_ID = ?
 
--- Update C++ Level
-UPDATE Languages SET CPlusPlusLevel = ? WHERE AppID = ?
+-- Select Java Language and Level
+SELECT isLanguage = 'Java', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select CSS
-SELECT isCSS, CSSLevel FROM Languages WHERE AppID = ?
+-- Update Java Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Java' AND ASURITE_ID = ?
 
--- Update CSS
-UPDATE Languages SET isCSS = ? WHERE AppID = ?
+-- Select JavaScript Language and Level
+SELECT isLanguage = 'JavaScript', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update CSS Level
-UPDATE Languages SET CSSLevel = ? WHERE AppID = ?
+-- Update JavaScript Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'JavaScript' AND ASURITE_ID = ?
 
--- Select HTML
-SELECT isHTML, HTMLLevel FROM Languages WHERE AppID = ?
+-- Select JSON Language and Level
+SELECT isLanguage = 'JSON', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update HTML
-UPDATE Languages SET isHTML = ? WHERE AppID = ?
+-- Update JSON Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'JSON' AND ASURITE_ID = ?
 
--- Update HTML Level
-UPDATE Languages SET HTMLLevel = ? WHERE AppID = ?
+-- Select Python Language and Level
+SELECT isLanguage = 'Python', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select Java
-SELECT isJava, JavaLevel FROM Languages WHERE AppID = ?
+-- Update Python Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Python' AND ASURITE_ID = ?
 
--- Update Java
-UPDATE Languages SET isJava = ? WHERE AppID = ?
+-- Select SQL Language and Level
+SELECT isLanguage = 'SQL', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update Java Level
-UPDATE Languages SET JavaLevel = ? WHERE AppID = ?
+-- Update SQL Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'SQL' AND ASURITE_ID = ?
 
--- Select Javascript
-SELECT isJavascript, JavascriptLevel FROM Languages WHERE AppID = ?
+-- Select Swift Language and Level
+SELECT isLanguage = 'Swift', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update Javascript
-UPDATE Languages SET isJavascript = ? WHERE AppID = ?
+-- Update Swift Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Swift' AND ASURITE_ID = ?
 
--- Update Javascript Level
-UPDATE Languages SET JavascriptLevel = ? WHERE AppID = ?
+-- Select Verilog Language and Level
+SELECT isLanguage = 'Verilog', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Select JSON
-SELECT isJSON, JSONLevel FROM Languages WHERE AppID = ?
+-- Update Verilog Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'Verilog' AND ASURITE_ID = ?
 
--- Update JSON
-UPDATE Languages SET isJSON = ? WHERE AppID = ?
+-- Select XML Language and Level
+SELECT isLanguage = 'XML', LanguageLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update JSON Level
-UPDATE Languages SET JSONLevel = ? WHERE AppID = ?
+-- Update XML Language Level
+UPDATE Languages SET LanguageLevel = ? WHERE isLanguage = 'XML' AND ASURITE_ID = ?
 
--- Select Scheme
-SELECT isScheme, SchemeLevel FROM Languages WHERE AppID = ?
+-- Select Other Languages and Level
+SELECT OtherLanguage, OtherLevel FROM Languages WHERE ASURITE_ID = ?
 
--- Update Scheme
-UPDATE Languages SET isScheme = ? WHERE AppID = ?
-
--- Update Scheme Level
-UPDATE Languages SET SchemeLevel = ? WHERE AppID = ?
-
--- Select PHP
-SELECT isPHP, PHPLevel FROM Languages WHERE AppID = ?
-
--- Update PHP
-UPDATE Languages SET isPHP = ? WHERE AppID = ?
-
--- Update PHP Level
-UPDATE Languages SET PHPLevel = ? WHERE AppID = ?
-
--- Select PLP
-SELECT isPLP, PLPLevel FROM Languages WHERE AppID = ?
-
--- Update PLP 
-UPDATE Languages SET isPLP = ? WHERE AppID = ?
-
--- Update PLP Level
-UPDATE Languages SET PLPLevel = ? WHERE AppID = ?
-
--- Select Prolog
-SELECT isProlog, PrologLevel FROM Languages WHERE AppID = ?
-
--- Update Prolog
-UPDATE Languages SET isProlog = ? WHERE AppID = ?
-
--- Update Prolog Level
-UPDATE Languages SET PrologLevel = ? WHERE AppID = ?
-
--- Select Python
-SELECT isPython, PythonLevel FROM Languages WHERE AppID = ?
-
--- Update Python
-UPDATE Languages SET isPython = ? WHERE AppID = ?
-
--- Update Python Level
-UPDATE Languages SET PythonLevel = ? WHERE AppID = ?
-
--- Select SQL
-SELECT isSQL, SQLLevel FROM Languages WHERE AppID = ?
-
--- Update SQL
-UPDATE Languages SET isSQL = ? WHERE AppID = ?
-
--- Update SQL Level
-UPDATE Languages SET SQLLevel = ? WHERE AppID = ?
-
--- Select Swift
-SELECT isSwift, SwiftLevel FROM Languages WHERE AppID = ?
-
--- Update Swift
-UPDATE Languages SET isSwift = ? WHERE AppID = ?
-
--- Update Swift Level
-UPDATE Languages SET SwiftLevel = ? WHERE AppID = ?
-
--- Select Verilog
-SELECT isVerilog, VerilogLevel FROM Languages WHERE AppID = ?
-
--- Update Verilog
-UPDATE Application SET isVerilog = ? WHERE AppID = ?
-
--- Update Verilog Level
-UPDATE Languages SET VerilogLevel = ? WHERE AppID = ?
-
--- Select XML
-SELECT isXML, XMLLevel FROM Languages WHERE AppID = ?
-
--- Update XML
-UPDATE Languages SET isXML = ? WHERE AppID = ?
-
--- Update XML Level
-UPDATE Languages SET XMLLevel = ? WHERE AppID = ?
-
--- Select Other
-SELECT Other FROM Languages WHERE AppID = ?
-
--- Update Other
-UPDATE Languages SET Other = ? WHERE AppID = ?
-
+-- -----------------------------------------------------
 -- IDEs Table
+-- -----------------------------------------------------
 
 -- Insert IDEs Table
 INSERT INTO IDEs SET?
 
 -- Select IDEs
-SELECT * FROM IDEs WHERE AppID = ?
+SELECT * FROM IDEs WHERE ASURITE_ID = ?
 
 -- Select Android Studio
-SELECT isAndroidStudio FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'Android Studio' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update Android Studio
-UPDATE IDEs SET isAndroidStudio = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'Android Studio' AND ASURITE_ID = ?
 
 -- Select Brackets
-SELECT isBrackets FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'Brackets' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update Brackets
-UPDATE IDEs SET isBrackets = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'Brackets' AND ASURITE_ID = ?
 
 -- Select IntelliJ
-SELECT isIntelliJ FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'IntelliJ' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update IntelliJ
-UPDATE IDEs SET isIntelliJ = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'IntelliJ' AND ASURITE_ID = ?
 
 -- Select NetBeans
-SELECT isNetBeans FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'NetBeans' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update NetBeans
-UPDATE IDEs SET isNetBeans = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'NetBeans' AND ASURITE_ID = ?
 
 -- Select Xcode
-SELECT isXcode FROM IDEs WHERE AppID = ?
+SELECT isIDE = 'Xcode' FROM IDEs WHERE ASURITE_ID = ?
 
 -- Update Xcode
-UPDATE IDEs SET isXcode = ? WHERE AppID = ?
+UPDATE IDEs SET isIDE = ? WHERE isIDE = 'Xcode' AND ASURITE_ID = ?
 
--- Select Other
-SELECT Other FROM IDEs WHERE AppID = ?
+-- Select Other IDEs
+SELECT OtherIDE FROM IDEs WHERE ASURITE_ID = ?
 
--- Update Other
-UPDATE IDEs SET Other = ? WHERE AppID = ?
-
+-- -----------------------------------------------------
 -- Collaborative Tools Table
+-- -----------------------------------------------------
 
 -- Insert Collaborative Tools Table
 INSERT INTO Collaborative_Tools SET?
 
--- Select Collaborative Tools
-SELECT * FROM Collaborative_Tools WHERE AppID = ?
+-- Select Collaborative Tools Table
+SELECT * FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
--- Select Github
-SELECT isGithub FROM Collaborative_Tools WHERE AppID = ?
+-- Select GitHub
+SELECT isTool = 'GitHub' FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
 -- Update GitHub
-UPDATE Collaborative_Tools SET isGitHub = ? WHERE AppID = ?
+UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'GitHub' AND ASURITE_ID = ?
 
 -- Select Taiga
-SELECT isTaiga FROM Collaborative_Tools WHERE AppID = ?
+SELECT isTool = 'Taiga' FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
 -- Update Taiga
-UPDATE Collaborative_Tools SET isTaiga = ? WHERE AppID = ?
+UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'Taiga' AND ASURITE_ID = ?
 
 -- Select Slack
-SELECT isSlack FROM Collaborative_Tools WHERE AppID = ?
+SELECT isTool = 'Slack' FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
 -- Update Slack
-UPDATE Collaborative_Tools SET isSlack = ? WHERE AppID = ?
+UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'Slack' AND ASURITE_ID = ?
 
--- Select Other
-SELECT Other FROM Collaborative_Tools WHERE AppID = ?
+-- Select Other Tools
+SELECT OtherTool FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
--- Update Other
-UPDATE Collaborative_Tools SET Other = ? WHERE AppID = ?
 
 -- Course Competencies Table
 

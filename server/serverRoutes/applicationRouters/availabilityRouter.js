@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
 		        	console.log('Error performing query: ' + err2);
 		            throw err2;
 		        } else {
-		            connection.query('INSERT INTO Calendar (CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body], function(err3) { 
+		            connection.query('INSERT INTO Calendar (CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body], function(err3) {  
 						if(err3) {
 					    	console.log('Error performing query: ' + err3);
 					        throw err3;
