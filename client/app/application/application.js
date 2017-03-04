@@ -141,8 +141,9 @@ application.controller('educationInfoController', function($scope, $location, $h
 application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService) {
     
     $scope.doHoursCheck = function() {
-        $scope.hoursWarning = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours).isOver;
-        $scope.enteredHours = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours).hours;
+        var result = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours);
+        $scope.hoursWarning = result.isOver;
+        $scope.enteredHours = result.hours;
     }
     
     var user = { 'user' : UserInfoService.getUserId() };
