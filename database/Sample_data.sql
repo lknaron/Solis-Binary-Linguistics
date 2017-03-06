@@ -30,19 +30,19 @@ UserRole, RegTime, isActive, LoginTime) VALUES
 INSERT INTO Application (AppID, PhoneNumber, MobileNumber, AddressOne, AddressTwo, 
 AddressCountry, AddressCity, AddressState, AddressZip, EducationLevel, GPA, DegreeProgram,
 isAcademicProbation, isFourPlusOne, isInternationalStudent, SpeakTest, FirstSession,
-GraduationDate, TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours, AppStatus,
-DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
+GraduationDate, TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours, isWorkedASU, 
+AppStatus, DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
 'Central City', 'Missouri', 10001, 'Ph.D Computer Engineering', 4.2, 
 'Electrical Engineering', 0, 0, 0, NULL, '2016-08-15', 'Spring 2020', '10 hours per week', 
-1, 0, NULL, NULL, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/availability', 'ballen'),
+1, 0, NULL, NULL, 1, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/availability', 'ballen'),
 (2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
 'Star City', 'California', 20020, 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
-0, 0, NULL, '2014-08-15', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 
+0, 0, NULL, '2014-08-15', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 0, 
 'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 'oqueen'),
 (3, '342-443-1341', '342-234-1322', '1407 Graymalkin Lane', NULL, 'United States', 
 'Salem Center', 'New York', 10501, 'M.S. Computer Engineering', 2.8, 'Computer Science', 1,
-1, 1, 250, '2012-08-15', 'Spring 2017', '10 hours per week', 0, 1, NULL, NULL, 
+1, 1, 250, '2012-08-15', 'Spring 2017', '10 hours per week', 0, 1, NULL, NULL, 0, 
 'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', '/employment', 'jgrey');
 
 -- -----------------------------------------------------
@@ -163,15 +163,35 @@ UploadDate, ASURITE_ID) VALUES
 -- -----------------------------------------------------
 -- Calendar Table
 -- -----------------------------------------------------
-INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES
-(1, 'Summer Semester', 'Monday', '08:00:00', '09:00:00', 'ballen'), 
-(2, 'Summer Semester', 'Monday', '09:00:00', '10:00:00', 'ballen'),
-(3, 'Summer Semester', 'Monday', '13:00:00', '14:00:00', 'ballen'),
-(4, 'Summer Semester', 'Monday', '14:00:00', '15:00:00', 'ballen'),
-(5, 'Summer Semester', 'Wednesday', '08:00:00', '09:00:00', 'ballen'), 
-(6, 'Summer Semester', 'Wednesday', '09:00:00', '10:00:00', 'ballen'),
-(7, 'Summer Semester', 'Wednesday', '13:00:00', '14:00:00', 'ballen'),
-(8, 'Summer Semester', 'Wednesday', '14:00:00', '15:00:00', 'ballen');
+INSERT INTO Calendar (CalendarID, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES
+(1, 'Monday', '08:00:00', '10:00:00', 'ballen'), 
+(2, 'Monday', '10:00:00', '12:00:00', 'ballen'),
+(3, 'Monday', '14:00:00', '16:00:00', 'ballen'),
+(4, 'Tuesday', '08:00:00', '10:00:00', 'ballen'),
+(5, 'Tuesday', '10:00:00', '12:00:00', 'ballen'),
+(6, 'Tuesday', '16:00:00', '18:00:00', 'ballen'), 
+(7, 'Wednesday', '08:00:00', '10:00:00', 'ballen'),
+(8, 'Wednesday', '10:00:00', '12:00:00', 'ballen'),
+(9, 'Wednesday', '14:00:00', '16:00:00', 'ballen'),
+(10, 'Thursday', '08:00:00', '10:00:00', 'ballen'),
+(11, 'Thursday', '10:00:00', '12:00:00', 'ballen'),
+(12, 'Thursday', '12:00:00', '14:00:00', 'ballen'),
+(13, 'Friday', '08:00:00', '10:00:00', 'ballen'),
+(14, 'Friday', '10:00:00', '12:00:00', 'ballen'), 
+(15, 'Monday', '10:00:00', '12:00:00', 'oqueen'),
+(16, 'Monday', '12:00:00', '14:00:00', 'oqueen'),
+(17, 'Monday', '16:00:00', '18:00:00', 'oqueen'),
+(18, 'Monday', '18:00:00', '20:00:00', 'oqueen'),
+(19, 'Tuesday', '16:00:00', '17:00:00', 'oqueen'), 
+(20, 'Tuesday', '10:00:00', '12:00:00', 'oqueen'),
+(21, 'Tuesday', '12:00:00', '14:00:00', 'oqueen'),
+(22, 'Wednesday', '08:00:00', '10:00:00', 'oqueen'),
+(23, 'Wednesday', '10:00:00', '12:00:00', 'oqueen'), 
+(24, 'Wednesday', '12:00:00', '13:00:00', 'oqueen'),
+(25, 'Thursday', '08:00:00', '10:00:00', 'oqueen'),
+(26, 'Thursday', '10:00:00', '12:00:00', 'oqueen'),
+(27, 'Thursday', '14:00:00', '16:00:00', 'oqueen'),
+(28, 'Friday', '10:00:00', '12:00:00', 'oqueen');
 
 -- -----------------------------------------------------
 -- Offer Table

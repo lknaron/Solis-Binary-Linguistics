@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS Application (
   isGrader TINYINT(1) DEFAULT NULL,
   CurrentEmployer VARCHAR(45) DEFAULT NULL,
   WorkHours INT DEFAULT NULL,
+  isWorkedASU TINYINT(1) DEFAULT NULL,
   AppStatus VARCHAR(45) DEFAULT NULL,
   DateCreated TIMESTAMP,
   DateSubmitted TIMESTAMP,
@@ -158,8 +159,7 @@ CREATE TABLE IF NOT EXISTS Application (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Calendar (
   CalendarID INT NOT NULL AUTO_INCREMENT,
-  CalendarName ENUM ('Fall Semester', 'Summer Semester', 'Spring Semester'),
-  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+  CalendarDay ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'),
   StartHour TIME,
   StopHour TIME,
   ASURITE_ID VARCHAR(45) NOT NULL,
