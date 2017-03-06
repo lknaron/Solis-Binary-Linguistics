@@ -23,7 +23,8 @@
     margin-bottom: 8px;
 }
 
-.form-employment input[type="text"] {
+.form-employment input[type="text"],
+.form-employment input[type="number"] {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
@@ -80,6 +81,10 @@
 
 .form-employment input[type="button"]:hover {
     background: #109177;
+}
+
+.form-employment input[type="radio"] {
+    padding-top: 2px;        
 }
 
 .myButton {
