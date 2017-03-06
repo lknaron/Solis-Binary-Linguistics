@@ -7,12 +7,13 @@
 // setup directives module
 var directives = angular.module('app.directives',[]);
 
+// Directive for adding add language button
 directives.directive('addlanguagesbutton', function () {
-        return {
-            restrict: "E",
-			template: "<button addlanguages class='myButton'>Add Another Language</button>"
-        };
-    });
+    return {
+        restrict: "E",
+		template: "<button addlanguages class='myButton'>Add Another Language</button>"
+    };
+});
 
 // Directive for text input and radio buttons on click of add languages button
 directives.directive("addlanguages", function($compile){
@@ -82,3 +83,28 @@ directives.directive('fileInput', ['$parse', function ($parse) {
     	}
 	};
 }]);
+
+// Directive for adding add courses button
+directives.directive('addcoursesbutton', function () {
+    return {
+        restrict: "E",
+		template: "<button addcourses class='myButton'>Add Another Course</button>"
+    };
+});
+
+// Directive for text input and radio buttons on click of add courses button
+directives.directive("addcourses", function($compile){
+	return function(scope, element, attrs){
+		var count = '';
+		var model = '';
+		element.bind("click", function(){
+			if (document.getElementById('spaceforcourses').getElementsByTagName('input').length === 0) {
+				count = (document.getElementById('spaceforcourses').getElementsByTagName('input').length + 1);	
+			} else {
+				count = ((document.getElementById('spaceforcourses').getElementsByTagName('input').length / 5) + 1);
+			}
+			scope.message = "*You must select a level to save additional course";	
+			angular.element(document.getElementById('spaceforcourses')).append($compile("<input type='text' ng-model='otherCourse["+count+"]' placeholder='Course Name'><div class='otherc'><span><input type='radio' ng-model='otherCourseLevel["+count+"]' value='Prefer' ng-dblclick='deselectLevel(this, "+count+")'>Prefer<input type='radio' ng-model='otherCourseLevel["+count+"]' value='Qualified' ng-dblclick='deselectLevel(this, "+count+")'>Qualified<input type='radio' ng-model='otherCourseLevel["+count+"]' value='Previously TA' ng-dblclick='deselectLevel(this, "+count+")'>Previously TA<input type='radio' ng-model='otherCourseLevel["+count+"]' value='Previously Grader' ng-dblclick='deselectLevel(this, "+count+")'>Previously Grader</div><br><br><br><br></span>")(scope));  		        
+		});
+	};
+});

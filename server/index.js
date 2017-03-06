@@ -78,5 +78,3 @@ app.use('/languages', languagesRouter);
 app.use('/languages/getLanguagesInfo', languagesRouter);
 app.use('/courses', coursesRouter);
 app.use('/courses/getCoursesInfo', coursesRouter);
-app.use('/courses/coursesTaught', coursesRouter);
-app.use('/courses/getCoursesTaughtInfo', coursesRouter);
