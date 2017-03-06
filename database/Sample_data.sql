@@ -163,15 +163,35 @@ UploadDate, ASURITE_ID) VALUES
 -- -----------------------------------------------------
 -- Calendar Table
 -- -----------------------------------------------------
-INSERT INTO Calendar (CalendarID, CalendarName, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES
-(1, 'Summer Semester', 'Monday', '08:00:00', '09:00:00', 'ballen'), 
-(2, 'Summer Semester', 'Monday', '09:00:00', '10:00:00', 'ballen'),
-(3, 'Summer Semester', 'Monday', '13:00:00', '14:00:00', 'ballen'),
-(4, 'Summer Semester', 'Monday', '14:00:00', '15:00:00', 'ballen'),
-(5, 'Summer Semester', 'Wednesday', '08:00:00', '09:00:00', 'ballen'), 
-(6, 'Summer Semester', 'Wednesday', '09:00:00', '10:00:00', 'ballen'),
-(7, 'Summer Semester', 'Wednesday', '13:00:00', '14:00:00', 'ballen'),
-(8, 'Summer Semester', 'Wednesday', '14:00:00', '15:00:00', 'ballen');
+INSERT INTO Calendar (CalendarID, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES
+(1, 'Monday', '08:00:00', '10:00:00', 'ballen'), 
+(2, 'Monday', '10:00:00', '12:00:00', 'ballen'),
+(3, 'Monday', '14:00:00', '16:00:00', 'ballen'),
+(4, 'Tuesday', '08:00:00', '10:00:00', 'ballen'),
+(5, 'Tuesday', '10:00:00', '12:00:00', 'ballen'),
+(6, 'Tuesday', '16:00:00', '18:00:00', 'ballen'), 
+(7, 'Wednesday', '08:00:00', '10:00:00', 'ballen'),
+(8, 'Wednesday', '10:00:00', '12:00:00', 'ballen'),
+(9, 'Wednesday', '14:00:00', '16:00:00', 'ballen'),
+(10, 'Thursday', '08:00:00', '10:00:00', 'ballen'),
+(11, 'Thursday', '10:00:00', '12:00:00', 'ballen'),
+(12, 'Thursday', '12:00:00', '14:00:00', 'ballen'),
+(13, 'Friday', '08:00:00', '10:00:00', 'ballen'),
+(14, 'Friday', '10:00:00', '12:00:00', 'ballen'), 
+(15, 'Monday', '10:00:00', '12:00:00', 'oqueen'),
+(16, 'Monday', '12:00:00', '14:00:00', 'oqueen'),
+(17, 'Monday', '16:00:00', '18:00:00', 'oqueen'),
+(18, 'Monday', '18:00:00', '20:00:00', 'oqueen'),
+(19, 'Tuesday', '16:00:00', '17:00:00', 'oqueen'), 
+(20, 'Tuesday', '10:00:00', '12:00:00', 'oqueen'),
+(21, 'Tuesday', '12:00:00', '14:00:00', 'oqueen'),
+(22, 'Wednesday', '08:00:00', '10:00:00', 'oqueen'),
+(23, 'Wednesday', '10:00:00', '12:00:00', 'oqueen'), 
+(24, 'Wednesday', '12:00:00', '13:00:00', 'oqueen'),
+(25, 'Thursday', '08:00:00', '10:00:00', 'oqueen'),
+(26, 'Thursday', '10:00:00', '12:00:00', 'oqueen'),
+(27, 'Thursday', '14:00:00', '16:00:00', 'oqueen'),
+(28, 'Friday', '10:00:00', '12:00:00', 'oqueen');
 
 -- -----------------------------------------------------
 -- Offer Table
