@@ -65,14 +65,14 @@ router.post('/getEmploymentInfo', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+        connection.query('SELECT TimeCommitment, isInternationalStudent, SpeakTest, isTA, isGrader, CurrentEmployer, WorkHours, isWorkedASU FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
             } else if (!rows.length) {
                 res.sendStatus(200);
             } else if (rows) {
-                res.send({'TimeCommitment' : rows[0].TimeCommitment, 'isTA' : rows[0].isTA, 'isGrader' : rows[0].isGrader, 'CurrentEmployer' : rows[0].CurrentEmployer, 'WorkHours' : rows[0].WorkHours});
+                res.send({'TimeCommitment' : rows[0].TimeCommitment,'isInternationalStudent' : rows[0].isInternationalStudent, 'SpeakTest' : rows[0].SpeakTest,  'isTA' : rows[0].isTA, 'isGrader' : rows[0].isGrader, 'CurrentEmployer' : rows[0].CurrentEmployer, 'WorkHours' : rows[0].WorkHours, 'isWorkedASU' : rows[0].isWorkedASU});
             } 
             connection.release();
         });
