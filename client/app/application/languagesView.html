@@ -1,39 +1,53 @@
-<div ng-controller='languagesInfoController'>
-    <h3>Languages</h3>
-    <p>*To deselect a language double click selection</p>
-    <div ng-repeat="language in languages">
-        <span ng-init="language.group=null">
-            {{language.name}}
-        	<input type='radio' ng-model='language.level' value='Expert' ng-dblclick='deselectLevel(this)'>Expert
-            <input type='radio' ng-model='language.level' value='Proficient' ng-dblclick='deselectLevel(this)'>Proficient
-            <input type='radio' ng-model='language.level' value='Novice' ng-dblclick='deselectLevel(this)'>Novice
-        	<br>
-        </span>
-    </div>
-    <p ng-model='requiremessage'>{{message}}</p>
-    <div id='spaceforlanguages'>   
-    </div>
-    <addlanguagesbutton></addlanguagesbutton>   
-    <!--end div of languages section-->
-    <hr>
-    <h3>IDEs</h3>
-    <div ng-repeat="ide in ides">
-    	<input type='checkbox' ng-model=ide.box ng-true-value='1' ng-false-value='0'>{{ide.name}}
-    </div>
-    <div id='spaceforides'>   
-    </div>
-    <addidesbutton></addidesbutton>
-    <!--end div of IDE section-->
-    <hr>
-    <h3>Collaborative Tools</h3>
-    <div ng-repeat="tool in tools">
-    	<input type='checkbox' ng-model=tool.box ng-true-value='1' ng-false-value='0'>{{tool.name}}
-    </div>
-    <div id='spacefortools'>   
-    </div>
-    <addtoolsbutton></addtoolsbutton>
-    <!--end div of tools section-->
+<div class="form-languages" ng-controller='languagesInfoController'>
+    <form>
+        <fieldset>
+            <legend><span class="number">1</span>Languages</legend>
+            <p>*To deselect a language double click selection</p>
+            <div ng-repeat="language in languages">               
+                <span class='bottom' ng-init="language.group=null">
+                        <label class='left'>{{language.name}}</label>
+                        <div class='right'>
+                            <input type='radio' ng-model='language.level' value='Expert' ng-dblclick='deselectLevel(this)'>Expert
+                            <input type='radio' ng-model='language.level' value='Proficient' ng-dblclick='deselectLevel(this)'>Proficient 
+                            <input type='radio' ng-model='language.level' value='Novice' ng-dblclick='deselectLevel(this)'>Novice
+                        </div>
+                    <br><br>
+                </span>
+            </div>
+            <p ng-model='requiremessage'>{{message}}</p>
+            <div id='spaceforlanguages'>   
+            </div>
+            <addlanguagesbutton></addlanguagesbutton><br><br>  
+            <!--end div of languages section-->
+        </fieldset>
+    </form>
+    <form>
+        <fieldset>
+            <legend><span class="number">2</span>IDEs</legend>
+            <div ng-repeat="ide in ides">
+                <input type='checkbox' ng-model=ide.box ng-true-value='1' ng-false-value='0'>{{ide.name}}
+            </div>
+            <br>
+            <div id='spaceforides'>   
+            </div>
+            <addidesbutton></addidesbutton><br><br>
+            <!--end div of IDE section-->
+        </fieldset>
+    </form>
+    <form>
+        <fieldset>
+            <legend><span class="number">3</span>Collaborative Tools</legend>
+            <div ng-repeat="tool in tools">
+                <input type='checkbox' ng-model=tool.box ng-true-value='1' ng-false-value='0'>{{tool.name}}
+            </div>
+            <br>
+            <div id='spacefortools'>   
+            </div>
+            <addtoolsbutton></addtoolsbutton>
+            <!--end div of tools section-->
+        </fieldset>
+    </form>
     <br><br><br>
-    <button type='button' ng-click='saveLanguages(false)'>Save</button>
-    <button type='button' ng-click='saveLanguages(true)'>Save and Continue</button>
+    <input type='button' ng-click='saveLanguages(false)' value="Save"></input>
+    <input type='button' ng-click='saveLanguages(true)' value="Save and Continue"></input>
 </div>

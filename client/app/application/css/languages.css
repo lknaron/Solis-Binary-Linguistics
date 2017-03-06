@@ -1,4 +1,4 @@
-.form-education{
+.form-languages{
     max-width: 500px;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -9,32 +9,26 @@
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.form-education fieldset{
+.form-languages fieldset{
     border: none;	
 }
 
-.form-education legend {
+.form-languages legend {
     font-size: 1.4em;
     margin-bottom: 10px;
 }
 
-.form-education label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-.form-education input[type="text"],
-.form-education input[type="date"],
-.form-education select {
+.form-languages input[type="text"] {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
+    display: inline-block;
     border-radius: 4px;
     font-size: 16px;
     margin: 0;
     outline: 0;
     padding: 7px;
-    width: 100%;
+    width: 45%;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -42,22 +36,40 @@
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;  
+    margin-bottom: 10px;  
 }
 
-.form-education input[type="text"]:focus,
-.form-education input[type="checkbox"]:focus,
-.form-education textarea:focus,
-.form-education select:focus{
+.form-languages input[type="text"]:focus,
+.form-languages input[type="checkbox"]:focus {
     background: #d2d9dd;	 	
 }
 
-.form-education select{
-    -webkit-appearance: menulist-button;
-    height:35px;
+.form-languages input[type="radio"] {
+    padding-top: 2px;        
 }
 
-.form-education .number {
+.right {
+    float: right;
+    vertical-align: middle;
+    padding-right: 150px;
+}
+
+.left {
+    float: left;      
+}
+
+.otherl {
+    float: right;
+    padding-top: 7px;
+    padding-left: 10px;
+    padding-right: 30px;
+}
+
+.otherl input[type="radio"] {
+    margin-left: 5px;
+}
+
+.form-languages .number {
     background: #1abc9c;
     color: #fff;
     height: 30px;
@@ -71,13 +83,7 @@
     border-radius: 15px 15px 15px 0px;
 }
 
-.international-student {
-	margin: 1px;
-	border: 1px;
-	padding: 50px;
-}
-
-.form-education input[type="button"] {
+.form-languages input[type="button"] {
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
@@ -93,7 +99,7 @@
     margin-bottom: 10px;
 }
 
-.form-education input[type="button"]:hover {
+.form-languages input[type="button"]:hover {
     background: #109177;
 }
 
@@ -140,6 +146,14 @@
 	top:1px;
 }
 
+.myButton:hover {
+    background: #109177;
+}
+
+.myButton:focus { 
+    outline-style: none; 
+}
+
 /* The Close Button */
 .close {
     color: #aaa;
@@ -153,46 +167,4 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-.form-attachments input[type="text"] {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    background: rgba(255,255,255,.1);
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    margin: 0;
-    outline: 0;
-    padding: 7px;
-    width: 100%;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    background-color: #e8eeef;
-    color:#8a97a0;
-    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 10px;
-}
-
-.inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-.inputfile + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
-}
-
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: red;
 }

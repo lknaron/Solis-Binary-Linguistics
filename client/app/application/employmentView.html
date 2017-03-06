@@ -1,11 +1,24 @@
-<div ng-controller='employmentInfoController'>
-    Employment<br>
-    <input type='radio' ng-model='hours' value='20 hours per week'>20 hours per week<br>
-    <input type='radio' ng-model='hours' value='10 hours per week'>10 hours per week<br>
-    <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant<br>
-    <input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0' ng-init='grader=0'>Grader<br>
-    Current Employer <input type='text' ng-model='employer'><br>
-    Work Hours <input type='number' ng-model='workHours' min='0' max='40'><br>
-    <button type='button' ng-click='saveEmployment(false)'>Save</button>
-    <button type='button' ng-click='saveEmployment(true)'>Save and Continue</button>
+<div class='form-employment' ng-controller='employmentInfoController'>
+	<fieldset>
+		<legend><span class="number">1</span>Employment</legend>
+    	<input type='radio' ng-model='hours' value='20 hours per week'>20 hours per week<br>
+    	<input type='radio' ng-model='hours' value='10 hours per week'>10 hours per week<br>
+    	<input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant<br>
+    	<input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0' ng-init='grader=0'>Grader<br>
+    	<label>Current Employer:</label>
+    	<input type='text' ng-model='employer'><br>
+		<label>Work Hours:</label>
+		<input type='text' ng-model='workHours'><br>
+	</fieldset>
+    <form class='form-attachments' enctype='multipart/form-data'>
+		<fieldset>
+			<legend><span class="number">2</span>File Attachment</legend>
+			<label>Resume:</label>
+         	<input type="text" id="resume" ng-model='resumeInput'>
+         	<input type="file" name="rfile" id="resfile" ng-model='resumeFile' class="inputfile" file-input='resumeFile' onchange="angular.element(this).scope().resumeFileNameChanged(this.files)"/>
+			<label class='myButton' for="resfile">Browse</label><br><br>
+		</fieldset>
+	</form>	
+	<input type='button' ng-click='uploadResume(); saveEmployment(false)' value="Save"></input>
+    <input type='button' ng-click='uploadResume(); saveEmployment(true)' value="Save and Continue"></input>
 </div>

@@ -41,7 +41,10 @@ var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
     createAccountRouter = require('./serverRoutes/createAccountRouter/createAccountRouter.js'),
     contactInfoRouter = require('./serverRoutes/applicationRouters/contactInfoRouter.js'),
     educationRouter = require('./serverRoutes/applicationRouters/educationRouter.js'),
+    educationIposUploadRouter = require('./serverRoutes/applicationRouters/educationIposUploadRouter.js'),
+    educationTranscriptUploadRouter = require('./serverRoutes/applicationRouters/educationTranscriptUploadRouter.js'),
     employmentRouter = require('./serverRoutes/applicationRouters/employmentRouter.js'), 
+    employmentResumeUploadRouter = require('./serverRoutes/applicationRouters/employmentResumeUploadRouter.js'),
     availabilityRouter = require('./serverRoutes/applicationRouters/availabilityRouter.js'),
     languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js'),
     coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js');
@@ -63,9 +66,12 @@ app.use('/createAccount', createAccountRouter);
 app.use('/contactInfo', contactInfoRouter);
 app.use('/contactInfo/getContactInfo', contactInfoRouter);
 app.use('/education', educationRouter);
+app.use('/iposUpload', educationIposUploadRouter);
+app.use('/transcriptUpload', educationTranscriptUploadRouter);
 app.use('/education/getEducationInfo', educationRouter);
 app.use('/employment', employmentRouter);
 app.use('/employment/getEmploymentInfo', employmentRouter);
+app.use('/resumeUpload', employmentResumeUploadRouter);
 app.use('/availability', availabilityRouter);
 app.use('/availability/getAvailabilityInfo', availabilityRouter);
 app.use('/languages', languagesRouter);

@@ -122,7 +122,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/employment', {
             templateUrl : 'app/application/employmentView.html',
             controller : 'employmentInfoController',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            layout : "/app/application/css/employment.css"
         })
         .when('/availability', {
             templateUrl : 'app/application/availabilityView.html',
@@ -132,7 +133,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/languages', {
             templateUrl : 'app/application/languagesView.html',
             controller : 'languagesInfoController',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            layout : "/app/application/css/languages.css"
         })
         .when('/courses', {
             templateUrl : 'app/application/coursesView.html',
