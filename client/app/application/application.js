@@ -136,6 +136,48 @@ application.controller('educationInfoController', function($scope, $location, $h
             //TODO
         });
     }
+
+    $scope.iposFileNameChanged = function(file) {
+        $scope.iposInput = file[0].name;
+        $scope.$apply();
+    }
+
+    $scope.transcriptFileNameChanged = function(file) {
+        $scope.transcriptInput = file[0].name;
+        $scope.$apply();
+    }
+
+    $scope.uploadIpos = function(){
+        if ($scope.iposFile) {
+            var file = $scope.iposFile;
+            var uploadUrl = "/iposUpload";
+            var fd = new FormData();
+            fd.append('file', file);
+
+            $http.post(uploadUrl,fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }, function errorCallback(response) {
+                //TODO
+            });    
+        }   
+    };
+
+    $scope.uploadTranscript = function(){
+        if ($scope.tranFile) {
+            var file = $scope.tranFile;
+            var uploadUrl = "/transcriptUpload";
+            var fd = new FormData();
+            fd.append('file', file);
+
+            $http.post(uploadUrl,fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }, function errorCallback(response) {
+                //TODO
+            });   
+        }  
+    };
 });
 
 application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService) {
@@ -196,6 +238,27 @@ application.controller('employmentInfoController', function($scope, $location, $
             //TODO
         });
     }
+
+    $scope.resumeFileNameChanged = function(file) {
+        $scope.resumeInput = file[0].name;
+        $scope.$apply();
+    }
+
+    $scope.uploadResume = function(){
+        if ($scope.resumeFile) {
+            var file = $scope.resumeFile;
+            var uploadUrl = "/resumeUpload";
+            var fd = new FormData();
+            fd.append('file', file);
+
+            $http.post(uploadUrl,fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }, function errorCallback(response) {
+                //TODO
+            });   
+        } 
+    };
 });
 
 application.controller('availabilityInfoController', function($scope, $location, $http, UserInfoService) {

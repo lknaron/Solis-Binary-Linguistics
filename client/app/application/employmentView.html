@@ -1,25 +1,26 @@
-<div ng-controller='employmentInfoController'>
-    <h3>Employment</h3>
-    <div>
-        <h4>Seeking Employment</h4>
+<div class='form-employment' ng-controller='employmentInfoController'>
+    <fieldset>
+        <legend><span class="number">1</span>Seeking Employment</legend>
         <label>Max time commitment</label>
-        <input type='radio' ng-model='hours' value='20 hours per week' ng-change='doHoursCheck()'>20 hours per week
+        <input type='radio' ng-model='hours' value='20 hours per week' ng-change='doHoursCheck()'>20 hours per week<br>
         <input type='radio' ng-model='hours' value='10 hours per week' ng-change='doHoursCheck()'>10 hours per week<br>
         <label>Desired Position</label>
-        <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant
+        <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant<br>
         <input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0' ng-init='grader=0'>Grader<br>
         <label>Have you worked for ASU before?</label>
-        <input type='radio' ng-model='hasWorked' ng-value=1>Yes
+        <input type='radio' ng-model='hasWorked' ng-value=1>Yes<br>
         <input type='radio' ng-model='hasWorked' ng-value=0>No<br>
         <input ng-model='international' ng-true-value='1' ng-false-value='0' ng-init='international=0' type="checkbox" id="international-student" name="international-student" ng-change='doHoursCheck()'/> I'm an international student<br>
         <div ng-show="international===1">
             <label>Speak Test Score</label><input ng-model='speakTest' type="text" class="hidden" id="speak-test" name="speak-test" placeholder="Type in your speak test score"><br>
         </div>
-    </div>
-    <div>
-        <h4>Current Employment</h4>
-        Current Employer <input type='text' ng-model='employer'><br>
-        Current Work Hours <input type='number' ng-model='workHours' ng-change='doHoursCheck()'><br>
+    </fieldset>
+    <fieldset>
+        <legend><span class="number">2</span>Current Employment</legend>
+        <label>Current Employer:</label>
+        <input type='text' ng-model='employer'><br>
+        <label>Work Hours:</label>
+        <input type='number' ng-model='workHours' ng-change='doHoursCheck()'><br>
         <p ng-show='hoursWarning'>
             Your entered work hours are too high<br>
             You have indicated you are planning to work {{enteredHours}} hours.<br>
@@ -28,7 +29,16 @@
             To continue, please reduce the hours you are seeking with ASU
             or you will need to reduce your work hours with your current employer.
         </p>
-    </div>
-    <button ng-disabled='hoursWarning' type='button' ng-click='saveEmployment(false)'>Save</button>
-    <button ng-disabled='hoursWarning' type='button' ng-click='saveEmployment(true)'>Save and Continue</button>
+    </fieldset>
+    <form class='form-attachments' enctype='multipart/form-data'>
+        <fieldset>
+            <legend><span class="number">2</span>File Attachment</legend>
+            <label>Resume:</label>
+            <input type="text" id="resume" ng-model='resumeInput'>
+            <input type="file" name="rfile" id="resfile" ng-model='resumeFile' class="inputfile" file-input='resumeFile' onchange="angular.element(this).scope().resumeFileNameChanged(this.files)"/>
+            <label class='myButton' for="resfile">Browse</label><br><br>
+        </fieldset>
+    </form>
+    <input ng-disabled='hoursWarning' type='button' ng-click='uploadResume(); saveEmployment(false)' value="Save"></input>
+    <input ng-disabled='hoursWarning' type='button' ng-click='uploadResume(); saveEmployment(true)' value="Save and Continue"></input>
 </div>

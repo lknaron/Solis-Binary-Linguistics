@@ -12,7 +12,7 @@
     </form> 
     <form>
         <fieldset>
-            <legend><span class="number">2</span> Additional Information</legend>
+            <legend><span class="number">2</span>Additional Information</legend>
             <input input ng-model='probation' ng-true-value='1' ng-false-value='0' ng-init='probation=0' type="checkbox" id="probation-chk" name="academic-probation" value="academic-probation"> I am on academic probation<br>
             <div ng-show="probation===1">
                 <p class="probation" ng-model='probationMessage' style="color:red;">Your application won't be considered until the academic probation has been cleared.</p>
@@ -26,18 +26,19 @@
         </fieldset>     
     </form>
     
-    <!-- WILL BE ADDED LATER
-    <form>
+    <form class='form-attachments' enctype='multipart/form-data'>
         <fieldset>
             <legend><span class="number">3</span>File Attachment</legend>
             <label>iPOS:</label>
-            <input type="text" name="ipos" required>
-            <a href="#" class="myButton">Browse</a><br><br>
-            <label>Resume:</label>
-            <input type="text" name="ipos" required>      
-            <a href="#" class="myButton">Browse</a><br><br>
+            <input type="text" id="ipos" ng-model='iposInput'>
+            <input type="file" name="ifile" id="ipfile" ng-model='iposFile' class="inputfile" file-input='iposFile' onchange="angular.element(this).scope().iposFileNameChanged(this.files)"/>
+            <label class='myButton' for="ipfile">Browse</label><br><br>
+            <label>Transcript:</label>
+            <input type="text" id="transcript" ng-model='transcriptInput'>
+            <input type="file" name="tfile" id="trfile" ng-model='transcriptName' class="inputfile" file-input='tranFile' onchange="angular.element(this).scope().transcriptFileNameChanged(this.files)"/>
+            <label class='myButton' for="trfile">Browse</label>
         </fieldset>
-    </form>-->  
-    <input type='button' ng-click='saveEducation(false)' value="Save"></input>
-    <input type='button' ng-click='saveEducation(true)' value="Save and Continue"></input>
+    </form> 
+    <input type='button' ng-click='uploadIpos(); uploadTranscript(); saveEducation(false)' value="Save"></input>
+    <input type='button' ng-click='uploadIpos(); uploadTranscript(); saveEducation(true)' value="Save and Continue"></input>
 </div>
