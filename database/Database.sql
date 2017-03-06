@@ -175,8 +175,7 @@ CREATE TABLE IF NOT EXISTS Calendar (
 CREATE TABLE IF NOT EXISTS Attachment (
   AttachmentID INT NOT NULL AUTO_INCREMENT,
   AttachmentName VARCHAR(45) NOT NULL,
-  AttachmentType VARCHAR(45) NOT NULL,
-  AttachmentSize INT NOT NULL,
+  AttachmentType ENUM ('IPOS', 'Resume', 'Transcript') NOT NULL,
   UploadDate TIMESTAMP NOT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AttachmentID),

@@ -164,8 +164,9 @@ UPDATE Calendar SET StartHour = ? WHERE AppID = ?
 -- Update Stop Hour
 UPDATE Calendar SET StopHour = ? WHERE AppID = ?
 
-
+-- -----------------------------------------------------
 -- Attachment Table
+-- -----------------------------------------------------
 
 -- Insert Attachment Table
 INSERT INTO Attachment SET?
@@ -173,17 +174,17 @@ INSERT INTO Attachment SET?
 -- Select Attachment
 SELECT * FROM Attachment WHERE AppID = ?
 
--- Update Attachment Name
-UPDATE Attachment SET AttachmentName = ? WHERE AppID = ?
+-- Select Attachment Name
+SELECT AttachmentName FROM Attachment WHERE ASURITE_ID = ?
 
--- Update Attachment Type
-UPDATE Attachment SET AttachmentType = ? WHERE AppID = ?
+-- Select Resumes
+SELECT AttachmentType = 'Resume' FROM Attachment WHERE ASURITE_ID = ?
 
--- Update Attachment Size
-UPDATE Attachment SET AttachmentSize = ? WHERE AppID = ?
+-- Select Transcripts
+SELECT AttachmentType = 'Transcript' FROM Attachment WHERE ASURITE_ID = ?
 
--- Update Upload Date
-UPDATE Attachment SET UploadDate = ? WHERE AppID = ?
+-- Select IPOS
+SELECT AttachmentType = 'IPOS' FROM Attachment WHERE ASURITE_ID = ?
 
 -- -----------------------------------------------------
 -- Languages Table
