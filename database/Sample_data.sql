@@ -207,8 +207,30 @@ ASURITE_ID_1, ASURITE_ID_2) VALUES
 -- -----------------------------------------------------
 INSERT INTO Schedule_ (ScheduleID, SessionIs, Location, Subject, CatalogNumber, CourseNumber, 
 CourseTitle, Units, Days, StartHours, EndHours, FirstName, LastName) VALUES
-(1, 'A', 'ASUOnline', 'SER', 100, 10201, 'Object-Oriented Software', 3, NULL, NULL, NULL,
-'Abraham', 'Helsing');
+(1, 'A', 'ASUOnline', 'ASU', 101, 10201, 'The ASU Experience', 3, NULL, NULL, NULL,
+'Abraham', 'Helsing'),
+(2, 'A', 'ASUOnline', 'SER', 421, 11321, 'Web-Based Applications and Mobile Systems', 3, NULL, NULL, NULL,
+'Bruce', 'Banner'),
+(3, 'A', 'ASUOnline', 'SER', 422, 12312, 'Web Application Programming', 3, NULL, NULL, NULL,
+'Henry', 'McCoy'),
+(4, 'B', 'ASUOnline', 'CSE', 120, 10121, 'Digital Design Fundamentals', 3, NULL, NULL, NULL,
+'Abraham', 'Helsing'),
+(5, 'B', 'ASUOnline', 'FSE', 100, 12012, 'Introduction to Engineering', 3, NULL, NULL, NULL,
+'Bruce', 'Banner'),
+(6, 'B', 'ASUOnline', 'CSE', 205, 13021, 'Object-Oriented Programming and Data Structures', 3, NULL, NULL, NULL,
+'Charles', 'Xavier'),
+(7, 'A', 'ASUOnline', 'SER', 215, 13245, 'Software Enterprise: Personal Process', 3, NULL, NULL, NULL,
+'Charles', 'Xavier'),
+(8, 'B', 'ASUOnline', 'SER', 216, 10001, 'Software Enterprise: Testing and Quality', 3, NULL, NULL, NULL,
+'Bruce', 'Banner'),
+(9, 'C', 'ASUOnline', 'SER', 401, 10244, 'Computing Capstone Project I', 3, NULL, NULL, NULL,
+'Abraham', 'Helsing'),
+(10, 'C', 'ASUOnline', 'SER', 402, 14401, 'Computing Capstone Project II', 3, NULL, NULL, NULL,
+'Abraham', 'Helsing'),
+(11, 'C', 'POLY', 'SER', 401, 10111, 'Computing Capstone Project I', 3, 'Tuesday, Thursday', '10:00:00', '11:15:00',
+'Henry', 'McCoy'),
+(12, 'C', 'POLY', 'SER', 402, 14222, 'Computing Capstone Project II', 3, 'Tuesday, Thursday', '08:00:00', '09:15:00',
+'Henry', 'McCoy');
 
 
 -- -----------------------------------------------------

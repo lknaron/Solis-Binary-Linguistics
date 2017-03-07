@@ -682,3 +682,55 @@ SELECT isCourse = 'SER 416', CourseTitle = 'Software Enterprise: Project and Pro
 
 -- Update SER 416
 UPDATE Course_Competencies SET CourseSelect = ? WHERE isCourse = 'SER 416' AND CourseTitle = 'Software Enterprise: Project and Process Management' AND ASURITE_ID = ?
+
+
+-- -----------------------------------------------------
+-- Schedule Table
+-- -----------------------------------------------------
+-- Insert Schedule Table
+INSERT INTO Schedule_ SET?
+
+-- Select Schedule Table
+SELECT * FROM Schedule_
+
+-- Select Online Schedule
+SELECT * FROM Schedule_ WHERE Location = 'ASUOnline'
+
+-- Select Poly Campus Schedule
+SELECT * FROM Schedule_ WHERE Location = 'POLY'
+
+-- Select Session A Sechdule
+SELECT * FROM Schedule_ WHERE SessionIs = 'A'
+
+-- Select Session A Online Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'A' AND Location = 'ASUOnline'
+
+-- Select Session A Poly Campus Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'A' AND Location = 'POLY'
+
+-- Select Session B Schedule
+SELECT * FROM Schedule_ WHERE SessionIs = 'B'
+
+-- Select Session B Online Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'B' AND Location = 'ASUOnline'
+
+-- Select Session B Poly Campus Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'B' AND Location = 'POLY'
+
+-- Select Session C Schedule
+SELECT * FROM Schedule_ WHERE SessionIs = 'C'
+
+-- Select Session C Online Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'C' AND Location = 'ASUOnline'
+
+-- Select Session C Poly Campus Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'C' AND Location = 'POLY'
+
+-- Select Courses on Tuesdays and Thursday
+SELECT * FROM Schedule_ WHERE Days = 'Tuesday, Thursday'
+
+-- Select Courses on Monday and Wednesday 
+SELECT * FROM Schedule_ WHERE Days = 'Monday, Wednesday'
+
+-- Select Courses on Monday, Wednesday, and Friday
+SELECT * FROM Schedule_ WHERE Days = 'Monday, Wednesday, Friday'
