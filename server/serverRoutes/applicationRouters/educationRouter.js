@@ -80,4 +80,48 @@ router.post('/getEducationInfo', function(req, res) {
     });
 });
 
+// Returns data to populate application page if user already uploaded an iPOS
+router.post('/getIposInfo', function(req, res) {
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        }
+        connection.query('SELECT AttachmentName FROM Attachment WHERE ASURITE_ID = ? AND AttachmentType = "IPOS"', [req.body.user], function(err2, rows) {
+            if(err2) {
+                console.log('Error performing query: ' + err2);
+                throw err2;
+            } else if (!rows.length) {
+                res.sendStatus(200);
+            } else if (rows) {
+                res.send({'ipos' : rows[0].AttachmentName});
+            } 
+            connection.release();
+        });
+    });
+});
+
+// Returns data to populate application page if user already uploaded a resume
+router.post('/getTranscriptInfo', function(req, res) {
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        }
+        connection.query('SELECT AttachmentName FROM Attachment WHERE ASURITE_ID = ? AND AttachmentType = "Transcript"', [req.body.user], function(err2, rows) {
+            if(err2) {
+                console.log('Error performing query: ' + err2);
+                throw err2;
+            } else if (!rows.length) {
+                res.sendStatus(200);
+            } else if (rows) {
+                res.send({'transcript' : rows[0].AttachmentName});
+            } 
+            connection.release();
+        });
+    });
+});
+
 module.exports = router;

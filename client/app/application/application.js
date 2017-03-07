@@ -104,6 +104,16 @@ application.controller('educationInfoController', function($scope, $location, $h
         }, function errorCallback(response) {
             //TODO
         });
+        $http.post('/education/getIposInfo', user).then(function successCallback(response) {
+            $scope.iposInput = response.data.ipos;
+        }, function errorCallback(response) {
+            //TODO
+        });
+        $http.post('/education/getTranscriptInfo', user).then(function successCallback(response) {
+            $scope.transcriptInput = response.data.transcript;
+        }, function errorCallback(response) {
+            //TODO
+        });
     });
     
     // saves data and posts - routes if the user chose to continue
@@ -199,6 +209,11 @@ application.controller('employmentInfoController', function($scope, $location, $
             $scope.employer = response.data.CurrentEmployer;
             $scope.workHours = response.data.WorkHours;
             $scope.hasWorked = response.data.isWorkedASU;
+        }, function errorCallback(response) {
+            //TODO
+        });
+        $http.post('/employment/getResumeInfo', user).then(function successCallback(response) {
+            $scope.resumeInput = response.data.resume;
         }, function errorCallback(response) {
             //TODO
         });
