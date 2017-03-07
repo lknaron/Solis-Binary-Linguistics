@@ -440,475 +440,227 @@ UPDATE Collaborative_Tools SET isTool = ? WHERE isTool = 'Slack' AND ASURITE_ID 
 -- Select Other Tools
 SELECT OtherTool FROM Collaborative_Tools WHERE ASURITE_ID = ?
 
-
+-- -----------------------------------------------------
 -- Course Competencies Table
-
--- Insert Course Competencies
+-- -----------------------------------------------------
+-- Insert Competencies Table
 INSERT INTO Course_Competencies SET?
 
--- Select Course Competences
-SELECT * FROM Course_Competencies WHERE AppID = ?
-
--- Select CSE 110
-SELECT isCSE110 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 110
-UPDATE Course_Competencies SET isCSE110 = ? WHERE AppID = ?
-
--- Select CSE 205
-SELECT isCSE205 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 205
-UPDATE Course_Competencies SET isCSE205 = ? WHERE AppID = ?
-
--- Select CSE 230
-SELECT isCSE230 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 230
-UPDATE Course_Competencies SET isCSE230 = ? WHERE AppID = ?
-
--- Select CSE 240
-SELECT isCSE240 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 240
-UPDATE Course_Competencies SET isCSE240 = ? WHERE AppID = ?
-
--- Select CSE 120
-SELECT isCSE120 FROM Course_Competencies WHERE AppID = ?
-
--- Update CSE 120
-UPDATE Course_Competencies SET isCSE120 = ? WHERE AppID = ?
-
--- Select FSE 100
-SELECT isFSE100 FROM Course_Competencies WHERE AppID = ?
-
--- Update FSE 100
-UPDATE Course_Competencies SET isFSE100 = ? WHERE AppID = ?
+-- Select Course Compentencies Table
+SELECT * FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Select ASU 101
-SELECT isASU101 FROM Course_Competencies WHERE AppID = ?
+SELECT isCourse = 'ASU 101', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update ASU 101
-UPDATE Course_Competencies SET isASU101 = ? WHERE AppID = ?
-
--- Select SER 422
-SELECT isSER422 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 422
-UPDATE Course_Competencies SET isSER422 = ? WHERE AppID = ?
-
--- Select SER 450
-SELECT isSER450 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 450
-UPDATE Course_Competencies SET isSER450 = ? WHERE AppID = ?
-
--- Select SER 456
-SELECT isSER456 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 456
-UPDATE Course_Competencies SET isSER456 = ? WHERE AppID = ?
-
--- Select SER 486
-SELECT isSER486 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 486
-UPDATE Course_Competencies SET isSER486 = ? WHERE AppID = ?
-
--- Select SER 332
-SELECT isSER332 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 332
-UPDATE Course_Competencies SET isSER332 = ? WHERE AppID = ?
-
--- Select SER 431
-SELECT isSER431 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 431
-UPDATE Course_Competencies SET isSER431 = ? WHERE AppID = ?
-
--- Select SER 432
-SELECT isSER432 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 432
-UPDATE Course_Competencies SET isSER432 = ? WHERE AppID = ?
-
--- Select SER 515
-SELECT isSER515 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 515
-UPDATE Course_Competencies SET isSER515 = ? WHERE AppID = ?
-
--- Select SER 516
-SELECT isSER516 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 516
-UPDATE Course_Competencies SET isSER516 = ? WHERE AppID = ?
-
--- Select SER 501
-SELECT isSER501 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 501
-UPDATE Course_Competencies SET isSER501 = ? WHERE AppID = ?
-
--- Select SER 502
-SELECT isSER502 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 502
-UPDATE Course_Competencies SET isSER502 = ? WHERE AppID = ?
-
--- Select SER 517
-SELECT isSER517 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 517
-UPDATE Course_Competencies SET isSER517 = ? WHERE AppID = ?
-
--- Select SER 518
-SELECT isSER518 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 518
-UPDATE Course_Competencies SET isSER518 = ? WHERE AppID = ?
-
--- Select SER 563
-SELECT isSER563 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 563
-UPDATE Course_Competencies SET isSER563 = ? WHERE AppID = ?
-
--- Select SER 564
-SELECT isSER564 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 564
-UPDATE Course_Competencies SET isSER564 = ? WHERE AppID = ?
-
--- Select SER 566
-SELECT isSER566 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 566
-UPDATE Course_Competencies SET isSER566 = ? WHERE AppID = ?
-
--- Select SER 215
-SELECT isSER215 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 215
-UPDATE Course_Competencies SET isSER215 = ? WHERE AppID = ?
-
--- Select SER 216
-SELECT isSER216 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 216
-UPDATE Course_Competencies SET isSER216 = ? WHERE AppID = ?
-
--- Select SER 222
-SELECT isSER222 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 222
-UPDATE Course_Competencies SET isSER222 = ? WHERE AppID = ?
-
--- Select SER 315
-SELECT isSER315 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 315
-UPDATE Course_Competencies SET isSER315 = ? WHERE AppID = ?
-
--- Select SER 316
-SELECT isSER316 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 316
-UPDATE Course_Competencies SET isSER316 = ? WHERE AppID = ?
-
--- Select SER 321
-SELECT isSER321 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 321
-UPDATE Course_Competencies SET isSER321 = ? WHERE AppID = ?
-
--- Select SER 322
-SELECT isSER322 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 322
-UPDATE Course_Competencies SET isSER322 = ? WHERE AppID = ?
-
--- Select SER 334
-SELECT isSER334 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 334
-UPDATE Course_Competencies SET isSER334 = ? WHERE AppID = ?
-
-- -Select SER 401
-SELECT isSER401 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 401
-UPDATE Course_Competencies SET isSER401 = ? WHERE AppID = ?
-
-- Select SER 402
-SELECT isSER402 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 402
-UPDATE Course_Competencies SET isSER402 = ? WHERE AppID = ?
-
--- Select SER 415
-SELECT isSER415 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 415
-UPDATE Course_Competencies SET isSER415 = ? WHERE AppID = ?
-
--- Select SER 416
-SELECT isSER416 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 416
-UPDATE Course_Competencies SET isSER416 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'ASU 101' AND ASURITE_ID = ?
 
 -- Select SER 421
-SELECT isSER421 FROM Course_Competencies WHERE AppID = ?
+SELECT isCourse = 'SER 421', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 421
-UPDATE Course_Competencies SET isSER421 = ? WHERE AppID = ?
-
--- Select SER 423
-SELECT isSER423 FROM Course_Competencies WHERE AppID = ?
-
--- Update SER 423
-UPDATE Course_Competencies SET isSER423 = ? WHERE AppID = ?
-
--- Select Other
-SELECT Other FROM Course_Competencies WHERE AppID = ?
-
--- Update Other
-UPDATE Course_Competencies SET Other = ? WHERE AppID = ?
-
--- Courses Taught Table
-
--- Insert Courses Taught Table
-INSERT INTO Courses_Taught SET?
-
--- Select Courses Taught
-SELECT * FROM Courses_Taught WHERE AppID = ?
-
--- Select CSE 110
-SELECT isCSE110 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 110
-UPDATE Courses_Taught SET isCSE110 = ? WHERE AppID = ?
-
--- Select CSE 205
-SELECT isCSE205 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 205
-UPDATE Courses_Taught SET isCSE205 = ? WHERE AppID = ?
-
--- Select CSE 230
-SELECT isCSE230 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 230
-UPDATE Courses_Taught SET isCSE230 = ? WHERE AppID = ?
-
--- Select CSE 240
-SELECT isCSE240 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 240
-UPDATE Courses_Taught SET isCSE240 = ? WHERE AppID = ?
-
--- Select CSE 120
-SELECT isCSE120 FROM Courses_Taught WHERE AppID = ?
-
--- Update CSE 120
-UPDATE Courses_Taught SET isCSE120 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 421' AND ASURITE_ID = ?
 
 -- Select FSE 100
-SELECT isFSE100 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'FSE 100', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update FSE 100
-UPDATE Courses_Taught SET isFSE100 = ? WHERE AppID = ?
-
--- Select ASU 101
-SELECT isASU101 FROM Courses_Taught WHERE AppID = ?
-
--- Update ASU 101
-UPDATE Courses_Taught SET isASU101 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'FSE 100' AND ASURITE_ID = ?
 
 -- Select SER 422
-SELECT isSER422 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 422', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 422
-UPDATE Courses_Taught SET isSER422 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 422' AND ASURITE_ID = ?
 
--- Select SER 450
-SELECT isSER450 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 110
+SELECT isCourse = 'CSE 110', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 450
-UPDATE Courses_Taught SET isSER450 = ? WHERE AppID = ?
+-- Update CSE 110
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 110' AND ASURITE_ID = ?
 
--- Select SER 456
-SELECT isSER456 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 423
+SELECT isCourse = 'CSE 423', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 456
-UPDATE Courses_Taught SET isSER456 = ? WHERE AppID = ?
+-- Update CSE 423
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 423' AND ASURITE_ID = ?
 
--- Select SER 486
-SELECT isSER486 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 120
+SELECT isCourse = 'CSE 120', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 486
-UPDATE Courses_Taught SET isSER486 = ? WHERE AppID = ?
+-- Update CSE 120
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 120' AND ASURITE_ID = ?
 
--- Select SER 332
-SELECT isSER332 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 205
+SELECT isCourse = 'CSE 205', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 332
-UPDATE Courses_Taught SET isSER332 = ? WHERE AppID = ?
-
--- Select SER 431
-SELECT isSER431 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 431
-UPDATE Courses_Taught SET isSER431 = ? WHERE AppID = ?
+-- Update CSE 205
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 205' AND ASURITE_ID = ?
 
 -- Select SER 432
-SELECT isSER432 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 432', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 432
-UPDATE Courses_Taught SET isSER432 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 432' AND ASURITE_ID = ?
 
--- Select SER 515
-SELECT isSER515 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 230
+SELECT isCourse = 'CSE 230', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 515
-UPDATE Courses_Taught SET isSER515 = ? WHERE AppID = ?
+-- Update CSE 230
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 230' AND ASURITE_ID = ?
 
--- Select SER 516
-SELECT isSER516 FROM Courses_Taught WHERE AppID = ?
+-- Select SER 450
+SELECT isCourse = 'SER 450', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 516
-UPDATE Courses_Taught SET isSER516 = ? WHERE AppID = ?
+-- Update SER 450
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 450' AND ASURITE_ID = ?
 
--- Select SER 501
-SELECT isSER501 FROM Courses_Taught WHERE AppID = ?
+-- Select CSE 240
+SELECT isCourse = 'CSE 240', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 501
-UPDATE Courses_Taught SET isSER501 = ? WHERE AppID = ?
+-- Update CSE 240
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 240' AND ASURITE_ID = ?
 
--- Select SER 502
-SELECT isSER502 FROM Courses_Taught WHERE AppID = ?
+-- Select SER 456
+SELECT isCourse = 'SER 456', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
--- Update SER 502
-UPDATE Courses_Taught SET isSER502 = ? WHERE AppID = ?
-
--- Select SER 517
-SELECT isSER517 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 517
-UPDATE Courses_Taught SET isSER517 = ? WHERE AppID = ?
-
--- Select SER 518
-SELECT isSER518 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 518
-UPDATE Courses_Taught SET isSER518 = ? WHERE AppID = ?
-
--- Select SER 563
-SELECT isSER563 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 563
-UPDATE Courses_Taught SET isSER563 = ? WHERE AppID = ?
-
--- Select SER 564
-SELECT isSER564 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 564
-UPDATE Courses_Taught SET isSER564 = ? WHERE AppID = ?
-
--- Select SER 566
-SELECT isSER566 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 566
-UPDATE Courses_Taught SET isSER566 = ? WHERE AppID = ?
+-- Update SER 456
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 456' AND ASURITE_ID = ?
 
 -- Select SER 215
-SELECT isSER215 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 215', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 215
-UPDATE Courses_Taught SET isSER215 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 215' AND ASURITE_ID = ?
+
+-- Select SER 486
+SELECT isCourse = 'SER 486', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 486
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 486' AND ASURITE_ID = ?
 
 -- Select SER 216
-SELECT isSER216 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 216', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 216
-UPDATE Courses_Taught SET isSER216 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 216' AND ASURITE_ID = ?
+
+-- Select SER 501
+SELECT isCourse = 'SER 501', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 501
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 501' AND ASURITE_ID = ?
 
 -- Select SER 222
-SELECT isSER222 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 222', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 222
-UPDATE Courses_Taught SET isSER222 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 222' AND ASURITE_ID = ?
+
+-- Select SER 502
+SELECT isCourse = 'SER 502', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 502
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 502' AND ASURITE_ID = ?
 
 -- Select SER 315
-SELECT isSER315 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 315', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 315
-UPDATE Courses_Taught SET isSER315 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 315' AND ASURITE_ID = ?
+
+-- Select SER 515
+SELECT isCourse = 'SER 515', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 515
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 515' AND ASURITE_ID = ?
 
 -- Select SER 316
-SELECT isSER316 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 316', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 316
-UPDATE Courses_Taught SET isSER316 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 316' AND ASURITE_ID = ?
+
+-- Select SER 516
+SELECT isCourse = 'SER 516', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 516
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 516' AND ASURITE_ID = ?
 
 -- Select SER 321
-SELECT isSER321 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 321', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 321
-UPDATE Courses_Taught SET isSER321 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 321' AND ASURITE_ID = ?
+
+-- Select SER 517
+SELECT isCourse = 'SER 517', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 517
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 517' AND ASURITE_ID = ?
 
 -- Select SER 322
-SELECT isSER322 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 322', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 322
-UPDATE Courses_Taught SET isSER322 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 322' AND ASURITE_ID = ?
+
+-- Select SER 518
+SELECT isCourse = 'SER 518', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 518
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 518' AND ASURITE_ID = ?
+
+-- Select SER 332
+SELECT isCourse = 'SER 332', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update SER 332
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 332' AND ASURITE_ID = ?
+
+-- Select CSE 563
+SELECT isCourse = 'CSE 563', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update CSE 563
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 563' AND ASURITE_ID = ?
 
 -- Select SER 334
-SELECT isSER334 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 334', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 334
-UPDATE Course_Competencies SET isSER334 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 334' AND ASURITE_ID = ?
+
+-- Select CSE 564
+SELECT isCourse = 'CSE 564', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update CSE 564
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 564' AND ASURITE_ID = ?
 
 -- Select SER 401
-SELECT isSER401 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 401', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 401
-UPDATE Courses_Taught SET isSER401 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 401' AND ASURITE_ID = ?
+
+-- Select CSE 566
+SELECT isCourse = 'CSE 566', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
+
+-- Update CSE 566
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'CSE 566' AND ASURITE_ID = ?
 
 -- Select SER 402
-SELECT isSER402 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 402', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 402
-UPDATE Courses_Taught SET isSER402 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 402' AND ASURITE_ID = ?
 
 -- Select SER 415
-SELECT isSER415 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 415', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 415
-UPDATE Courses_Taught SET isSER415 = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 415' AND ASURITE_ID = ?
 
 -- Select SER 416
-SELECT isSER416 FROM Courses_Taught WHERE AppID = ?
+SELECT isCourse = 'SER 416', CourseLevel FROM Course_Competencies WHERE ASURITE_ID = ?
 
 -- Update SER 416
-UPDATE Courses_Taught SET isSER416 = ? WHERE AppID = ?
-
--- Select SER 421
-SELECT isSER421 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 421
-UPDATE Courses_Taught SET isSER421 = ? WHERE AppID = ?
-
--- Select SER 423
-SELECT isSER423 FROM Courses_Taught WHERE AppID = ?
-
--- Update SER 423
-UPDATE Courses_Taught SET isSER423 = ? WHERE AppID = ?
-
--- Select Other
-SELECT Other FROM Courses_Taught WHERE AppID = ?
-
--- Update Other
-UPDATE Courses_Taught SET Other = ? WHERE AppID = ?
+UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 416' AND ASURITE_ID = ?

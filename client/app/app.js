@@ -139,7 +139,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/courses', {
             templateUrl : 'app/application/coursesView.html',
             controller : 'coursesInfoController',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            layout : "/app/application/css/courses.css"
         })
         .otherwise({
             redirectTo : '/badrequest',

@@ -1,17 +1,27 @@
-<div ng-controller='coursesInfoController'>
-	<style>
-  		#previousInput { margin-left: 175px; }
-	  	#othersT { margin-left: 25px; }
-	</style>
-    <h3>Course Competencies</h3>
-    <div ng-repeat="course in courses">
-       <input type='checkbox' ng-model=course.box ng-init='course.box=0' ng-true-value='1' ng-false-value='0'>{{course.name}}
-       <input id='previousInput' type='checkbox' ng-model=course.pbox ng-init='course.pbox=0' ng-true-value='1' ng-false-value='0'>Previous TA/Grader for {{course.name}}
-    </div>
-    Other(s)<input type='text' ng-model='otherCourse' ng-init='otherCourse=null'>
-    <label id='othersT' for="othersTaught">Other(s) TA/Grader</label>
-    <input id='othersTaught' type='text' ng-model='otherCourseT' ng-init='otherCourseT=null'>
-    <br>
-    <button type='button' ng-click='saveCourses(false)'>Save</button>
-    <button type='button' ng-click='saveCourses(true)'>Save and Complete</button>
+<div class="form-courses" ng-controller='coursesInfoController'>
+    <form>
+        <fieldset>
+            <legend><span class="number">1</span>Course Competancies</legend>
+            <p>*To deselect a course double click selection</p>
+            <div ng-repeat="course in courses">               
+                <span class='bottom' ng-init="courses.group=null">
+                        <label class='left'>{{course.name}}</label>
+                        <div class='right'>
+                          <input type='radio' ng-model='course.level' value='Prefer' ng-dblclick='deselectLevel(this)'>Prefer
+                          <input type='radio' ng-model='course.level' value='Qualified' ng-dblclick='deselectLevel(this)'>Qualified 
+                          <input type='radio' ng-model='course.level' value='Previously TA' ng-dblclick='deselectLevel(this)'>Previously TA
+                          <input type='radio' ng-model='course.level' value='Previously Grader' ng-dblclick='deselectLevel(this)'>Previously Grader
+                        </div>
+                  <br><br>
+                </span>
+            </div>
+            <p ng-model='requiremessage'>{{message}}</p>
+            <div id='spaceforcourses'></div>
+            <addcoursesbutton></addcoursesbutton><br><br>  
+            <!--end div of courses section-->
+        </fieldset>
+    </form>
+    <br><br><br>
+    <input type='button' ng-click='saveCourses(false)' value="Save"></input>
+    <input type='button' ng-click='saveCourses(true)' value="Save and Complete"></input>
 </div>

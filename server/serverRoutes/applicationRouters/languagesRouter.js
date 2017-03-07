@@ -21,7 +21,7 @@ var mysql_pool  = mysql.createPool({
 	database        : 'sblDB'
 });
 
-// Deletes users old availability information and saves their new information
+// Creates/Updates user language choices
 router.post('/', function(req, res) {
 	mysql_pool.getConnection(function(err, connection) {
 	    if (err) {

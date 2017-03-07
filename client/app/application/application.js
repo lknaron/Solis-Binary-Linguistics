@@ -598,115 +598,118 @@ application.controller('languagesInfoController', function($scope, $location, $h
 });
 
 application.controller('coursesInfoController', function($scope, $location, $http, UserInfoService) {
-    var courseNames = ['isASU101','isCSE110','isCSE205','isCSE230','isCSE240','isCSE563','isCSE564','isCSE566','isCSE120','isFSE100','isSER215',
-                       'isSER216','isSER222','isSER315','isSER316','isSER321','isSER322','isSER332','isSER334','isSER401','isSER402','isSER415',
-                       'isSER416','isSER421','isSER422','isSER423','isSER431','isSER432','isSER450','isSER456','isSER486','isSER501','isSER502',
-                       'isSER515','isSER516','isSER517','isSER518'];
-
     // LATER - try moving this to Service as an angular.value or constant
-    $scope.courses = [{'name':'ASU 101','box':'asu101_box','pbox':'asu101p_box'},
-                        {'name':'CSE 110','box':'cse110_box','pbox':'cse110p_box'},
-                        {'name':'CSE 205','box':'cse205_box','pbox':'cse205p_box'},
-                        {'name':'CSE 230','box':'cse230_box','pbox':'cse230p_box'},
-                        {'name':'CSE 240','box':'cse240_box','pbox':'cse240p_box'},
-                        {'name':'CSE 563','box':'cse563_box','pbox':'cse563p_box'}, 
-                        {'name':'CSE 564','box':'cse564_box','pbox':'cse564p_box'}, 
-                        {'name':'CSE 566','box':'cse566_box','pbox':'cse566p_box'},  
-                        {'name':'EEE/CSE 120','box':'eee_cse120_box','pbox':'eee_cse120p_box'}, 
-                        {'name':'FSE 100','box':'fse100_box','pbox':'fse100p_box'},
-                        {'name':'SER 215','box':'ser215_box','pbox':'ser215p_box'},
-                        {'name':'SER 216','box':'ser216_box','pbox':'ser216p_box'},
-                        {'name':'SER 222','box':'ser222_box','pbox':'ser222p_box'},
-                        {'name':'SER 315','box':'ser315_box','pbox':'ser315p_box'},
-                        {'name':'SER 316','box':'ser316_box','pbox':'ser316p_box'}, 
-                        {'name':'SER 321','box':'ser321_box','pbox':'ser321p_box'},
-                        {'name':'SER 322','box':'ser322_box','pbox':'ser322p_box'},
-                        {'name':'SER 332','box':'ser332_box','pbox':'ser332p_box'},
-                        {'name':'SER 334','box':'ser334_box','pbox':'ser334p_box'},
-                        {'name':'SER 401','box':'ser401_box','pbox':'ser401p_box'},
-                        {'name':'SER 402','box':'ser402_box','pbox':'ser402p_box'},
-                        {'name':'SER 415','box':'ser415_box','pbox':'ser415p_box'},
-                        {'name':'SER 416','box':'ser416_box','pbox':'ser416p_box'},
-                        {'name':'SER 421','box':'ser421_box','pbox':'ser421p_box'},
-                        {'name':'SER 422','box':'ser422_box','pbox':'ser422p_box'},
-                        {'name':'SER 423','box':'ser423_box','pbox':'ser423p_box'},
-                        {'name':'SER 431','box':'ser431_box','pbox':'ser431p_box'}, 
-                        {'name':'SER 432','box':'ser432_box','pbox':'ser432p_box'},
-                        {'name':'SER 450','box':'ser450_box','pbox':'ser450p_box'},
-                        {'name':'SER 456','box':'ser456_box','pbox':'ser456p_box'},
-                        {'name':'SER 486','box':'ser486_box','pbox':'ser486p_box'}, 
-                        {'name':'SER 501','box':'ser501_box','pbox':'ser501p_box'},
-                        {'name':'SER 502','box':'ser502_box','pbox':'ser502p_box'},
-                        {'name':'SER 515','box':'ser515_box','pbox':'ser515p_box'},
-                        {'name':'SER 516','box':'ser516_box','pbox':'ser516p_box'}, 
-                        {'name':'SER 517','box':'ser517_box','pbox':'ser517p_box'},
-                        {'name':'SER 518','box':'ser518_box','pbox':'ser518p_box'}
+    $scope.courses = [{'name':'ASU 101','level':'asu101_group'},
+                        {'name':'CSE 110','level':'cse110_group'},
+                        {'name':'CSE 205','level':'cse205_group'},
+                        {'name':'CSE 230','level':'cse230_group'},
+                        {'name':'CSE 240','level':'cse240_group'},
+                        {'name':'CSE 563','level':'cse563_group'}, 
+                        {'name':'CSE 564','level':'cse564_group'}, 
+                        {'name':'CSE 566','level':'cse566_group'},  
+                        {'name':'EEE/CSE 120','level':'eee_cse120_group'}, 
+                        {'name':'FSE 100','level':'fse100_group'},
+                        {'name':'SER 215','level':'ser215_group'},
+                        {'name':'SER 216','level':'ser216_group'},
+                        {'name':'SER 222','level':'ser222_group'},
+                        {'name':'SER 315','level':'ser315_group'},
+                        {'name':'SER 316','level':'ser316_group'}, 
+                        {'name':'SER 321','level':'ser321_group'},
+                        {'name':'SER 322','level':'ser322_group'},
+                        {'name':'SER 332','level':'ser332_group'},
+                        {'name':'SER 334','level':'ser334_group'},
+                        {'name':'SER 401','level':'ser401_group'},
+                        {'name':'SER 402','level':'ser402_group'},
+                        {'name':'SER 415','level':'ser415_group'},
+                        {'name':'SER 416','level':'ser416_group'},
+                        {'name':'SER 421','level':'ser421_group'},
+                        {'name':'SER 422','level':'ser422_group'},
+                        {'name':'SER 423','level':'ser423_group'},
+                        {'name':'SER 431','level':'ser431_group'}, 
+                        {'name':'SER 432','level':'ser432_group'},
+                        {'name':'SER 450','level':'ser450_group'},
+                        {'name':'SER 456','level':'ser456_group'},
+                        {'name':'SER 486','level':'ser486_group'}, 
+                        {'name':'SER 501','level':'ser501_group'},
+                        {'name':'SER 502','level':'ser502_group'},
+                        {'name':'SER 515','level':'ser515_group'},
+                        {'name':'SER 516','level':'ser516_group'}, 
+                        {'name':'SER 517','level':'ser517_group'},
+                        {'name':'SER 518','level':'ser518_group'}
                        ];
                          
     // on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
         var user = { 'user' : UserInfoService.getUserId() };
-        var index = [];
         $http.post('/courses/getCoursesInfo', user).then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
-            var index = [];
-            if (res.data) {
-                for (var i = 0; i < courseNames.length; i++) {
-                    for (var key in res.data.courses[0]) {
-                        if (res.data.courses[0].hasOwnProperty(key) && key == courseNames[i]) {
-                            $scope.courses[i].box = res.data.courses[0][key];
-                        }
+            // fill previous saved course selections
+            // loads all other courses into array
+            for (var k = 0; k < res.data.courseData.length; k++) {
+                if(res.data.courseData[k].OtherCourse != null) {
+                    $scope.courses.push({'name' : res.data.courseData[k].OtherCourse, 'level' : res.data.courseData[k].OtherLevel});   
+                }
+            }
+            // populates page of previous course selections
+            for (var i = 0; i < $scope.courses.length; i++) {
+                for (var j = 0; j < res.data.courseData.length; j++) {
+                    if ($scope.courses[i].name === res.data.courseData[j].isCourse) {
+                        $scope.courses[i].level = res.data.courseData[j].CourseLevel;
                     }
                 }
-                $scope.otherCourse = res.data.other;
             }
         }, function errorCallback(response) {
-            // TO DO
-        });
-
-        $http.post('/courses/getCoursesTaughtInfo', user).then(function successCallback(response) {
-            var res = JSON.parse(JSON.stringify(response.data));
-            var index = [];
-            if (res.data) {
-                for (var i = 0; i < courseNames.length; i++) {
-                    for (var key in res.data.courses[0]) {
-                        if (res.data.courses[0].hasOwnProperty(key) && key == courseNames[i]) {
-                            $scope.courses[i].pbox = res.data.courses[0][key];
-                        }
-                    }
-                }
-                $scope.otherCourseT = res.data.other;
-            }
-        }, function errorCallback(response) {
-            // TO DO
+            //TODO
         });
     });
 
-    // saves data and posts - routes if the user chose to continue
-    $scope.saveCourses = function(doRoute) {
-        var coursesComp = {};
-        var coursesTaught = {};     
-        // gather courses data
-        for (var i = 0; i < $scope.courses.length; i++) {
-            coursesComp[courseNames[i]] = $scope.courses[i].box;
-            coursesTaught[courseNames[i]] = $scope.courses[i].pbox;
+    // saves all data on page
+    $scope.saveCourses= function(doRoute) {
+        var data = [];
+        var courses = [];
+        var user = [];
+        // 37 is number of hard coded courses in $scope.courses
+        for (var i = 0; i < 37; i++) {
+            if ($scope.courses[i].level === 'Prefer' || $scope.courses[i].level === 'Qualified' || $scope.courses[i].level === 'Previously TA' || $scope.courses[i].level === 'Previously Grader') {
+                var arr = [$scope.courses[i].name, $scope.courses[i].level, null, null, UserInfoService.getUserId()];
+                courses.push(arr);
+            }   
         }
-        coursesComp['ASURITE_ID'] = UserInfoService.getUserId();
-        coursesComp['Other'] = $scope.otherCourse;
-        coursesTaught['ASURITE_ID'] = UserInfoService.getUserId();
-        coursesTaught['Other'] = $scope.otherCourseT;
+        // Grabs any pre-populated Other Courses
+        for (var j = 37; j < $scope.courses.length; j++) {
+            if ($scope.courses[i].level === 'Prefer' || $scope.courses[i].level === 'Qualified' || $scope.courses[i].level === 'Previously TA' || $scope.courses[i].level === 'Previously Grader') {
+                var arr = [null, null, $scope.courses[j].name, $scope.courses[j].level, UserInfoService.getUserId()];
+                courses.push(arr);
+            }
+        }
+        // Grabs any new Other Courses
+        var count = document.getElementById('spaceforcourses').getElementsByTagName('input').length / 5; // Each other course has 4 inputs (text, 4 radio buttons)
+        if ($scope.otherCourse != null) {
+            for (var k = 0; k < count; k++) {    
+                if ($scope.otherCourse[k+1] != null && $scope.otherCourseLevel[k+1] != null) {
+                    var arr = [null, null, $scope.otherCourse[k+1], $scope.otherCourseLevel[k+1], UserInfoService.getUserId()]; 
+                    courses.push(arr);  
+                }
+            } 
+        }      
+        data.push(courses);
+        user.push(UserInfoService.getUserId());
+        data.push(user);
 
-        $http.post('/courses', coursesComp).then(function successCallback(response) {
-        }, function errorCallback(response) {
-            // TO DO
-        });
-
-        $http.post('/courses/coursesTaught', coursesTaught).then(function successCallback(response) {
+        $http.post('/courses', data).then(function successCallback(response) {
             if (doRoute === true) {
                 $location.path('/studentHome'); 
             }
         }, function errorCallback(response) {
             // TO DO
         });
-    } // end saveCourses
+    }
+
+    $scope.deselectLevel = function(element, count) {
+        if (element.course) {
+            element.course.level = null;   
+        } else if (count)  {
+            element.otherCourseLevel[count] = null;
+        }  
+    } 
 });
