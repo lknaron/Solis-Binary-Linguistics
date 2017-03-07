@@ -144,25 +144,120 @@ UPDATE Application SET ModifiedDate = ? WHERE ASURITE_ID = ?
 -- Update Last Saved location
 UPDATE Application SET LastSaved = ? WHERE ASURITE_ID = ?
 
+-- -----------------------------------------------------
 -- Calendar Table
+-- -----------------------------------------------------
 
 -- Insert Calendar Table
 INSERT INTO Calendar SET?
 
 -- Select Calendar
-SELECT * FROM Calendar WHERE AppID = ?
+SELECT * FROM Calendar WHERE ASURITE_ID = ?
 
--- Update Calendar Name
-UPDATE Calendar SET CalendarName = ? WHERE AppID = ?
+-- Select Monday
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE ASURITE_ID = ?
 
--- Update Calendar Day
-UPDATE Calendar SET CalendarDay = ? WHERE AppID = ?
+-- Select Monday 8am to 10am
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '08:00:00' AND StopHour = '10:00:00' AND ASURITE_ID = ?
 
--- Update Start Hour
-UPDATE Calendar SET StartHour = ? WHERE AppID = ?
+-- Select Monday 10am to 12pm
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '10:00:00' AND StopHour = '12:00:00' AND ASURITE_ID = ?
 
--- Update Stop Hour
-UPDATE Calendar SET StopHour = ? WHERE AppID = ?
+-- Select Monday 12pm to 2pm
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '12:00:00' AND StopHour = '14:00:00' AND ASURITE_ID = ?
+
+-- Select Monday 2pm to 4pm
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '14:00:00' AND StopHour = '16:00:00' AND ASURITE_ID = ?
+
+-- Select Monday 4pm to 6pm
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '16:00:00' AND StopHour = '18:00:00' AND ASURITE_ID = ?
+
+-- Select Monday 6pm to 8pm
+SELECT CalendarDay = 'Monday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '18:00:00' AND StopHour = '20:00:00' AND ASURITE_ID = ?
+
+-- Select Tuesday
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE ASURITE_ID = ?
+
+-- Select Tuesday 8am to 10am
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '08:00:00' AND StopHour = '10:00:00' AND ASURITE_ID = ?
+
+-- Select Tuesday 10am to 12pm
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '10:00:00' AND StopHour = '12:00:00' AND ASURITE_ID = ?
+
+-- Select Tuesday 12pm to 2pm
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '12:00:00' AND StopHour = '14:00:00' AND ASURITE_ID = ?
+
+-- Select Tuesday 2pm to 4pm
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '14:00:00' AND StopHour = '16:00:00' AND ASURITE_ID = ?
+
+-- Select Tuesday 4pm to 6pm
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '16:00:00' AND StopHour = '18:00:00' AND ASURITE_ID = ?
+
+-- Select Tuesday 6pm to 8pm
+SELECT CalendarDay = 'Tuesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '18:00:00' AND StopHour = '20:00:00' AND ASURITE_ID = ?
+
+-- Select Wednesday
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE ASURITE_ID = ?
+
+-- Select Wednesday 8am to 10am
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '08:00:00' AND StopHour = '10:00:00' AND ASURITE_ID = ?
+
+-- Select Wednesday 10am to 12pm
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '10:00:00' AND StopHour = '12:00:00' AND ASURITE_ID = ?
+
+-- Select Wednesday 12pm to 2pm
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '12:00:00' AND StopHour = '14:00:00' AND ASURITE_ID = ?
+
+-- Select Wednesday 2pm to 4pm
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '14:00:00' AND StopHour = '16:00:00' AND ASURITE_ID = ?
+
+-- Select Wednesday 4pm to 6pm
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '16:00:00' AND StopHour = '18:00:00' AND ASURITE_ID = ?
+
+-- Select Wednesday 6pm to 8pm
+SELECT CalendarDay = 'Wednesday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '18:00:00' AND StopHour = '20:00:00' AND ASURITE_ID = ?
+
+-- Select Thursday
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE ASURITE_ID = ?
+
+-- Select Thursday 8am to 10am
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '08:00:00' AND StopHour = '10:00:00' AND ASURITE_ID = ?
+
+-- Select Thursday 10am to 12pm
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '10:00:00' AND StopHour = '12:00:00' AND ASURITE_ID = ?
+
+-- Select Thursday 12pm to 2pm
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '12:00:00' AND StopHour = '14:00:00' AND ASURITE_ID = ?
+
+-- Select Thursday 2pm to 4pm
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '14:00:00' AND StopHour = '16:00:00' AND ASURITE_ID = ?
+
+-- Select Thursday 4pm to 6pm
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '16:00:00' AND StopHour = '18:00:00' AND ASURITE_ID = ?
+
+-- Select Thursday 6pm to 8pm
+SELECT CalendarDay = 'Thursday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '18:00:00' AND StopHour = '20:00:00' AND ASURITE_ID = ?
+
+-- Select Friday
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE ASURITE_ID = ?
+
+-- Select Friday 8am to 10am
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '08:00:00' AND StopHour = '10:00:00' AND ASURITE_ID = ?
+
+-- Select Friday 10am to 12pm
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '10:00:00' AND StopHour = '12:00:00' AND ASURITE_ID = ?
+
+-- Select Friday 12pm to 2pm
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '12:00:00' AND StopHour = '14:00:00' AND ASURITE_ID = ?
+
+-- Select Friday 2pm to 4pm
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '14:00:00' AND StopHour = '16:00:00' AND ASURITE_ID = ?
+
+-- Select Friday 4pm to 6pm
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '16:00:00' AND StopHour = '18:00:00' AND ASURITE_ID = ?
+
+-- Select Friday 6pm to 8pm
+SELECT CalendarDay = 'Friday', TIME_FORMAT(StartHour, '%h:%i %p') AS StartHour, TIME_FORMAT(StopHour, '%h:%i %p') AS StopHour FROM Calendar WHERE StartHour = '18:00:00' AND StopHour = '20:00:00' AND ASURITE_ID = ?
 
 -- -----------------------------------------------------
 -- Attachment Table

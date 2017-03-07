@@ -6,6 +6,11 @@
 // setup module
 var application = angular.module('app.application', []);
 
+application.constant('WORK_HOURS', {
+    international: 20,
+    us: 25
+});
+
 application.controller('contactInfoController', function($scope, $location, $http, UserInfoService) {
     // populates the Contact Info page        
     angular.element(document).ready(function() {
@@ -92,8 +97,6 @@ application.controller('educationInfoController', function($scope, $location, $h
             $scope.otherDegree = response.data.DegreeProgram;
             $scope.probation = response.data.isAcademicProbation;
             $scope.fourPlusOne = response.data.isFourPlusOne;
-            $scope.international = response.data.isInternationalStudent;
-            $scope.speakTest = response.data.SpeakTest;
             if (response.data.FirstSession != null) {
                 $scope.session = new Date(response.data.FirstSession);    
             } 
@@ -118,8 +121,6 @@ application.controller('educationInfoController', function($scope, $location, $h
                 "DegreeProgram"             : $scope.otherDegree,
                 "isAcademicProbation"       : $scope.probation,
                 "isFourPlusOne"             : $scope.fourPlusOne,
-                "isInternationalStudent"    : $scope.international,
-                "SpeakTest"                 : $scope.speakTest,
                 "FirstSession"              : $scope.session = new Date($scope.session),
                 "GraduationDate"            : $scope.gradDate,
                 "LastSaved"                 : lastSaved,
@@ -179,15 +180,25 @@ application.controller('educationInfoController', function($scope, $location, $h
     };
 });
 
-application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService) {
+    
+    $scope.doHoursCheck = function() {
+        var result = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours);
+        $scope.hoursWarning = result.isOver;
+        $scope.enteredHours = result.hours;
+    }
+    
     var user = { 'user' : UserInfoService.getUserId() };
     angular.element(document).ready(function(){
         $http.post('/employment/getEmploymentInfo', user ).then(function successCallback(response) {
             $scope.hours = response.data.TimeCommitment;
+            $scope.international = response.data.isInternationalStudent;
+            $scope.speakTest = response.data.SpeakTest;
             $scope.ta = response.data.isTA;
             $scope.grader = response.data.isGrader;
             $scope.employer = response.data.CurrentEmployer;
             $scope.workHours = response.data.WorkHours;
+            $scope.hasWorked = response.data.isWorkedASU;
         }, function errorCallback(response) {
             //TODO
         });
@@ -202,15 +213,21 @@ application.controller('employmentInfoController', function($scope, $location, $
         } else {
             lastSaved = '/employment';
         }
+        if ($scope.international === 0) {
+            $scope.speakTest = null;
+        }
         var employmentData = {
-                "TimeCommitment"    : $scope.hours,
-                "isTA"              : $scope.ta,
-                "isGrader"          : $scope.grader,
-                "CurrentEmployer"   : $scope.employer,
-                "WorkHours"         : $scope.workHours,
-                "LastSaved"         : lastSaved,
-                "ModifiedDate"      : dateObj,
-                "ASURITE_ID"        : UserInfoService.getUserId()
+                "TimeCommitment"            : $scope.hours,
+                "isInternationalStudent"    : $scope.international,
+                "SpeakTest"                 : $scope.speakTest,
+                "isTA"                      : $scope.ta,
+                "isGrader"                  : $scope.grader,
+                "CurrentEmployer"           : $scope.employer,
+                "WorkHours"                 : $scope.workHours,
+                "isWorkedASU"               : $scope.hasWorked,
+                "LastSaved"                 : lastSaved,
+                "ModifiedDate"              : dateObj,
+                "ASURITE_ID"                : UserInfoService.getUserId()
             };
         
         $http.post('/employment', employmentData).then(function successCallback(response) {
@@ -246,45 +263,25 @@ application.controller('employmentInfoController', function($scope, $location, $
 
 application.controller('availabilityInfoController', function($scope, $location, $http, UserInfoService) {
     $scope.times = [
-        {'startHour':'12:00 AM','stopHour':'1:00 AM'},
-        {'startHour':'1:00 AM','stopHour':'2:00 AM'},
-        {'startHour':'2:00 AM','stopHour':'3:00 AM'},
-        {'startHour':'3:00 AM','stopHour':'4:00 AM'},
-        {'startHour':'4:00 AM','stopHour':'5:00 AM'},
-        {'startHour':'5:00 AM','stopHour':'6:00 AM'},
-        {'startHour':'6:00 AM','stopHour':'7:00 AM'},
-        {'startHour':'7:00 AM','stopHour':'8:00 AM'},
-        {'startHour':'8:00 AM','stopHour':'9:00 AM'},
-        {'startHour':'9:00 AM','stopHour':'10:00 AM'},
-        {'startHour':'10:00 AM','stopHour':'11:00 AM'},
-        {'startHour':'11:00 AM','stopHour':'12:00 PM'},
-        {'startHour':'12:00 PM','stopHour':'1:00 PM'},
-        {'startHour':'1:00 PM','stopHour':'2:00 PM'},
-        {'startHour':'2:00 PM','stopHour':'3:00 PM'},
-        {'startHour':'3:00 PM','stopHour':'4:00 PM'},
-        {'startHour':'4:00 PM','stopHour':'5:00 PM'},
-        {'startHour':'5:00 PM','stopHour':'6:00 PM'},
-        {'startHour':'6:00 PM','stopHour':'7:00 PM'},
-        {'startHour':'7:00 PM','stopHour':'8:00 PM'},
-        {'startHour':'8:00 PM','stopHour':'9:00 PM'},
-        {'startHour':'9:00 PM','stopHour':'10:00 PM'},
-        {'startHour':'10:00 PM','stopHour':'11:00 PM'},
-        {'startHour':'11:00 PM','stopHour':'12:00 AM'}];
+        {'startHour':'8:00 AM','stopHour':'10:00 AM'},
+        {'startHour':'10:00 AM','stopHour':'12:00 PM'},
+        {'startHour':'12:00 PM','stopHour':'2:00 PM'},
+        {'startHour':'2:00 PM','stopHour':'4:00 PM'},
+        {'startHour':'4:00 PM','stopHour':'6:00 PM'},
+        {'startHour':'6:00 PM','stopHour':'8:00 PM'}];
         
-    $scope.days = ['Sunday',
-                   'Monday',
+    $scope.days = ['Monday',
                    'Tuesday',
                    'Wednesday',
                    'Thursday',
-                   'Friday',
-                   'Saturday'];
+                   'Friday'];
 
     // saves data and posts - routes if the user chose to continue
     $scope.saveAvailability = function(doRoute) {
         var availableSlots = [];
         var user = UserInfoService.getUserId();
         var user2 = { 'user' : UserInfoService.getUserId() };
-        $scope.processAvailability('Fall Semester', false, false, user, availableSlots);
+        $scope.processAvailability(user, availableSlots);
         if (availableSlots.length > 0) {
             $http.post('/availability', availableSlots).then(function successCallback(response) {
                 if (doRoute === true) {
@@ -305,24 +302,19 @@ application.controller('availabilityInfoController', function($scope, $location,
     }
 
     // saves all checked values
-    $scope.processAvailability = function(semesterName, finish, summer, user, availableSlots) {
+    $scope.processAvailability = function(user, availableSlots) {
         var timeslotObj = [];
         var hours = '';
         var day = '';
-        for (var x = 0; x < 7; x++) {
+        for (var x = 0; x < 5; x++) {
             day = $scope.days[x];
-            for (var i = 0; i < 24; i++) {
-                if (document.getElementsByName(semesterName +'_'+ day)[i].checked === true) {
-                    hours = JSON.parse(document.getElementsByName(semesterName +'_'+ day)[i].value);
-                    timeslotObj = [semesterName, day, convertTime12to24(hours.startHour), convertTime12to24(hours.stopHour), user];
+            for (var i = 0; i < 6; i++) {
+                if (document.getElementsByName(day)[i].checked === true) {
+                    hours = JSON.parse(document.getElementsByName(day)[i].value);
+                    timeslotObj = [day, convertTime12to24(hours.startHour), convertTime12to24(hours.stopHour), user];
                     availableSlots.push(timeslotObj);
                 }
             }
-        }
-        if (finish !== true) {
-            $scope.processAvailability('Spring Semester', true, false, user, availableSlots);
-        } else if (summer !== true) {
-            $scope.processAvailability('Summer Semester', true, true, user, availableSlots);
         }
     }
 
@@ -340,27 +332,32 @@ application.controller('availabilityInfoController', function($scope, $location,
     }   
     
     // unchecks all boxes
-    $scope.resetAll = function(semesterName, finish, summer) {
-        for (var x = 0; x < 7; x++) {
+    $scope.resetAll = function() {
+        for (var x = 0; x < 5; x++) {
             day = $scope.days[x];
-            for (var i = 0; i < 24; i++) {
-                document.getElementsByName(semesterName +'_'+ day)[i].checked = false;
-            }
-            if (finish !== true) {
-                $scope.resetAll('Spring Semester', true, false);
-            } else if (summer !== true) {
-                $scope.resetAll('Summer Semester', true, true);
+            for (var i = 0; i < 6; i++) {
+                document.getElementsByName(day)[i].checked = false;
             }
         }
     } 
     
+    // checks all boxes
+    $scope.checkAll = function() {
+        for (var x = 0; x < 5; x++) {
+            day = $scope.days[x];
+            for (var i = 0; i < 6; i++) {
+                document.getElementsByName(day)[i].checked = true;
+            }
+        }
+    }
+    
     // when page loads, runs setPreviousSchedule which poplulates fiels with 
     // previously saved data
     angular.element(document).ready(function(){
-        $scope.setPreviousSchedule('Fall Semester', false, false);
+        $scope.setPreviousSchedule();
     });
     
-    $scope.setPreviousSchedule = function(semesterName, finish, summer) {
+    $scope.setPreviousSchedule = function() {
         var user = { 'user' : UserInfoService.getUserId() };
         $http.post('/availability/getAvailabilityInfo', user).then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
@@ -368,22 +365,16 @@ application.controller('availabilityInfoController', function($scope, $location,
                 var slots = [];
                 var hour = '';
                 var day = '';
-                for (var x = 0; x < 7; x++) {
+                for (var x = 0; x < 5; x++) {
                     day = $scope.days[x];
-                    for (var i = 0; i < 24; i++) {
+                    for (var i = 0; i < 6; i++) {
                         for (var y = 0; y < res.data.length; y++) {
-                            if(semesterName === res.data[y].calendarName && 
-                            day === res.data[y].calendarDay && 
-                           (JSON.parse(document.getElementsByName(semesterName +'_'+ day)[i].value).startHour) === convertTime24to12(res.data[y].startHour)) {
-                               document.getElementsByName(semesterName +'_'+ day)[i].checked = true;
+                            if(day === res.data[y].calendarDay && 
+                           (JSON.parse(document.getElementsByName(day)[i].value).startHour) === convertTime24to12(res.data[y].startHour)) {
+                               document.getElementsByName(day)[i].checked = true;
                            }
                         }
                     }
-                }
-                if (finish !== true) {
-                    $scope.setPreviousSchedule('Spring Semester', true, false);
-                } else if (summer !== true) {
-                    $scope.setPreviousSchedule('Summer Semester', true, true);
                 }
             }
         }, function errorCallback(response) {

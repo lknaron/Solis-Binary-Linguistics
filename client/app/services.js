@@ -8,6 +8,34 @@
 var services = angular.module('app.services',[]);
 
 /*
+ * Runs check on entered hours on application employment page
+ */
+services.service('WorkHoursCheckService', function(WORK_HOURS) {
+    this.checkHours = function(commitedHours, type, extraHours) {
+        var wantedHours = 0;
+        var maxHours = 0;
+        if (commitedHours !== null && type !== null && extraHours !== null) {
+            if (commitedHours === '10 hours per week') {
+                wantedHours = 10;
+            }
+            else {
+                wantedHours = 20;
+            }
+            if (type === 1) {
+                maxHours = WORK_HOURS.international;
+            } else {
+                maxHours = WORK_HOURS.us;
+            }
+            wantedHours += extraHours;
+            if (wantedHours > maxHours) {
+                return {isOver:true, hours:wantedHours};
+            } 
+        }
+        return {isOver:false, hours:null};
+    }
+});
+
+/*
  * UserInfoService - provides the name and user type of the logged in user
  */
 services.service('UserInfoService', function($window) {
@@ -88,7 +116,6 @@ services.service('AuthInterceptor', function($injector, $location, UserInfoServi
        },
        responseError : function(response) {
            // user no longer authenticated - server responded with 401
-           console.log(response);
            UserInfoService.clearUserSession();
            $location.path('/unauthorized');
        }
