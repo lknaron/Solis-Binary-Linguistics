@@ -109,18 +109,16 @@ OtherLevel, ASURITE_ID) VALUES
 (16, 'SER 401', 'Qualified', NULL, NULL, 'ballen'),
 (17, 'SER 402', 'Qualified', NULL, NULL, 'ballen'),
 (18, 'SER 415', 'Qualified', NULL, NULL, 'ballen'),
-(19, 'SER 416', 'Qualified', NULL, NULL, 'ballen');
+(19, 'SER 416', 'Qualified', NULL, NULL, 'ballen'),
+(20, 'ASU 101', 'Qualified', NULL, NULL, 'oqueen'),
+(21, 'FSE 100', 'Qualified', NULL, NULL, 'oqueen'),
+(22, 'SER 222', 'Qualified', NULL, NULL, 'oqueen'),
+(23, 'SER 321', 'Qualified', NULL, NULL, 'oqueen'),
+(24, 'SER 401', 'Prefer', NULL, NULL, 'oqueen'),
+(25, 'SER 402', 'Prefer', NULL, NULL, 'oqueen'),
+(26, 'SER 415', 'Prefer', NULL, NULL, 'oqueen'),
+(27, 'SER 416', 'Prefer', NULL, NULL, 'oqueen');
 
--- -----------------------------------------------------
--- Courses Taught Table
--- -----------------------------------------------------
-INSERT INTO Courses_Taught (TaughtID, isCSE110, isCSE205, isCSE230, isCSE240, 
-isCSE120, isFSE100, isASU101, isSER422, isSER450, isSER456, isSER486, isSER332, isSER431, 
-isSER432, isSER515, isSER516, isSER501, isSER502, isSER517, isSER518, isCSE563, isCSE564,
-isCSE566, isSER215, isSER216, isSER222, isSER315, isSER316, isSER321, isSER322, isSER334,
-isSER401, isSER402, isSER415, isSER416, isSER421, isSER423, Other, ASURITE_ID) VALUES
-(1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-0, 0, 0, 0, 0, 0, 0, 0, NULL, 'ballen');
 
 -- -----------------------------------------------------
 -- Languages Table
