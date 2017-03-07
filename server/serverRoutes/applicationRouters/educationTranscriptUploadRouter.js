@@ -17,9 +17,9 @@ router.use(function(req, res, next) {
 // Set up storage of user transcript attachment in file system
 var storage = multer.diskStorage({
     destination : function(req,file,cb){
-        var attachmentsPath = '../attachments/';
-        var userPath = '../attachments/' + req.user.username;
-        var transcriptPath = '../attachments/' + req.user.username + '/transcript';
+        var attachmentsPath = '../../attachments/';
+        var userPath = '../../attachments/' + req.user.username;
+        var transcriptPath = '../../attachments/' + req.user.username + '/transcript';
         try {
             if (!fs.existsSync(attachmentsPath)) {
                 fs.mkdirSync(attachmentsPath);
