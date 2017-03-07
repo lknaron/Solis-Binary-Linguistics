@@ -17,9 +17,9 @@ router.use(function(req, res, next) {
 // Set up storage of user resume attachment in file system
 var storage = multer.diskStorage({
     destination : function(req,file,cb){
-        var attachmentsPath = '../attachments/';
-        var userPath = '../attachments/' + req.user.username;
-        var resumePath = '../attachments/' + req.user.username + '/resume';
+        var attachmentsPath = '../../attachments/';
+        var userPath = '../../attachments/' + req.user.username;
+        var resumePath = '../../attachments/' + req.user.username + '/resume';
         try {
             if (!fs.existsSync(attachmentsPath)) {
                 fs.mkdirSync(attachmentsPath);
