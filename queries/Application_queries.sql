@@ -734,3 +734,25 @@ SELECT * FROM Schedule_ WHERE Days = 'Monday, Wednesday'
 
 -- Select Courses on Monday, Wednesday, and Friday
 SELECT * FROM Schedule_ WHERE Days = 'Monday, Wednesday, Friday'
+
+-- Select Assigned Status Complete
+SELECT * FROM Schedule_ WHERE AssignedStatus = 'Complete'
+
+-- Select Assigned Status Complete
+SELECT * FROM Schedule_ WHERE AssignedStatus = 'Incomplete'
+
+
+-- -----------------------------------------------------
+-- Enrollment Table
+-- -----------------------------------------------------
+-- Insert Enrollment Table
+INSERT INTO Enrollment SET?
+
+-- Select Enrollment Table
+SELECT * FROM Enrollment
+
+-- Select Enrollment Table For Greater Than 50
+SELECT * FROM Enrollment WHERE EnrollmentNumCurrent > 50
+
+-- Select Enrollment History From March
+SELECT * FROM Enrollment WHERE DateEntered BETWEEN '2017-03-01' AND '2017-03-31'

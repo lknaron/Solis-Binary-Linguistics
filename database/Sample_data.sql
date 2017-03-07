@@ -206,31 +206,31 @@ ASURITE_ID_1, ASURITE_ID_2) VALUES
 -- Schedule Table
 -- -----------------------------------------------------
 INSERT INTO Schedule_ (ScheduleID, SessionIs, Location, Subject, CatalogNumber, CourseNumber, 
-CourseTitle, Units, Days, StartHours, EndHours, FirstName, LastName) VALUES
+CourseTitle, Units, Days, StartHours, EndHours, FirstName, LastName, AssignedStatus) VALUES
 (1, 'A', 'ASUOnline', 'ASU', 101, 10201, 'The ASU Experience', 3, NULL, NULL, NULL,
-'Abraham', 'Helsing'),
+'Abraham', 'Helsing', 'Complete'),
 (2, 'A', 'ASUOnline', 'SER', 421, 11321, 'Web-Based Applications and Mobile Systems', 3, NULL, NULL, NULL,
-'Bruce', 'Banner'),
+'Bruce', 'Banner', 'Incomplete'),
 (3, 'A', 'ASUOnline', 'SER', 422, 12312, 'Web Application Programming', 3, NULL, NULL, NULL,
-'Henry', 'McCoy'),
+'Henry', 'McCoy', 'Incomplete'),
 (4, 'B', 'ASUOnline', 'CSE', 120, 10121, 'Digital Design Fundamentals', 3, NULL, NULL, NULL,
-'Abraham', 'Helsing'),
+'Abraham', 'Helsing', 'Incomplete'),
 (5, 'B', 'ASUOnline', 'FSE', 100, 12012, 'Introduction to Engineering', 3, NULL, NULL, NULL,
-'Bruce', 'Banner'),
+'Bruce', 'Banner', 'Incomplete'),
 (6, 'B', 'ASUOnline', 'CSE', 205, 13021, 'Object-Oriented Programming and Data Structures', 3, NULL, NULL, NULL,
-'Charles', 'Xavier'),
+'Charles', 'Xavier', 'Incomplete'),
 (7, 'A', 'ASUOnline', 'SER', 215, 13245, 'Software Enterprise: Personal Process', 3, NULL, NULL, NULL,
-'Charles', 'Xavier'),
+'Charles', 'Xavier', 'Incomplete'),
 (8, 'B', 'ASUOnline', 'SER', 216, 10001, 'Software Enterprise: Testing and Quality', 3, NULL, NULL, NULL,
-'Bruce', 'Banner'),
+'Bruce', 'Banner', 'Incomplete'),
 (9, 'C', 'ASUOnline', 'SER', 401, 10244, 'Computing Capstone Project I', 3, NULL, NULL, NULL,
-'Abraham', 'Helsing'),
+'Abraham', 'Helsing', 'Incomplete'),
 (10, 'C', 'ASUOnline', 'SER', 402, 14401, 'Computing Capstone Project II', 3, NULL, NULL, NULL,
-'Abraham', 'Helsing'),
+'Abraham', 'Helsing', 'Incomplete'),
 (11, 'C', 'POLY', 'SER', 401, 10111, 'Computing Capstone Project I', 3, 'Tuesday, Thursday', '10:00:00', '11:15:00',
-'Henry', 'McCoy'),
+'Henry', 'McCoy', 'Incomplete'),
 (12, 'C', 'POLY', 'SER', 402, 14222, 'Computing Capstone Project II', 3, 'Tuesday, Thursday', '08:00:00', '09:15:00',
-'Henry', 'McCoy');
+'Henry', 'McCoy', 'Incomplete');
 
 
 -- -----------------------------------------------------
@@ -243,9 +243,9 @@ INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, ASURITE_ID) VAL
 -- -----------------------------------------------------
 -- Placement Table
 -- -----------------------------------------------------
-INSERT INTO Placement (PlaceID, TA, GraderOne, GraderTwo, TAHours, GraderOneHours, 
-GraderTwoHours, ScheduleID) VALUES
-(1, 'Barry Allen', 'Oliver Queen', NULL, 10, 10, NULL, 1);
+INSERT INTO Placement (PlaceID, TA,  TAStatus, GraderOne, GraderOneStatus, GraderTwo, GraderTwoStatus, 
+TAHours, GraderOneHours, GraderTwoHours, ScheduleID) VALUES
+(1, 'Barry Allen', 'Confirmed', 'Oliver Queen', 'Pending', NULL, NULL, 10, 10, NULL, 1);
 
 
 -- -----------------------------------------------------
@@ -253,4 +253,29 @@ GraderTwoHours, ScheduleID) VALUES
 -- -----------------------------------------------------
 INSERT INTO Enrollment (EnrollmentID, EnrollmentNumPrev, EnrollmentNumCurrent, EnrollmentDiff,
 DateEntered, ScheduleID) VALUES
-(1, 40, 50, 10, '2017-01-01', 1);
+(1, 60, 25, -35, '2017-02-25', 1),
+(2, 55, 33, -22, '2017-02-25', 2),
+(3, 88, 30, -58, '2017-02-25', 3),
+(4, 66, 24, -42, '2017-02-25', 4),
+(5, 100, 52, -48, '2017-02-25', 5),
+(6, 90, 50, -40, '2017-02-25', 6),
+(7, 93, 40, -53, '2017-02-25', 7),
+(8, 105, 60, -45, '2017-02-25', 8),
+(9, 85, 50, -35, '2017-02-25', 9),
+(10, 75, 63, -12, '2017-02-25', 10),
+(11, 55, 34, -21, '2017-02-25', 11),
+(12, 52, 38, -14, '2017-02-25', 12),
+(13, 60, 65, 5, '2017-03-01', 1),
+(14, 55, 58, 3, '2017-03-01', 2),
+(15, 88, 85, -5, '2017-03-01', 3),
+(16, 66, 70, 4, '2017-03-01', 4),
+(17, 100, 95, -5, '2017-03-01', 5),
+(18, 90, 87, -3, '2017-03-01', 6),
+(19, 93, 98, 5, '2017-03-01', 7),
+(20, 105, 99, -6, '2017-03-01', 8),
+(21, 85, 92, 7, '2017-03-01', 9),
+(24, 75, 78, 3, '2017-03-01', 10),
+(25, 55, 57, 2, '2017-03-01', 11),
+(26, 52, 55, 3, '2017-03-01', 12),
+(27, 55, 60, 5, '2017-03-05', 11),
+(28, 52, 57, 5, '2017-03-05', 12);

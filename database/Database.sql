@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   EndHours TIME,
   FirstName VARCHAR(45),
   LastName VARCHAR(45),
+  AssignedStatus ENUM ('Complete', 'Incomplete'),
   PRIMARY KEY (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
@@ -105,8 +106,11 @@ CREATE TABLE IF NOT EXISTS Student_Request (
 CREATE TABLE IF NOT EXISTS Placement (
   PlaceID INT NOT NULL AUTO_INCREMENT,
   TA VARCHAR(45),
+  TAStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   GraderOne VARCHAR(45),
+  GraderOneStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   GraderTwo VARCHAR(45),
+  GraderTwoStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   TAHours INT,
   GraderOneHours INT,
   GraderTwoHours INT,
