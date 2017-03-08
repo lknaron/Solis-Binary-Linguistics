@@ -228,9 +228,9 @@ NULL, NULL, 'Bruce', 'Banner', 'Incomplete', 10, 10, 105),
 'Abraham', 'Helsing', 'Incomplete',  10, 10, 85),
 (10, 'C', 'ASUOnline', 'SER', 402, 14401, 'Computing Capstone Project II', NULL, NULL, NULL,
 'Abraham', 'Helsing', 'Incomplete', 10, 10, 75),
-(11, 'C', 'POLY', 'SER', 401, 10111, 'Computing Capstone Project I', 'Tuesday, Thursday', 
+(11, 'C', 'POLY', 'SER', 401, 10111, 'Computing Capstone Project I', 'Tuesday/Thursday', 
 '10:00:00', '11:15:00', 'Henry', 'McCoy', 'Incomplete', 10, 0, 55),
-(12, 'C', 'POLY', 'SER', 402, 14222, 'Computing Capstone Project II', 'Tuesday, Thursday', 
+(12, 'C', 'POLY', 'SER', 402, 14222, 'Computing Capstone Project II', 'Tuesday/Thursday', 
 '08:00:00', '09:15:00', 'Henry', 'McCoy', 'Incomplete', 10, 0, 52);
 
 
