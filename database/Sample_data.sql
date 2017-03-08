@@ -259,30 +259,30 @@ INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, Rank1, Rank2) V
 (5, '2017-01-15 15:58:06', 5, 'pparker', NULL),
 (6, '2017-01-18 13:30:32', 6, 'bwayne', NULL),
 (7, '2017-01-19 10:06:00', 7, 'jhowlett', 'omunroe'),
-(8, '2017-01-20 10:52:46', 8, 'bgordon', NULL),
-(9, '2017-01-20 14:13:27', 9, 'srogers', NULL),
+(8, '2017-01-20 10:52:46', 8, 'Barbara Gordon', NULL),
+(9, '2017-01-20 14:13:27', 9, 'Steven Rogers', NULL),
 (10, '2017-01-25 16:24:00', 10, 'bgordon', 'srogers'),
 (11, '2017-01-20 17:49:54', 11, 'srogers', 'ckent'),
-(12, '2017-02-03 08:52:15', 12, 'bwayne', 'ckent');
+(12, '2017-02-03 08:52:15', 12, 'Bruce Wayne', 'Clark Kent');
 
 
 -- -----------------------------------------------------
 -- Placement Table
 -- -----------------------------------------------------
-INSERT INTO Placement (PlaceID, TA,  TAStatus, GraderOne, GraderOneStatus, GraderTwo, GraderTwoStatus, 
-TAHours, GraderOneHours, GraderTwoHours, ScheduleID) VALUES
-(1, 'Barry Allen', 'Confirmed', 'Oliver Queen', 'Pending', NULL, NULL, 10, 10, NULL, 1),
-(2, 'Barry Allen', 'Pending', NULL, NULL, NULL, NULL, 10, 10, NULL, 2),
-(3, 'Ororo Munroe', 'Confirmed', 'James Howlett', 'Pending', NULL, NULL, 10, 10, NULL, 3),
-(4, 'Jean Grey', 'Pending', 'Peter Parker', 'Temporary', NULL, NULL, 10, 10, NULL, 4),
-(5, 'Peter Parker', 'Confirmed', 'Oliver Queen', 'Temporary', NULL, NULL, 10, 10, NULL, 5),
-(6, 'Bruce Wayne', 'Confirmed', 'Jean Grey', 'Pending', NULL, NULL, 10, 10, NULL, 6),
-(7, 'James Howlett', 'Pending', 'Ororo Munroe', 'Confirmed', NULL, NULL, 10, 10, NULL, 7),
-(8, 'Barbara Gordon', 'Pending', 'Clark Kent', 'Pending', NULL, NULL, 10, 10, NULL, 8),
-(9, 'Steven Rogers', 'Confirmed', NULL, NULL, NULL, NULL, 10, 10, NULL, 9),
-(10, 'Barbara Gordon', 'Confirmed', 'Steven Rogers', 'Pending', NULL, NULL, 10, 10, NULL, 10),
-(11, 'Clark Kent', 'Confirmed', NULL, NULL, NULL, NULL, 10, 10, NULL, 11),
-(12, 'Bruce Wayne', 'Confirmed', NULL, NULL, NULL, NULL, 10, 10, NULL, 12);
+INSERT INTO Placement (PlaceID, TA, TAStatus, TATwo, TATwoStatus, GraderOne, GraderOneStatus, 
+GraderTwo, GraderTwoStatus, TAHours, TATwoHours, GraderOneHours, GraderTwoHours, ScheduleID) VALUES
+(1, 'Barry Allen', 'Confirmed', NULL, NULL, 'Oliver Queen', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 1),
+(2, 'Barry Allen', 'Pending',  NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 2),
+(3, 'Ororo Munroe', 'Confirmed', NULL, NULL, 'James Howlett', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 3),
+(4, 'Jean Grey', 'Pending', NULL, NULL, 'Peter Parker', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 4),
+(5, 'Peter Parker', 'Confirmed', NULL, NULL, 'Oliver Queen', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 5),
+(6, 'Bruce Wayne', 'Confirmed', NULL, NULL, 'Jean Grey', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 6),
+(7, 'James Howlett', 'Pending', NULL, NULL, 'Ororo Munroe', 'Confirmed', NULL, NULL, 10, NULL, 10, NULL, 7),
+(8, 'Barbara Gordon', 'Pending', NULL, NULL, 'Clark Kent', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 8),
+(9, 'Steven Rogers', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 9),
+(10, 'Barbara Gordon', 'Confirmed', NULL, NULL, 'Steven Rogers', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 10),
+(11, 'Clark Kent', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 11),
+(12, 'Bruce Wayne', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 12);
 
 
 -- -----------------------------------------------------

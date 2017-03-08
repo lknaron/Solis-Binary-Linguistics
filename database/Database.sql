@@ -95,13 +95,8 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   Rank1 VARCHAR(45) NOT NULL,
   Rank2 VARCHAR(45),
   PRIMARY KEY (RequestID),
-  CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) 
-  REFERENCES Schedule_ (ScheduleID),
-  CONSTRAINT student_request_fk_2 FOREIGN KEY (Rank1) 
-  REFERENCES User_ (ASURITE_ID),
-  CONSTRAINT student_request_fk_3 FOREIGN KEY (Rank2) 
-  REFERENCES User_ (ASURITE_ID)
-  ON DELETE CASCADE
+  CONSTRAINT student_request_fk FOREIGN KEY (ScheduleID) 
+  REFERENCES Schedule_ (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
@@ -112,11 +107,14 @@ CREATE TABLE IF NOT EXISTS Placement (
   PlaceID INT NOT NULL AUTO_INCREMENT,
   TA VARCHAR(45),
   TAStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
+  TATwo VARCHAR(45),
+  TATwoStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   GraderOne VARCHAR(45),
   GraderOneStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   GraderTwo VARCHAR(45),
   GraderTwoStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   TAHours INT,
+  TATwoHours INT,
   GraderOneHours INT,
   GraderTwoHours INT,
   ScheduleID INT NOT NULL,
