@@ -72,13 +72,14 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   CatalogNumber INT,
   CourseNumber INT UNSIGNED,
   CourseTitle VARCHAR(45),
-  Units INT,
   Days VARCHAR(45),
   StartHours TIME,
   EndHours TIME,
   FirstName VARCHAR(45),
   LastName VARCHAR(45),
   AssignedStatus ENUM ('Complete', 'Incomplete'),
+  TARequiredHours INT,
+  GraderRequiredHours INT,
   PRIMARY KEY (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
