@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   AssignedStatus ENUM ('Complete', 'Incomplete'),
   TARequiredHours INT,
   GraderRequiredHours INT,
+  EnrollmentNumPrev INT,
   PRIMARY KEY (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
@@ -127,9 +128,7 @@ CREATE TABLE IF NOT EXISTS Placement (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Enrollment (
  EnrollmentID INT NOT NULL AUTO_INCREMENT,
- EnrollmentNumPrev INT,
  EnrollmentNumCurrent INT,
- EnrollmentDiff INT,
  DateEntered Date,
  ScheduleID INT NOT NULL, 
  PRIMARY KEY (EnrollmentID),
