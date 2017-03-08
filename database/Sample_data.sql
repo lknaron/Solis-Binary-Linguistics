@@ -22,7 +22,21 @@ UserRole, RegTime, isActive, LoginTime) VALUES
 ('fsmoak', 'Felicity', 'Megan', 'Smoak', 'fsmoak@asu.edu', 'password8', 'administrative', 
 '2017-01-02 00:08:23', 1, '2017-01-02 00:10:13'),
 ('astark', 'Anthony', 'Edward', 'Stark', 'astark@asu.edu', 'password9', 'human resources',
-'2017-01-02 00:16:45', 1, '2017-01-02 00:18:03');
+'2017-01-02 00:16:45', 1, '2017-01-02 00:18:03'),
+('jhowlett', 'James', 'Logan', 'Howlett', 'jhowlett@asu.edu', 'Password10!', 'student', 
+'2017-03-03 08:12:45', 1, '2017-03-03 08:20:28'),
+('bwayne', 'Bruce', NULL, 'Wayne', 'bwayne@asu.edu', 'Password11!', 'student', 
+'2017-03-03 11:12:45', 1, '2017-03-03 11:18:28'),
+('bgordon', 'Barbara', 'Joan', 'Gordon', 'bgordon@asu.edu', 'Password12!', 'student', 
+'2017-03-05 08:22:45', 1, '2017-03-05 10:20:08'),
+('srogers', 'Steven', 'Grant', 'Rogers', 'srogers@asu.edu', 'Password13!', 'student', 
+'2017-03-05 10:45:08', 1, '2017-03-05 11:38:26'),
+('ckent', 'Clark', 'Joseph', 'Kent', 'ckent@asu.edu', 'Password14!', 'student', 
+'2017-03-06 13:05:18', 1, '2017-03-06 13:35:00'),
+('pparker', 'Peter', 'Benjamin', 'Parker', 'pparker@asu.edu', 'Password15!', 'student', 
+'2017-03-06 15:38:15', 1, '2017-03-06 15:40:39'),
+('omunroe', 'Ororo', NULL, 'Munroe', 'omunroe@asu.edu', 'Password16!', 'student', 
+'2017-03-07 08:11:00', 1, '2017-03-07 08:32:18');
 
 
 -- -----------------------------------------------------
@@ -237,8 +251,19 @@ NULL, NULL, 'Bruce', 'Banner', 'Incomplete', 10, 10, 105),
 -- -----------------------------------------------------
 -- Student Request Table
 -- -----------------------------------------------------
-INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, ASURITE_ID) VALUES
-(1, '2017-01-10 11:28:01', 1, 'ballen');
+INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, Rank1, Rank2) VALUES
+(1, '2017-01-10 11:28:01', 1, 'ballen', 'oqueen'),
+(2, '2017-01-12 08:04:23', 2, 'ballen', 'jgrey'),
+(3, '2017-01-12 12:45:21', 3, 'omunroe', 'jhowlett'),
+(4, '2017-01-14 09:23:11', 4, 'jgrey', NULL),
+(5, '2017-01-15 15:58:06', 5, 'pparker', NULL),
+(6, '2017-01-18 13:30:32', 6, 'bwayne', NULL),
+(7, '2017-01-19 10:06:00', 7, 'jhowlett', 'omunroe'),
+(8, '2017-01-20 10:52:46', 8, 'bgordon', NULL),
+(9, '2017-01-20 14:13:27', 9, 'srogers', NULL),
+(10, '2017-01-25 16:24:00', 10, 'bgordon', 'srogers'),
+(11, '2017-01-20 17:49:54', 11, 'srogers', 'ckent'),
+(12, '2017-02-03 08:52:15', 12, 'bwayne', 'ckent');
 
 
 -- -----------------------------------------------------
@@ -246,7 +271,18 @@ INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, ASURITE_ID) VAL
 -- -----------------------------------------------------
 INSERT INTO Placement (PlaceID, TA,  TAStatus, GraderOne, GraderOneStatus, GraderTwo, GraderTwoStatus, 
 TAHours, GraderOneHours, GraderTwoHours, ScheduleID) VALUES
-(1, 'Barry Allen', 'Confirmed', 'Oliver Queen', 'Pending', NULL, NULL, 10, 10, NULL, 1);
+(1, 'Barry Allen', 'Confirmed', 'Oliver Queen', 'Pending', NULL, NULL, 10, 10, NULL, 1),
+(2, 'Barry Allen', 'Pending', NULL, NULL, NULL, NULL, 10, 10, NULL, 2),
+(3, 'Ororo Munroe', 'Confirmed', 'James Howlett', 'Pending', NULL, NULL, 10, 10, NULL, 3),
+(4, 'Jean Grey', 'Pending', 'Peter Parker', 'Temporary', NULL, NULL, 10, 10, NULL, 4),
+(5, 'Peter Parker', 'Confirmed', 'Oliver Queen', 'Temporary', NULL, NULL, 10, 10, NULL, 5),
+(6, 'Bruce Wayne', 'Confirmed', 'Jean Grey', 'Pending', NULL, NULL, 10, 10, NULL, 6),
+(7, 'James Howlett', 'Pending', 'Ororo Munroe', 'Confirmed', NULL, NULL, 10, 10, NULL, 7),
+(8, 'Barbara Gordon', 'Pending', 'Clark Kent', 'Pending', NULL, NULL, 10, 10, NULL, 8),
+(9, 'Steven Rogers', 'Confirmed', NULL, NULL, NULL, NULL, 10, 10, NULL, 9),
+(10, 'Barbara Gordon', 'Confirmed', 'Steven Rogers', 'Pending', NULL, NULL, 10, 10, NULL, 10),
+(11, 'Clark Kent', 'Confirmed', NULL, NULL, NULL, NULL, 10, 10, NULL, 11),
+(12, 'Bruce Wayne', 'Confirmed', NULL, NULL, NULL, NULL, 10, 10, NULL, 12);
 
 
 -- -----------------------------------------------------
