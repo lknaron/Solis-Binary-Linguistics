@@ -59,8 +59,31 @@ isEmploymentComplete, isAvailabilityComplete, isLanguagesComplete, isCoursesComp
 (3, '342-443-1341', '342-234-1322', '1407 Graymalkin Lane', NULL, 'United States', 
 'Salem Center', 'New York', 10501, 'M.S. Computer Engineering', 2.8, 'Computer Science', 1,
 1, 1, 250, '2012-08-15', 'Spring 2017', '10 hours per week', 0, 1, NULL, NULL, 0, 
-'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', 1, 1, 0, 0, 1, 0, 'jgrey');
-
+'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', 1, 1, 0, 0, 1, 0, 'jgrey'),
+(4, '113-667-3291', '113-667-1322', '1675 Camp Street', NULL, 'United States', 
+'Paradise Valley', 'Nevada', 89426, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', '2017-03-04 10:22:18', NULL, NULL, 1, 0, 
+0, 0, 0, 0, 'jhowlett'),
+(5, '341-897-5691', '341-897-1789', '111 Wayne Manor Street', NULL, 'United States', 
+'Gotham City', 'New Jersey', 07001, 'M.S. Software Engineering', 3.7, 'Software Engineering', 
+0, 0, 0, NULL, '2016-08-15', 'Spring 2018', NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', 
+'2017-03-05 08:09:28', NULL, NULL, 1, 1, 0, 0, 0, 0, 'bwayne'),
+(6, '341-234-6791', '341-234-6289', 'East Hills Avenue', NULL, 'United States', 
+'Gotham City', 'New Jersey', 07001, 'Ph.D Computer Engineering', 3.9, 'Computer Engineering', 
+0, 0, 0, NULL, '2015-08-15', 'Spring 2019', NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', 
+'2017-03-05 08:09:28', NULL, NULL, 1, 1, 1, 0, 0, 0, 'bgordon'),
+(7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-03-06 14:12:45', NULL, NULL,
+0, 0, 0, 0, 0, 0, 'srogers'),
+(8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-03-06 17:10:08', NULL, NULL,
+0, 0, 0, 0, 0, 0, 'ckent'),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-03-07 08:35:00', NULL, NULL,
+0, 0, 0, 0, 0, 0, 'pparker'),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-03-08 12:23:28', NULL, NULL,
+0, 0, 0, 0, 0, 0, 'omunroe');
 
 -- -----------------------------------------------------
 -- IDEs Table
@@ -259,11 +282,11 @@ INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, Rank1, Rank2) V
 (5, '2017-01-15 15:58:06', 5, 'pparker', NULL),
 (6, '2017-01-18 13:30:32', 6, 'bwayne', NULL),
 (7, '2017-01-19 10:06:00', 7, 'jhowlett', 'omunroe'),
-(8, '2017-01-20 10:52:46', 8, 'Barbara Gordon', NULL),
-(9, '2017-01-20 14:13:27', 9, 'Steven Rogers', NULL),
+(8, '2017-01-20 10:52:46', 8, 'bgordon', NULL),
+(9, '2017-01-20 14:13:27', 9, 'srogers', NULL),
 (10, '2017-01-25 16:24:00', 10, 'bgordon', 'srogers'),
 (11, '2017-01-20 17:49:54', 11, 'srogers', 'ckent'),
-(12, '2017-02-03 08:52:15', 12, 'Bruce Wayne', 'Clark Kent');
+(12, '2017-02-03 08:52:15', 12, 'bwayne', 'ckent');
 
 
 -- -----------------------------------------------------
@@ -271,18 +294,18 @@ INSERT INTO Student_Request (RequestID, DateCreated, ScheduleID, Rank1, Rank2) V
 -- -----------------------------------------------------
 INSERT INTO Placement (PlaceID, TA, TAStatus, TATwo, TATwoStatus, GraderOne, GraderOneStatus, 
 GraderTwo, GraderTwoStatus, TAHours, TATwoHours, GraderOneHours, GraderTwoHours, ScheduleID) VALUES
-(1, 'Barry Allen', 'Confirmed', NULL, NULL, 'Oliver Queen', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 1),
-(2, 'Barry Allen', 'Pending',  NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 2),
-(3, 'Ororo Munroe', 'Confirmed', NULL, NULL, 'James Howlett', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 3),
-(4, 'Jean Grey', 'Pending', NULL, NULL, 'Peter Parker', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 4),
-(5, 'Peter Parker', 'Confirmed', NULL, NULL, 'Oliver Queen', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 5),
-(6, 'Bruce Wayne', 'Confirmed', NULL, NULL, 'Jean Grey', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 6),
-(7, 'James Howlett', 'Pending', NULL, NULL, 'Ororo Munroe', 'Confirmed', NULL, NULL, 10, NULL, 10, NULL, 7),
-(8, 'Barbara Gordon', 'Pending', NULL, NULL, 'Clark Kent', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 8),
-(9, 'Steven Rogers', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 9),
-(10, 'Barbara Gordon', 'Confirmed', NULL, NULL, 'Steven Rogers', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 10),
-(11, 'Clark Kent', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 11),
-(12, 'Bruce Wayne', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 12);
+(1, 'ballen', 'Confirmed', NULL, NULL, 'oqueen', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 1),
+(2, 'ballen', 'Pending',  NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 2),
+(3, 'omunroe', 'Confirmed', NULL, NULL, 'jhowlett', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 3),
+(4, 'jgrey', 'Pending', NULL, NULL, 'pparker', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 4),
+(5, 'pparker', 'Confirmed', NULL, NULL, 'oqueen', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 5),
+(6, 'bwayne', 'Confirmed', NULL, NULL, 'jgrey', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 6),
+(7, 'jhowlett', 'Pending', NULL, NULL, 'omunroe', 'Confirmed', NULL, NULL, 10, NULL, 10, NULL, 7),
+(8, 'bgordon', 'Pending', NULL, NULL, 'ckent', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 8),
+(9, 'srogers', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 9),
+(10, 'bgordon', 'Confirmed', NULL, NULL, 'srogers', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 10),
+(11, 'ckent', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 11),
+(12, 'bwayne', 'Confirmed', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 12);
 
 
 -- -----------------------------------------------------
