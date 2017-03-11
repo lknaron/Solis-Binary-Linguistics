@@ -29,21 +29,21 @@ router.post('/', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        if (req.body[0].length === 0) {
-            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body[1][0]], function(err2) {
+        if (req.body.data[0].length === 0) {
+            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.data[1][0]], function(err2) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
                 }
             });
         } 
-        if (req.body[0].length != 0) {
-            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body[1][0]], function(err3) {
+        if (req.body.data[0].length != 0) {
+            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.data[1][0]], function(err3) {
                 if(err3) {
                     console.log('Error performing query: ' + err3);
                     throw err3;
                 } else {
-                    connection.query('INSERT INTO Course_Competencies (isCourse, CourseLevel, OtherCourse, OtherLevel, ASURITE_ID) VALUES ?', [req.body[0]], function(err4) { 
+                    connection.query('INSERT INTO Course_Competencies (isCourse, CourseLevel, OtherCourse, OtherLevel, ASURITE_ID) VALUES ?', [req.body.data[0]], function(err4) { 
                         if(err4) {
                             console.log('Error performing query: ' + err4);
                             throw err4;
@@ -52,8 +52,13 @@ router.post('/', function(req, res) {
                 } 
             });
         }
+        connection.query('UPDATE Application SET isCoursesComplete = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.data[1][0]], function(err5) {
+            if (err5) {
+                throw err5;
+            }
+            res.sendStatus(200);
+        });
         connection.release();
-        res.sendStatus(200);
     });
 });
 

@@ -5,7 +5,7 @@
  */
 
 // setup services module
-var services = angular.module('app.services',[]);
+var services = angular.module('app.services',['app.application']);
 
 /*
  * Runs check on entered hours on application employment page
@@ -136,5 +136,52 @@ services.service('FirstTimeLoginService', function() {
     }
     this.firstTimeMessage = function() {
         return 'Account creation successful. Please login to continue';
+    }
+});
+
+/*
+ * Handles received data for Student Call to Actions
+ */
+services.service('StudentActionsService', function() {
+    this.callTo = {};
+    this.getAppActions = function() {
+    	return this.callTo.AppActions;
+    }
+});
+
+/*
+ * Handles checking for complete application pages
+ */
+services.service('PageCompletionService', function() {
+    this.checkFields = function(scope, page) {
+        var requiredFields = ['fdsf'];
+        if (page === 'contact') {
+            requiredFields = ['phoneNumber', 'mobileNumber', 'addressOne', 'country', 'city', 'state', 'zip'];
+        } else if (page === 'education') {
+            requiredFields = ['selectedDegree', 'gpa', 'session', 'gradDate'];
+            if (scope.selectedDegree === 'M.S. Other' || scope.selectedDegree === 'Ph.D Other') {
+                requiredFields.push('otherDegree');
+            }
+        } else if (page === 'employment') {
+            if (scope.ta || scope.grader === 0) {
+                return 0;
+            }
+            requiredFields = ['hours'];
+            if (scope.international === 1) {
+                requiredFields.push('speakTest');
+            }
+            if (scope.employer) {
+                requiredFields.push('workHours');
+            }
+            if (scope.workHours) {
+                requiredFields.push('employer');
+            }
+        }
+    	for (var i = 0; i < requiredFields.length; i++) {
+    		if (!scope[requiredFields[i]]) {               
+        		return 0;
+        	}
+   		}
+        return 1;
     }
 });

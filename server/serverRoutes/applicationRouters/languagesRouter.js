@@ -29,21 +29,21 @@ router.post('/', function(req, res) {
 	      	console.log('Error getting mysql_pool connection: ' + err);
 	      	throw err;
 	    }
-	    if (req.body[0].length === 0) {
-	    	connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.body[3][0]], function(err2) {
+	    if (req.body.data[0].length === 0) {
+	    	connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err2) {
 		    	if(err2) {
 		        	console.log('Error performing query: ' + err2);
 		            throw err2;
 		        }
 		    });
 	    } 
-	    if (req.body[0].length != 0) {
-		    connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.body[3][0]], function(err3) {
+	    if (req.body.data[0].length != 0) {
+		    connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err3) {
 		        if(err3) {
 		        	console.log('Error performing query: ' + err3);
 		            throw err3;
 		        } else {
-		            connection.query('INSERT INTO Languages (isLanguage, LanguageLevel, OtherLanguage, OtherLevel, ASURITE_ID) VALUES ?', [req.body[0]], function(err4) { 
+		            connection.query('INSERT INTO Languages (isLanguage, LanguageLevel, OtherLanguage, OtherLevel, ASURITE_ID) VALUES ?', [req.body.data[0]], function(err4) { 
 						if(err4) {
 					    	console.log('Error performing query: ' + err4);
 					        throw err4;
@@ -52,21 +52,21 @@ router.post('/', function(req, res) {
 		        } 
 		    });
 		} 
-		if (req.body[1].length === 0) {
-			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.body[3][0]], function(err5) {
+		if (req.body.data[1].length === 0) {
+			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err5) {
 		    	if(err5) {
 		        	console.log('Error performing query: ' + err5);
 		            throw err5;
 		        }
 		    });
 		} 
-		if (req.body[1].length != 0) {
-			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.body[3][0]], function(err6) {
+		if (req.body.data[1].length != 0) {
+			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err6) {
 		        if(err6) {
 		        	console.log('Error performing query: ' + err6);
 		            throw err6;
 		        } else {
-		            connection.query('INSERT INTO IDEs (isIDE, OtherIDE, ASURITE_ID) VALUES ?', [req.body[1]], function(err7) { 
+		            connection.query('INSERT INTO IDEs (isIDE, OtherIDE, ASURITE_ID) VALUES ?', [req.body.data[1]], function(err7) { 
 						if(err7) {
 					    	console.log('Error performing query: ' + err7);
 					        throw err7;
@@ -75,21 +75,21 @@ router.post('/', function(req, res) {
 		        } 
 		    });
 		} 
-		if (req.body[2].length === 0) {
-			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body[3][0]], function(err8) {
+		if (req.body.data[2].length === 0) {
+			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err8) {
 		    	if(err8) {
 		        	console.log('Error performing query: ' + err8);
 		            throw err8;
 		        }
 		    });	
 		}
-		if (req.body[2].length != 0) {
-			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body[3][0]], function(err9) {
+		if (req.body.data[2].length != 0) {
+			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err9) {
 		        if(err9) {
 		        	console.log('Error performing query: ' + err9);
 		            throw err9;
 		        } else {
-		            connection.query('INSERT INTO Collaborative_Tools (isTool, OtherTool, ASURITE_ID) VALUES ?', [req.body[2]], function(err10) { 
+		            connection.query('INSERT INTO Collaborative_Tools (isTool, OtherTool, ASURITE_ID) VALUES ?', [req.body.data[2]], function(err10) { 
 						if(err10) {
 					    	console.log('Error performing query: ' + err10);
 					        throw err10;
@@ -98,8 +98,13 @@ router.post('/', function(req, res) {
 		        } 
 		    });	
 		}
+        connection.query('UPDATE Application SET isLanguagesComplete = ? WHERE ASURITE_ID = ?',[req.body.isLanguagesComplete, req.body.data[3][0]], function(err11) {
+            if (err11) {
+                throw err11;
+            }
+            res.sendStatus(200); 
+        });
 		connection.release();
-		res.sendStatus(200); 
   	});
 });
 

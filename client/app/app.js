@@ -24,6 +24,15 @@ app.constant('USER_ROLES', {
     student: 'student'
 });
 
+app.constant('APPLICATION_LINKS', {
+	Contact : '#!/contactInfo',
+    Education : '#!/education',
+    Employment : '#!/employment',
+    Availability : '#!/availability',
+    Languages : '#!/languages',
+    Courses : '#!/courses'
+});
+
 /* Upon a change in route, this checks if the user is logged in and is the correct 
  * user type to view the route. 
  * Sets the css layout for the next page. 
@@ -76,7 +85,20 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         })
         .when('/studentHome', {
             templateUrl : 'app/users/studentView.html',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            resolve : {
+                    getActions : function($q, $http, UserInfoService, StudentActionsService) {
+                      var deferred = $q.defer();
+                          $http({method: 'POST', 
+                                 url: '/getStudentActions', 
+                                 data: {user: UserInfoService.getUserId()}}).then(function(getActions) {
+                                   console.log(getActions);
+                                   StudentActionsService.callTo = getActions.data;	
+                                   deferred.resolve(getActions);
+                          });
+                    return deferred.promise;
+                    }  
+                }
         })
         .when('/facultyHome', {
             templateUrl : 'app/users/dummyFacultyView.html',

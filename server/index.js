@@ -47,7 +47,9 @@ var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
     employmentResumeUploadRouter = require('./serverRoutes/applicationRouters/employmentResumeUploadRouter.js'),
     availabilityRouter = require('./serverRoutes/applicationRouters/availabilityRouter.js'),
     languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js'),
-    coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js');
+    coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js'),
+    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js');
+
 
 // Use ssl certificate and key
 var httpsOptions = {
@@ -81,3 +83,4 @@ app.use('/languages', languagesRouter);
 app.use('/languages/getLanguagesInfo', languagesRouter);
 app.use('/courses', coursesRouter);
 app.use('/courses/getCoursesInfo', coursesRouter);
+app.use('/getStudentActions', studentActionsRouter);

@@ -40,6 +40,12 @@ router.post('/', function(req, res) {
             throw err2;
           } else if (!rows.length) {
             connection.query('INSERT INTO User_ SET ?', [req.body], function(err2) {
+                connection.query('INSERT INTO Application (ASURITE_ID) VALUES (?)', [req.body.ASURITE_ID], function(err3, rows) {
+                    if (err3) {
+                        console.log('Error performing query: ' + err3);
+                        throw err3;
+                    }
+                });
               if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
