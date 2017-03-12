@@ -82,6 +82,9 @@ services.service('UserInfoService', function($window) {
         $window.sessionStorage.removeItem('lastSaved');       
         $window.sessionStorage.removeItem('appStatus');   
         $window.sessionStorage.removeItem('token');
+        $window.sessionStorage.removeItem('className');
+        $window.sessionStorage.removeItem('classNumber');
+        $window.sessionStorage.removeItem('studentId');
     }
 });
 
@@ -136,5 +139,35 @@ services.service('FirstTimeLoginService', function() {
     }
     this.firstTimeMessage = function() {
         return 'Account creation successful. Please login to continue';
+    }
+});
+
+/*
+ * Allows passing of class information between pages
+ */
+services.service('SendClassService', function($window) {
+    this.setClassName = function(className) {
+        $window.sessionStorage.setItem('className', className);
+    }
+    this.getClassName = function() {
+        return $window.sessionStorage.getItem('className');
+    }
+    this.setClassNumber = function(classNumber) {
+        $window.sessionStorage.setItem('classNumber', classNumber);
+    }
+    this.getClassNumber = function() {
+        return $window.sessionStorage.getItem('classNumber');
+    }
+});
+
+/*
+ * Allows passing of student information between pages
+ */
+services.service('SendStudentService', function($window) {
+    this.setStudentId = function(studentId) {
+        $window.sessionStorage.setItem('studentId', studentId);
+    }
+    this.getStudentId = function() {
+        return $window.sessionStorage.getItem('setStudentId');
     }
 });

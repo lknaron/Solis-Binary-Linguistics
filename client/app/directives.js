@@ -108,3 +108,54 @@ directives.directive("addcourses", function($compile){
 		});
 	};
 });
+
+// Directive for add status button on program chair class summary page
+directives.directive('addstatusbutton', function () {
+    return {
+        restrict: "E",
+		template: "<button addstatus ng-disabled='disableUpdateStatus' ng-click='showStatusUpdate = true; disableUpdateStatus = true' class='myButton'>Update Status</button>"
+    };
+});
+
+// Directive for text input and save/cancel button on click of add enrollment button on program chair class summary page
+directives.directive("addstatus", function($compile){
+	return function(scope, element, attrs){
+		element.bind("click", function(){
+			angular.element(document.getElementById('spaceforstatus')).append($compile("<br><input type='radio' ng-model=status required value='Incomplete' name='status'>Incomplete</input><input type='radio' ng-model=status value='Complete' name='status'>Complete<br><input type='button' ng-click='saveStatus()' value='Save' style='margin-right: 10px;'></input><input type='button' ng-click='cancelStatusUpdate()' value='Cancel'></input><br>")(scope));    
+		});
+	};
+});
+
+// Directive for add enrollment button on program chair class summary page
+directives.directive('addenrollmentbutton', function () {
+    return {
+        restrict: "E",
+		template: "<button addenrollment ng-disabled='disableUpdateEnrollment' ng-click='showEnrollmentUpdate = true; disableUpdateEnrollment = true' class='myButton'>Update Enrollment</button>"
+    };
+});
+
+// Directive for text input and save/cancel button on click of add enrollment button on program chair class summary page
+directives.directive("addenrollment", function($compile){
+	return function(scope, element, attrs){
+		element.bind("click", function(){
+			angular.element(document.getElementById('spaceforenrollment')).append($compile("<br><input type='number' ng-model='enrollmentUpdate' placeholder='Input Enrollment'><input type='button' ng-click='saveEnrollment(enrollmentUpdate)' value='Save' style='margin-left: 10px; margin-right: 10px'></input><input type='button' ng-click='cancelEnrollmentUpdate()' value='Cancel'></input><br><label ng-show='enrollmentError'>Please enter a value or hit Cancel</label>")(scope));    
+		});
+	};
+});
+
+// Directive for add required hours button on program chair class summary page
+directives.directive('addrequiredhoursbutton', function () {
+    return {
+        restrict: "E",
+		template: "<button addrequiredhours ng-disabled='disableUpdateRequiredHours' ng-click='showRequiredHoursUpdate = true; disableUpdateRequiredHours = true' class='myButton'>Update Required Hours</button>"
+    };
+});
+
+// Directive for two text inputs and save/cancel button on click of add required hours button on program chair class summary page
+directives.directive("addrequiredhours", function($compile){
+	return function(scope, element, attrs){
+		element.bind("click", function(){
+			angular.element(document.getElementById('spaceforrequiredhours')).append($compile("<br>TA: <input type='number' ng-model='requiredTAHoursUpdate' placeholder='Input Required TA Hours'>Grader: <input type='number' ng-model='requiredGraderHoursUpdate' placeholder='Input Required Grader Hours'><input type='button' ng-click='saveRequiredHours(requiredTAHoursUpdate, requiredGraderHoursUpdate)' value='Save' style='margin-left: 10px; margin-right: 10px'></input><input type='button' ng-click='cancelRequiredHoursUpdate()' value='Cancel'></input><br><label ng-show='requiredHoursError'>Please enter a value or hit Cancel</label>")(scope));    
+		});
+	};
+});

@@ -1,0 +1,7 @@
+<div ng-controller='programChairController'>
+    <li><a href="#!/viewAccount">Account</a><br>
+    Program Chair Home
+    <li ng-model='name'>Name is {{name}}</li><br>
+    An asterisk denotes an online class<br>
+    <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass)"><option value="">Select Class</option></select>
+</div>  

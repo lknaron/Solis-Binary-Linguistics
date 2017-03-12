@@ -10,6 +10,8 @@ var app = angular.module('app', ['ngRoute',
                                  'app.header',
                                  'app.account',
                                  'app.student',
+                                 'app.users',
+                                 'app.programChair',
                                  'app.application',
                                  'app.services',
                                  'app.directives'
@@ -81,6 +83,22 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/facultyHome', {
             templateUrl : 'app/users/dummyFacultyView.html',
             permissions : [USER_ROLES.faculty]
+        })
+        .when('/programChairHome', {
+            templateUrl : 'app/users/programChairView.html',
+            permissions : [USER_ROLES.program_chair]
+        })
+        .when('/classSummary', {
+            templateUrl : 'app/programChair/classSummaryView.html',
+            permissions : [USER_ROLES.program_chair]
+        })
+        .when('/assignStudent', {
+            templateUrl : 'app/programChair/assignStudentView.html',
+            permissions : [USER_ROLES.program_chair]
+        })
+        .when('/studentProfile', {
+            templateUrl : 'app/programChair/studentProfileView.html',
+            permissions : [USER_ROLES.program_chair]
         })
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',

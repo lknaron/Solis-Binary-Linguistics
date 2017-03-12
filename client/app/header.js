@@ -13,6 +13,8 @@ header.controller('headerController', function($scope, $location, UserInfoServic
             $location.path('/studentHome');
         } else if (UserInfoService.getUserType() === 'faculty') {
             $location.path('/facultyHome');
+        } else if (UserInfoService.getUserType() === 'program chair') {
+            $location.path('/programChairHome');
         }
         // else other types TODO
     }
