@@ -12,7 +12,6 @@ var directives = angular.module('app.directives',[]);
  */
 directives.directive('studentActionsDirective', function($compile, StudentActionsService, APPLICATION_LINKS) {
    function actions(scope, element, attrs) {
-       console.log(StudentActionsService.callTo.hasAppActions);
         if (StudentActionsService.callTo.hasAppActions === 0) {
             angular.element(document.getElementById('appCalls')).append($compile("<div>Your application has not been started!</div>")(scope));
         } else if (StudentActionsService.callTo.hasAppActions === 1) {

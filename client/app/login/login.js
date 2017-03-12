@@ -22,10 +22,10 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                 UserInfoService.setUserId($scope.username);
                 UserInfoService.setFullName(response.data.firstName + ' ' + response.data.lastName);
                 UserInfoService.setUserType(response.data.type);
-                UserInfoService.setLastSaved(response.data.lastSaved);
-                UserInfoService.setAppStatus(response.data.appStatus);
                 UserInfoService.setToken(response.data.token);
                 if (response.data.type === 'student') {
+                    UserInfoService.setLastSaved(response.data.lastSaved);
+                    UserInfoService.setAppStatus(response.data.appStatus);
                     // go to student home
                     $location.path('/studentHome');
                 } else if (response.data.type === 'faculty') {

@@ -52,7 +52,7 @@ router.post('/', function(req, res) {
                 } 
             });
         }
-        connection.query('UPDATE Application SET isCoursesComplete = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.data[1][0]], function(err5) {
+        connection.query('UPDATE Application SET isCoursesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.appStatus, req.body.data[1][0]], function(err5) {
             if (err5) {
                 throw err5;
             }

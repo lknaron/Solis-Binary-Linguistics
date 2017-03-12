@@ -82,6 +82,12 @@ services.service('UserInfoService', function($window) {
         $window.sessionStorage.removeItem('lastSaved');       
         $window.sessionStorage.removeItem('appStatus');   
         $window.sessionStorage.removeItem('token');
+        $window.sessionStorage.removeItem('hasContact');
+        $window.sessionStorage.removeItem('hasEducation');
+        $window.sessionStorage.removeItem('hasEmployment');
+        $window.sessionStorage.removeItem('hasAvailability');
+        $window.sessionStorage.removeItem('hasLanguages');
+        $window.sessionStorage.removeItem('hasCourses');
     }
 });
 
@@ -154,7 +160,7 @@ services.service('StudentActionsService', function() {
  */
 services.service('PageCompletionService', function() {
     this.checkFields = function(scope, page) {
-        var requiredFields = ['fdsf'];
+        var requiredFields = [''];
         if (page === 'contact') {
             requiredFields = ['phoneNumber', 'mobileNumber', 'addressOne', 'country', 'city', 'state', 'zip'];
         } else if (page === 'education') {
@@ -183,5 +189,44 @@ services.service('PageCompletionService', function() {
         	}
    		}
         return 1;
+    }
+});
+
+services.service('AppStatusService', function($window, UserInfoService) {
+    this.pages = ['contact', 'education', 'employment', 'availability', 'languages', 'courses'];
+    this.setStatuses = function(data) {
+        if (data.hasAppActions === 0) {
+            UserInfoService.setAppStatus('new');
+        } else if (data.hasAppActions === 2) {
+            console.log('all would be set to complete');
+            $window.sessionStorage.setItem('contact', 1);
+            $window.sessionStorage.setItem('education', 1);
+            $window.sessionStorage.setItem('employment', 1);
+            $window.sessionStorage.setItem('availability', 1);
+            $window.sessionStorage.setItem('languages', 1);
+            $window.sessionStorage.setItem('courses', 1);
+        } else {
+            UserInfoService.setAppStatus('incomplete');
+            $window.sessionStorage.setItem('contact', data.pageStatuses[0].isContactComplete);
+            $window.sessionStorage.setItem('education', data.pageStatuses[0].isEducationComplete);
+            $window.sessionStorage.setItem('employment', data.pageStatuses[0].isEmploymentComplete);
+            $window.sessionStorage.setItem('availability', data.pageStatuses[0].isAvailabilityComplete);
+            $window.sessionStorage.setItem('languages', data.pageStatuses[0].isLanguagesComplete);
+            $window.sessionStorage.setItem('courses', data.pageStatuses[0].isCoursesComplete);
+        }
+        return;
+    }
+    this.checkStatus = function(pageName, pageStatus) {
+        $window.sessionStorage.setItem(pageName, pageStatus);
+        if (pageStatus === 0) {
+            return 'incomplete'
+        } 
+        for (var i = 0; i < this.pages.length; i++) {
+            console.log($window.sessionStorage.getItem(this.pages[i]));
+            if ($window.sessionStorage.getItem(this.pages[i]) === '0') {
+                return 'incomplete';
+            }
+        }
+        return 'complete';
     }
 });

@@ -87,13 +87,14 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             templateUrl : 'app/users/studentView.html',
             permissions : [USER_ROLES.student],
             resolve : {
-                    getActions : function($q, $http, UserInfoService, StudentActionsService) {
+                    getActions : function($q, $http, UserInfoService, StudentActionsService, AppStatusService) {
                       var deferred = $q.defer();
                           $http({method: 'POST', 
                                  url: '/getStudentActions', 
                                  data: {user: UserInfoService.getUserId()}}).then(function(getActions) {
-                                   console.log(getActions);
+                                   console.log(getActions.data);
                                    StudentActionsService.callTo = getActions.data;	
+                                   AppStatusService.setStatuses(getActions.data);
                                    deferred.resolve(getActions);
                           });
                     return deferred.promise;

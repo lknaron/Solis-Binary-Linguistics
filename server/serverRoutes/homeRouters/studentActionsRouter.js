@@ -80,7 +80,7 @@ router.post('/', function(req, res) {
                                                         rows[0].isAcademicProbation = 0;
                                                     }
                                                     if (!missingPages || missingPages.length > 0) {
-                                                        res.send({hasAppActions:1, appActions:missingPages, onProbation:rows[0].isAcademicProbation});
+                                                        res.send({hasAppActions:1, appActions:missingPages, pageStatuses:top , onProbation:rows[0].isAcademicProbation});
                                                     } else {
                                                         res.send({hasAppActions:2, onProbation:rows[0].isAcademicProbation});
                                                     }                                                   

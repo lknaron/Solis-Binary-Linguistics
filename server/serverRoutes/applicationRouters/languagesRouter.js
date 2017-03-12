@@ -98,7 +98,7 @@ router.post('/', function(req, res) {
 		        } 
 		    });	
 		}
-        connection.query('UPDATE Application SET isLanguagesComplete = ? WHERE ASURITE_ID = ?',[req.body.isLanguagesComplete, req.body.data[3][0]], function(err11) {
+        connection.query('UPDATE Application SET isLanguagesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isLanguagesComplete, req.body.appStatus, req.body.data[3][0]], function(err11) {
             if (err11) {
                 throw err11;
             }

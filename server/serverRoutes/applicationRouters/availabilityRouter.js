@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
 					    	console.log('Error performing query: ' + err3);
 					        throw err3;
 					    } else {
-                            connection.query('UPDATE Application SET isAvailabilityComplete = ? WHERE ASURITE_ID = ?', [req.body.isAvailabilityComplete, req.body.availableSlots[0][3]], function(err5) {
+                            connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isAvailabilityComplete, req.body.appStatus, req.body.availableSlots[0][3]], function(err5) {
                                 if (err5) {
                                     throw err5;
                                 }
@@ -64,7 +64,7 @@ router.post('/', function(req, res) {
 		        	console.log('Error performing query: ' + err5);
 		            throw err5;
 		        } else {
-                    connection.query('UPDATE Application SET isAvailabilityComplete = ? WHERE ASURITE_ID = ?',[req.body.isAvailabilityComplete, req.body.user], function(err6) {
+                    connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isAvailabilityComplete, req.body.appStatus, req.body.user], function(err6) {
                         if (err6) {
                             throw err6;
                             res.sendStatus(200);
