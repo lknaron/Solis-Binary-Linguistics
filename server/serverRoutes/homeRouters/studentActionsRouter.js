@@ -252,7 +252,7 @@ router.post('/', function(req, res) {
                     // checks missing items for the Employment page
                     function checkEmploymentInfo(row) {
                         var items =[];
-                        if (!row.TimeCommitment == null) {
+                        if (!row.TimeCommitment) {
                             items.push('Please select the hours you are seeking');
                         }
                         if ((!row.isTA && !row.isGrader) || (row.isTA == 0 && row.isGrader == 0)) {

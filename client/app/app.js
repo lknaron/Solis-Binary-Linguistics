@@ -92,7 +92,6 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                           $http({method: 'POST', 
                                  url: '/getStudentActions', 
                                  data: {user: UserInfoService.getUserId()}}).then(function(getActions) {
-                                   console.log(getActions.data);
                                    StudentActionsService.callTo = getActions.data;	
                                    AppStatusService.setStatuses(getActions.data);
                                    deferred.resolve(getActions);

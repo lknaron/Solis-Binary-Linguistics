@@ -169,7 +169,7 @@ services.service('PageCompletionService', function() {
                 requiredFields.push('otherDegree');
             }
         } else if (page === 'employment') {
-            if (scope.ta || scope.grader === 0) {
+            if (scope.ta === 0 || scope.grader === 0) {
                 return 0;
             }
             requiredFields = ['hours'];
@@ -198,7 +198,7 @@ services.service('AppStatusService', function($window, UserInfoService) {
         if (data.hasAppActions === 0) {
             UserInfoService.setAppStatus('new');
         } else if (data.hasAppActions === 2) {
-            console.log('all would be set to complete');
+            UserInfoService.setAppStatus('complete');
             $window.sessionStorage.setItem('contact', 1);
             $window.sessionStorage.setItem('education', 1);
             $window.sessionStorage.setItem('employment', 1);
@@ -222,7 +222,6 @@ services.service('AppStatusService', function($window, UserInfoService) {
             return 'incomplete'
         } 
         for (var i = 0; i < this.pages.length; i++) {
-            console.log($window.sessionStorage.getItem(this.pages[i]));
             if ($window.sessionStorage.getItem(this.pages[i]) === '0') {
                 return 'incomplete';
             }
