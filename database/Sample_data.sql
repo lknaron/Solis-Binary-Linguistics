@@ -950,7 +950,7 @@ INSERT INTO Calendar (CalendarID, CalendarDay, StartHour, StopHour, ASURITE_ID) 
 (112, 'Tuesday', '10:00:00', '12:00:00', 'jjones'),
 (113, 'Wednesday', '08:00:00', '10:00:00', 'jjones'),
 (114, 'Wednesday', '10:00:00', '12:00:00', 'jjones'),
-(115, 'Wednesday', '12:00:00', '14:00:00', 'jones'),
+(115, 'Wednesday', '12:00:00', '14:00:00', 'jjones'),
 (116, 'Thursday', '08:00:00', '10:00:00', 'jjones'),
 (117, 'Thursday', '10:00:00', '12:00:00', 'jjones'),
 (118, 'Friday', '08:00:00', '10:00:00', 'jjones'),
