@@ -5,7 +5,7 @@
  */
 
 // setup services module
-var services = angular.module('app.services',[]);
+var services = angular.module('app.services',['app.application']);
 
 /*
  * Runs check on entered hours on application employment page
@@ -82,6 +82,15 @@ services.service('UserInfoService', function($window) {
         $window.sessionStorage.removeItem('lastSaved');       
         $window.sessionStorage.removeItem('appStatus');   
         $window.sessionStorage.removeItem('token');
+        $window.sessionStorage.removeItem('className');
+        $window.sessionStorage.removeItem('classNumber');
+        $window.sessionStorage.removeItem('studentId');
+        $window.sessionStorage.removeItem('hasContact');
+        $window.sessionStorage.removeItem('hasEducation');
+        $window.sessionStorage.removeItem('hasEmployment');
+        $window.sessionStorage.removeItem('hasAvailability');
+        $window.sessionStorage.removeItem('hasLanguages');
+        $window.sessionStorage.removeItem('hasCourses');
     }
 });
 
@@ -136,5 +145,114 @@ services.service('FirstTimeLoginService', function() {
     }
     this.firstTimeMessage = function() {
         return 'Account creation successful. Please login to continue';
+    }
+});
+
+/*
+ * Allows passing of class information between pages
+ */
+services.service('SendClassService', function($window) {
+    this.setClassName = function(className) {
+        $window.sessionStorage.setItem('className', className);
+    }
+    this.getClassName = function() {
+        return $window.sessionStorage.getItem('className');
+    }
+    this.setClassNumber = function(classNumber) {
+        $window.sessionStorage.setItem('classNumber', classNumber);
+    }
+    this.getClassNumber = function() {
+        return $window.sessionStorage.getItem('classNumber');
+    }
+});
+
+// Handles received data for Student Call to Actions
+services.service('StudentActionsService', function() {
+    this.callTo = {};
+    this.getAppActions = function() {
+    	return this.callTo.AppActions;
+    }
+});
+
+// Allows passing of student information between pages
+services.service('SendStudentService', function($window) {
+    this.setStudentId = function(studentId) {
+        $window.sessionStorage.setItem('studentId', studentId);
+    }
+    this.getStudentId = function() {
+        return $window.sessionStorage.getItem('setStudentId');
+    }
+});
+
+// Handles checking for complete application pages
+services.service('PageCompletionService', function() {
+    this.checkFields = function(scope, page) {
+        var requiredFields = [''];
+        if (page === 'contact') {
+            requiredFields = ['phoneNumber', 'mobileNumber', 'addressOne', 'country', 'city', 'state', 'zip'];
+        } else if (page === 'education') {
+            requiredFields = ['selectedDegree', 'gpa', 'session', 'gradDate'];
+            if (scope.selectedDegree === 'M.S. Other' || scope.selectedDegree === 'Ph.D Other') {
+                requiredFields.push('otherDegree');
+            }
+        } else if (page === 'employment') {
+            if (scope.ta === 0 && scope.grader === 0) {
+                return 0;
+            }
+            requiredFields = ['hours'];
+            if (scope.international === 1) {
+                requiredFields.push('speakTest');
+            }
+            if (scope.employer) {
+                requiredFields.push('workHours');
+            }
+            if (scope.workHours) {
+                requiredFields.push('employer');
+            }
+        }
+    	for (var i = 0; i < requiredFields.length; i++) {
+    		if (!scope[requiredFields[i]]) {               
+        		return 0;
+        	}
+   		}
+        return 1;
+    }
+});
+
+services.service('AppStatusService', function($window, UserInfoService) {
+    this.pages = ['contact', 'education', 'employment', 'availability', 'languages', 'courses'];
+    this.setStatuses = function(data) {
+        if (data.hasAppActions === 0) {
+            UserInfoService.setAppStatus('new');
+        } else if (data.hasAppActions === 2) {
+            UserInfoService.setAppStatus('complete');
+            $window.sessionStorage.setItem('contact', 1);
+            $window.sessionStorage.setItem('education', 1);
+            $window.sessionStorage.setItem('employment', 1);
+            $window.sessionStorage.setItem('availability', 1);
+            $window.sessionStorage.setItem('languages', 1);
+            $window.sessionStorage.setItem('courses', 1);
+        } else {
+            UserInfoService.setAppStatus('incomplete');
+            $window.sessionStorage.setItem('contact', data.pageStatuses[0].isContactComplete);
+            $window.sessionStorage.setItem('education', data.pageStatuses[0].isEducationComplete);
+            $window.sessionStorage.setItem('employment', data.pageStatuses[0].isEmploymentComplete);
+            $window.sessionStorage.setItem('availability', data.pageStatuses[0].isAvailabilityComplete);
+            $window.sessionStorage.setItem('languages', data.pageStatuses[0].isLanguagesComplete);
+            $window.sessionStorage.setItem('courses', data.pageStatuses[0].isCoursesComplete);
+        }
+        return;
+    }
+    this.checkStatus = function(pageName, pageStatus) {
+        $window.sessionStorage.setItem(pageName, pageStatus);
+        if (pageStatus === 0) {
+            return 'incomplete'
+        } 
+        for (var i = 0; i < this.pages.length; i++) {
+            if ($window.sessionStorage.getItem(this.pages[i]) === '0') {
+                return 'incomplete';
+            }
+        }
+        return 'complete';
     }
 });

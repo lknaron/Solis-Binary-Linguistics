@@ -47,7 +47,9 @@ var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
     employmentResumeUploadRouter = require('./serverRoutes/applicationRouters/employmentResumeUploadRouter.js'),
     availabilityRouter = require('./serverRoutes/applicationRouters/availabilityRouter.js'),
     languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js'),
-    coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js');
+    coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js'),
+    programChairRouter = require('./serverRoutes/programChairRouters/programChairRouter.js'),
+    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js');
 
 // Use ssl certificate and key
 var httpsOptions = {
@@ -81,3 +83,12 @@ app.use('/languages', languagesRouter);
 app.use('/languages/getLanguagesInfo', languagesRouter);
 app.use('/courses', coursesRouter);
 app.use('/courses/getCoursesInfo', coursesRouter);
+app.use('/programChair', programChairRouter);
+app.use('/programChair/getClassNames', programChairRouter);
+app.use('/programChair/getClassInfo', programChairRouter);
+app.use('/programChair/getStudentNameHours', programChairRouter);
+app.use('/programChair/updateEnrollment', programChairRouter);
+app.use('/programChair/updateStatus', programChairRouter);
+app.use('/programChair/updateRequiredHours', programChairRouter);
+app.use('/programChair/updateAssignedStudents', programChairRouter);
+app.use('/getStudentActions', studentActionsRouter);

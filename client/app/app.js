@@ -10,6 +10,8 @@ var app = angular.module('app', ['ngRoute',
                                  'app.header',
                                  'app.account',
                                  'app.student',
+                                 'app.users',
+                                 'app.programChair',
                                  'app.application',
                                  'app.services',
                                  'app.directives'
@@ -22,6 +24,15 @@ app.constant('USER_ROLES', {
     human_resources: 'human resources',
     program_chair: 'program chair',
     student: 'student'
+});
+
+app.constant('APPLICATION_LINKS', {
+	Contact : '#!/contactInfo',
+    Education : '#!/education',
+    Employment : '#!/employment',
+    Availability : '#!/availability',
+    Languages : '#!/languages',
+    Courses : '#!/courses'
 });
 
 /* Upon a change in route, this checks if the user is logged in and is the correct 
@@ -76,11 +87,40 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         })
         .when('/studentHome', {
             templateUrl : 'app/users/studentView.html',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            resolve : {
+                    getActions : function($q, $http, UserInfoService, StudentActionsService, AppStatusService) {
+                      var deferred = $q.defer();
+                          $http({method: 'POST', 
+                                 url: '/getStudentActions', 
+                                 data: {user: UserInfoService.getUserId()}}).then(function(getActions) {
+                                   StudentActionsService.callTo = getActions.data;	
+                                   AppStatusService.setStatuses(getActions.data);
+                                   deferred.resolve(getActions);
+                          });
+                    return deferred.promise;
+                    }  
+                }
         })
         .when('/facultyHome', {
             templateUrl : 'app/users/dummyFacultyView.html',
             permissions : [USER_ROLES.faculty]
+        })
+        .when('/programChairHome', {
+            templateUrl : 'app/users/programChairView.html',
+            permissions : [USER_ROLES.program_chair]
+        })
+        .when('/classSummary', {
+            templateUrl : 'app/programChair/classSummaryView.html',
+            permissions : [USER_ROLES.program_chair]
+        })
+        .when('/assignStudent', {
+            templateUrl : 'app/programChair/assignStudentView.html',
+            permissions : [USER_ROLES.program_chair]
+        })
+        .when('/studentProfile', {
+            templateUrl : 'app/programChair/studentProfileView.html',
+            permissions : [USER_ROLES.program_chair]
         })
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',
