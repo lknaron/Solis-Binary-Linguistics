@@ -10,7 +10,7 @@ UserRole, RegTime, isActive, LoginTime) VALUES
 ('oqueen', 'Oliver', 'Jonas', 'Queen', 'oqueen@asu.edu', 'password2', 'student', 
 '2017-01-05 00:00:05', 1, '2017-01-05 00:04:33'),
 ('jgrey', 'Jean', 'Elaine', 'Grey', 'jgrey@asu.edu', 'password3', 'student', 
-'2017-01-03 00:00:45', 1, '2017-01-03 00:2:08'),
+'2017-01-03 00:00:45', 1, '2017-01-03 00:15:08'),
 ('cxavier', 'Charles', 'Francis', 'Xavier', 'cxavier@asu.edu', 'password4', 
 'program chair', '2017-01-02 00:01:15', 1, '2017-01-02 00:02:03'),
 ('ahelsing', 'Abraham', 'Van', 'Helsing', 'ahelsing@asu.edu', 'password5', 'faculty', 
@@ -22,7 +22,15 @@ UserRole, RegTime, isActive, LoginTime) VALUES
 ('fsmoak', 'Felicity', 'Megan', 'Smoak', 'fsmoak@asu.edu', 'password8', 'administrative', 
 '2017-01-02 00:08:23', 1, '2017-01-02 00:10:13'),
 ('astark', 'Anthony', 'Edward', 'Stark', 'astark@asu.edu', 'password9', 'human resources',
-'2017-01-02 00:16:45', 1, '2017-01-02 00:18:03');
+'2017-01-02 00:16:45', 1, '2017-01-02 00:18:03'),
+('jhowlett', 'James', 'Logan', 'Howlett', 'jhowlett@asu.edu', 'Password10!', 'student', 
+'2017-03-03 08:12:45', 1, '2017-03-03 08:20:28'),
+('bwayne', 'Bruce', NULL, 'Wayne', 'bwayne@asu.edu', 'Password11!', 'student', 
+'2017-03-03 11:12:45', 1, '2017-03-03 11:18:28'),
+('bgordon', 'Barbara', 'Joan', 'Gordon', 'bgordon@asu.edu', 'Password12!', 'student', 
+'2017-03-05 08:22:45', 1, '2017-03-05 10:20:08'),
+('srogers', 'Steven', 'Grant', 'Rogers', 'srogers@asu.edu', 'Password13!', 'student', 
+'2017-03-05 10:45:08', 1, '2017-03-05 11:38:26');
 
 -- -----------------------------------------------------
 -- Application Table
@@ -31,19 +39,37 @@ INSERT INTO Application (AppID, PhoneNumber, MobileNumber, AddressOne, AddressTw
 AddressCountry, AddressCity, AddressState, AddressZip, EducationLevel, GPA, DegreeProgram,
 isAcademicProbation, isFourPlusOne, isInternationalStudent, SpeakTest, FirstSession,
 GraduationDate, TimeCommitment, isTA, isGrader, CurrentEmployer, WorkHours, isWorkedASU, 
-AppStatus, DateCreated, DateSubmitted, ModifiedDate, LastSaved, ASURITE_ID) VALUES
+AppStatus, DateCreated, DateSubmitted, ModifiedDate, LastSaved, isContactComplete, 
+isEducationComplete, isEmploymentComplete, isAvailabilityComplete, isLanguagesComplete, 
+isCoursesComplete, ASURITE_ID) VALUES
 (1, '123-111-1111', '123-222-2222', '123 First Street', NULL, 'United States', 
 'Central City', 'Missouri', 10001, 'Ph.D Computer Engineering', 4.2, 
 'Electrical Engineering', 0, 0, 0, NULL, '2016-08-15', 'Spring 2020', '10 hours per week', 
-1, 0, NULL, NULL, 1, 'incomplete', '2017-01-03 00:12:32', NULL, NULL, '/availability', 'ballen'),
+1, 0, NULL, NULL, 1, 'complete', '2017-01-03 00:12:32',  '2017-01-03 03:12:32', NULL, '/availability', 1, 1, 
+1, 1, 1, 1, 'ballen'),
 (2, '231-232-1111', '231-222-2222', '1282 Washington Avenue', NULL, 'United States', 
 'Star City', 'California', 20020, 'Ph.D Computer Science', 3.8, 'Computer Science', 0,
 0, 0, NULL, '2014-08-15', 'Spring 2018', '20 hours per week', 1, 0, NULL, NULL, 0, 
-'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 'oqueen'),
+'incomplete', '2017-01-05 23:45:08', NULL, NULL, '/education', 1, 1, 1, 1, 1, 1, 'oqueen'),
 (3, '342-443-1341', '342-234-1322', '1407 Graymalkin Lane', NULL, 'United States', 
 'Salem Center', 'New York', 10501, 'M.S. Computer Engineering', 2.8, 'Computer Science', 1,
 1, 1, 250, '2012-08-15', 'Spring 2017', '10 hours per week', 0, 1, NULL, NULL, 0, 
-'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', '/employment', 'jgrey');
+'incomplete', '2017-01-04 08:23:16', NULL, '2017-01-06 12:05:46', '/employment', 1, 1, 1, 
+0, 1, 0, 'jgrey'),
+(4, '113-667-3291', '113-667-1322', '1675 Camp Street', NULL, 'United States', 
+'Paradise Valley', 'Nevada', 89426, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', '2017-03-04 10:22:18', NULL, NULL, '/contact',
+ 1, 0, 0, 0, 0, 0, 'jhowlett'),
+(5, '341-897-5691', '341-897-1789', '111 Wayne Manor Street', NULL, 'United States', 
+'Gotham City', 'New Jersey', 07001, 'M.S. Software Engineering', 3.7, 'Software Engineering', 
+0, 0, 0, NULL, '2016-08-15', 'Spring 2018', NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', 
+'2017-03-05 08:09:28', NULL, NULL, '/education', 1, 1, 0, 0, 0, 0, 'bwayne'),
+(6, '341-234-6791', '341-234-6289', 'East Hills Avenue', NULL, 'United States', 
+'Gotham City', 'New Jersey', 07001, 'Ph.D Computer Engineering', 3.9, 'Computer Engineering', 
+0, 0, 0, NULL, '2015-08-15', 'Spring 2019', NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', 
+'2017-03-05 08:09:28', NULL, NULL, '/education', 1, 1, 1, 0, 0, 0, 'bgordon'),
+(7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'new', NULL, NULL, NULL, '/', 0, 0, 0, 0, 0, 0, 'srogers');
 
 -- -----------------------------------------------------
 -- IDEs Table

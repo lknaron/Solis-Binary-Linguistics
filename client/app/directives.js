@@ -7,6 +7,54 @@
 // setup directives module
 var directives = angular.module('app.directives',[]);
 
+/*
+ * Displays call to action for application fields
+ */
+directives.directive('studentActionsDirective', function($compile, StudentActionsService, APPLICATION_LINKS) {
+   function actions(scope, element, attrs) {
+        if (StudentActionsService.callTo.hasAppActions === 0) {
+            angular.element(document.getElementById('appCalls')).append($compile("<div>Your application has not been started!</div>")(scope));
+        } else if (StudentActionsService.callTo.hasAppActions === 1) {
+            for (var i = 0; i < StudentActionsService.callTo.appActions.length; i++) {
+                var pageName = StudentActionsService.callTo.appActions[i].page;
+                var missingItemsName = pageName + '_items';
+                angular.element(document.getElementById('appCalls')).append($compile("<label>You have some missing items from the "+ pageName +" page. Please provide the following info:</label><div ng-repeat='item in "+ missingItemsName +"'>{{item}}</div><a href='"+ APPLICATION_LINKS[pageName] +"'>Go to "+ pageName +" page</a><br>")(scope));
+            }
+        } else if (StudentActionsService.callTo.hasAppActions === 2) {
+            angular.element(document.getElementById('appCalls')).append($compile("<div>Your application is not missing anything!</div>")(scope));
+        }
+    }
+    return {
+        link: actions
+    };
+});
+
+/*
+ * Displays call to action notice that the student is on probation
+ */
+app.directive('studentNoticeDirective', function($compile, UserInfoService, StudentActionsService, APPLICATION_LINKS) {
+    function probation(scope, element, attrs) {
+        // ----------
+        // TODO - deadline check here
+        //-----------
+        if (StudentActionsService.callTo.onProbation === 0) {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>No new notices.</div>")(scope));
+        } else {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>You have indicated on your application that you are on academic probation. Your application won't be considered until the academic probation has been cleared!<br><a href='"+ APPLICATION_LINKS.Education +"'>Go to Education page</div>")(scope));
+        } 
+    }
+    return {
+        link: probation
+    };
+});
+
+/*
+ * Displays call to action notice that application deadline is approaching
+ */
+/*app.directive('studentNoticeDirective', function() {
+    //TODO
+});*/
+
 // Directive for adding add language button
 directives.directive('addlanguagesbutton', function () {
     return {

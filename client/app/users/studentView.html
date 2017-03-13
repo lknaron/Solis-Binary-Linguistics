@@ -1,6 +1,14 @@
 <div ng-controller='studentInfoController'>
-    <li><a href="#!/viewAccount">Account</a><br>
-    Student Home
-    <li ng-model='name'>Name is {{name}}</li>
-    <li><a ng-href={{page()}}>{{link}}</a><br>
+    <a href="#!/viewAccount">Account</a><br>
+    <h2>Student Home</h2>
+    <div>Welcome, {{name}}</div>
+    <div>Application Status: {{status}}</div>
+    <a ng-href='#!/contactInfo'>{{link}}</a><br>
+    <h2>Calls To Action</h2>
+    <h4>Notices</h4>
+    <student-notice-directive id='noticeCalls'>
+        <!--Deadline notice here too-->
+    </student-notice-directive>
+    <h4>Application</h4>
+    <student-actions-directive id='appCalls'></student-actions-directive>
 </div>  

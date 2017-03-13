@@ -1,7 +1,7 @@
 <div class="form-languages" ng-controller='languagesInfoController'>
     <form>
         <fieldset>
-            <legend><span class="number">1</span>Languages</legend>
+            <legend><span class="number">1</span>Languages*</legend>
             <p>*To deselect a language double click selection</p>
             <div ng-repeat="language in languages">               
                 <span class='bottom' ng-init="language.group=null">
@@ -22,7 +22,7 @@
     </form>
     <form>
         <fieldset>
-            <legend><span class="number">2</span>IDEs</legend>
+            <legend><span class="number">2</span>IDEs*</legend>
             <div ng-repeat="ide in ides">
                 <input type='checkbox' ng-model=ide.box ng-true-value='1' ng-false-value='0'>{{ide.name}}
             </div>
@@ -34,7 +34,7 @@
     </form>
     <form>
         <fieldset>
-            <legend><span class="number">3</span>Collaborative Tools</legend>
+            <legend><span class="number">3</span>Collaborative Tools*</legend>
             <div ng-repeat="tool in tools">
                 <input type='checkbox' ng-model=tool.box ng-true-value='1' ng-false-value='0'>{{tool.name}}
             </div>
