@@ -164,6 +164,12 @@ CREATE TABLE IF NOT EXISTS Application (
   DateSubmitted TIMESTAMP,
   ModifiedDate TIMESTAMP,
   LastSaved VARCHAR(100),
+  isContactComplete TINYINT(1) DEFAULT NULL,
+  isEducationComplete TINYINT(1) DEFAULT NULL,
+  isEmploymentComplete TINYINT(1) DEFAULT NULL,
+  isAvailabilityComplete TINYINT(1) DEFAULT NULL,
+  isLanguagesComplete TINYINT(1) DEFAULT NULL,
+  isCoursesComplete TINYINT(1) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AppID),
   CONSTRAINT application_fk FOREIGN KEY (ASURITE_ID) 
