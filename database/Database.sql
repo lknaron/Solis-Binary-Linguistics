@@ -69,12 +69,15 @@ CREATE TABLE IF NOT EXISTS Schedule_ (
   CatalogNumber INT,
   CourseNumber INT UNSIGNED,
   CourseTitle VARCHAR(45),
-  Units INT,
   Days VARCHAR(45),
   StartHours TIME,
   EndHours TIME,
   FirstName VARCHAR(45),
   LastName VARCHAR(45),
+  AssignedStatus ENUM ('Complete', 'Incomplete'),
+  TARequiredHours INT,
+  GraderRequiredHours INT,
+  EnrollmentNumPrev INT,
   PRIMARY KEY (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
@@ -85,13 +88,11 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   RequestID INT NOT NULL AUTO_INCREMENT,
   DateCreated TIMESTAMP,
   ScheduleID INT NOT NULL,
-  ASURITE_ID VARCHAR(45) NOT NULL,
+  Rank1 VARCHAR(45) NOT NULL,
+  Rank2 VARCHAR(45),
   PRIMARY KEY (RequestID),
   CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) 
-  REFERENCES Schedule_ (ScheduleID),
-  CONSTRAINT student_request_fk_2 FOREIGN KEY (ASURITE_ID) 
-  REFERENCES User_ (ASURITE_ID)
-  ON DELETE CASCADE
+  REFERENCES Schedule_ (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -99,19 +100,35 @@ CREATE TABLE IF NOT EXISTS Student_Request (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Placement (
   PlaceID INT NOT NULL AUTO_INCREMENT,
-  EnrollmentNumPrev INT,
-  EnrollmentNumCurrent INT,
-  EnrollmentDiff INT,
   TA VARCHAR(45),
+  TAStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
+  TATwo VARCHAR(45),
+  TATwoStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   GraderOne VARCHAR(45),
+  GraderOneStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   GraderTwo VARCHAR(45),
+  GraderTwoStatus ENUM ('Temporary', 'Pending', 'Confirmed'),
   TAHours INT,
+  TATwoHours INT,
   GraderOneHours INT,
   GraderTwoHours INT,
   ScheduleID INT NOT NULL,
   PRIMARY KEY (PlaceID),
   CONSTRAINT placement_fk FOREIGN KEY (ScheduleID) 
   REFERENCES Schedule_ (ScheduleID)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- -----------------------------------------------------
+-- Enrollment Table
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Enrollment (
+ EnrollmentID INT NOT NULL AUTO_INCREMENT,
+ EnrollmentNumCurrent INT,
+ DateEntered Date,
+ ScheduleID INT NOT NULL, 
+ PRIMARY KEY (EnrollmentID),
+ CONSTRAINT enrollment_fk FOREIGN KEY (ScheduleID)
+ REFERENCES Schedule_ (ScheduleID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -136,7 +153,7 @@ CREATE TABLE IF NOT EXISTS Application (
   SpeakTest INT DEFAULT NULL,
   FirstSession DATE DEFAULT NULL,
   GraduationDate VARCHAR(20) DEFAULT NULL,
-  TimeCommitment ENUM ('20 hours per week', '10 hours per week') DEFAULT NULL,
+  TimeCommitment INT DEFAULT NULL,
   isTA TINYINT(1) DEFAULT NULL,
   isGrader TINYINT(1) DEFAULT NULL,
   CurrentEmployer VARCHAR(45) DEFAULT NULL,
