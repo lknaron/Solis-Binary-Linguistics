@@ -664,3 +664,378 @@ SELECT isCourse = 'SER 416', CourseLevel FROM Course_Competencies WHERE ASURITE_
 
 -- Update SER 416
 UPDATE Course_Competencies SET CourseLevel = ? WHERE isCourse = 'SER 416' AND ASURITE_ID = ?
+
+-- -----------------------------------------------------
+-- Schedule Table
+-- -----------------------------------------------------
+-- Insert Schedule Table
+INSERT INTO Schedule_ SET?
+
+-- Select Schedule Table
+SELECT * FROM Schedule_
+
+-- Select Online Schedule
+SELECT * FROM Schedule_ WHERE Location = 'ASUOnline'
+
+-- Select Poly Campus Schedule
+SELECT * FROM Schedule_ WHERE Location = 'POLY'
+
+-- Select Session A Sechdule
+SELECT * FROM Schedule_ WHERE SessionIs = 'A'
+
+-- Select Session A Online Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'A' AND Location = 'ASUOnline'
+
+-- Select Session A Poly Campus Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'A' AND Location = 'POLY'
+
+-- Select Session B Schedule
+SELECT * FROM Schedule_ WHERE SessionIs = 'B'
+
+-- Select Session B Online Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'B' AND Location = 'ASUOnline'
+
+-- Select Session B Poly Campus Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'B' AND Location = 'POLY'
+
+-- Select Session C Schedule
+SELECT * FROM Schedule_ WHERE SessionIs = 'C'
+
+-- Select Session C Online Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'C' AND Location = 'ASUOnline'
+
+-- Select Session C Poly Campus Schedule 
+SELECT * FROM Schedule_ WHERE SessionIs = 'C' AND Location = 'POLY'
+
+-- Select Courses on Tuesdays and Thursday
+SELECT * FROM Schedule_ WHERE Days = 'Tuesday, Thursday'
+
+-- Select Courses on Monday and Wednesday 
+SELECT * FROM Schedule_ WHERE Days = 'Monday, Wednesday'
+
+-- Select Courses on Monday, Wednesday, and Friday
+SELECT * FROM Schedule_ WHERE Days = 'Monday, Wednesday, Friday'
+
+-- Select ASU 101
+SELECT * FROM Schedule_ WHERE Subject = 'ASU' AND CatalogNumber = 101
+
+-- Select ASU 101 Online
+SELECT * FROM Schedule_ WHERE Subject = 'ASU' AND CatalogNumber = 101 AND Location = 'ASUOnline'
+
+-- Select ASU 101 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'ASU' AND CatalogNumber = 101 AND Location = 'POLY'
+
+-- Select SER 421
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 421
+
+-- Select SER 421 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 421 AND Location = 'ASUOnline'
+
+-- Select SER 421 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 421 AND Location = 'POLY'
+
+-- Select FSE 100 
+SELECT * FROM Schedule_ WHERE Subject = 'FSE' AND CatalogNumber = 100
+
+-- Select FSE 100 Online
+SELECT * FROM Schedule_ WHERE Subject = 'FSE' AND CatalogNumber = 100 AND Location = 'ASUOnline'
+
+-- Select FSE 100 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'FSE' AND CatalogNumber = 100 AND Location = 'POLY'
+
+-- Select SER 422
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 422
+
+-- Select SER 422 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 422 AND Location = 'ASUOnline'
+
+-- Select SER 422 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 422 AND Location = 'POLY'
+
+-- Select CSE 110
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 110
+
+-- Select CSE 110 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 110 AND Location = 'ASUOnline'
+
+-- Select CSE 110 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 110 AND Location = 'POLY'
+
+-- Select CSE 423
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 423
+
+-- Select CSE 423 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 423 AND Location = 'ASUOnline'
+
+-- Select CSE 423 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 423 AND Location = 'POLY'
+
+-- Select CSE 120
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 120
+
+-- Select CSE 120 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 120 AND Location = 'ASUOnline'
+
+-- Select CSE 120 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 120 AND Location = 'POLY'
+
+-- Select CSE 205
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 205
+
+-- Select CSE 205 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 205 AND Location = 'ASUOnline'
+
+-- Select CSE 205 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 205 AND Location = 'POLY'
+
+-- Select SER 432
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 432
+
+-- Select SER 432 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 432 AND Location = 'ASUOnline'
+
+-- Select SER 432 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 432 AND Location = 'POLY'
+
+-- Select CSE 230
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 230
+
+-- Select CSE 230 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 230 AND Location = 'ASUOnline'
+
+-- Select CSE 230 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 230 AND Location = 'POLY'
+
+-- Select SER 450
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 450
+
+-- Select SER 450 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 450 AND Location = 'ASUOnline'
+
+-- Select SER 450 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 450 AND Location = 'POLY'
+
+-- Select CSE 240
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 240
+
+-- Select CSE 240 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 240 AND Location = 'ASUOnline'
+
+-- Select CSE 240 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 240 AND Location = 'POLY'
+
+-- Select SER 456
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 456
+
+-- Select SER 456 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 456 AND Location = 'ASUOnline'
+
+-- Select SER 456 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 456 AND Location = 'POLY'
+
+-- Select SER 215
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 215
+
+-- Select SER 215 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 215 AND Location = 'ASUOnline'
+
+-- Select SER 215 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 215 AND Location = 'POLY'
+
+-- Select SER 486
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 486
+
+-- Select SER 486 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 486 AND Location = 'ASUOnline'
+
+-- Select SER 486 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 486 AND Location = 'POLY'
+
+-- Select SER 216
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 216
+
+-- Select SER 216 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 216 AND Location = 'ASUOnline'
+
+-- Select SER 216 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 216 AND Location = 'POLY'
+
+-- Select SER 501
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 501
+
+-- Select SER 501 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 501 AND Location = 'ASUOnline'
+
+-- Select SER 501 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 501 AND Location = 'POLY'
+
+-- Select SER 222
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 222
+
+-- Select SER 222 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 222 AND Location = 'ASUOnline'
+
+-- Select SER 222 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 222 AND Location = 'POLY'
+
+-- Select SER 502
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 502
+
+-- Select SER 502 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 502 AND Location = 'ASUOnline'
+
+-- Select SER 502 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 502 AND Location = 'POLY'
+
+-- Select SER 315
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 315
+
+-- Select SER 315 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 315 AND Location = 'ASUOnline'
+
+-- Select SER 315 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 315 AND Location = 'POLY'
+
+-- Select SER 515
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 515
+
+-- Select SER 515 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 515 AND Location = 'ASUOnline'
+
+-- Select SER 515 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 515 AND Location = 'POLY'
+
+-- Select SER 316
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 316
+
+-- Select SER 316 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 316 AND Location = 'ASUOnline'
+
+-- Select SER 316 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 316 AND Location = 'POLY'
+
+-- Select SER 516
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 516
+
+-- Select SER 516 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 516 AND Location = 'ASUOnline'
+
+-- Select SER 516 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 516 AND Location = 'POLY'
+
+-- Select SER 321
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 321
+
+-- Select SER 321 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 321 AND Location = 'ASUOnline'
+
+-- Select SER 321 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 321 AND Location = 'POLY'
+
+-- Select SER 517
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 517
+
+-- Select SER 517 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 517 AND Location = 'ASUOnline'
+
+-- Select SER 517 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 517 AND Location = 'POLY'
+
+-- Select SER 322
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 322
+
+-- Select SER 322 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 322 AND Location = 'ASUOnline'
+
+-- Select SER 322 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 322 AND Location = 'POLY'
+
+-- Select SER 518 
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 518
+
+-- Select SER 518 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 518 AND Location = 'ASUOnline'
+
+-- Select SER 518 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 518 AND Location = 'POLY'
+
+-- Select SER 332
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 332
+
+-- Select SER 332 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 332 AND Location = 'ASUOnline'
+
+-- Select SER 332 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 332 AND Location = 'POLY'
+
+-- Select CSE 563
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 563
+
+-- Select CSE 563 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 563 AND Location = 'ASUOnline'
+
+-- Select CSE 563 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 563 AND Location = 'POLY'
+
+-- Select SER 334
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 334
+
+-- Select SER 334 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 334 AND Location = 'ASUOnline'
+
+-- Select SER 334 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 334 AND Location = 'POLY'
+
+-- Select CSE 564
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 564
+
+-- Select CSE 564 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 564 AND Location = 'ASUOnline'
+
+-- Select CSE 564 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 564 AND Location = 'POLY'
+
+-- Select SER 401
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 401
+
+-- Select SER 401 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 401 AND Location = 'ASUOnline'
+
+-- Select SER 401 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 401 AND Location = 'POLY'
+
+-- Select CSE 566
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 566
+
+-- Select CSE 566 Online
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 566 AND Location = 'ASUOnline'
+
+-- Select CSE 566 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'CSE' AND CatalogNumber = 566 AND Location = 'POLY'
+
+-- Select SER 402
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 402
+
+-- Select SER 402 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 402 AND Location = 'ASUOnline'
+
+-- Select SER 402 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 402 AND Location = 'POLY'
+
+-- Select SER 415
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 415
+
+-- Select SER 415 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 415 AND Location = 'ASUOnline'
+
+-- Select SER 415 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 415 AND Location = 'POLY'
+
+-- Select SER 416
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 416
+
+-- Select SER 416 Online
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 416 AND Location = 'ASUOnline'
+
+-- Select SER 416 Campus
+SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 416 AND Location = 'POLY'
