@@ -11,7 +11,7 @@ application.constant('WORK_HOURS', {
     us: 25
 });
 
-application.controller('contactInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('contactInfoController', function($scope, $location, $http, UserInfoService, PageCompletionService, AppStatusService) {
     // populates the Contact Info page        
     angular.element(document).ready(function() {
         var user = { 'user' : UserInfoService.getUserId() };
@@ -33,6 +33,7 @@ application.controller('contactInfoController', function($scope, $location, $htt
     });
     // Saves Contact Information into Database
     $scope.saveContact = function(doRoute) {
+        var pageStatus = PageCompletionService.checkFields($scope, 'contact');
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var lastSaved = '';
         if (doRoute === true) {
@@ -40,22 +41,22 @@ application.controller('contactInfoController', function($scope, $location, $htt
         } else {
             lastSaved = '/contactInfo';
         }
-        // In Sprint 2 address the AppStatus when someone comes back to edit their application and once they complete this it's complete and not incomplete
         // Maybe Change do Route to pass a number, 1 for true, 2 for false, 3 for changing status to complete
         var contactInfoData = {
-                "PhoneNumber"       : $scope.phoneNumber,
-                "MobileNumber"      : $scope.mobileNumber,
-                "AddressOne"        : $scope.addressOne,
-                "AddressTwo"        : $scope.addressTwo,
-                "AddressCountry"    : $scope.country,
-                "AddressCity"       : $scope.city,
-                "AddressState"      : $scope.state,
-                "AddressZip"        : $scope.zip,
-                "AppStatus"         : 'Incomplete',
-                "LastSaved"         : lastSaved,
-                "DateCreated"       : dateObj,
-                "ModifiedDate"      : dateObj,
-                "ASURITE_ID"        : UserInfoService.getUserId()
+                PhoneNumber       : $scope.phoneNumber,
+                MobileNumber      : $scope.mobileNumber,
+                AddressOne        : $scope.addressOne,
+                AddressTwo        : $scope.addressTwo,
+                AddressCountry    : $scope.country,
+                AddressCity       : $scope.city,
+                AddressState      : $scope.state,
+                AddressZip        : $scope.zip,
+                AppStatus         : AppStatusService.checkStatus('contact', pageStatus),
+                isContactComplete : pageStatus,
+                LastSaved         : lastSaved,
+                DateCreated       : dateObj,
+                ModifiedDate      : dateObj,
+                ASURITE_ID        : UserInfoService.getUserId()
             };
         $http.post('/contactInfo', contactInfoData).then(function successCallback(response) {
             if (doRoute === true) {
@@ -67,7 +68,7 @@ application.controller('contactInfoController', function($scope, $location, $htt
     }
 });
 
-application.controller('educationInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('educationInfoController', function($scope, $location, $http, UserInfoService, PageCompletionService, AppStatusService) {
     // degree options - possbily move to more configurable location
     $scope.degrees = ["Ph.D Computer Science",
                       "Ph.D Computer Engineering",
@@ -118,6 +119,8 @@ application.controller('educationInfoController', function($scope, $location, $h
     
     // saves data and posts - routes if the user chose to continue
     $scope.saveEducation = function(doRoute) {
+        var pageStatus = PageCompletionService.checkFields($scope, 'education');
+        var requiredFields = [];
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var lastSaved = '';
         if (doRoute === true) {
@@ -126,16 +129,18 @@ application.controller('educationInfoController', function($scope, $location, $h
             lastSaved = '/education';
         }
         var educationData = {
-                "EducationLevel"            : $scope.selectedDegree,
-                "GPA"                       : $scope.gpa,
-                "DegreeProgram"             : $scope.otherDegree,
-                "isAcademicProbation"       : $scope.probation,
-                "isFourPlusOne"             : $scope.fourPlusOne,
-                "FirstSession"              : $scope.session = new Date($scope.session),
-                "GraduationDate"            : $scope.gradDate,
-                "LastSaved"                 : lastSaved,
-                "ModifiedDate"              : dateObj,
-                "ASURITE_ID"                : UserInfoService.getUserId()
+                EducationLevel            : $scope.selectedDegree,
+                GPA                       : $scope.gpa,
+                DegreeProgram             : $scope.otherDegree,
+                isAcademicProbation       : $scope.probation,
+                isFourPlusOne             : $scope.fourPlusOne,
+                FirstSession              : $scope.session = new Date($scope.session),
+                GraduationDate            : $scope.gradDate,
+                AppStatus                 : AppStatusService.checkStatus('education', pageStatus),
+                isEducationComplete       : pageStatus,
+                LastSaved                 : lastSaved,
+                ModifiedDate              : dateObj,
+                ASURITE_ID                : UserInfoService.getUserId()
             };
         
         $http.post('/education', educationData).then(function successCallback(response) {
@@ -190,7 +195,7 @@ application.controller('educationInfoController', function($scope, $location, $h
     };
 });
 
-application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService) {
+application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService, PageCompletionService, AppStatusService, AppStatusService) {
     
     $scope.doHoursCheck = function() {
         var result = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours);
@@ -201,7 +206,7 @@ application.controller('employmentInfoController', function($scope, $location, $
     var user = { 'user' : UserInfoService.getUserId() };
     angular.element(document).ready(function(){
         $http.post('/employment/getEmploymentInfo', user ).then(function successCallback(response) {
-            $scope.hours = response.data.TimeCommitment;
+            $scope.hours = response.data.TimeCommitment + ' hours per week';
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
             $scope.ta = response.data.isTA;
@@ -221,6 +226,7 @@ application.controller('employmentInfoController', function($scope, $location, $
     
     // saves data and posts - routes if the user chose to continue
     $scope.saveEmployment = function(doRoute) {
+        var pageStatus = PageCompletionService.checkFields($scope, 'employment');
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var lastSaved = '';
         if (doRoute === true) {
@@ -232,17 +238,19 @@ application.controller('employmentInfoController', function($scope, $location, $
             $scope.speakTest = null;
         }
         var employmentData = {
-                "TimeCommitment"            : $scope.hours,
-                "isInternationalStudent"    : $scope.international,
-                "SpeakTest"                 : $scope.speakTest,
-                "isTA"                      : $scope.ta,
-                "isGrader"                  : $scope.grader,
-                "CurrentEmployer"           : $scope.employer,
-                "WorkHours"                 : $scope.workHours,
-                "isWorkedASU"               : $scope.hasWorked,
-                "LastSaved"                 : lastSaved,
-                "ModifiedDate"              : dateObj,
-                "ASURITE_ID"                : UserInfoService.getUserId()
+                TimeCommitment            : $scope.hours,
+                isInternationalStudent    : $scope.international,
+                SpeakTest                 : $scope.speakTest,
+                isTA                      : $scope.ta,
+                isGrader                  : $scope.grader,
+                CurrentEmployer           : $scope.employer,
+                WorkHours                 : $scope.workHours,
+                isWorkedASU               : $scope.hasWorked,
+                AppStatus                 : AppStatusService.checkStatus('employment', pageStatus),
+                isEmploymentComplete      : pageStatus,
+                LastSaved                 : lastSaved,
+                ModifiedDate              : dateObj,
+                ASURITE_ID                : UserInfoService.getUserId()
             };
         
         $http.post('/employment', employmentData).then(function successCallback(response) {
@@ -276,7 +284,7 @@ application.controller('employmentInfoController', function($scope, $location, $
     };
 });
 
-application.controller('availabilityInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('availabilityInfoController', function($scope, $location, $http, UserInfoService, AppStatusService) {
     $scope.times = [
         {'startHour':'8:00 AM','stopHour':'10:00 AM'},
         {'startHour':'10:00 AM','stopHour':'12:00 PM'},
@@ -295,10 +303,11 @@ application.controller('availabilityInfoController', function($scope, $location,
     $scope.saveAvailability = function(doRoute) {
         var availableSlots = [];
         var user = UserInfoService.getUserId();
-        var user2 = { 'user' : UserInfoService.getUserId() };
+        var user2 = { 'user' : UserInfoService.getUserId(), isAvailabilityComplete:0 };
         $scope.processAvailability(user, availableSlots);
         if (availableSlots.length > 0) {
-            $http.post('/availability', availableSlots).then(function successCallback(response) {
+            var data = {availableSlots:availableSlots, isAvailabilityComplete:1, appStatus:AppStatusService.checkStatus('availability', 1)};           
+            $http.post('/availability', data).then(function successCallback(response) {
                 if (doRoute === true) {
                     $location.path('/languages'); 
                 }
@@ -306,6 +315,8 @@ application.controller('availabilityInfoController', function($scope, $location,
                 //TODO
             });     
         } else {
+            user2.appStatus = AppStatusService.checkStatus('availability', 0);
+            console.log(user2.appStatus);
             $http.post('/availability', user2).then(function successCallback(response) {
                 if (doRoute === true) {
                     $location.path('/languages'); 
@@ -414,7 +425,7 @@ application.controller('availabilityInfoController', function($scope, $location,
     }
 });
 
-application.controller('languagesInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('languagesInfoController', function($scope, $location, $http, UserInfoService, AppStatusService) {
     // try moving this to Service as an angular.value or constant
     // ordered as in the database
     $scope.languages = [{'name':'C','level':'c_group'},
@@ -584,8 +595,15 @@ application.controller('languagesInfoController', function($scope, $location, $h
         data.push(tools);
         user.push(UserInfoService.getUserId());
         data.push(user);
-
-        $http.post('/languages', data).then(function successCallback(response) {
+        var pkgData = {data:data};
+        if (data[0].length > 0 && data[1].length > 0 && data[2].length > 0) {
+            pkgData.isLanguagesComplete = 1;
+            pkgData.appStatus = AppStatusService.checkStatus('languages', 1);
+        } else {
+            pkgData.isLanguagesComplete = 0;
+            pkgData.appStatus = AppStatusService.checkStatus('languages', 0);
+        }
+        $http.post('/languages', pkgData).then(function successCallback(response) {
             if (doRoute === true) {
                 $location.path('/courses'); 
             }
@@ -612,7 +630,7 @@ application.controller('languagesInfoController', function($scope, $location, $h
     }*/       
 });
 
-application.controller('coursesInfoController', function($scope, $location, $http, UserInfoService) {
+application.controller('coursesInfoController', function($scope, $location, $http, UserInfoService, AppStatusService) {
     // LATER - try moving this to Service as an angular.value or constant
     $scope.courses = [{'name':'ASU 101','level':'asu101_group'},
                         {'name':'CSE 110','level':'cse110_group'},
@@ -710,8 +728,15 @@ application.controller('coursesInfoController', function($scope, $location, $htt
         data.push(courses);
         user.push(UserInfoService.getUserId());
         data.push(user);
-
-        $http.post('/courses', data).then(function successCallback(response) {
+        var pkgData = {data:data};
+        if (data[0].length > 0) {
+            pkgData.isCoursesComplete = 1;
+            pkgData.appStatus = AppStatusService.checkStatus('courses', 1);
+        } else {
+            pkgData.isCoursesComplete = 0;
+            pkgData.appStatus = AppStatusService.checkStatus('courses', 0);
+        }
+        $http.post('/courses', pkgData).then(function successCallback(response) {
             if (doRoute === true) {
                 $location.path('/studentHome'); 
             }

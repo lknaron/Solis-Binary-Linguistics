@@ -8,19 +8,24 @@
 // setup student module
 var student = angular.module('app.student', []);
 
-student.controller('studentInfoController', function($scope, UserInfoService) {
-    $scope.name = UserInfoService.getFullName();
-    
-    $scope.page = function() {
-        var last = UserInfoService.getLastSaved();
-        // im under the assumption that if the user has not started an application
-        // or has completed the application, the last saved page will be null
-        if (last !== 'null') {
+student.controller('studentInfoController', function($scope, UserInfoService, StudentActionsService) {
+    // sets application link
+    switch(UserInfoService.getAppStatus()) {
+        case 'new':
+            $scope.link = 'Start Application';
+            break;
+        case 'incomplete':
             $scope.link = 'Continue Application';
-            return '#!' + last;
-        } else {
+            break;
+        default:
             $scope.link = 'Application';
-            return '#!/contactInfo'
-        }
     }
+    $scope.name = UserInfoService.getFullName();
+    $scope.status = UserInfoService.getAppStatus();
+    if (StudentActionsService.callTo.hasAppActions === 1) {
+    	for (var i = 0; i < StudentActionsService.callTo.appActions.length; i++) {
+    		var scopeName = StudentActionsService.callTo.appActions[i].page + '_items'; 
+        	$scope[scopeName] = StudentActionsService.callTo.appActions[i].missingItems;
+    	}
+    }       
 });

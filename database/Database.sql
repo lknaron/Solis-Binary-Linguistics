@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS Application (
   CurrentEmployer VARCHAR(45) DEFAULT NULL,
   WorkHours INT DEFAULT NULL,
   isWorkedASU TINYINT(1) DEFAULT NULL,
-  AppStatus VARCHAR(45) DEFAULT NULL,
+  AppStatus ENUM ('new', 'incomplete', 'complete') DEFAULT 'new',
   DateCreated TIMESTAMP,
   DateSubmitted TIMESTAMP,
   ModifiedDate TIMESTAMP,

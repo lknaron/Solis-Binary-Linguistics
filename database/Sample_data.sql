@@ -16,6 +16,7 @@ UserRole, RegTime, isActive, LoginTime) VALUES
 '2017-01-03 00:00:45', 1, '2017-01-03 00:2:08'),
 ('cxavier', 'Charles', 'Francis', 'Xavier', 'cxavier@asu.edu', 
 '$2a$10$3O4KY/eSuVsrxDlrepXXrePJprc.JpesVNW7ECA030ICdeextfncO', 
+('cxavier', 'Charles', 'Francis', 'Xavier', 'cxavier@asu.edu', 'password4', 
 'program chair', '2017-01-02 00:01:15', 1, '2017-01-02 00:02:03'),
 ('ahelsing', 'Abraham', 'Van', 'Helsing', 'ahelsing@asu.edu', 
 '$2a$10$Zv1SKs5fKYWB6rQPC70ZHOf7G8wqJbSEosWhPYseFgtyy.GZiYb0y', 'faculty', 

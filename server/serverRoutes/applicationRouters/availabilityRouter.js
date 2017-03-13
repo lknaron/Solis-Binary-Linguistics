@@ -30,17 +30,22 @@ router.post('/', function(req, res) {
 		      	console.log('Error getting mysql_pool connection: ' + err);
 		      	throw err;
 		    }
-		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.body[0][3]], function(err2) {
+		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.body.availableSlots[0][3]], function(err2) {
 		        if(err2) {
 		        	console.log('Error performing query: ' + err2);
 		            throw err2;
 		        } else {
-		            connection.query('INSERT INTO Calendar (CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body], function(err3) {  
+		            connection.query('INSERT INTO Calendar (CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body.availableSlots], function(err3) {  
 						if(err3) {
 					    	console.log('Error performing query: ' + err3);
 					        throw err3;
 					    } else {
-					        res.sendStatus(200);
+                            connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isAvailabilityComplete, req.body.appStatus, req.body.availableSlots[0][3]], function(err5) {
+                                if (err5) {
+                                    throw err5;
+                                }
+                                res.sendStatus(200);
+                            });
 					    }
 					    connection.release();
 				    });
@@ -59,7 +64,12 @@ router.post('/', function(req, res) {
 		        	console.log('Error performing query: ' + err5);
 		            throw err5;
 		        } else {
-		        	res.sendStatus(200);	
+                    connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isAvailabilityComplete, req.body.appStatus, req.body.user], function(err6) {
+                        if (err6) {
+                            throw err6;
+                            res.sendStatus(200);
+                        }
+                    });		        		
 		        }
 		        connection.release();
 		    });
