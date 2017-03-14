@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT * FROM Application WHERE ASURITE_ID = ?', [req.body.ASURITE_ID], function(err2, rows) { 
+        connection.query('SELECT * FROM Application WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) { 
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
@@ -42,8 +42,8 @@ router.post('/', function(req, res) {
                         res.sendStatus(200);
                     }
                 });
-            } else if (rows) {
-                connection.query('UPDATE Application SET ? WHERE ASURITE_ID = ?', [req.body, req.body.ASURITE_ID], function(err4) {
+            } else if (rows[0]) {
+                connection.query('UPDATE Application SET ? WHERE ASURITE_ID = ?', [req.body, req.user.username], function(err4) {
                     if(err4) {
                         console.log('Error performing query: ' + err4);
                         throw err4;
@@ -58,20 +58,20 @@ router.post('/', function(req, res) {
 });
 
 // Returns data to populate application page if user already saved contact information
-router.post('/getContactInfo', function(req, res) {
+router.get('/', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT PhoneNumber, MobileNumber, AddressOne, AddressTwo, AddressCountry, AddressCity, AddressState, AddressZip FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+        connection.query('SELECT PhoneNumber, MobileNumber, AddressOne, AddressTwo, AddressCountry, AddressCity, AddressState, AddressZip FROM Application WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
             } else if (!rows.length) {
                 res.sendStatus(200);
-            } else if (rows) {
+            } else if (rows[0]) {
                 res.send({'PhoneNumber' : rows[0].PhoneNumber, 'MobileNumber' : rows[0].MobileNumber, 'AddressCountry' : rows[0].AddressCountry, 'AddressOne' : rows[0].AddressOne, 
                           'AddressTwo' : rows[0].AddressTwo, 'AddressCity' : rows[0].AddressCity, 'AddressState' : rows[0].AddressState, 'AddressZip' : rows[0].AddressZip});
             } 

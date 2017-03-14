@@ -74,20 +74,28 @@ router.post('/', function(req, res) {
                 connection.release();
                 console.log('Error getting mysql_pool connection: ' + err);
                 throw err;
+            } else {
+                connection.query('SELECT TranscriptName FROM Attachment WHERE ASURITE_ID = ?', [req.user.username], function(err2) {
+                    if(err2) {
+                        console.log('Error performing query: ' + err2);
+                        throw err2;
+                    } else if (!rows.length) {
+                        connection.query('INSERT INTO Attachment (TranscriptName, TranscriptUploadDate, ASURITE_ID) VALUES (?, ?, ?)', [req.files[0].originalname, uploadTime, req.user.username], function(err3) { 
+                            if(err3) {
+                                console.log('Error performing query: ' + err3);
+                                throw err3;
+                            }
+                        });
+                    } else {
+                        connection.query('UPDATE Attachment SET TranscriptName = ?, TranscriptUploadDate = ? WHERE ASURITE_ID = ?', [req.files[0].originalname, uploadTime, req.user.username], function(err4) { 
+                            if(err4) {
+                                console.log('Error performing query: ' + err4);
+                                throw err4;
+                            }
+                        });
+                    }
+                });
             }
-            connection.query('DELETE FROM Attachment WHERE ASURITE_ID = ? AND AttachmentType = "Transcript"', [req.user.username], function(err3) {
-                if(err3) {
-                    console.log('Error performing query: ' + err3);
-                    throw err3;
-                } else {
-                    connection.query('INSERT INTO Attachment (AttachmentName, AttachmentType, UploadDate, ASURITE_ID) VALUES (?, "Transcript", ?, ?)', [req.files[0].originalname, uploadTime, req.user.username], function(err4) { 
-                        if(err4) {
-                            console.log('Error performing query: ' + err4);
-                            throw err4;
-                        }
-                    });
-                } 
-            });
         connection.release();
         });
     }

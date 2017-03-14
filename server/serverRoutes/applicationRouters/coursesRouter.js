@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
             throw err;
         }
         if (req.body.data[0].length === 0) {
-            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.data[1][0]], function(err2) {
+            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err2) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
             });
         } 
         if (req.body.data[0].length != 0) {
-            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.data[1][0]], function(err3) {
+            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err3) {
                 if(err3) {
                     console.log('Error performing query: ' + err3);
                     throw err3;
@@ -52,7 +52,7 @@ router.post('/', function(req, res) {
                 } 
             });
         }
-        connection.query('UPDATE Application SET isCoursesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.appStatus, req.body.data[1][0]], function(err5) {
+        connection.query('UPDATE Application SET isCoursesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.appStatus, req.user.username], function(err5) {
             if (err5) {
                 throw err5;
             }
@@ -63,7 +63,7 @@ router.post('/', function(req, res) {
 });
 
 // Returns data to populate application page if user already saved courses information
-router.post('/getCoursesInfo', function(req, res) {
+router.get('/', function(req, res) {
     var courses = [];
 
     mysql_pool.getConnection(function(err, connection) {
@@ -72,11 +72,11 @@ router.post('/getCoursesInfo', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT isCourse, CourseLevel, OtherCourse, OtherLevel FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) { 
+        connection.query('SELECT isCourse, CourseLevel, OtherCourse, OtherLevel FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) { 
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
-            } else if (rows && rows.length != 0) {
+            } else if (rows[0]) {
                 for (var i = 0; i < rows.length; i++) {                 
                     courses.push(rows[i]);
                 }

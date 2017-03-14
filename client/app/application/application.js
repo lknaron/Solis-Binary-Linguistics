@@ -14,8 +14,7 @@ application.constant('WORK_HOURS', {
 application.controller('contactInfoController', function($scope, $location, $http, UserInfoService, PageCompletionService, AppStatusService) {
     // populates the Contact Info page        
     angular.element(document).ready(function() {
-        var user = { 'user' : UserInfoService.getUserId() };
-        $http.post('/contactInfo/getContactInfo', user).then(function successCallback(response) {           
+        $http.get('/contactInfo').then(function successCallback(response) {           
             $scope.phoneNumber = response.data.PhoneNumber;
             $scope.mobileNumber = response.data.MobileNumber;
             $scope.country = response.data.AddressCountry;
@@ -91,8 +90,7 @@ application.controller('educationInfoController', function($scope, $location, $h
     
     // populates the Education page        
     angular.element(document).ready(function() {        
-        var user = { 'user' : UserInfoService.getUserId() };
-        $http.post('/education/getEducationInfo', user).then(function successCallback(response) {  
+        $http.get('/education').then(function successCallback(response) {  
             $scope.selectedDegree = response.data.EducationLevel;
             $scope.gpa = response.data.GPA;
             $scope.otherDegree = response.data.DegreeProgram;
@@ -102,15 +100,7 @@ application.controller('educationInfoController', function($scope, $location, $h
                 $scope.session = new Date(response.data.FirstSession);    
             } 
             $scope.gradDate = response.data.GraduationDatel;
-        }, function errorCallback(response) {
-            //TODO
-        });
-        $http.post('/education/getIposInfo', user).then(function successCallback(response) {
             $scope.iposInput = response.data.ipos;
-        }, function errorCallback(response) {
-            //TODO
-        });
-        $http.post('/education/getTranscriptInfo', user).then(function successCallback(response) {
             $scope.transcriptInput = response.data.transcript;
         }, function errorCallback(response) {
             //TODO
@@ -195,17 +185,15 @@ application.controller('educationInfoController', function($scope, $location, $h
     };
 });
 
-application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService, PageCompletionService, AppStatusService, AppStatusService) {
-    
+application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService, PageCompletionService, AppStatusService, AppStatusService) {   
     $scope.doHoursCheck = function() {
         var result = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours);
         $scope.hoursWarning = result.isOver;
         $scope.enteredHours = result.hours;
     }
     
-    var user = { 'user' : UserInfoService.getUserId() };
     angular.element(document).ready(function(){
-        $http.post('/employment/getEmploymentInfo', user ).then(function successCallback(response) {
+        $http.get('/employment', user ).then(function successCallback(response) {
             $scope.hours = response.data.TimeCommitment + ' hours per week';
             $scope.international = response.data.isInternationalStudent;
             $scope.speakTest = response.data.SpeakTest;
@@ -214,10 +202,6 @@ application.controller('employmentInfoController', function($scope, $location, $
             $scope.employer = response.data.CurrentEmployer;
             $scope.workHours = response.data.WorkHours;
             $scope.hasWorked = response.data.isWorkedASU;
-        }, function errorCallback(response) {
-            //TODO
-        });
-        $http.post('/employment/getResumeInfo', user).then(function successCallback(response) {
             $scope.resumeInput = response.data.resume;
         }, function errorCallback(response) {
             //TODO
@@ -316,7 +300,6 @@ application.controller('availabilityInfoController', function($scope, $location,
             });     
         } else {
             user2.appStatus = AppStatusService.checkStatus('availability', 0);
-            console.log(user2.appStatus);
             $http.post('/availability', user2).then(function successCallback(response) {
                 if (doRoute === true) {
                     $location.path('/languages'); 
@@ -380,12 +363,7 @@ application.controller('availabilityInfoController', function($scope, $location,
     // when page loads, runs setPreviousSchedule which poplulates fiels with 
     // previously saved data
     angular.element(document).ready(function(){
-        $scope.setPreviousSchedule();
-    });
-    
-    $scope.setPreviousSchedule = function() {
-        var user = { 'user' : UserInfoService.getUserId() };
-        $http.post('/availability/getAvailabilityInfo', user).then(function successCallback(response) {
+        $http.get('/availability').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             if (res.data) {
                 var slots = [];
@@ -456,8 +434,7 @@ application.controller('languagesInfoController', function($scope, $location, $h
                  
     // on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
-        var user = { 'user' : UserInfoService.getUserId() };
-        $http.post('/languages/getLanguagesInfo', user).then(function successCallback(response) {
+        $http.get('/languages').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             // fill previous saved language selections
             // loads all other languages into array
@@ -673,8 +650,7 @@ application.controller('coursesInfoController', function($scope, $location, $htt
                          
     // on page load, retrieve prior saved data                  
     angular.element(document).ready(function(){
-        var user = { 'user' : UserInfoService.getUserId() };
-        $http.post('/courses/getCoursesInfo', user).then(function successCallback(response) {
+        $http.get('/courses').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             // fill previous saved course selections
             // loads all other courses into array

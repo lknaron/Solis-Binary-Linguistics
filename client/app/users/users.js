@@ -7,12 +7,33 @@
 // setup user module
 var user = angular.module('app.users', []);
 
+user.controller('studentInfoController', function($scope, UserInfoService, StudentActionsService) {
+    // sets application link
+    switch(UserInfoService.getAppStatus()) {
+        case 'new':
+            $scope.link = 'Start Application';
+            break;
+        case 'incomplete':
+            $scope.link = 'Continue Application';
+            break;
+        default:
+            $scope.link = 'Application';
+    }
+    $scope.name = UserInfoService.getFullName();
+    $scope.status = UserInfoService.getAppStatus();
+    if (StudentActionsService.callTo.hasAppActions === 1) {
+        for (var i = 0; i < StudentActionsService.callTo.appActions.length; i++) {
+            var scopeName = StudentActionsService.callTo.appActions[i].page + '_items'; 
+            $scope[scopeName] = StudentActionsService.callTo.appActions[i].missingItems;
+        }
+    }       
+});
+
 user.controller('programChairController', function($scope, $http, $location, $route, SendClassService, UserInfoService) {
     $scope.name = UserInfoService.getFullName();
     $scope.classes = [];
 
     angular.element(document).ready(function() {
-        //var user = { 'user' : UserInfoService.getUserId() };
         $http.get('/programChair/getClassNames').then(function successCallback(response) {
             for (var i in response.data) {
                 if (response.data[i].Location === 'ASUOnline') {

@@ -824,13 +824,9 @@ INSERT INTO Languages (LanguagesID, isLanguage, LanguageLevel, OtherLanguage, Ot
 -- -----------------------------------------------------
 -- Attachment Table
 -- -----------------------------------------------------
-INSERT INTO Attachment (AttachmentID, AttachmentName, AttachmentType, UploadDate, 
+INSERT INTO Attachment (AttachmentID, IposName, TranscriptName, ResumeName, IposUploadDate, TranscriptUploadDate, ResumeUploadDate, 
 ASURITE_ID) VALUES
-(1, 'BarryAllenResume.pdf', 'Resume', '2017-01-03 11:35:18', 'ballen'),
-(2, 'BarryAllenTranscript.pdf', 'Transcript', '2017-01-03 11:55:42', 'ballen'),
-(3, 'BarryAllenipos.pdf', 'IPOS', '2017-01-03 12:05:25', 'ballen'),
-(4, 'QueenResume.pdf', 'Resume', '2017-01-11 15:08:28', 'oqueen'),
-(6, 'QueenTranscript.pdf', 'Transcript', '2017-01-11 15:46:09', 'oqueen');
+(1, 'BarryAllenResume.pdf', 'BarryAllenTranscript.pdf', 'BarryAllenipos.pdf', '2017-01-03 12:05:25', '2017-01-03 12:05:25', '2017-01-03 12:05:25', 'ballen');
 
 -- -----------------------------------------------------
 -- Calendar Table
@@ -1105,7 +1101,7 @@ GraderTwo, GraderTwoStatus, TAHours, TATwoHours, GraderOneHours, GraderTwoHours,
 (1, 'ckent', 'Confirmed', NULL, NULL, 'pparker', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 1),
 (2, 'jjones', 'Pending',  NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, 2),
 (3, 'dprince', 'Confirmed', NULL, NULL, 'ldanvers', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 3),
-(4, 'nfury', 'Pending', NULL, NULL, '', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 4),
+(4, 'nfury', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, 10, NULL, 4),
 (5, 'cbarton', 'Confirmed', NULL, NULL, 'pparker', 'Temporary', NULL, NULL, 10, NULL, 10, NULL, 5),
 (6, 'cbarton', 'Confirmed', NULL, NULL, 'ssummers', 'Pending', NULL, NULL, 10, NULL, 10, NULL, 6),
 (7, 'ssummers', 'Pending', NULL, NULL, 'omunroe', 'Confirmed', NULL, NULL, 10, NULL, 10, NULL, 7),
