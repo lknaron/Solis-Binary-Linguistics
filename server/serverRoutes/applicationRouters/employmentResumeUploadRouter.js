@@ -80,14 +80,14 @@ router.post('/', function(req, res) {
                         console.log('Error performing query: ' + err2);
                         throw err2;
                     } else if (!rows.length) {
-                        connection.query('INSERT INTO Attachment (ResumeName, UploadDate, ASURITE_ID) VALUES (?, ?, ?)', [req.files[0].originalname, uploadTime, req.user.username], function(err3) { 
+                        connection.query('INSERT INTO Attachment (ResumeName, ResumeUploadDate, ASURITE_ID) VALUES (?, ?, ?)', [req.files[0].originalname, uploadTime, req.user.username], function(err3) { 
                             if(err3) {
                                 console.log('Error performing query: ' + err3);
                                 throw err3;
                             }
                         });
                     } else {
-                        connection.query('UPDATE Attachment SET ResumeName = ?, UploadDate = ? WHERE ASURITE_ID = ?', [req.files[0].originalname, uploadTime, req.user.username], function(err4) { 
+                        connection.query('UPDATE Attachment SET ResumeName = ?, ResumeUploadDate = ? WHERE ASURITE_ID = ?', [req.files[0].originalname, uploadTime, req.user.username], function(err4) { 
                             if(err4) {
                                 console.log('Error performing query: ' + err4);
                                 throw err4;
