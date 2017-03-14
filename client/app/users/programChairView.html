@@ -4,4 +4,12 @@
     <li ng-model='name'>Name is {{name}}</li><br>
     An asterisk denotes an online class<br>
     <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass)"><option value="">Select Class</option></select>
+    <br>
+    <br>
+    <ul>
+		<li><a ng-href='#!/createFacultyAdminAccount'>Add Faculty/Admin User</a></li>
+	  	<li><a href="#news">Change Password</a></li>
+	  	<li><a href="#contact">Update Enrollment</a></li>
+	  	<li><a href="#about">Run Reports</a></li>
+	</ul>
 </div>  
