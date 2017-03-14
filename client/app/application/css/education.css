@@ -24,6 +24,7 @@
 }
 
 .form-education input[type="text"],
+.form-education input[type="number"],
 .form-education input[type="date"],
 .form-education select {
     font-family: Georgia, "Times New Roman", Times, serif;

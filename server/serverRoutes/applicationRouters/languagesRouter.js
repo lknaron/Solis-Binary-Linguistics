@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
 	      	throw err;
 	    }
 	    if (req.body.data[0].length === 0) {
-	    	connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err2) {
+	    	connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.user.username], function(err2) {
 		    	if(err2) {
 		        	console.log('Error performing query: ' + err2);
 		            throw err2;
@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
 		    });
 	    } 
 	    if (req.body.data[0].length != 0) {
-		    connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err3) {
+		    connection.query('DELETE FROM Languages WHERE ASURITE_ID = ?', [req.user.username], function(err3) {
 		        if(err3) {
 		        	console.log('Error performing query: ' + err3);
 		            throw err3;
@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
 		    });
 		} 
 		if (req.body.data[1].length === 0) {
-			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err5) {
+			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.user.username], function(err5) {
 		    	if(err5) {
 		        	console.log('Error performing query: ' + err5);
 		            throw err5;
@@ -61,7 +61,7 @@ router.post('/', function(req, res) {
 		    });
 		} 
 		if (req.body.data[1].length != 0) {
-			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err6) {
+			connection.query('DELETE FROM IDEs WHERE ASURITE_ID = ?', [req.user.username], function(err6) {
 		        if(err6) {
 		        	console.log('Error performing query: ' + err6);
 		            throw err6;
@@ -76,7 +76,7 @@ router.post('/', function(req, res) {
 		    });
 		} 
 		if (req.body.data[2].length === 0) {
-			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err8) {
+			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.user.username], function(err8) {
 		    	if(err8) {
 		        	console.log('Error performing query: ' + err8);
 		            throw err8;
@@ -84,7 +84,7 @@ router.post('/', function(req, res) {
 		    });	
 		}
 		if (req.body.data[2].length != 0) {
-			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body.data[3][0]], function(err9) {
+			connection.query('DELETE FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.user.username], function(err9) {
 		        if(err9) {
 		        	console.log('Error performing query: ' + err9);
 		            throw err9;
@@ -98,7 +98,7 @@ router.post('/', function(req, res) {
 		        } 
 		    });	
 		}
-        connection.query('UPDATE Application SET isLanguagesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isLanguagesComplete, req.body.appStatus, req.body.data[3][0]], function(err11) {
+        connection.query('UPDATE Application SET isLanguagesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isLanguagesComplete, req.body.appStatus, req.user.username], function(err11) {
             if (err11) {
                 throw err11;
             }
@@ -109,7 +109,7 @@ router.post('/', function(req, res) {
 });
 
 // Returns data to populate application page if user already saved languages information
-router.post('/getLanguagesInfo', function(req, res) {
+router.get('/', function(req, res) {
 	var languages = [];
 	var ide = [];
 	var tools = [];
@@ -120,31 +120,31 @@ router.post('/getLanguagesInfo', function(req, res) {
       		console.log('Error getting mysql_pool connection: ' + err);
       		throw err;
     	}
-    	connection.query('SELECT isLanguage, LanguageLevel, OtherLanguage, OtherLevel FROM Languages WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {	
+    	connection.query('SELECT isLanguage, LanguageLevel, OtherLanguage, OtherLevel FROM Languages WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) {	
       		if(err2) {
         		console.log('Error performing query: ' + err2);
         		throw err2;
-      		} else if (rows && rows.length != 0) {
+      		} else if (rows[0]) {
       			for (var i = 0; i < rows.length; i++) {  				
       				languages.push(rows[i]);
       			}
       		}	
     	});
-    	connection.query('SELECT isIDE, OtherIDE FROM IDEs WHERE ASURITE_ID = ?', [req.body.user], function(err3, rows) {
+    	connection.query('SELECT isIDE, OtherIDE FROM IDEs WHERE ASURITE_ID = ?', [req.user.username], function(err3, rows) {
     		if(err3) {
         		console.log('Error performing query: ' + err3);
         		throw err3;
-      		} else if (rows && rows.length != 0) {
+      		} else if (rows[0]) {
       			for (var i = 0; i < rows.length; i++) {  				
       				ide.push(rows[i]);
       			}
       		}	
     	});
-    	connection.query('SELECT isTool, OtherTool FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.body.user], function(err4, rows) {
+    	connection.query('SELECT isTool, OtherTool FROM Collaborative_Tools WHERE ASURITE_ID = ?', [req.user.username], function(err4, rows) {
     		if(err4) {
         		console.log('Error performing query: ' + err4);
         		throw err4;
-      		} else if (rows && rows.length != 0) {
+      		} else if (rows[0]) {
       			for (var i = 0; i < rows.length; i++) {  				
       				tools.push(rows[i]);
       			}

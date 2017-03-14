@@ -824,13 +824,9 @@ INSERT INTO Languages (LanguagesID, isLanguage, LanguageLevel, OtherLanguage, Ot
 -- -----------------------------------------------------
 -- Attachment Table
 -- -----------------------------------------------------
-INSERT INTO Attachment (AttachmentID, AttachmentName, AttachmentType, UploadDate, 
+INSERT INTO Attachment (AttachmentID, IposName, TranscriptName, ResumeName, IposUploadDate, TranscriptUploadDate, ResumeUploadDate, 
 ASURITE_ID) VALUES
-(1, 'BarryAllenResume.pdf', 'Resume', '2017-01-03 11:35:18', 'ballen'),
-(2, 'BarryAllenTranscript.pdf', 'Transcript', '2017-01-03 11:55:42', 'ballen'),
-(3, 'BarryAllenipos.pdf', 'IPOS', '2017-01-03 12:05:25', 'ballen'),
-(4, 'QueenResume.pdf', 'Resume', '2017-01-11 15:08:28', 'oqueen'),
-(6, 'QueenTranscript.pdf', 'Transcript', '2017-01-11 15:46:09', 'oqueen');
+(1, 'BarryAllenResume.pdf', 'BarryAllenTranscript.pdf', 'BarryAllenipos.pdf', '2017-01-03 12:05:25', '2017-01-03 12:05:25', '2017-01-03 12:05:25', 'ballen');
 
 -- -----------------------------------------------------
 -- Calendar Table
