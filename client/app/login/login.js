@@ -32,8 +32,9 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                     $location.path('/facultyHome');
                 } else if (response.data.type === 'program chair') {
                     $location.path('/programChairHome');
+                } else if (response.data.type === 'administrative') {
+                    $location.path('/administrationHome');   
                 }
-                /* other types TODO */
             } else if (response.data.error === 1) {
                 // Incorrect Credentials
                 $scope.message = 'Username/Password Incorrect';

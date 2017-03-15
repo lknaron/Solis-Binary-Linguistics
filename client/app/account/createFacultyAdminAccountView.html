@@ -1,11 +1,7 @@
-<div class="form" ng-controller='createAccountController'>
-    <ul class="tab-group">
-        <li class="tab"><a href="#!/login">Login</a></li>
-        <li class="tab active"><a href="#!/createAccount">Create Account</a></li>
-    </ul>
+<div class="form" ng-controller='createFacultyAdminAccountController'>
     <div class="tab-content">
         <div id="signup">          
-            <h1>Create Account</h1>        
+            <h1>Create Faculty/Aministrative Account</h1>        
             <form ng-submit='submitAccount()'>        
                 <div class="field-wrap">
                     <label>First Name:<span class="req">*</span></label><br>
@@ -29,8 +25,11 @@
                         <input type="email" ng-model='email' ng-change='emailError=false' required autocomplete="off"/>
                         <img src="/assets/images/pwreq.png" alt="Req" style="width:20px;height:20px;" title='Must use ASU email'/>
                     </div>
-                    <p class="error" ng-model='emailErrorMessage' ng-show='emailError'><br><br>{{emailErrorMessage}}</p>
                 </div>
+                <p class="error" ng-model='emailErrorMessage' ng-show='emailError'><br>{{emailErrorMessage}}</p>
+                <input type='checkbox' ng-model='defaultPassword' ng-change='setDefaultPassword()' class='passwordCheckbox'></input><checkboxlabel class='checkboxLabel'>Set Passwords to Default Password</checkboxlabel>
+                <br>
+                <br>
                 <div class="field-wrap">
                     <div class="help">
                         <label>Set A Password<span class="req">*</span></label><br>
@@ -48,6 +47,10 @@
                     <input type="password" ng-model='password2' ng-change='passwordError=false' required autocomplete="off"/>
                 </div>
                 <p class="error" ng-model='passwordErrorMessage' ng-show='passwordError'><br>{{passwordErrorMessage}}</p>
+                <input type='radio' ng-model='accountType' name='accountType' class='facultyButton' value='faculty' required></input><radiolabel class='radioButtonLabel'>Faculty</radiolabel>
+                <input type='radio' ng-model='accountType' name='accountType' class = 'adminButton' value='administrative'></input><radiolabel class='radioButtonLabel'>Administration</radiolabel>
+                <br>
+                <br>
                 <button class="create-button" type="submit">Create Account</button>  
             </form>
         </div>

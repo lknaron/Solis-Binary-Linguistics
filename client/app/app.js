@@ -102,8 +102,12 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                 }
         })
         .when('/facultyHome', {
-            templateUrl : 'app/users/dummyFacultyView.html',
+            templateUrl : 'app/users/facultyView.html',
             permissions : [USER_ROLES.faculty]
+        })
+        .when('/administrationHome', {
+            templateUrl : 'app/users/administrationView.html',
+            permissions : [USER_ROLES.administrative]
         })
         .when('/programChairHome', {
             templateUrl : 'app/users/programChairView.html',
@@ -112,6 +116,11 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/classSummary', {
             templateUrl : 'app/programChair/classSummaryView.html',
             permissions : [USER_ROLES.program_chair]
+        })
+        .when('/createFacultyAdminAccount', {
+            templateUrl : 'app/account/createFacultyAdminAccountView.html',
+            permissions : [USER_ROLES.program_chair],
+            layout : "/app/account/css/createFacultyAdminAccount.css"
         })
         .when('/assignStudent', {
             templateUrl : 'app/programChair/assignStudentView.html',
