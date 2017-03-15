@@ -1141,3 +1141,10 @@ INSERT INTO Enrollment (EnrollmentID, EnrollmentNumCurrent, DateEntered, Schedul
 (26, 55, '2017-03-01', 12),
 (27, 60, '2017-03-05', 11),
 (28, 57, '2017-03-05', 12);
+
+-- -----------------------------------------------------
+-- Deadline Table
+-- -----------------------------------------------------
+INSERT INTO Deadline (DeadlineID, CurrentSemester, DeadlineDate) VALUES
+(1, 'Summer', '2017-03-15'),
+(2, 'Fall', '2017-06-15');
