@@ -34,12 +34,6 @@ application.controller('contactInfoController', function($scope, $location, $htt
     $scope.saveContact = function(doRoute) {
         var pageStatus = PageCompletionService.checkFields($scope, 'contact');
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        var lastSaved = '';
-        if (doRoute === true) {
-            lastSaved = '/education';
-        } else {
-            lastSaved = '/contactInfo';
-        }
         // Maybe Change do Route to pass a number, 1 for true, 2 for false, 3 for changing status to complete
         var contactInfoData = {
                 PhoneNumber       : $scope.phoneNumber,
@@ -52,7 +46,6 @@ application.controller('contactInfoController', function($scope, $location, $htt
                 AddressZip        : $scope.zip,
                 AppStatus         : AppStatusService.checkStatus('contact', pageStatus),
                 isContactComplete : pageStatus,
-                LastSaved         : lastSaved,
                 DateCreated       : dateObj,
                 ModifiedDate      : dateObj,
                 ASURITE_ID        : UserInfoService.getUserId()
@@ -112,12 +105,6 @@ application.controller('educationInfoController', function($scope, $location, $h
         var pageStatus = PageCompletionService.checkFields($scope, 'education');
         var requiredFields = [];
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        var lastSaved = '';
-        if (doRoute === true) {
-            lastSaved = '/employment';
-        } else {
-            lastSaved = '/education';
-        }
         var educationData = {
                 EducationLevel            : $scope.selectedDegree,
                 GPA                       : $scope.gpa,
@@ -128,7 +115,6 @@ application.controller('educationInfoController', function($scope, $location, $h
                 GraduationDate            : $scope.gradDate,
                 AppStatus                 : AppStatusService.checkStatus('education', pageStatus),
                 isEducationComplete       : pageStatus,
-                LastSaved                 : lastSaved,
                 ModifiedDate              : dateObj,
                 ASURITE_ID                : UserInfoService.getUserId()
             };
@@ -185,7 +171,7 @@ application.controller('educationInfoController', function($scope, $location, $h
     };
 });
 
-application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService, PageCompletionService, AppStatusService, AppStatusService) {   
+application.controller('employmentInfoController', function($scope, $location, $http, UserInfoService, WorkHoursCheckService, PageCompletionService, AppStatusService) {   
     $scope.doHoursCheck = function() {
         var result = WorkHoursCheckService.checkHours($scope.hours, $scope.international, $scope.workHours);
         $scope.hoursWarning = result.isOver;
@@ -212,12 +198,6 @@ application.controller('employmentInfoController', function($scope, $location, $
     $scope.saveEmployment = function(doRoute) {
         var pageStatus = PageCompletionService.checkFields($scope, 'employment');
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        var lastSaved = '';
-        if (doRoute === true) {
-            lastSaved = '/availability';
-        } else {
-            lastSaved = '/employment';
-        }
         if ($scope.international === 0) {
             $scope.speakTest = null;
         }
@@ -232,7 +212,6 @@ application.controller('employmentInfoController', function($scope, $location, $
                 isWorkedASU               : $scope.hasWorked,
                 AppStatus                 : AppStatusService.checkStatus('employment', pageStatus),
                 isEmploymentComplete      : pageStatus,
-                LastSaved                 : lastSaved,
                 ModifiedDate              : dateObj,
                 ASURITE_ID                : UserInfoService.getUserId()
             };
@@ -384,7 +363,7 @@ application.controller('availabilityInfoController', function($scope, $location,
         }, function errorCallback(response) {
             //TODO
         });
-    }
+    });
 
     function convertTime24to12(isoTime) {
         var hours   = parseInt(isoTime.substring(0, 2), 10),

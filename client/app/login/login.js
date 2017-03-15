@@ -24,7 +24,6 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                 UserInfoService.setUserType(response.data.type);
                 UserInfoService.setToken(response.data.token);
                 if (response.data.type === 'student') {
-                    UserInfoService.setLastSaved(response.data.lastSaved);
                     UserInfoService.setAppStatus(response.data.appStatus);
                     // go to student home
                     $location.path('/studentHome');
