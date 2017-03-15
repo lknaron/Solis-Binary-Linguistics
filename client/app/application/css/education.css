@@ -48,7 +48,6 @@
 
 .form-education input[type="text"]:focus,
 .form-education input[type="checkbox"]:focus,
-.form-education textarea:focus,
 .form-education select:focus{
     background: #d2d9dd;	 	
 }
@@ -133,27 +132,7 @@
 	background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
 	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
-	background-color:#1abc9c;
-}
-
-.myButton:active {
-	position:relative;
-	top:1px;
-}
-
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+	background: #109177;
 }
 
 .form-attachments input[type="text"] {
@@ -191,9 +170,4 @@
     color: white;
     background-color: black;
     display: inline-block;
-}
-
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: red;
 }

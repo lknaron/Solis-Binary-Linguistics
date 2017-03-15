@@ -1,43 +1,36 @@
-<style>
-    table, th , td  {
-      border: 1px solid grey;
-      border-collapse: collapse;
-      padding: 5px;
-    }
-    table tr:nth-child(odd) {
-      background-color: #f1f1f1;
-    }
-    table tr:nth-child(even) {
-      background-color: #ffffff;
-    }
-</style>
-<div ng-controller='availabilityInfoController'>
- Availability*<br>
-<body>
-    <!--calendar body-->
-    <div>
-        <!--later this header will dynamically display the PC-set current semester-->
-    	<h3>'PC Selected Semester' Schedule</h3><br>
-        <table>
-  			<tr>
-     			<th>Time</th>
-     			<th ng-repeat='day in days'>{{day}}</th> 
-   			</tr>
-  			<tr ng-repeat="time in times">
-          <td>{{time.startHour}}-{{time.stopHour}}</td>
-          <td><input name='Monday' type='checkbox' value={{time}}></td>
-          <td><input name='Tuesday' type='checkbox' value={{time}}></td>
-          <td><input name='Wednesday' type='checkbox' value={{time}}></td>
-          <td><input name='Thursday' type='checkbox' value={{time}}></td>
-          <td><input name='Friday' type='checkbox' value={{time}}></td>
-        </tr>
-		</table>
-    </div>
-    <br>
-    <button type='button' ng-click="checkAll()">Select All</button>
-    <button type='button' ng-click="resetAll()">Deselect All</button>
-    <button type='button' ng-click="setPreviousSchedule('Semester',false)">Last Saved</button>
-	<button type='button' ng-click="saveAvailability(false)">Save</button>
-    <button type='button' ng-click="saveAvailability(true)">Save and Continue</button>
-</body>   
+<div class="form-availability" ng-controller='availabilityInfoController'>
+    <form>
+        <fieldset>
+            <legend><span class="number">1</span>Availability*</legend>
+            <div>
+                <!--later this header will dynamically display the PC-set current semester-->
+            	<h3>'PC Selected Semester' Schedule</h3>
+                <table>
+          			<tr>
+             			<th>Time</th>
+             			<th ng-repeat='day in days'>{{day}}</th> 
+           			</tr>
+          			<tr ng-repeat="time in times">
+                        <td>{{time.startHour}}-{{time.stopHour}}</td>
+                        <td><input name='Monday' type='checkbox' value={{time}}></td>
+                        <td><input name='Tuesday' type='checkbox' value={{time}}></td>
+                        <td><input name='Wednesday' type='checkbox' value={{time}}></td>
+                        <td><input name='Thursday' type='checkbox' value={{time}}></td>
+                        <td><input name='Friday' type='checkbox' value={{time}}></td>
+                    </tr>
+        		</table>
+            </div>
+            <br>
+            <div class='selectionButtons'>
+                <input type='button' ng-click="checkAll()" value='Select All'></input>
+                <input type='button' ng-click="resetAll()" value='Deselect All'></input>
+                <input type='button' ng-click="setPreviousSchedule()" value='Last Saved'></input>
+            </div>
+            <br>
+            <div class='saveButtons'>
+                <input type='button' ng-click="saveAvailability(false)" value='Save'></input>
+                <input type='button' ng-click="saveAvailability(true)" value='Save and Continue'></input>
+            </div>
+        </fieldset>     
+    </form>   
 </div>
