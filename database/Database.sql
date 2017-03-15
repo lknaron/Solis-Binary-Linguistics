@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   ASURITE_ID_2 VARCHAR(45) NOT NULL,
   PRIMARY KEY (EvaluationID),
   CONSTRAINT student_evaluation_fk_1 FOREIGN KEY (ASURITE_ID_1) 
-  REFERENCES User_ (ASURITE_ID),
+  REFERENCES User_ (ASURITE_ID)
+  ON DELETE CASCADE,
   CONSTRAINT student_evaluation_fk_2 FOREIGN KEY (ASURITE_ID_2) 
   REFERENCES User_ (ASURITE_ID)
   ON DELETE CASCADE
@@ -93,6 +94,7 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   PRIMARY KEY (RequestID),
   CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) 
   REFERENCES Schedule_ (ScheduleID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -116,6 +118,7 @@ CREATE TABLE IF NOT EXISTS Placement (
   PRIMARY KEY (PlaceID),
   CONSTRAINT placement_fk FOREIGN KEY (ScheduleID) 
   REFERENCES Schedule_ (ScheduleID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -129,6 +132,7 @@ CREATE TABLE IF NOT EXISTS Enrollment (
  PRIMARY KEY (EnrollmentID),
  CONSTRAINT enrollment_fk FOREIGN KEY (ScheduleID)
  REFERENCES Schedule_ (ScheduleID)
+ ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -163,7 +167,6 @@ CREATE TABLE IF NOT EXISTS Application (
   DateCreated TIMESTAMP,
   DateSubmitted TIMESTAMP,
   ModifiedDate TIMESTAMP,
-  LastSaved VARCHAR(100),
   isContactComplete TINYINT(1) DEFAULT NULL,
   isEducationComplete TINYINT(1) DEFAULT NULL,
   isEmploymentComplete TINYINT(1) DEFAULT NULL,
