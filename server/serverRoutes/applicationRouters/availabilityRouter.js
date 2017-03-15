@@ -67,8 +67,8 @@ router.post('/', function(req, res) {
                     connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isAvailabilityComplete, req.body.appStatus, req.user.username], function(err6) {
                         if (err6) {
                             throw err6;
-                            res.sendStatus(200);
                         }
+                        res.sendStatus(200);
                     });		        		
 		        }
 		        connection.release();
