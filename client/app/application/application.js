@@ -346,6 +346,7 @@ application.controller('availabilityInfoController', function($scope, $location,
     });
 
     $scope.setPreviousSchedule = function() {
+        $scope.resetAll();
         $http.get('/availability').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             if (res.data) {
