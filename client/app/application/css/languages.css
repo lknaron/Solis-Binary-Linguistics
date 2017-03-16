@@ -1,3 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+#radioInput{
+margin-left: 50px;
+margin-bottom: 20px;
+}
+#checkboxInput{
+	margin-bottom: 20px;
+}
 .form-languages{
     max-width: 500px;
     padding: 10px 20px;
@@ -8,27 +17,36 @@
     border-radius: 8px;
     font-family: Georgia, "Times New Roman", Times, serif;
 }
-
 .form-languages fieldset{
-    border: none;	
+    border: none;
+	
 }
-
 .form-languages legend {
     font-size: 1.4em;
     margin-bottom: 10px;
 }
+.form-languages label {
+    display: block;
+	margin-top: 8px;
+    margin-bottom: 8px;
+}
+.form-languages input[type="radio"]{
+	margin-left: 20px;
+}
 
-.form-languages input[type="text"] {
+.form-languages input[type="text"],
+.form-languages input[type="number"],
+.form-languages textarea,
+.form-languages select {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
-    display: inline-block;
     border-radius: 4px;
     font-size: 16px;
     margin: 0;
     outline: 0;
     padding: 7px;
-    width: 45%;
+    width: 100%;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -36,39 +54,21 @@
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 10px;  
+    margin-bottom: 30px;
+   
 }
-
 .form-languages input[type="text"]:focus,
-.form-languages input[type="checkbox"]:focus {
-    background: #d2d9dd;	 	
+.form-languages input[type="radio"]:focus,
+.form-languages input[type="checkbox"]:focus,
+.form-languages textarea:focus,
+.form-languages select:focus{
+    background: #d2d9dd;
+	 	
 }
-
-.form-languages input[type="radio"] {
-    padding-top: 2px;        
+.form-languages select{
+    -webkit-appearance: menulist-button;
+    height:35px;
 }
-
-.right {
-    float: right;
-    vertical-align: middle;
-    padding-right: 150px;
-}
-
-.left {
-    float: left;      
-}
-
-.otherl {
-    float: right;
-    padding-top: 7px;
-    padding-left: 10px;
-    padding-right: 30px;
-}
-
-.otherl input[type="radio"] {
-    margin-left: 5px;
-}
-
 .form-languages .number {
     background: #1abc9c;
     color: #fff;
@@ -83,12 +83,16 @@
     border-radius: 15px 15px 15px 0px;
 }
 
-.form-languages input[type="button"] {
+.form-languages input[type="submit"],
+.form-languages button[type="button"],
+.form-languages input[type="button"]
+{
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
     color: #FFF;
     margin: 0 auto;
+	margin-top: 10px;
     background: #1abc9c;
     font-size: 18px;
     text-align: center;
@@ -98,38 +102,11 @@
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
 }
-
-.form-languages input[type="button"]:hover {
+.form-languages input[type="submit"]:hover,
+.form-languages button[type="button"]:hover
+{
     background: #109177;
 }
-
-.myButton {
-	-moz-box-shadow: 0px 1px 0px 0px #1abc9c;
-	-webkit-box-shadow: 0px 1px 0px 0px #1abc9c;
-	box-shadow: 0px 1px 0px 0px #1abc9c;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1abc9c), color-stop(1, #1abc9c));
-	background:-moz-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	background:-webkit-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	background:-o-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
-	background-color:#1abc9c;
-	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	border-radius:8px;
-	border:2px solid #1abc9c;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Georgia;
-	font-size:14px;
-	font-weight:bold;
-	padding:7px 14px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #1abc9c;
-}
-
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1abc9c), color-stop(1, #1abc9c));
 	background:-moz-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
@@ -140,31 +117,7 @@
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
 	background-color:#1abc9c;
 }
-
 .myButton:active {
 	position:relative;
 	top:1px;
-}
-
-.myButton:hover {
-    background: #109177;
-}
-
-.myButton:focus { 
-    outline-style: none; 
-}
-
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
