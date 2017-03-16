@@ -5,7 +5,7 @@
             <p>*To deselect a language double click selection</p>
             <div ng-repeat="language in languages">               
                 <span class='bottom' ng-init="language.group=null">
-					<label class='left'><strong>{{language.name}}</strong></label>
+                        <label class='left'>{{language.name}}</label>
                         <div class='right'>
                             <input type='radio' ng-model='language.level' value='Expert' ng-dblclick='deselectLevel(this)'>Expert
                             <input type='radio' ng-model='language.level' value='Proficient' ng-dblclick='deselectLevel(this)'>Proficient 
