@@ -1,31 +1,52 @@
+<div class="form-languages">
+<form>
+<fieldset>	
+	<legend><span class="number">1</span> Languages</legend>
 <div ng-controller='languagesInfoController'>
-    <h3>Languages</h3>
+    
     <div ng-repeat="language in languages">
     	<input type='checkbox' ng-model=language.box ng-init='language.box=0' ng-true-value='1' ng-false-value='0'  ng-change="clearUnselected()">{{language.name}}
         <span ng-init="language.group=null">
-        	<input ng-disabled='!language.box' type='radio' ng-model='language.level' value='Expert'>Expert
+        	<input id='radioInput' ng-disabled='!language.box' type='radio' ng-model='language.level' value='Expert'>Expert
         	<input ng-disabled='!language.box' type='radio' ng-model='language.level' value='Proficient'>Proficient
         	<input ng-disabled='!language.box' type='radio' ng-model='language.level' value='Novice'>Novice
         	<br>
         </span>
+   
     </div>
-    Other(s)<input type='text' ng-model='otherLanguage' ng-init='otherLanguage=null'>
+	<strong>Other(s) </strong><input type='text' ng-model='otherLanguage' ng-init='otherLanguage=null'>
+    
+	</fieldset><!--languages-->
     <!--end div of languages section-->
-    <hr>
-    <h3>IDEs</h3>
+    
+    
+<fieldset>
+   <legend><span class="number">2</span> IDEs</legend>
+    
     <div ng-repeat="ide in ides">
-    	<input type='checkbox' ng-model=ide.box ng-init='ide.box=0' ng-true-value='1' ng-false-value='0'>{{ide.name}}
+    	<input type='checkbox' id='checkboxInput' ng-model=ide.box ng-init='ide.box=0' ng-true-value='1' ng-false-value='0'>{{ide.name}}
     </div>
-    Other(s)<input type='text' ng-model='otherIde' ng-init='otherIde=null'>
-    <!--end div of IDE section-->
-    <hr>
-    <h3>Collaborative Tools</h3>
+
+    
+	<strong>Other(s)</strong><input type='text' ng-model='otherIde' ng-init='otherIde=null'>
+	</fieldset>
+        <!--end div of IDE section-->
+        
+ <fieldset>
+   <legend><span class="number">3</span> Collaborative Tools</legend>
     <div ng-repeat="tool in tools">
-    	<input type='checkbox' ng-model=tool.box ng-init='tool.box=0' ng-true-value='1' ng-false-value='0'>{{tool.name}}
+    	<input type='checkbox' id='checkboxInput' ng-model=tool.box ng-init='tool.box=0' ng-true-value='1' ng-false-value='0'>{{tool.name}}
     </div>
-    Other(s)<input type='text' ng-model='otherTool' ng-init='otherTool=null'>
+
+	 <strong>Other(s)</strong>
+	 <br>
+	 <input type='text' ng-model='otherTool' ng-init='otherTool=null'>
+	</fieldset>
     <!--end div of tools section-->
+    
     <br>
     <button type='button' ng-click='saveLanguages(false)'>Save</button>
     <button type='button' ng-click='saveLanguages(true)'>Save and Continue</button>
 </div>
+
+	</div><!--form-->

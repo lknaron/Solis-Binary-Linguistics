@@ -1,11 +1,35 @@
+<div class="form-employment">
+<form>
+<fieldset>	
+	<legend><span class="number">1</span> Employment</legend>
 <div ng-controller='employmentInfoController'>
-    Employment<br>
-    <input type='radio' ng-model='hours' value='20 hours per week'>20 hours per week<br>
-    <input type='radio' ng-model='hours' value='10 hours per week'>10 hours per week<br>
-    <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant<br>
+	<label for="time"><strong>Max Time Commitment:</strong></label>
+     <input type='radio' ng-model='hours' value='20 hours per week'>20 hours per week		
+<input type='radio' ng-model='hours' value='10 hours per week'>10 hours per week<br>
+		    
+    <label for="position"><strong>Desired Position:</strong></label>
+    <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant
     <input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0' ng-init='grader=0'>Grader<br>
-    Current Employer <input type='text' ng-model='employer'><br>
-    Work Hours <input type='number' ng-model='workHours' min='0' max='40'><br>
-    <button type='button' ng-click='saveEmployment(false)'>Save</button>
+</fieldset><br> 
+    
+  <fieldset> 
+   <legend><span class="number">2</span> Other Employment</legend>
+	  <strong>Current Employer: </strong><input type='text' placeholder="Arizona State University" ng-model='employer'>
+	  <strong>Work Hours: </strong><input type='number' placeholder="0" ng-model='workHours' min='0' max='40'><br>
+ 
+ </fieldset>
+
+	<fieldset>
+	<legend><span class="number">3</span> File Attachment</legend>
+		<strong>Resume: </strong> 
+		<label for="resume-file" class="myButton" id="inline-label">Choose File</label>
+		<input type='file' id="resume-file" ng-model='resume-file' hidden>
+ 	</fieldset><br><br><br>
+ 	
+	<button type='button'  ng-click='saveEmployment(false)'>Save</button>
     <button type='button' ng-click='saveEmployment(true)'>Save and Continue</button>
-</div>
+    
+</div><!--ng-controller -->
+	</div><!-- div form-employment-->
+
+	</form>	
