@@ -1,35 +1,47 @@
-<div class="form-employment">
-<form>
-<fieldset>	
-	<legend><span class="number">1</span> Employment</legend>
-<div ng-controller='employmentInfoController'>
-	<label for="time"><strong>Max Time Commitment:</strong></label>
-     <input type='radio' ng-model='hours' value='20 hours per week'>20 hours per week		
-<input type='radio' ng-model='hours' value='10 hours per week'>10 hours per week<br>
-		    
-    <label for="position"><strong>Desired Position:</strong></label>
-    <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant
-    <input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0' ng-init='grader=0'>Grader<br>
-</fieldset><br> 
-    
-  <fieldset> 
-   <legend><span class="number">2</span> Other Employment</legend>
-	  <strong>Current Employer: </strong><input type='text' placeholder="Arizona State University" ng-model='employer'>
-	  <strong>Work Hours: </strong><input type='number' placeholder="0" ng-model='workHours' min='0' max='40'><br>
- 
- </fieldset>
+		<label><strong>Desired Position*</strong></label>
+        <input type='checkbox' ng-model='ta' ng-checked='ta===1' ng-true-value='1' ng-false-value='0' ng-init='ta=0'>Teaching Assistant<br>
+        <input type='checkbox' ng-model='grader' ng-checked='grader===1' ng-true-value='1' ng-false-value='0' ng-init='grader=0'>Grader<br><br>
+		<label><strong>Have you worked for ASU before?</strong></label>
+        <input type='radio' ng-model='hasWorked' ng-value=1>Yes<br>
+        <input type='radio' ng-model='hasWorked' ng-value=0>No<br><br>
 
-	<fieldset>
-	<legend><span class="number">3</span> File Attachment</legend>
-		<strong>Resume: </strong> 
-		<label for="resume-file" class="myButton" id="inline-label">Choose File</label>
-		<input type='file' id="resume-file" ng-model='resume-file' hidden>
- 	</fieldset><br><br><br>
- 	
-	<button type='button'  ng-click='saveEmployment(false)'>Save</button>
-    <button type='button' ng-click='saveEmployment(true)'>Save and Continue</button>
-    
-</div><!--ng-controller -->
-	</div><!-- div form-employment-->
+        <input ng-model='international' ng-true-value='1' ng-false-value='0' ng-init='international=0' type="checkbox" id="international-student" name="international-student" ng-change='doHoursCheck()'/> I'm an international student<br>
+        <div ng-show="international===1">
+			<label><strong>Speak Test Score*</strong></label><input ng-model='speakTest' type="text" class="hidden" id="speak-test" name="speak-test" placeholder="Type in your speak test score*"><br>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend><span class="number">2</span>Current Employment</legend>
+		<label><strong>Current Employer:</strong></label>
+        <input type='text' ng-model='employer' placeholder="Arizona State University">
+		<label><strong>Work Hours:</strong></label>
+        <input type='number' ng-model='workHours' ng-change='doHoursCheck()' placeholder="0">
 
-	</form>	
+        <p ng-show='hoursWarning'>
+            Your entered work hours are too high<br>
+            You have indicated you are planning to work {{enteredHours}} hours.<br>
+            If you are an international student, you are allowed to work a maximum of 20 hours.<br>
+            If you are not an international student, you are allowed to work a maximum of 25 hours.<br>
+            To continue, please reduce the hours you are seeking with ASU
+            or you will need to reduce your work hours with your current employer.
+        </p>
+    </fieldset>
+    <form class='form-attachments' enctype='multipart/form-data'>
+        <fieldset>
+
+            <legend><span class="number">3</span>File Attachment</legend>
+
+			<label><strong>Resume:</strong></label>
+            <input type="text" id="resume" ng-model='resumeInput'>
+            
+            
+            
+            <input type="file" name="rfile" id="resfile" ng-model='resumeFile' class="inputfile" file-input='resumeFile' onchange="angular.element(this).scope().resumeFileNameChanged(this.files)" hidden/>
+            <label class='myButton' for="resfile" id="inline-label">Choose File</label><br><br>
+                         
+        </fieldset>
+    </form>
+    <input ng-disabled='hoursWarning' type='button' ng-click='uploadResume(); saveEmployment(false)' value="Save"></input>
+    <input ng-disabled='hoursWarning' type='button' ng-click='uploadResume(); saveEmployment(true)' value="Save and Continue"></input>
+</div>
+	

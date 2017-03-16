@@ -42,7 +42,7 @@ router.post('/', function(req, res) {
                         res.sendStatus(200);
                     }
                 });
-            } else if (rows) {
+            } else if (rows[0]) {
                 connection.query('UPDATE Application SET ? WHERE ASURITE_ID = ?', [req.body, req.body.ASURITE_ID], function(err4) {
                     if(err4) {
                         console.log('Error performing query: ' + err4);
@@ -58,22 +58,22 @@ router.post('/', function(req, res) {
 });
 
 // Returns data to populate application page if user already saved education information
-router.post('/getEducationInfo', function(req, res) {
+router.get('/', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT EducationLevel, GPA, DegreeProgram, isAcademicProbation, isFourPlusOne, isInternationalStudent, SpeakTest, FirstSession, GraduationDate FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+        connection.query('SELECT Application.EducationLevel, Application.GPA, Application.DegreeProgram, Application.isAcademicProbation, Application.isFourPlusOne, Application.FirstSession, Application.GraduationDate, Attachment.IposName, Attachment.TranscriptName FROM Application LEFT JOIN Attachment ON Application.ASURITE_ID = Attachment.ASURITE_ID WHERE Application.ASURITE_ID = ?', [req.user.username], function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
             } else if (!rows.length) {
                 res.sendStatus(200);
-            } else if (rows) {
+            } else if (rows[0]) {
                 res.send({'EducationLevel' : rows[0].EducationLevel, 'GPA' : rows[0].GPA, 'DegreeProgram' : rows[0].DegreeProgram, 'isAcademicProbation' : rows[0].isAcademicProbation, 
-                          'isFourPlusOne' : rows[0].isFourPlusOne, 'isInternationalStudent' : rows[0].isInternationalStudent, 'SpeakTest' : rows[0].SpeakTest, 'FirstSession' : rows[0].FirstSession, 'GraduationDatel' : rows[0].GraduationDate});
+                          'isFourPlusOne' : rows[0].isFourPlusOne, 'FirstSession' : rows[0].FirstSession, 'GraduationDatel' : rows[0].GraduationDate, 'ipos' : rows[0].IposName, 'transcript' : rows[0].TranscriptName});
             } 
             connection.release();
         });

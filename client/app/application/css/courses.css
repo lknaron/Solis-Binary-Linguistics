@@ -1,3 +1,4 @@
+
 @charset "utf-8";
 /* CSS Document */
 #previousInput { 
@@ -79,7 +80,8 @@ margin-bottom: 10px;
 }
 
 .form-courses input[type="submit"],
-.form-courses button[type="button"]
+.form-courses button[type="button"],
+.form-courses input[type="button"]
 {
     position: relative;
     display: block;

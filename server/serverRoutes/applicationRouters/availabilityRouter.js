@@ -30,17 +30,22 @@ router.post('/', function(req, res) {
 		      	console.log('Error getting mysql_pool connection: ' + err);
 		      	throw err;
 		    }
-		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.body[0][4]], function(err2) {
+		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.user.username], function(err2) {
 		        if(err2) {
 		        	console.log('Error performing query: ' + err2);
 		            throw err2;
 		        } else {
-		            connection.query('INSERT INTO Calendar (CalendarName, CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body], function(err2) { 
-						if(err2) {
-					    	console.log('Error performing query: ' + err2);
-					        throw err2;
+		            connection.query('INSERT INTO Calendar (CalendarDay, StartHour, StopHour, ASURITE_ID) VALUES ?', [req.body.availableSlots], function(err3) {  
+						if(err3) {
+					    	console.log('Error performing query: ' + err3);
+					        throw err3;
 					    } else {
-					        res.sendStatus(200);
+                            connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isAvailabilityComplete, req.body.appStatus, req.user.username], function(err5) {
+                                if (err5) {
+                                    throw err5;
+                                }
+                                res.sendStatus(200);
+                            });
 					    }
 					    connection.release();
 				    });
@@ -48,18 +53,23 @@ router.post('/', function(req, res) {
 		    });
 	  	});
 	} else {
-		mysql_pool.getConnection(function(err, connection) {
-			if (err) {
+		mysql_pool.getConnection(function(err4, connection) {
+			if (err4) {
 		      	connection.release();
-		      	console.log('Error getting mysql_pool connection: ' + err);
-		      	throw err;
+		      	console.log('Error getting mysql_pool connection: ' + err4);
+		      	throw err4;
 		    }
-		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.body.user], function(err3) {
-		    	if(err3) {
-		        	console.log('Error performing query: ' + err3);
-		            throw err3;
+		    connection.query('DELETE FROM Calendar WHERE ASURITE_ID = ?', [req.user.username], function(err5) {
+		    	if(err5) {
+		        	console.log('Error performing query: ' + err5);
+		            throw err5;
 		        } else {
-		        	res.sendStatus(200);	
+                    connection.query('UPDATE Application SET isAvailabilityComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?',[req.body.isAvailabilityComplete, req.body.appStatus, req.user.username], function(err6) {
+                        if (err6) {
+                            throw err6;
+                            res.sendStatus(200);
+                        }
+                    });		        		
 		        }
 		        connection.release();
 		    });
@@ -68,26 +78,25 @@ router.post('/', function(req, res) {
 });
 
 // Returns data to populate application page if user already saved availability information
-router.post('/getAvailabilityInfo', function(req, res) {
+router.get('/', function(req, res) {
   	mysql_pool.getConnection(function(err, connection) {
     	if (err) {
     		connection.release();
       		console.log('Error getting mysql_pool connection: ' + err);
       		throw err;
     	}
-    	connection.query('SELECT * FROM Calendar WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+    	connection.query('SELECT * FROM Calendar WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) {
       		if(err2) {
         		console.log('Error performing query: ' + err2);
         		throw err2;
       		} else if (!rows.length) {
         		res.sendStatus(200);
-      		} else if (rows) {          
+      		} else if (rows[0]) {          
 				var data = [];
 				for(var i in rows) {    
     				var item = rows[i];   
       				data.push({ 
           				'calendarDay' 	: item.CalendarDay,
-          				'calendarName'  : item.CalendarName,
           				'startHour'     : item.StartHour 
       				});
     			}

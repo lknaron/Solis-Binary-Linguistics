@@ -77,7 +77,8 @@
 }
 
 .form-employment input[type="submit"],
-.form-employment button[type="button"]
+.form-employment button[type="button"],
+.form-employment input[type="button"]
 {
     position: relative;
     display: block;
@@ -142,6 +143,7 @@
 #inline-label{
 	display: inline;
 }
+
 
 
 

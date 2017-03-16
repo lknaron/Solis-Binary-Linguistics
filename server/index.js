@@ -7,16 +7,16 @@
 
 var express = require('express'),
     fs = require('fs'),
-    //https = require('https'),
-    http = require('http'),
     path = require('path'),
     bodyParser = require('body-parser'),
     expressJWT = require('express-jwt'),
-    jwt = require('jsonwebtoken');
+    jwt = require('jsonwebtoken'),
+    favicon = require('serve-favicon'),
+    directoryToServe = 'client',
+    https = require('https'),
+    port = 3443;
 
 var app = express();
-var directoryToServe = 'client';
-var port = 3443;
 
 // Directs to client folder to serve static files
 app.use('/', express.static(path.join(__dirname, '..', directoryToServe)));
@@ -32,47 +32,54 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // Use JWT for token authorization
 app.use(expressJWT({secret:'sblapp123'}).unless({path:['/', '/login', '/createAccount', '/favicon.ico']})); // token secret - not needed for 'unless' routes
 
+// Set up favicon
+app.use(favicon(path.join(__dirname, '../client/assets/images', 'asufavicon.ico')));
+
 // Maybe create a seperate file for the routers or other app.use paths and body parser
 // Request routers
-var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js');
-var createAccountRouter = require('./serverRoutes/createAccountRouter/createAccountRouter.js');
-var contactInfoRouter = require('./serverRoutes/applicationRouters/contactInfoRouter.js');
-var educationRouter = require('./serverRoutes/applicationRouters/educationRouter.js');  
-var employmentRouter = require('./serverRoutes/applicationRouters/employmentRouter.js'); 
-var availabilityRouter = require('./serverRoutes/applicationRouters/availabilityRouter.js');
-var languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js');
-var coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js');
+var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
+    createAccountRouter = require('./serverRoutes/createAccountRouter/createAccountRouter.js'),
+    contactInfoRouter = require('./serverRoutes/applicationRouters/contactInfoRouter.js'),
+    educationRouter = require('./serverRoutes/applicationRouters/educationRouter.js'),
+    educationIposUploadRouter = require('./serverRoutes/applicationRouters/educationIposUploadRouter.js'),
+    educationTranscriptUploadRouter = require('./serverRoutes/applicationRouters/educationTranscriptUploadRouter.js'),
+    employmentRouter = require('./serverRoutes/applicationRouters/employmentRouter.js'), 
+    employmentResumeUploadRouter = require('./serverRoutes/applicationRouters/employmentResumeUploadRouter.js'),
+    availabilityRouter = require('./serverRoutes/applicationRouters/availabilityRouter.js'),
+    languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js'),
+    coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js'),
+    programChairRouter = require('./serverRoutes/programChairRouters/programChairRouter.js'),
+    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js');
 
-/*// Use ssl certificate and key
-const httpsOptions = {
+// Use ssl certificate and key
+var httpsOptions = {
   cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
   key: fs.readFileSync(path.join(__dirname, 'ssl', 'server.key'))
 };
 
 // Create https server
 https.createServer(httpsOptions, app).listen(port, function () {
-    console.log(`Server running at https://localhost:${port}`);
-});*/
-
-//  Running http server until we get SSL certificates
-http.createServer(app).listen(port, function () {
-    console.log("Server Running at https://192.168.1.100:3443");
+    console.log('Server running at https://sbltest.ddns.net');
 });
 
 //  Send requests to correct router
 app.use('/login', logInRouter);
 app.use('/createAccount', createAccountRouter);
 app.use('/contactInfo', contactInfoRouter);
-app.use('/contactInfo/getContactInfo', contactInfoRouter);
 app.use('/education', educationRouter);
-app.use('/education/getEducationInfo', educationRouter);
+app.use('/iposUpload', educationIposUploadRouter);
+app.use('/transcriptUpload', educationTranscriptUploadRouter);
 app.use('/employment', employmentRouter);
-app.use('/employment/getEmploymentInfo', employmentRouter);
+app.use('/resumeUpload', employmentResumeUploadRouter);
 app.use('/availability', availabilityRouter);
-app.use('/availability/getAvailabilityInfo', availabilityRouter);
 app.use('/languages', languagesRouter);
-app.use('/languages/getLanguagesInfo', languagesRouter);
 app.use('/courses', coursesRouter);
-app.use('/courses/getCoursesInfo', coursesRouter);
-app.use('/courses/coursesTaught', coursesRouter);
-app.use('/courses/getCoursesTaughtInfo', coursesRouter);
+app.use('/programChair', programChairRouter);
+app.use('/programChair/getClassNames', programChairRouter);
+app.use('/programChair/getClassInfo', programChairRouter);
+app.use('/programChair/getStudentNameHours', programChairRouter);
+app.use('/programChair/updateEnrollment', programChairRouter);
+app.use('/programChair/updateStatus', programChairRouter);
+app.use('/programChair/updateRequiredHours', programChairRouter);
+app.use('/programChair/updateAssignedStudents', programChairRouter);
+app.use('/getStudentActions', studentActionsRouter);

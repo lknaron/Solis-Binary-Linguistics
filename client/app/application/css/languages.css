@@ -84,7 +84,8 @@ margin-bottom: 20px;
 }
 
 .form-languages input[type="submit"],
-.form-languages button[type="button"]
+.form-languages button[type="button"],
+.form-languages input[type="button"]
 {
     position: relative;
     display: block;
