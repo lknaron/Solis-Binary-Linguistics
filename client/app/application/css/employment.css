@@ -1,6 +1,5 @@
 @charset "utf-8";
 /* CSS Document */
-
 .form-employment{
     max-width: 500px;
     padding: 10px 20px;
@@ -13,7 +12,6 @@
 }
 .form-employment fieldset{
     border: none;
-	
 }
 .form-employment legend {
     font-size: 1.4em;
@@ -26,7 +24,6 @@
 }
 .form-employment input[type="text"],
 .form-employment input[type="number"],
-.form-employment textarea,
 .form-employment select {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
@@ -45,18 +42,13 @@
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin-bottom: 30px;
-   
 }
-
-
 .form-employment input[type="text"]:focus,
 .form-employment input[type="radio"]:focus,
 .form-employment input[type="checkbox"]:focus,
 .form-employment input[type="file"]:focus,
-.form-employment textarea:focus,
 .form-employment select:focus{
     background: #d2d9dd;
-	 	
 }
 .form-employment select{
     -webkit-appearance: menulist-button;
@@ -75,7 +67,6 @@
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
     border-radius: 15px 15px 15px 0px;
 }
-
 .form-employment input[type="submit"],
 .form-employment button[type="button"],
 .form-employment input[type="button"]
@@ -96,7 +87,9 @@
     margin-bottom: 10px;
 }
 .form-employment input[type="submit"]:hover,
-.form-employment button[type="button"]:hover
+.form-employment button[type="button"]:hover,
+.form-employment input[type="button"]:hover,
+#inline-label:hover
 {
     background: #109177;
 }
@@ -143,7 +136,3 @@
 #inline-label{
 	display: inline;
 }
-
-
-
-
