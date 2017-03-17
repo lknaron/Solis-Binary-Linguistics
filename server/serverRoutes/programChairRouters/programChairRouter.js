@@ -331,6 +331,49 @@ router.post('/updateAssignedStudents', function(req, res) {
     });
 });
 
+// gets the deadline date
+router.get('/getDeadline', function(req, res) {
+    //console.log('running get dl');
+    //res.send({test:1});
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        } else {
+            connection.query(, function(err2, rows) {
+                if(err2) {
+                    console.log('Error performing query: ' + err2);
+                    throw err2;
+                }  
+                connection.release();
+            });
+        }
+    });
+});
+
+// store the deadline date
+router.post('/setDeadline', function(req, res) {
+    //console.log('running set dl');
+    //console.log('test as ' + req.body.test);
+    //res.sendStatus(200);
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        } else {
+            connection.query(, function(err2, rows) {
+                if(err2) {
+                    console.log('Error performing query: ' + err2);
+                    throw err2;
+                }  
+                connection.release();
+            });
+        }
+    });
+});
+
 // Will delete placement row associated with class if all assigned students equals null
 function checkForNull() {
     mysql_pool.getConnection(function(err, connection) {

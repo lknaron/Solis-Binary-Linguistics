@@ -28,8 +28,8 @@ router.post('/', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        // this will become select fomr Users
         connection.query('SELECT AppStatus FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
+            
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
