@@ -43,6 +43,7 @@ router.post('/', function(req, res) {
                 var languageQuery = 'SELECT LanguagesID FROM Languages WHERE ASURITE_ID =  ?';
                 var ideQuery = 'SELECT IDEid FROM IDEs WHERE ASURITE_ID = ?';
                 var toolQuery = 'SELECT ToolID FROM Collaborative_Tools WHERE ASURITE_ID = ?';
+                var deadline = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
                 connection.query('SELECT isContactComplete, isEducationComplete, isEmploymentComplete, isAvailabilityComplete, isLanguagesComplete, isCoursesComplete FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err3, top) {
                     if (err3) {
                         throw err3;
@@ -268,6 +269,21 @@ router.post('/', function(req, res) {
                             items.push('You have entered current employer work hours, but you have not entered your current employer');
                         }
                         return items;
+                    }
+                    
+                    // checks deadline
+                    function checkDeadline() {
+                        connection.query(deadline, function(err10, rows) {
+                            if (err10) {
+                                throw err10;
+                            }
+                            if (rows.length == 0) {
+                                return null;
+                            }
+                            else {
+                            return ({CurrentSemester:rows[0].CurrentSemester, DeadlineDate:rows[0].DeadlineDate});
+                            }    
+                        });
                     }
                 });                       
             } 
