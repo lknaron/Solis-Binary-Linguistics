@@ -91,6 +91,7 @@
     border-radius: 15px 15px 15px 0px;
 }
 
+.form-courses button[type="button"],
 .form-courses input[type="button"]
 {
     position: relative;
@@ -109,6 +110,7 @@
     margin-bottom: 10px;
 }
 
+.form-courses button[type="button"]:hover,
 .form-courses input[type="button"]:hover
 {
     background: #109177;

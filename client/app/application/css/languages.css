@@ -56,11 +56,6 @@
     background: #d2d9dd;
 }
 
-.form-languages select{
-    -webkit-appearance: menulist-button;
-    height:35px;
-}
-
 .form-languages input[type="radio"] {
     padding-top: 2px;        
 }
@@ -100,7 +95,6 @@
     border-radius: 15px 15px 15px 0px;
 }
 
-.form-languages input[type="submit"],
 .form-languages button[type="button"],
 .form-languages input[type="button"]
 {
@@ -120,8 +114,8 @@
     margin-bottom: 10px;
 }
 
-.form-languages input[type="submit"]:hover,
-.form-languages button[type="button"]:hover
+.form-languages button[type="button"]:hover,
+.form-languages input[type="button"]:hover
 {
     background: #109177;
 }
