@@ -341,7 +341,12 @@ application.controller('availabilityInfoController', function($scope, $location,
     
     // when page loads, runs setPreviousSchedule which poplulates fiels with 
     // previously saved data
-    angular.element(document).ready(function(){
+    angular.element(document).ready(function() {
+        $scope.setPreviousSchedule();
+    });
+
+    $scope.setPreviousSchedule = function() {
+        $scope.resetAll();
         $http.get('/availability').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             if (res.data) {
@@ -363,7 +368,7 @@ application.controller('availabilityInfoController', function($scope, $location,
         }, function errorCallback(response) {
             //TODO
         });
-    });
+    }
 
     function convertTime24to12(isoTime) {
         var hours   = parseInt(isoTime.substring(0, 2), 10),
