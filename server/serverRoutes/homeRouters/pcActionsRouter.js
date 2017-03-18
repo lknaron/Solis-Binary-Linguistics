@@ -31,7 +31,21 @@ router.post('/', function(req, res) {
         console.log('running pc actions');
         console.log('user is of type ' + req.body.type);
         res.send({test:1});
-        
+        var deadline = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
+        // checks deadline
+        function checkDeadline() {
+            connection.query(deadline, function(err2, rows) {
+                if (err2) {
+                    throw err2;
+                }
+                if (rows.length == 0) {
+                    return null;
+                }
+                else {
+                    return ({CurrentSemester:rows[0].CurrentSemester, DeadlineDate:rows[0].DeadlineDate});
+                }    
+            });
+        }
         connection.release();
     });
 });   

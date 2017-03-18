@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
             throw err;
         }
         connection.query('SELECT AppStatus FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) {
-            
+            var deadline = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
@@ -43,7 +43,6 @@ router.post('/', function(req, res) {
                 var languageQuery = 'SELECT LanguagesID FROM Languages WHERE ASURITE_ID =  ?';
                 var ideQuery = 'SELECT IDEid FROM IDEs WHERE ASURITE_ID = ?';
                 var toolQuery = 'SELECT ToolID FROM Collaborative_Tools WHERE ASURITE_ID = ?';
-                var deadline = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
                 connection.query('SELECT isContactComplete, isEducationComplete, isEmploymentComplete, isAvailabilityComplete, isLanguagesComplete, isCoursesComplete FROM Application WHERE ASURITE_ID = ?', [req.body.user], function(err3, top) {
                     if (err3) {
                         throw err3;

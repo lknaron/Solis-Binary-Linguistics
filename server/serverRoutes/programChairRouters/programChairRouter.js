@@ -341,7 +341,7 @@ router.get('/getDeadline', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         } else {
-            connection.query(, function(err2, rows) {
+            connection.query('SELECT CurrentSemester, DeadlineDate FROM Deadline', function(err2, rows) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
@@ -363,7 +363,7 @@ router.post('/setDeadline', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         } else {
-            connection.query(, function(err2, rows) {
+            connection.query('UPDATE Deadline SET DeadlineDate = ?, CurrentSemester = ?', function(err2, rows) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
