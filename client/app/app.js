@@ -190,7 +190,8 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/availability', {
             templateUrl : 'app/application/availabilityView.html',
             controller : 'availabilityInfoController',
-            permissions : [USER_ROLES.student]
+            permissions : [USER_ROLES.student],
+            layout : "/app/application/css/availability.css"
         })
         .when('/languages', {
             templateUrl : 'app/application/languagesView.html',

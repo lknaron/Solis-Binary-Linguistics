@@ -341,16 +341,19 @@ application.controller('availabilityInfoController', function($scope, $location,
     
     // when page loads, runs setPreviousSchedule which poplulates fiels with 
     // previously saved data
-    angular.element(document).ready(function(){
-        
+    angular.element(document).ready(function(){       
         // displays the current semester and year for which the student is applying. comes from PC-set deadline
         $http.get('programChair/getDeadline').then(function successCallback(response) {
             var year = new Date(response.data.date).getFullYear();
             $scope.semesterName = response.data.semester + ' ' + year;
         }, function errorCallback(response) {
             // empty
-        });
-        
+        });  
+        $scope.setPreviousSchedule();
+    });
+  
+    $scope.setPreviousSchedule = function() {
+        $scope.resetAll();
         $http.get('/availability').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             if (res.data) {
@@ -372,7 +375,7 @@ application.controller('availabilityInfoController', function($scope, $location,
         }, function errorCallback(response) {
             //TODO
         });
-    });
+    }
 
     function convertTime24to12(isoTime) {
         var hours   = parseInt(isoTime.substring(0, 2), 10),
