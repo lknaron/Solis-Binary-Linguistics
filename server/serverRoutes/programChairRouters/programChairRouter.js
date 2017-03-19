@@ -345,7 +345,8 @@ router.get('/getDeadline', function(req, res) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
-                }  
+                }
+                res.send({date:rows[0].DeadlineDate, semester:rows[0].CurrentSemester});
                 connection.release();
             });
         }
@@ -363,11 +364,12 @@ router.post('/setDeadline', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         } else {
-            connection.query('UPDATE Deadline SET DeadlineDate = ?, CurrentSemester = ?', function(err2, rows) {
+            connection.query('UPDATE Deadline SET DeadlineDate = ?, CurrentSemester = ?', [req.body.date, req.body.semester], function(err2, rows) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
-                }  
+                }
+                res.sendStatus(200);
                 connection.release();
             });
         }

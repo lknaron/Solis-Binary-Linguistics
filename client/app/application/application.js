@@ -260,7 +260,7 @@ application.controller('availabilityInfoController', function($scope, $location,
                    'Tuesday',
                    'Wednesday',
                    'Thursday',
-                   'Friday'];
+                   'Friday'];    
 
     // saves data and posts - routes if the user chose to continue
     $scope.saveAvailability = function(doRoute) {
@@ -342,6 +342,15 @@ application.controller('availabilityInfoController', function($scope, $location,
     // when page loads, runs setPreviousSchedule which poplulates fiels with 
     // previously saved data
     angular.element(document).ready(function(){
+        
+        // displays the current semester and year for which the student is applying. comes from PC-set deadline
+        $http.get('programChair/getDeadline').then(function successCallback(response) {
+            var year = new Date(response.data.date).getFullYear();
+            $scope.semesterName = response.data.semester + ' ' + year;
+        }, function errorCallback(response) {
+            // empty
+        });
+        
         $http.get('/availability').then(function successCallback(response) {
             var res = JSON.parse(JSON.stringify(response.data));
             if (res.data) {
