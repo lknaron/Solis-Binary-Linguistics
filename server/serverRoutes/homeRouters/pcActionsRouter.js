@@ -28,8 +28,8 @@ router.post('/', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        console.log('running pc actions');
-        console.log('user is of type ' + req.body.type);
+        //console.log('running pc actions');
+        //console.log('user is of type ' + req.body.type);
         res.send({test:1});
         var deadline = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
         // checks deadline

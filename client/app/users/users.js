@@ -21,6 +21,8 @@ user.controller('studentInfoController', function($scope, UserInfoService, Stude
     }
     $scope.name = UserInfoService.getFullName();
     $scope.status = UserInfoService.getAppStatus();
+    $scope.semesterName = StudentActionsService.callTo.deadlineSemester + ' ' + new Date(StudentActionsService.callTo.deadlineDate).getFullYear();
+    $scope.deadline = new Date(StudentActionsService.callTo.deadlineDate).toString().substring(0,15);
     if (StudentActionsService.callTo.hasAppActions === 1) {
         for (var i = 0; i < StudentActionsService.callTo.appActions.length; i++) {
             var scopeName = StudentActionsService.callTo.appActions[i].page + '_items'; 
@@ -86,7 +88,7 @@ user.controller('programChairController', function($scope, $http, $location, $ro
             var test = new RegExp("^[2][0-9]{3}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$").test($scope.deadline.date.toISOString().slice(0, 10)); 
             return test;
         } catch (e) {
-            $scope.deadlineMessage = 'Date format is incorrect! Please enter date as yyyy-mm-dd';
+            $scope.deadlineMessage = 'Date input is incorrect! Please enter date as yyyy-mm-dd';
             return;
         }           
     } 

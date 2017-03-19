@@ -333,8 +333,6 @@ router.post('/updateAssignedStudents', function(req, res) {
 
 // gets the deadline date
 router.get('/getDeadline', function(req, res) {
-    //console.log('running get dl');
-    //res.send({test:1});
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -355,9 +353,6 @@ router.get('/getDeadline', function(req, res) {
 
 // store the deadline date
 router.post('/setDeadline', function(req, res) {
-    //console.log('running set dl');
-    //console.log('test as ' + req.body.test);
-    //res.sendStatus(200);
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
