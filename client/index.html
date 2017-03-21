@@ -19,7 +19,7 @@
     <link rel="stylesheet" ng-href="/css/normalize.min.css">  
 </head>
 
-<body>
+<body ng-show='mainDisplay' ng-model='mainDisplay'>
     <div ng-include="'app/header.html'"></div>
     <div ng-view></div>
     <div ng-include="'app/footer.html'"></div>
