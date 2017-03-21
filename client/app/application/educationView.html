@@ -20,25 +20,23 @@
             <input ng-model='fourPlusOne' ng-true-value='1' ng-false-value='0' ng-init='fourPlusOne=0' type="checkbox" name="4to1" value="4to1"/> I'm in the 4 to 1 program<br>
             <label>Date You Started At Arizona State University*:</label>
             <input ng-model='session' type="date" name="date"><br>
-         
             <label>Graduation Date*:</label>
             <select ng-model="gradDate" ng-options="x for x in gradDates"></select><br> 
         </fieldset>     
     </form>
-    
-    <form class='form-attachments' enctype='multipart/form-data'>
+    <form enctype='multipart/form-data'>
         <fieldset>
             <legend><span class="number">3</span>File Attachment</legend>
-            <label>iPOS:</label>
-            <input type="text" id="ipos" ng-model='iposInput'>
-            <input type="file" name="ifile" id="ipfile" ng-model='iposFile' class="inputfile" file-input='iposFile' onchange="angular.element(this).scope().iposFileNameChanged(this.files)"/>
-            <label class='myButton' for="ipfile">Browse</label><br><br>
-            <label>Transcript:</label>
-            <input type="text" id="transcript" ng-model='transcriptInput'>
-            <input type="file" name="tfile" id="trfile" ng-model='transcriptName' class="inputfile" file-input='tranFile' onchange="angular.element(this).scope().transcriptFileNameChanged(this.files)"/>
-            <label class='myButton' for="trfile">Browse</label>
+            	<label>iPOS:</label>
+            	<input type="text" id="ipos" ng-model='iposInput'>
+            	<input type="file" name="ifile" id="ipfile" ng-model='iposFile' file-input='iposFile' onchange="angular.element(this).scope().iposFileNameChanged(this.files)" hidden/>
+            	<label class='myButton' for="ipfile" id="inline-label">Choose File</label><br><br>
+            	<label>Transcript:</label>
+            	<input type="text" id="transcript" ng-model='transcriptInput'>
+            	<input type="file" name="tfile" id="trfile" ng-model='transcriptName' file-input='tranFile' onchange="angular.element(this).scope().transcriptFileNameChanged(this.files)" hidden/>
+            	<label class='myButton' for="trfile" id="inline-label">Choose File</label><br><br>
         </fieldset>
     </form> 
-    <input type='button' ng-click='uploadIpos(); uploadTranscript(); saveEducation(false)' value="Save"></input>
-    <input type='button' ng-click='uploadIpos(); uploadTranscript(); saveEducation(true)' value="Save and Continue"></input>
+    <input type='button' ng-click='uploadIpos(); uploadTranscript(); saveEducation(false)' value="Save"/>
+    <input type='button' ng-click='uploadIpos(); uploadTranscript(); saveEducation(true)' value="Save and Continue"/>
 </div>

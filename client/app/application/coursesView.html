@@ -4,8 +4,8 @@
             <legend><span class="number">1</span>Course Competancies*</legend>
             <p>*To deselect a course double click selection</p>
             <div ng-repeat="course in courses">               
-                <span class='bottom' ng-init="courses.group=null">
-                        <label class='left'>{{course.name}}</label>
+                <span ng-init="courses.group=null">
+                        <label><strong>{{course.name}}</strong></label>
                         <div class='right'>
                           <input type='radio' ng-model='course.level' value='Prefer' ng-dblclick='deselectLevel(this)'>Prefer
                           <input type='radio' ng-model='course.level' value='Qualified' ng-dblclick='deselectLevel(this)'>Qualified 
