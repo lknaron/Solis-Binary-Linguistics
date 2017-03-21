@@ -41,6 +41,7 @@ app.constant('APPLICATION_LINKS', {
  */
 app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_ROLES) {
     $rootScope.$on('$routeChangeStart', function(event, next) {
+       $rootScope.mainDisplay = false;
        // reroute logged in user from hitting login page
        if (next.templateUrl === 'app/login/loginView.html' && UserAuthService.isAuthenticated()) {
            if (UserInfoService.getUserType() === USER_ROLES.student) {
@@ -69,8 +70,7 @@ app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_R
        }
    }); 
    $rootScope.$on('$routeChangeSuccess', function(event, current, next) {
-        // this is here to grab the layout after path changes in routeChangeStart above
-        $rootScope.layout = current.layout;
+        // empty
    }); 
 });
 
@@ -84,7 +84,14 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             templateUrl : 'app/login/loginView.html',
             controller : 'loginController',
             permissions : [USER_ROLES.all],
-            layout : "/app/login/css/login.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/login/css/login.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/studentHome', {
             templateUrl : 'app/users/studentView.html',
@@ -101,16 +108,38 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                                    deferred.resolve(getActions);
                           });
                     return deferred.promise;
-                    }  
+                    }, 
+                    set : function($rootScope, $timeout) {
+                        $rootScope.layout = "";
+                        $timeout(function() {
+                            $rootScope.mainDisplay = true;
+                        }, 100);
+                    }
                 }
         })
         .when('/facultyHome', {
             templateUrl : 'app/users/facultyView.html',
-            permissions : [USER_ROLES.faculty]
+            permissions : [USER_ROLES.faculty],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/administrationHome', {
             templateUrl : 'app/users/administrationView.html',
-            permissions : [USER_ROLES.administrative]
+            permissions : [USER_ROLES.administrative],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/programChairHome', {
             templateUrl : 'app/users/programChairView.html',
@@ -124,90 +153,216 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                                deferred.resolve(getPCActions);
                       });
                 return deferred.promise;
-                }  
+                }, 
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                } 
             }
         })
         .when('/classSummary', {
             templateUrl : 'app/programChair/classSummaryView.html',
-            permissions : [USER_ROLES.program_chair]
+            permissions : [USER_ROLES.program_chair],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/createFacultyAdminAccount', {
             templateUrl : 'app/account/createFacultyAdminAccountView.html',
             permissions : [USER_ROLES.program_chair],
-            layout : "/app/account/css/createFacultyAdminAccount.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/account/css/createFacultyAdminAccount.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/assignStudent', {
             templateUrl : 'app/programChair/assignStudentView.html',
-            permissions : [USER_ROLES.program_chair]
+            permissions : [USER_ROLES.program_chair],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/studentProfile', {
             templateUrl : 'app/programChair/studentProfileView.html',
-            permissions : [USER_ROLES.program_chair]
+            permissions : [USER_ROLES.program_chair],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',
             controller : 'createAccountController',
             permissions : [USER_ROLES.all],
-            layout : "/app/account/css/createAccount.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/account/css/createAccount.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            } 
         })
         .when('/viewAccount', {
             templateUrl : 'app/account/accountView.html',
             controller : 'viewAccountController',
             permissions : [USER_ROLES.student, USER_ROLES.faculty,
                            USER_ROLES.administrative, USER_ROLES.human_resources,
-                           USER_ROLES.program_chair]
+                           USER_ROLES.program_chair],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/badrequest', {
             templateUrl : 'app/errors/404.html',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.all],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/unauthorized', {
             templateUrl : 'app/errors/401.html',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.all],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/forbidden', {
             templateUrl : 'app/errors/403.html',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.all],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/contactInfo', {
             templateUrl : 'app/application/contactInfoView.html',
             controller : 'contactInfoController',
             permissions : [USER_ROLES.student],
-            layout : "/app/application/css/contactInfo.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/application/css/contactInfo.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/education', {
             templateUrl : 'app/application/educationView.html',
             controller : 'educationInfoController',
             permissions : [USER_ROLES.student],
-            layout : "/app/application/css/education.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/application/css/education.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/employment', {
             templateUrl : 'app/application/employmentView.html',
             controller : 'employmentInfoController',
             permissions : [USER_ROLES.student],
-            layout : "/app/application/css/employment.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/application/css/employment.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            } 
         })
         .when('/availability', {
             templateUrl : 'app/application/availabilityView.html',
             controller : 'availabilityInfoController',
             permissions : [USER_ROLES.student],
-            layout : "/app/application/css/availability.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/application/css/availability.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }  
         })
         .when('/languages', {
             templateUrl : 'app/application/languagesView.html',
             controller : 'languagesInfoController',
             permissions : [USER_ROLES.student],
-            layout : "/app/application/css/languages.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/application/css/languages.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            }
         })
         .when('/courses', {
             templateUrl : 'app/application/coursesView.html',
             controller : 'coursesInfoController',
             permissions : [USER_ROLES.student],
-            layout : "/app/application/css/courses.css"
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "/app/application/css/courses.css";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            } 
         })
         .otherwise({
             redirectTo : '/badrequest',
-            permissions : [USER_ROLES.all]
+            permissions : [USER_ROLES.all],
+            resolve : {
+                'set' : function($rootScope, $timeout) {
+                    $rootScope.layout = "";
+                    $timeout(function() {
+                        $rootScope.mainDisplay = true;
+                    }, 100);
+                }
+            } 
         });
     
     // adds http interceptor for adding token to Auth header
