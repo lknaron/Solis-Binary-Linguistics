@@ -1,7 +1,9 @@
 <div class="form-evaluation" ng-controller='studentEvalController'>
     <form>
         <h3>Student Evaluation</h3>
-        <input ng-model='studentName' type="text" name="name" placeholder="Student"><br>
+        <div calss="populate names" >
+            Select a Student: <select ng-model='selectName' ng-options="n for n in studentnames"></select>
+        </div>
         1. Student Interaction:
         <select ng-model='selectOne' ng-options="r for r in ratings"></select>
         <input ng-model='commentsOne' type="text" name="comments1" placeholder="Comments"><br>

@@ -10,11 +10,18 @@ faculty.controller('studentEvalController', function($scope, $http, $location, $
     // populates the Student Evaluation dropdown   
     $scope.ratings = ['1','2','3','4','5'];  
     
+    // populates students names in dropdown
+    $http.get('/faculty/evaluations/appnames').then(function successCallback(response) {
+        $scope.studentnames = response.data;
+    }, function errorCallback(response) {
+            //TODO
+    });
+    
     // Saves Student Evalutaion into Database
     $scope.saveEval = function(doRoute) {
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var studentEvalData = {
-                StudentName     : $scope.studentName,
+                StudentName     : $scope.selectName,
                 QOneScore       : $scope.selectOne,
                 QOneComments    : $scope.commentsOne,
                 QTwoScore       : $scope.selectTwo,

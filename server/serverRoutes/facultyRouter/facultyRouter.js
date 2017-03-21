@@ -21,6 +21,32 @@ var mysql_pool  = mysql.createPool({
     database        : 'sblDB'
 });
 
+// Get Student Application Names
+router.get('/evaluations/appnames', function(req, res) {
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        }
+        connection.query("SELECT CONCAT(FirstName, ' ', LastName) AS StudentName FROM User_ ", function(err2, rows) {
+            if(err2) {
+                console.log('Error performing query: ' + err2);
+                throw err2;
+            } else if (!rows.length) {
+                res.sendStatus(200);
+            } else if (rows[0]) {
+                var Names = [];
+                for (var i = 0; i < rows.length; i++) {
+                    Names.push(rows[i].StudentName); 
+                }
+                res.send(Names);
+            } 
+            connection.release();
+        });
+    });
+});
+
 // Inserts Student Evaluation into Database
 router.post('/evaluation', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
