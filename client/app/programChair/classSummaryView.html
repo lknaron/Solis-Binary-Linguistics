@@ -44,7 +44,7 @@
         <br>
     </div>
     <div ng-show='showTATwo'>
-        TA: <label ng-model='taTwo' style='padding-right: 10px;'>{{taTwo}}(<a href='' mg-model='taTwoIdLink' ng-click='goToProfile(taTwoIdLink)'>{{taTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(1); showUpdatedAssignments=true'>
+        TA: <label ng-model='taTwo' style='padding-right: 10px;'>{{taTwo}}(<a href='' mg-model='taTwoIdLink' ng-click='goToProfile(taTwoIdLink)'>{{taTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(1); showUpdatedAssignments=true' min='0' max='{{taTwoHoursMax}}'>
         Available Hours:<label ng-model='taTwoAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{taTwoAvailableHours}}</label>
         Assigned Status:<select name="assignedStatusSelect" ng-model="taTwoStatus" ng-change='showUpdatedAssignments=true'>
                             <option value="Temporary">Temporary</option>
@@ -55,7 +55,7 @@
         <br>
     </div>
     <div ng-show='showGraderOne'>
-        Grader: <label ng-model='graderOne' style='padding-right: 10px;'>{{graderOne}}(<a href='' mg-model='graderOneIdLink' ng-click='goToProfile(graderOneIdLink)'>{{graderOneIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderOneAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(2); showUpdatedAssignments=true'>
+        Grader: <label ng-model='graderOne' style='padding-right: 10px;'>{{graderOne}}(<a href='' mg-model='graderOneIdLink' ng-click='goToProfile(graderOneIdLink)'>{{graderOneIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderOneAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(2); showUpdatedAssignments=true' min='0' max='{{graderOneHoursMax}}'>
         Available Hours:<label ng-model='graderOneAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{graderOneAvailableHours}}</label>
         Assigned Status:<select name="assignedStatusSelect" ng-model="graderOneStatus" ng-change='showUpdatedAssignments=true'>
                             <option value="Temporary">Temporary</option>
@@ -66,7 +66,7 @@
         <br>
     </div>
     <div ng-show='showGraderTwo'>
-        Grader: <label ng-model='graderTwo' style='padding-right: 10px;'>{{graderTwo}}(<a href='' mg-model='graderTwoIdLink' ng-click='goToProfile(graderTwoIdLink)'>{{graderTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(3); showUpdatedAssignments=true'>
+        Grader: <label ng-model='graderTwo' style='padding-right: 10px;'>{{graderTwo}}(<a href='' mg-model='graderTwoIdLink' ng-click='goToProfile(graderTwoIdLink)'>{{graderTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(3); showUpdatedAssignments=true' min='0' max='{{graderTwoHoursMax}}'>
         Available Hours:<label ng-model='graderTwoAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{graderTwoAvailableHours}}</label>
         Assigned Status:<select name="assignedStatusSelect" ng-model="graderTwoStatus" ng-change='showUpdatedAssignments=true'>
                             <option value="Temporary">Temporary</option>

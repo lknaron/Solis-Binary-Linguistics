@@ -212,6 +212,7 @@ services.service('PageCompletionService', function() {
     }
 });
 
+// handles setting the application status based on application page completion status
 services.service('AppStatusService', function($window, UserInfoService) {
     this.pages = ['contact', 'education', 'employment', 'availability', 'languages', 'courses'];
     this.setStatuses = function(data) {
@@ -248,4 +249,22 @@ services.service('AppStatusService', function($window, UserInfoService) {
         }
         return 'complete';
     }
+});
+
+// performs a check of the set deadline date against the current date 
+services.service('DeadlineDateCheckService', function() {
+   this.deadlineNotice;
+   this.studentDateNotice = function(deadline) {
+       var today =  new Date().toISOString().slice(0, 10);
+       var window = new Date();
+       window.setDate(window.getDate() + 7);    // window of 7 days from today
+       window = window.toISOString().slice(0, 10);
+       if (deadline === today) {
+           this.deadlineNotice = 0;     // today is the same as the deadline
+       } else if (window >= deadline) {         
+           this.deadlineNotice = 1;     // today is within a week of deadline
+       } else {
+           this.deadlineNotice = 2;     // today is not within a week of deadline
+       }
+   }
 });

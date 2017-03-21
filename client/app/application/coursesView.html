@@ -1,4 +1,3 @@
-
 <div class="form-courses" ng-controller='coursesInfoController'>
     <form>
         <fieldset>
@@ -6,7 +5,7 @@
             	<p>*To deselect a course double click selection</p>
             <div ng-repeat="course in courses">               
                 <span class='bottom' ng-init="courses.group=null">
-					<label class='left'><strong>{{course.name}}</strong></label>
+                        <label class='left'>{{course.name}}</label>
                         <div class='right'>
                           <input type='radio' ng-model='course.level' 	 value='Prefer' ng-dblclick='deselectLevel(this)'>Prefer
                           <input type='radio' ng-model='course.level' value='Qualified' ng-dblclick='deselectLevel(this)'>Qualified 
@@ -22,6 +21,7 @@
             	<!--end div of courses section-->
         </fieldset>
     </form>
-      <input type='button' ng-click='saveCourses(false)' value="Save"></input>
-      <input type='button' ng-click='saveCourses(true)' value="Save and Complete"></input>
+    <input type='button' ng-click='saveCourses(false)' value="Save"></input>
+    <input type='button' ng-click='saveCourses(true)' value="Save and Complete"></input>
 </div>
+

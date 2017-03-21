@@ -49,7 +49,8 @@ var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
     languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js'),
     coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js'),
     programChairRouter = require('./serverRoutes/programChairRouters/programChairRouter.js'),
-    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js');
+    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js'),
+    pcActionsRouter = require('./serverRoutes/homeRouters/pcActionsRouter.js');
 
 // Use ssl certificate and key
 var httpsOptions = {
@@ -82,4 +83,7 @@ app.use('/programChair/updateEnrollment', programChairRouter);
 app.use('/programChair/updateStatus', programChairRouter);
 app.use('/programChair/updateRequiredHours', programChairRouter);
 app.use('/programChair/updateAssignedStudents', programChairRouter);
+app.use('/programChair/getDeadline', programChairRouter);
+app.use('/programChair/setDeadline', programChairRouter);
 app.use('/getStudentActions', studentActionsRouter);
+app.use('/getPCActions', pcActionsRouter);

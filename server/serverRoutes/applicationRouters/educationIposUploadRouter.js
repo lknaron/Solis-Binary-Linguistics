@@ -75,7 +75,7 @@ router.post('/', function(req, res) {
                 console.log('Error getting mysql_pool connection: ' + err);
                 throw err;
             } else {
-                connection.query('SELECT IposName FROM Attachment WHERE ASURITE_ID = ?', [req.user.username], function(err2) {
+                connection.query('SELECT IposName FROM Attachment WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) {
                     if(err2) {
                         console.log('Error performing query: ' + err2);
                         throw err2;

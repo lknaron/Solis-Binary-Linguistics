@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .form-courses{
-    max-width: 500px;
+    max-width: 550px;
     padding: 10px 20px;
     background: #f4f7f8;
     margin: 10px auto;
@@ -11,7 +11,7 @@
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.form-courses fieldset{
+.form-courses fieldset {
     border: none;
 }
 
@@ -20,9 +20,10 @@
     margin-bottom: 10px;
 }
 
+
 .form-courses label {
     display: block;
-	margin-top: 8px;
+	  margin-top: 8px;
     margin-bottom: 8px;
 }
 
@@ -30,12 +31,13 @@
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
+    display: inline-block;
     border-radius: 4px;
     font-size: 16px;
     margin: 0;
     outline: 0;
     padding: 7px;
-    width: 100%;
+    width: 45%;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -47,9 +49,9 @@
 }
 
 .form-courses input[type="text"]:focus,
-.form-courses input[type="radio"]:focus,
-.form-courses input[type="checkbox"]:focus{
+.form-courses input[type="radio"]:focus {
     background: #d2d9dd;	
+    margin-bottom: 10px;  
 }
 
 .form-courses input[type="radio"] {
@@ -92,14 +94,12 @@
 }
 
 .form-courses button[type="button"],
-.form-courses input[type="button"]
-{
+.form-courses input[type="button"] {
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
     color: #FFF;
     margin: 0 auto;
-	margin-top: 10px;
     background: #1abc9c;
     font-size: 18px;
     text-align: center;
@@ -111,8 +111,7 @@
 }
 
 .form-courses button[type="button"]:hover,
-.form-courses input[type="button"]:hover
-{
+.form-courses input[type="button"]:hover {
     background: #109177;
 }
 
@@ -152,6 +151,19 @@
 	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
 	background-color:#1abc9c;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:2px solid #1abc9c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Georgia;
+	font-size:14px;
+	font-weight:bold;
+	padding:7px 14px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #1abc9c;
 }
 
 .myButton:active {
