@@ -2,7 +2,7 @@
     <form>
         <fieldset>
             <legend><span class="number">1</span>Course Competancies*</legend>
-            	<p>*To deselect a course double click selection</p>
+            <p>*To deselect a course double click selection</p>
             <div ng-repeat="course in courses">               
                 <span ng-init="courses.group=null">
                         <label><strong>{{course.name}}</strong></label>
@@ -25,4 +25,3 @@
     <input type='button' ng-click='saveCourses(false)' value="Save"></input>
     <input type='button' ng-click='saveCourses(true)' value="Save and Complete"></input>
 </div>
-

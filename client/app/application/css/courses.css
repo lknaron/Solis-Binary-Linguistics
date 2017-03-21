@@ -11,8 +11,8 @@
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.form-courses fieldset {
-    border: none;
+.form-courses fieldset{
+    border: none;	
 }
 
 .form-courses legend {
@@ -22,7 +22,7 @@
 
 .form-courses label {
     display: block;
-	margin-top: 8px;
+	  margin-top: 8px;
     margin-bottom: 8px;
 }
 
@@ -43,7 +43,7 @@
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
+    margin-bottom: 10px;  
 }
 
 .form-courses input[type="text"]:focus,

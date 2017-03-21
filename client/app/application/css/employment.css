@@ -1,6 +1,6 @@
 @charset "utf-8";
-/* CSS Document */
-.form-employment {
+
+.form-employment{
     max-width: 500px;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -11,8 +11,8 @@
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.form-employment fieldset {
-    border: none;
+.form-employment fieldset{
+    border: none;   
 }
 
 .form-employment legend {
@@ -26,8 +26,7 @@
 }
 
 .form-employment input[type="text"],
-.form-employment input[type="number"],
-.form-employment select {
+.form-employment input[type="number"] {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
@@ -44,20 +43,15 @@
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
+    margin-bottom: 30px;     
 }
 
 .form-employment input[type="text"]:focus,
 .form-employment input[type="radio"]:focus,
 .form-employment input[type="checkbox"]:focus,
 .form-employment input[type="file"]:focus,
-.form-employment select:focus{
-    background: #d2d9dd;
-}
-
-.form-employment select{
-    -webkit-appearance: menulist-button;
-    height:35px;
+.form-employment input[type="number"]:focus {
+    background: #d2d9dd;        
 }
 
 .form-employment .number {
@@ -144,6 +138,6 @@
 	top:1px;
 }
 
-#inline-label{
+#inline-label {
 	display: inline;
 }
