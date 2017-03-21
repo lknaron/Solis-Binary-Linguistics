@@ -75,7 +75,7 @@
 }
 
 .form-employment button[type="button"],
-.form-employment input[type="button"]
+.form-employment input[type="button"] {
     position: relative;
     display: block;
     padding: 19px 39px 18px 39px;
@@ -91,7 +91,6 @@
     margin-bottom: 10px;
 }
 
-.form-employment input[type="submit"]:hover,
 .form-employment button[type="button"]:hover,
 .form-employment input[type="button"]:hover,
 #inline-label:hover {
@@ -130,21 +129,21 @@
 }
 
 .myButton:hover {
-	  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1abc9c), color-stop(1, #1abc9c));
-	  background:-moz-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	  background:-webkit-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	  background:-o-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	  background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
-	  background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
-	  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
-	  background-color:#1abc9c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1abc9c), color-stop(1, #1abc9c));
+	background:-moz-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
+	background:-webkit-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
+	background:-o-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
+	background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
+	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
+	background-color:#1abc9c;
 }
 
 .myButton:active {
-	  position:relative;
-	  top:1px;
+	position:relative;
+	top:1px;
 }
 
 #inline-label{
-	  display: inline;
+	display: inline;
 }
