@@ -12,4 +12,13 @@
 	  	<li><a href="#contact">Update Enrollment</a></li>
 	  	<li><a href="#about">Run Reports</a></li>
 	</ul>
+    <div>
+        <label>Application Deadline</label>
+        <form>
+            Semester: <select ng-model="deadline.semester" ng-options="name for name in semesterNames" required></select><br>
+            Date: <input type='date' ng-model='deadline.date'/><br>
+            <input type='submit' value='Save Deadline' ng-click='saveDeadline()'/>
+            <div>{{deadlineMessage}}</div>
+        </form>
+    </div>
 </div>  

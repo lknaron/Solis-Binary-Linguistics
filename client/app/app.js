@@ -48,7 +48,9 @@ app.run(function($rootScope, $location, UserAuthService, UserInfoService, USER_R
                 $location.path('/studentHome'); 
            } else if (UserInfoService.getUserType() === USER_ROLES.faculty) {
                 $location.path('/facultyHome'); 
-           }    // rest TODO
+           } else if (UserInfoService.getUserType() === USER_ROLES.program_chair) {
+                $location.path('/programChairHome');
+           } // rest TODO
        }
        // checks if a user is authorized to view a page
        var authRoles = next.permissions;
@@ -95,13 +97,14 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             templateUrl : 'app/users/studentView.html',
             permissions : [USER_ROLES.student],
             resolve : {
-                    getActions : function($q, $http, UserInfoService, StudentActionsService, AppStatusService) {
+                    getActions : function($q, $http, UserInfoService, StudentActionsService, AppStatusService, DeadlineDateCheckService) {
                       var deferred = $q.defer();
                           $http({method: 'POST', 
                                  url: '/getStudentActions', 
                                  data: {user: UserInfoService.getUserId()}}).then(function(getActions) {
                                    StudentActionsService.callTo = getActions.data;	
                                    AppStatusService.setStatuses(getActions.data);
+                                   DeadlineDateCheckService.studentDateNotice(new Date(getActions.data.deadlineDate).toISOString().slice(0, 10));
                                    deferred.resolve(getActions);
                           });
                     return deferred.promise;
@@ -142,12 +145,21 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             templateUrl : 'app/users/programChairView.html',
             permissions : [USER_ROLES.program_chair],
             resolve : {
+                getPCActions : function($q, $http, UserInfoService) {
+                  var deferred = $q.defer();
+                      $http({method: 'POST', 
+                             url: '/getPCActions', 
+                             data: {type: UserInfoService.getUserType()}}).then(function(getPCActions) {
+                               deferred.resolve(getPCActions);
+                      });
+                return deferred.promise;
+                }, 
                 'set' : function($rootScope, $timeout) {
                     $rootScope.layout = "";
                     $timeout(function() {
                         $rootScope.mainDisplay = true;
                     }, 100);
-                }
+                } 
             }
         })
         .when('/classSummary', {

@@ -1039,3 +1039,15 @@ SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 416 AND Locati
 
 -- Select SER 416 Campus
 SELECT * FROM Schedule_ WHERE Subject = 'SER' AND CatalogNumber = 416 AND Location = 'POLY'
+
+-- -----------------------------------------------------
+-- Deadline Table
+-- -----------------------------------------------------
+-- Insert Deadline Table
+INSERT INTO Deadline SET?
+
+-- Select Semester 
+SELECT CurrentSemester, DeadlineDate FROM Deadline
+
+-- Update Deadline
+UPDATE Deadline SET DeadlineDate = ? WHERE CurrentSemester = ?

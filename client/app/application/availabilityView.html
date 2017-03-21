@@ -3,8 +3,7 @@
         <fieldset>
             <legend><span class="number">1</span>Availability*</legend>
             <div>
-                <!--later this header will dynamically display the PC-set current semester-->
-            	<h3>'PC Selected Semester' Schedule</h3>
+            	<h3>{{semesterName}} Schedule</h3>
                 <table>
           			<tr>
              			<th>Time</th>
@@ -22,14 +21,14 @@
             </div>
             <br>
             <div class='selectionButtons'>
-                <input type='button' ng-click="checkAll()" value='Select All'></input>
-                <input type='button' ng-click="resetAll()" value='Deselect All'></input>
-                <input type='button' ng-click="setPreviousSchedule()" value='Last Saved'></input>
+                <input type='button' ng-click="checkAll()" value='Select All'/>
+                <input type='button' ng-click="resetAll()" value='Deselect All'/>
+                <input type='button' ng-click="setPreviousSchedule()" value='Last Saved'/>
             </div>
             <br>
             <div class='saveButtons'>
-                <input type='button' ng-click="saveAvailability(false)" value='Save'></input>
-                <input type='button' ng-click="saveAvailability(true)" value='Save and Continue'></input>
+                <input type='button' ng-click="saveAvailability(false)" value='Save'/>
+                <input type='button' ng-click="saveAvailability(true)" value='Save and Continue'/>
             </div>
         </fieldset>     
     </form>   
