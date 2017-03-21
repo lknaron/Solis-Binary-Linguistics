@@ -57,3 +57,7 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         }
     }
 });
+
+user.controller('facultyController', function($scope, $http, $location, $route, UserInfoService) {
+    $scope.name = UserInfoService.getFullName();    
+});

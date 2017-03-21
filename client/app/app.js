@@ -11,6 +11,7 @@ var app = angular.module('app', ['ngRoute',
                                  'app.account',
                                  'app.users',
                                  'app.programChair',
+                                 'app.faculty',
                                  'app.application',
                                  'app.services',
                                  'app.directives'
@@ -103,6 +104,14 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         })
         .when('/facultyHome', {
             templateUrl : 'app/users/facultyView.html',
+            permissions : [USER_ROLES.faculty]
+        })
+        .when('/evaluation', {
+            templateUrl : 'app/faculty/studentEval.html',
+            permissions : [USER_ROLES.faculty]
+        })
+        .when('/evaluations', {
+            templateUrl : 'app/faculty/studentEvalView.html',
             permissions : [USER_ROLES.faculty]
         })
         .when('/administrationHome', {

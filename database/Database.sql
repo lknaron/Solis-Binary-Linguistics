@@ -48,15 +48,9 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   QThreeComments VARCHAR(500) DEFAULT NULL,
   QFourScore INT NOT NULL,
   QFourComments VARCHAR(500) DEFAULT NULL,
-  ASURITE_ID_1 VARCHAR(45) NOT NULL,
-  ASURITE_ID_2 VARCHAR(45) NOT NULL,
-  PRIMARY KEY (EvaluationID),
-  CONSTRAINT student_evaluation_fk_1 FOREIGN KEY (ASURITE_ID_1) 
-  REFERENCES User_ (ASURITE_ID)
-  ON DELETE CASCADE,
-  CONSTRAINT student_evaluation_fk_2 FOREIGN KEY (ASURITE_ID_2) 
-  REFERENCES User_ (ASURITE_ID)
-  ON DELETE CASCADE
+  StudentName VARCHAR(45) NOT NULL,
+  InstructorName VARCHAR(45) NOT NULL,
+  PRIMARY KEY (EvaluationID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
