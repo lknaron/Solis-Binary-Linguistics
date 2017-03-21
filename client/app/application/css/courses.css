@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .form-courses{
     max-width: 550px;
     padding: 10px 20px;
@@ -9,13 +11,20 @@
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.form-courses fieldset{
-    border: none;	
+.form-courses fieldset {
+    border: none;
 }
 
 .form-courses legend {
     font-size: 1.4em;
     margin-bottom: 10px;
+}
+
+
+.form-courses label {
+    display: block;
+	  margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .form-courses input[type="text"] {
@@ -36,12 +45,13 @@
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 10px;  
+    margin-bottom: 30px;
 }
 
 .form-courses input[type="text"]:focus,
-.form-courses input[type="checkbox"]:focus {
-    background: #d2d9dd;	 	
+.form-courses input[type="radio"]:focus {
+    background: #d2d9dd;	
+    margin-bottom: 10px;  
 }
 
 .form-courses input[type="radio"] {
@@ -83,6 +93,7 @@
     border-radius: 15px 15px 15px 0px;
 }
 
+.form-courses button[type="button"],
 .form-courses input[type="button"] {
     position: relative;
     display: block;
@@ -99,6 +110,7 @@
     margin-bottom: 10px;
 }
 
+.form-courses button[type="button"]:hover,
 .form-courses input[type="button"]:hover {
     background: #109177;
 }
@@ -138,5 +150,23 @@
 	background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
 	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
-	background: #109177;
+	background-color:#1abc9c;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:2px solid #1abc9c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Georgia;
+	font-size:14px;
+	font-weight:bold;
+	padding:7px 14px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #1abc9c;
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
 }
