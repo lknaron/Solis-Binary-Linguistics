@@ -1,0 +1,15 @@
+<div class="form-evaluationVeiw" ng-controller='studentEvalViewController'>
+    <form>
+        <h3>Student Evaluations</h3>
+        Select a Student: <select ng-model='selectName' ng-options="n for n in names"></select>
+        <input type='button' ng-click='searchEval()' value="Submit"></input>
+    </form>
+    <div class="display-evaluations" ng-repeat="eval in evals">
+        <br>
+        <div>Date: {{eval.DateCreated}}</div><br>
+        <div>Student Interaction: {{eval.QOneScore}}/5 {{eval.QOneComments}}</div><br>
+        <div>Preparedness/Punctuality/Professionalism: {{eval.QTwoScore}}/5 {{eval.QTwoComments}}</div><br>
+        <div>Grading Diligence: {{eval.QThreeScore}}/5 {{eval.QThreeComments}}</div><br>
+        <div>I would recommend this student for future TA/grading opportunities: {{eval.QFourScore}}/5 {{eval.QFourComments}}</div><br>
+    </div>
+</div>

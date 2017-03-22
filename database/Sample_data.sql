@@ -1040,10 +1040,16 @@ INSERT INTO Offer (OfferID, isOfferAccept, ASURITE_ID) VALUES
 -- -----------------------------------------------------
 INSERT INTO Student_Evaluation (EvaluationID, DateCreated, QOneScore, QOneComments, 
 QTwoScore, QTwoComments, QThreeScore, QThreeComments, QFourScore, QFourComments, 
-ASURITE_ID_1, ASURITE_ID_2) VALUES
-(1, '2017-01-12 13:05:11', 4, 'Great job on feedback.', 4, 'Always on time.', 4, 
-"Always answered student's questions in class and after class.", 4, 'Overall great job.', 
-'rbanner','ballen');
+StudentName, InstructorName) VALUES
+(1, '2016-12-15 13:05:11', 4, "Always answered student's questions in class and after class.", 4, 
+'Always on time.', 4, 'Great job on feedback.', 4, 'Yes.', 'Barry Allen','Robert Banner'),
+(2, '2017-01-12 08:11:45', 5, 'Yes, excellent', 5, 'Yes, always.', 4, 'Good.', 5, 
+ 'Overall great job and would like to have as a TA again.', 'Barry Allen','Abraham Helsing'),
+(3, '2017-01-18 15:23:01', 4, "Answered student's questions.", 5, 
+'Always made meetings.', 4, 'Good.', 4, 'Yes, would be happy with this grader again.', 'Peter Parker','Henry McCoy'),
+(4, '2017-01-10 09:15:33', 5, "Always answered student's questions over email in timely manner.", 5, 
+'Always on time when needed.', 5, 'Gave feedback in timely manner.', 5, 
+'Yes, would really enjoy to have this student as my TA again.', 'Arthur Curry','Abraham Helsing');
 
 -- -----------------------------------------------------
 -- Schedule Table

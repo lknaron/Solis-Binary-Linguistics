@@ -11,6 +11,7 @@ var app = angular.module('app', ['ngRoute',
                                  'app.account',
                                  'app.users',
                                  'app.programChair',
+                                 'app.faculty',
                                  'app.application',
                                  'app.services',
                                  'app.directives'
@@ -128,6 +129,30 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                     }, 100);
                 }
             }
+        })
+        .when('/evaluation', {
+            templateUrl : 'app/faculty/studentEval.html',
+            permissions : [USER_ROLES.faculty],
+            resolve : {
+               'set' : function($rootScope, $timeout) {
+                   $rootScope.layout = "";
+                   $timeout(function() {
+                       $rootScope.mainDisplay = true;
+                   }, 100);
+               }
+           }
+        })
+        .when('/evaluations', {
+            templateUrl : 'app/faculty/studentEvalView.html',
+            permissions : [USER_ROLES.faculty],
+            resolve : {
+               'set' : function($rootScope, $timeout) {
+                   $rootScope.layout = "";
+                   $timeout(function() {
+                       $rootScope.mainDisplay = true;
+                   }, 100);
+               }
+           }
         })
         .when('/administrationHome', {
             templateUrl : 'app/users/administrationView.html',
