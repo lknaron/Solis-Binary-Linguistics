@@ -26,7 +26,7 @@ account.controller('createAccountController', function($scope, $location, $http,
             $scope.password2 = '';
         } else if (!checkPassword($scope.password1)) {
             $scope.passwordError = true;
-            $scope.passwordErrorMessage = 'Password Requirements:\n  -8-20 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)';
+            $scope.passwordErrorMessage = 'Password Requirements:\n  -8-20 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)\n  -1 Number';
             $scope.password1 = '';
             $scope.password2 = '';
         } else {
@@ -104,7 +104,7 @@ account.controller('createFacultyAdminAccountController', function($scope, $loca
             $scope.password2 = '';
         } else if (!checkPassword($scope.password1)) {
             $scope.passwordError = true;
-            $scope.passwordErrorMessage = 'Password Requirements:\n  -8-20 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)';
+            $scope.passwordErrorMessage = 'Password Requirements:\n  -8-20 Characters\n  -1 Lowercase Letter\n  -1 Uppercase Letter\n  -1 Special Character(#?!@$%^&*-)\n  -1 Number';
             $scope.password1 = '';
             $scope.password2 = '';
         } else {

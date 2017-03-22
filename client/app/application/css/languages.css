@@ -1,4 +1,6 @@
-.form-languages{
+@charset "utf-8";
+
+.form-languages {
     max-width: 500px;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -9,8 +11,8 @@
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.form-languages fieldset{
-    border: none;	
+.form-languages fieldset {
+    border: none;
 }
 
 .form-languages legend {
@@ -18,11 +20,20 @@
     margin-bottom: 10px;
 }
 
+.form-languages label {
+    display: block;
+	  margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.form-languages input[type="radio"] {
+	margin-left: 20px;
+}
+
 .form-languages input[type="text"] {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
-    display: inline-block;
     border-radius: 4px;
     font-size: 16px;
     margin: 0;
@@ -40,8 +51,9 @@
 }
 
 .form-languages input[type="text"]:focus,
+.form-languages input[type="radio"]:focus,
 .form-languages input[type="checkbox"]:focus {
-    background: #d2d9dd;	 	
+    background: #d2d9dd;
 }
 
 .form-languages input[type="radio"] {
@@ -62,11 +74,7 @@
     float: right;
     padding-top: 7px;
     padding-left: 10px;
-    padding-right: 30px;
-}
-
-.otherl input[type="radio"] {
-    margin-left: 5px;
+    padding-right: 150px;
 }
 
 .form-languages .number {
@@ -83,6 +91,7 @@
     border-radius: 15px 15px 15px 0px;
 }
 
+.form-languages button[type="button"],
 .form-languages input[type="button"] {
     position: relative;
     display: block;
@@ -99,6 +108,7 @@
     margin-bottom: 10px;
 }
 
+.form-languages button[type="button"]:hover,
 .form-languages input[type="button"]:hover {
     background: #109177;
 }
@@ -138,5 +148,29 @@
 	background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
 	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
-	background: #109177;
+	background-color:#1abc9c;
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myButton:focus { 
+    outline-style: none; 
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

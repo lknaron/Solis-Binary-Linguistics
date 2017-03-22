@@ -30,30 +30,27 @@ directives.directive('studentActionsDirective', function($compile, StudentAction
 });
 
 /*
- * Displays call to action notice that the student is on probation
+ * Displays call to action notice of the application deadline and if the student is on probation
  */
-app.directive('studentNoticeDirective', function($compile, UserInfoService, StudentActionsService, APPLICATION_LINKS) {
-    function probation(scope, element, attrs) {
-        // ----------
-        // TODO - deadline check here
-        //-----------
-        if (StudentActionsService.callTo.onProbation === 0) {
-            angular.element(document.getElementById('noticeCalls')).append($compile("<div>No new notices.</div>")(scope));
-        } else {
+app.directive('studentNoticeDirective', function($compile, UserInfoService, StudentActionsService, DeadlineDateCheckService, APPLICATION_LINKS) {
+    function notices(scope, element, attrs) {
+        if (DeadlineDateCheckService.deadlineNotice === 0) {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due today! Please have your application complete by the deadline!</div>")(scope));
+        }
+        if (DeadlineDateCheckService.deadlineNotice === 1) {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due within the next week! Please have your application complete by the deadline!</div>")(scope));
+        }
+        if (StudentActionsService.callTo.onProbation === 1) {
             angular.element(document.getElementById('noticeCalls')).append($compile("<div>You have indicated on your application that you are on academic probation. Your application won't be considered until the academic probation has been cleared!<br><a href='"+ APPLICATION_LINKS.Education +"'>Go to Education page</div>")(scope));
+        } 
+        if (StudentActionsService.callTo.onProbation === 0 && DeadlineDateCheckService.deadlineNotice === 2) {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>No new notices.</div>")(scope));
         } 
     }
     return {
-        link: probation
+        link: notices
     };
 });
-
-/*
- * Displays call to action notice that application deadline is approaching
- */
-/*app.directive('studentNoticeDirective', function() {
-    //TODO
-});*/
 
 // Directive for adding add language button
 directives.directive('addlanguagesbutton', function () {
@@ -75,7 +72,7 @@ directives.directive("addlanguages", function($compile){
 				count = ((document.getElementById('spaceforlanguages').getElementsByTagName('input').length / 4) + 1);
 			}
 			scope.message = "*You must select a level to save additional language";			
-			angular.element(document.getElementById('spaceforlanguages')).append($compile("<input type='text' ng-model='otherLanguage["+count+"]' placeholder='Language Name'><div class='otherl'><span><input type='radio' ng-model='otherLanguageLevel["+count+"]' value='Expert' ng-dblclick='deselectLevel(this, "+count+")'>Expert<input type='radio' ng-model='otherLanguageLevel["+count+"]' value='Proficient' ng-dblclick='deselectLevel(this, "+count+")'>Proficient<input type='radio' ng-model='otherLanguageLevel["+count+"]' value='Novice' ng-dblclick='deselectLevel(this, "+count+")'>Novice</div><br></span>")(scope));        
+			angular.element(document.getElementById('spaceforlanguages')).append($compile("<input type='text' ng-model='otherLanguage["+count+"]' placeholder='Language Name'><div class='otherl'><span><input type='radio' ng-model='otherLanguageLevel["+count+"]' value='Expert' ng-dblclick='deselectLevel(this, "+count+")'>Expert<input type='radio' ng-model='otherLanguageLevel["+count+"]' value='Proficient' ng-dblclick='deselectLevel(this, "+count+")'>Proficient<input type='radio' ng-model='otherLanguageLevel["+count+"]' value='Novice' ng-dblclick='deselectLevel(this, "+count+")'>Novice</div><br><br><br><br></span>")(scope));        
 		});
 	};
 });

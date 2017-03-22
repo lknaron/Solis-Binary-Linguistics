@@ -274,6 +274,16 @@ CREATE TABLE IF NOT EXISTS Course_Competencies (
   ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+-- -----------------------------------------------------
+-- Deadline Table
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Deadline (
+  DeadlineID INT NOT NULL AUTO_INCREMENT,
+  CurrentSemester ENUM ('Fall', 'Spring', 'Summer') NOT NULL,
+  DeadlineDate DATE NOT NULL,
+  PRIMARY KEY (DeadlineID)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .form-courses{
     max-width: 550px;
     padding: 10px 20px;
@@ -18,11 +20,16 @@
     margin-bottom: 10px;
 }
 
+.form-courses label {
+    display: block;
+	  margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 .form-courses input[type="text"] {
     font-family: Georgia, "Times New Roman", Times, serif;
     background: rgba(255,255,255,.1);
     border: none;
-    display: inline-block;
     border-radius: 4px;
     font-size: 16px;
     margin: 0;
@@ -40,8 +47,8 @@
 }
 
 .form-courses input[type="text"]:focus,
-.form-courses input[type="checkbox"]:focus {
-    background: #d2d9dd;	 	
+.form-courses input[type="radio"]:focus {
+    background: #d2d9dd;	 
 }
 
 .form-courses input[type="radio"] {
@@ -62,7 +69,6 @@
     float: right;
     padding-top: 7px;
     padding-left: 0px;
-    padding-right: 75px;
 }
 
 .otherc input[type="radio"] {
@@ -83,6 +89,7 @@
     border-radius: 15px 15px 15px 0px;
 }
 
+.form-courses button[type="button"],
 .form-courses input[type="button"] {
     position: relative;
     display: block;
@@ -99,6 +106,7 @@
     margin-bottom: 10px;
 }
 
+.form-courses button[type="button"]:hover,
 .form-courses input[type="button"]:hover {
     background: #109177;
 }
@@ -138,5 +146,10 @@
 	background:-ms-linear-gradient(top, #1abc9c 5%, #1abc9c 100%);
 	background:linear-gradient(to bottom, #1abc9c 5%, #1abc9c 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1abc9c', endColorstr='#1abc9c',GradientType=0);
-	background: #109177;
+	background-color:#1abc9c;
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
 }
