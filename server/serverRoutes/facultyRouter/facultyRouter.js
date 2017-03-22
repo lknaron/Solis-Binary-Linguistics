@@ -29,7 +29,7 @@ router.get('/evaluations/appnames', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query("SELECT CONCAT(FirstName, ' ', LastName) AS StudentName FROM User_ ", function(err2, rows) {
+        connection.query("SELECT CONCAT(FirstName, ' ', LastName) AS StudentName FROM User_ WHERE UserRole = 'student'", function(err2, rows) {
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
