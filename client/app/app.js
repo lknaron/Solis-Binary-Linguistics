@@ -108,11 +108,13 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         })
         .when('/programChairHome', {
             templateUrl : 'app/users/programChairView.html',
-            permissions : [USER_ROLES.program_chair]
+            permissions : [USER_ROLES.program_chair],
+            layout : "/app/users/css/programChairView.css"
         })
         .when('/classSummary', {
             templateUrl : 'app/programChair/classSummaryView.html',
-            permissions : [USER_ROLES.program_chair]
+            permissions : [USER_ROLES.program_chair],
+            layout : "/app/programChair/css/classSummaryView.css"
         })
         .when('/assignStudent', {
             templateUrl : 'app/programChair/assignStudentView.html',

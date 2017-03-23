@@ -1,7 +1,33 @@
-<div ng-controller='programChairController'>
-    <li><a href="#!/viewAccount">Account</a><br>
-    Program Chair Home
-    <li ng-model='name'>Name is {{name}}</li><br>
-    An asterisk denotes an online class<br>
-    <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass)"><option value="">Select Class</option></select>
-</div>  
+<div class="container">
+  <div ng-controller='programChairController'>
+   Program Chair Home
+	<header>
+		<div class="primary_header">
+		  <h1 class="title"><li ng-model='name'>{{name}}</li></h1>
+		</div>
+		<nav class="secondary_header" id="menu">
+			<ul>
+				 <li><a href="#!/viewAccount">Account</a>
+				 <li><a href="#news">Change Password</a></li>
+				 <li><a ng-href='#!/createFacultyAdminAccount'>Add Faculty/Admin User</a></li>
+				 <li><a href="#contact">Update Enrollment</a></li>
+				 <li><a href="#about">Run Reports</a></li>
+				  <li>Leg Out</li>
+			</ul>
+	 	</nav>  
+  	</header>  	
+	   <div class="form-appDeadline">
+		   <form>
+			   	<fieldset>	
+				   <label><h1>Application Deadline</h1></label><br>
+					An asterisk denotes an online class<br>
+					<select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass)"><option value="">Select Class</option></select>
+					Semester: <select ng-model="deadline.semester" ng-options="name for name in semesterNames" required></select><br>
+					Date: <input type='date' ng-model='deadline.date'/><br>
+					<input type='submit' value='Save Deadline' ng-click='saveDeadline()'/>
+				   <div><center>{{deadlineMessage}}</center></div>
+				</fieldset>
+			</form>
+		</div><!--form-appDeadline-->
+	</div> <!--programChairController-->
+</div><!--Container-->
