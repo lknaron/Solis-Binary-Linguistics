@@ -8,6 +8,24 @@
 var directives = angular.module('app.directives',[]);
 
 /*
+ * Displays call to action items for PC
+ */
+directives.directive('pcActionsDirective', function($compile, PCActionsService) {
+    function actions(scope, element, attrs) {
+        console.log(PCActionsService.callTo)
+        if (PCActionsService.callTo.hasActions === 0) {
+            angular.element(document.getElementById('pcActions')).append($compile("<div>You have nothing to do!</div>")(scope));
+        }
+        else {
+            angular.element(document.getElementById('pcActions')).append($compile("<div>You still have some things to do!</div>")(scope));
+        }
+    }
+    return {
+        link: actions
+    };
+});
+
+/*
  * Displays call to action for application fields
  */
 directives.directive('studentActionsDirective', function($compile, StudentActionsService, APPLICATION_LINKS) {

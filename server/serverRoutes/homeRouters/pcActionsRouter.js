@@ -21,20 +21,18 @@ var mysql_pool  = mysql.createPool({
     database        : 'sblDB'
 });
 
-router.post('/', function(req, res) {
+router.get('/', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        //console.log('running pc actions');
-        //console.log('user is of type ' + req.body.type);
-        res.send({test:1});
-        var deadline = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
+        //var deadlineQuery = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
+        res.send({hasActions:1});
         // checks deadline
-        function checkDeadline() {
-            connection.query(deadline, function(err2, rows) {
+        /*function checkDeadline(deadlineQuery) {
+            connection.query(deadlineQuery, function(err2, rows) {
                 if (err2) {
                     throw err2;
                 }
@@ -42,10 +40,10 @@ router.post('/', function(req, res) {
                     return null;
                 }
                 else {
-                    return ({CurrentSemester:rows[0].CurrentSemester, DeadlineDate:rows[0].DeadlineDate});
+                    return {CurrentSemester:rows[0].CurrentSemester, DeadlineDate:rows[0].DeadlineDate};
                 }    
             });
-        }
+        }*/
         connection.release();
     });
 });   

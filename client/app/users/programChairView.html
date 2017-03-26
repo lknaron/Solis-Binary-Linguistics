@@ -13,7 +13,14 @@
 	  	<li><a href="#about">Run Reports</a></li>
 	</ul>
     <div>
-        <label>Application Deadline</label>
+        <h3>Calls To Action</h3>
+        <h4>Notices</h4>
+        <pc-notice-directive id='pcNoticeCalls'></pc-notice-directive>
+        <h4>To-Do</h4>
+        <pc-actions-directive id='pcActions'></pc-actions-directive>
+    </div>
+    <div>
+        <h3>Application Deadline</h3>
         <form>
             Semester: <select ng-model="deadline.semester" ng-options="name for name in semesterNames" required></select><br>
             Date: <input type='date' ng-model='deadline.date'/><br>

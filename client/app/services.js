@@ -268,3 +268,11 @@ services.service('DeadlineDateCheckService', function() {
        }
    }
 });
+
+// Handles received data for PC Call to Actions
+services.service('PCActionsService', function() {
+    this.callTo = {};
+    this.getActions = function() {
+    	return this.callTo.actions;
+    }
+});
