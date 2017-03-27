@@ -599,44 +599,44 @@ application.controller('languagesInfoController', function($scope, $location, $h
 });
 
 application.controller('coursesInfoController', function($scope, $location, $http, UserInfoService, AppStatusService) {
-    // LATER - try moving this to Service as an angular.value or constant
-    $scope.courses = [{'name':'ASU 101','level':'asu101_group'},
-                        {'name':'CSE 110','level':'cse110_group'},
-                        {'name':'CSE 205','level':'cse205_group'},
-                        {'name':'CSE 230','level':'cse230_group'},
-                        {'name':'CSE 240','level':'cse240_group'},
-                        {'name':'CSE 563','level':'cse563_group'}, 
-                        {'name':'CSE 564','level':'cse564_group'}, 
-                        {'name':'CSE 566','level':'cse566_group'},  
-                        {'name':'EEE/CSE 120','level':'eee_cse120_group'}, 
-                        {'name':'FSE 100','level':'fse100_group'},
-                        {'name':'SER 215','level':'ser215_group'},
-                        {'name':'SER 216','level':'ser216_group'},
-                        {'name':'SER 222','level':'ser222_group'},
-                        {'name':'SER 315','level':'ser315_group'},
-                        {'name':'SER 316','level':'ser316_group'}, 
-                        {'name':'SER 321','level':'ser321_group'},
-                        {'name':'SER 322','level':'ser322_group'},
-                        {'name':'SER 332','level':'ser332_group'},
-                        {'name':'SER 334','level':'ser334_group'},
-                        {'name':'SER 401','level':'ser401_group'},
-                        {'name':'SER 402','level':'ser402_group'},
-                        {'name':'SER 415','level':'ser415_group'},
-                        {'name':'SER 416','level':'ser416_group'},
-                        {'name':'SER 421','level':'ser421_group'},
-                        {'name':'SER 422','level':'ser422_group'},
-                        {'name':'SER 423','level':'ser423_group'},
-                        {'name':'SER 431','level':'ser431_group'}, 
-                        {'name':'SER 432','level':'ser432_group'},
-                        {'name':'SER 450','level':'ser450_group'},
-                        {'name':'SER 456','level':'ser456_group'},
-                        {'name':'SER 486','level':'ser486_group'}, 
-                        {'name':'SER 501','level':'ser501_group'},
-                        {'name':'SER 502','level':'ser502_group'},
-                        {'name':'SER 515','level':'ser515_group'},
-                        {'name':'SER 516','level':'ser516_group'}, 
-                        {'name':'SER 517','level':'ser517_group'},
-                        {'name':'SER 518','level':'ser518_group'}
+    $scope.courses = [
+                        {name:'ASU 101', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 110', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 120', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'FSE 100', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 205', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 230', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 240', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 215', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 216', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 222', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 315', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 316', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 321', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 322', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 332', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 334', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 401', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 402', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 415', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 416', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 421', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 422', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 423', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 431', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 432', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 450', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 456', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 486', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 563', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
+                        {name:'CSE 564', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
+                        {name:'CSE 566', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 501', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 502', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 515', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 516', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
+                        {name:'SER 517', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 518', prefer:0, qualified:0, prevTA:0, prevGrader:0}
                        ];
                          
     // on page load, retrieve prior saved data                  
@@ -647,14 +647,17 @@ application.controller('coursesInfoController', function($scope, $location, $htt
             // loads all other courses into array
             for (var k = 0; k < res.data.courseData.length; k++) {
                 if(res.data.courseData[k].OtherCourse != null) {
-                    $scope.courses.push({'name' : res.data.courseData[k].OtherCourse, 'level' : res.data.courseData[k].OtherLevel});   
+                    $scope.courses.push({'name' : res.data.courseData[k].OtherCourse, prefer: res.data.courseData[k].isOtherPrefer, qualified: res.data.courseData[k].isOtherQualified, prevTA: res.data.courseData[k].isOtherPreviouslyTA, prevGrader: res.data.courseData[k].isOtherPreviouslyGrader});   
                 }
             }
             // populates page of previous course selections
             for (var i = 0; i < $scope.courses.length; i++) {
                 for (var j = 0; j < res.data.courseData.length; j++) {
                     if ($scope.courses[i].name === res.data.courseData[j].isCourse) {
-                        $scope.courses[i].level = res.data.courseData[j].CourseLevel;
+                        $scope.courses[i].prefer = res.data.courseData[j].isPrefer;
+                        $scope.courses[i].qualified = res.data.courseData[j].isQualified;
+                        $scope.courses[i].prevTA = res.data.courseData[j].isPreviouslyTA;
+                        $scope.courses[i].prevGrader = res.data.courseData[j].isPreviouslyGrader;
                     }
                 }
             }
@@ -670,24 +673,24 @@ application.controller('coursesInfoController', function($scope, $location, $htt
         var user = [];
         // 37 is number of hard coded courses in $scope.courses
         for (var i = 0; i < 37; i++) {
-            if ($scope.courses[i].level === 'Prefer' || $scope.courses[i].level === 'Qualified' || $scope.courses[i].level === 'Previously TA' || $scope.courses[i].level === 'Previously Grader') {
-                var arr = [$scope.courses[i].name, $scope.courses[i].level, null, null, UserInfoService.getUserId()];
+            if ($scope.courses[i].prefer === 1 || $scope.courses[i].qualified === 1 || $scope.courses[i].prevTA === 1 || $scope.courses[i].prevGrader === 1) {
+                var arr = [$scope.courses[i].name, $scope.courses[i].prefer, $scope.courses[i].qualified, $scope.courses[i].prevTA, $scope.courses[i].prevGrader, null, null, null, null, null, UserInfoService.getUserId()];
                 courses.push(arr);
             }   
         }
         // Grabs any pre-populated Other Courses
         for (var j = 37; j < $scope.courses.length; j++) {
-            if ($scope.courses[i].level === 'Prefer' || $scope.courses[i].level === 'Qualified' || $scope.courses[i].level === 'Previously TA' || $scope.courses[i].level === 'Previously Grader') {
-                var arr = [null, null, $scope.courses[j].name, $scope.courses[j].level, UserInfoService.getUserId()];
+            if ($scope.courses[j].prefer === 1 || $scope.courses[j].qualified === 1 || $scope.courses[j].prevTA === 1 || $scope.courses[j].prevGrader === 1) {
+                var arr = [null, null, null, null, null, $scope.courses[j].name, $scope.courses[j].prefer, $scope.courses[j].qualified, $scope.courses[j].prevTA, $scope.courses[j].prevGrader, UserInfoService.getUserId()];
                 courses.push(arr);
             }
         }
         // Grabs any new Other Courses
         var count = document.getElementById('spaceforcourses').getElementsByTagName('input').length / 5; // Each other course has 4 inputs (text, 4 radio buttons)
         if ($scope.otherCourse != null) {
-            for (var k = 0; k < count; k++) {    
-                if ($scope.otherCourse[k+1] != null && $scope.otherCourseLevel[k+1] != null) {
-                    var arr = [null, null, $scope.otherCourse[k+1], $scope.otherCourseLevel[k+1], UserInfoService.getUserId()]; 
+            for (var k = 0; k < count; k++) {  
+                if ($scope.otherCourse[k+1] != null && ($scope.otherPrefer[k+1] === 1 || $scope.otherQualified[k+1] === 1 || $scope.otherPrevTA[k+1] === 1 || $scope.otherPrevGrader[k+1] === 1)) {
+                    var arr = [null, null, null, null, null, $scope.otherCourse[k+1], $scope.otherPrefer[k+1], $scope.otherQualified[k+1], $scope.otherPrevTA[k+1], $scope.otherPrevGrader[k+1], UserInfoService.getUserId()]; 
                     courses.push(arr);  
                 }
             } 
@@ -711,12 +714,4 @@ application.controller('coursesInfoController', function($scope, $location, $htt
             // TO DO
         });
     }
-
-    $scope.deselectLevel = function(element, count) {
-        if (element.course) {
-            element.course.level = null;   
-        } else if (count)  {
-            element.otherCourseLevel[count] = null;
-        }  
-    } 
 });
