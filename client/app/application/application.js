@@ -418,7 +418,7 @@ application.controller('languagesInfoController', function($scope, $location, $h
                     {'name':'Xcode','box':'xcode_box'}
                    ];
                    
-     $scope.tools = [{'name':'Github','box':'github_box'},
+     $scope.tools = [{'name':'GitHub','box':'github_box'},
                      {'name':'Taiga','box':'taiga_box'},
                      {'name':'Slack','box':'slack_box'}
                     ];
