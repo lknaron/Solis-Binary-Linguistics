@@ -200,22 +200,15 @@ router.post('/updateEnrollment', function(req, res) {
                     throw err2;
                 } else if (rows[0]) {
                     schedID = rows[0].ScheduleID;
-                    connection.query('SELECT * FROM Enrollment WHERE ScheduleID = ?', [rows[0].ScheduleID], function(err3, rows) {
-                        if(err3) {
-                            console.log('Error performing query: ' + err3);
-                            throw err3;
-                        } else if (rows[0]) {
-                            connection.query('INSERT INTO Enrollment (EnrollmentNumCurrent, DateEntered, ScheduleID) VALUES (?, ?, ?)', [req.body.enrollment, dateObj, schedID], function(err4, rows) {
-                                if(err4) {
-                                    console.log('Error performing query: ' + err4);
-                                    throw err4;
-                                } else {
-                                    connection.release();
-                                    res.sendStatus(200); 
-                                }
-                            });
-                        } 
-                    });                  
+                    connection.query('INSERT INTO Enrollment (EnrollmentNumCurrent, DateEntered, ScheduleID) VALUES (?, ?, ?)', [req.body.enrollment, dateObj, schedID], function(err4, rows) {
+                        if(err4) {
+                            console.log('Error performing query: ' + err4);
+                            throw err4;
+                        } else {
+                            connection.release();
+                            res.sendStatus(200); 
+                        }
+                    });                
                 }
             });    
         }

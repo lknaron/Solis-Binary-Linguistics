@@ -38,14 +38,16 @@ user.controller('programChairController', function($scope, $http, $location, $ro
 
     angular.element(document).ready(function() {
         $http.get('/programChair/getClassNames').then(function successCallback(response) {
-            for (var i in response.data) {
-                if (response.data[i].Location === 'ASUOnline') {
-                    var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber + '*';   
-                } else {
-                    var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber;    
+            if (response.data[0].Location) {
+                for (var i in response.data) {
+                    if (response.data[i].Location === 'ASUOnline') {
+                        var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber + '*';   
+                    } else {
+                        var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber;    
+                    }
+                    $scope.classes.push({'class': className,'courseNumber': response.data[i].CourseNumber});
                 }
-                $scope.classes.push({'class': className,'courseNumber': response.data[i].CourseNumber});
-            }     
+            }    
         }, function errorCallback(response) {
             //TODO
         });
@@ -92,6 +94,41 @@ user.controller('programChairController', function($scope, $http, $location, $ro
             return;
         }           
     } 
+
+    $scope.scheduleFileNameChanged = function(file) {
+        if (file[0]) {
+            $scope.scheduleInput = file[0].name;
+            $scope.$apply();
+        }
+    }
+
+    $scope.uploadSchedule = function(){
+        if ($scope.scheduleFile) {
+            var file = $scope.scheduleFile;
+            var uploadUrl = "/programChair/scheduleUpload";
+            var fd = new FormData();
+            fd.append('file', file);
+
+            $http.post(uploadUrl,fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).then(function successCallback(response) {
+                if (response.data.error === 1) {
+                    $scope.scheduleInput = '';
+                    $scope.errorMessage = 'Failed to Upload File. Please Check File Format';
+                    $scope.uploadErrorMessage = true;   
+                } else {
+                    $scope.scheduleInput = '';
+                    $route.reload();
+                }    
+            }, function errorCallback(response) {
+                // TO DO
+            });   
+        } else {
+            $scope.errorMessage = 'Please Select a File to Upload';
+            $scope.uploadErrorMessage = true; 
+        }  
+    };
 });
 
 user.controller('facultyController', function($scope, $http, $location, $route, UserInfoService) {
