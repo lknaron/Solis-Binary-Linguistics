@@ -17,9 +17,9 @@ router.use(function(req, res, next) {
 // Set up storage of user ipos attachment in file system
 var storage = multer.diskStorage({
     destination : function(req,file,cb){
-        var attachmentsPath = '../../attachments/';
-        var userPath = '../../attachments/' + req.user.username;
-        var iposPath = '../../attachments/' + req.user.username + '/ipos';
+        var attachmentsPath = './userUploads/attachments/';
+        var userPath = './userUploads/attachments/' + req.user.username;
+        var iposPath = './userUploads/attachments/' + req.user.username + '/ipos';
         try {
             if (!fs.existsSync(attachmentsPath)) {
                 fs.mkdirSync(attachmentsPath);

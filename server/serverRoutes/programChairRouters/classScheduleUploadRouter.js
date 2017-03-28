@@ -19,7 +19,7 @@ router.use(function(req, res, next) {
 // Set up storage of user resume attachment in file system
 var storage = multer.diskStorage({
     destination : function(req,file,cb){
-        var schedulePath = '../../schedule';
+        var schedulePath = './userUploads/schedule';
         try {
             if (!fs.existsSync(schedulePath)) {
                 fs.mkdirSync(schedulePath);
@@ -62,7 +62,7 @@ var mysql_pool  = mysql.createPool({
 // Save attachment information into database
 router.post('/', function(req, res) {
     var row = [];
-    var inputFile='../../schedule/' + req.files[0].originalname;
+    var inputFile='./userUploads/schedule/' + req.files[0].originalname;
 
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
