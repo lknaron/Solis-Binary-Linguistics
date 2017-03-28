@@ -194,12 +194,12 @@ CREATE TABLE IF NOT EXISTS Calendar (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Attachment (
   AttachmentID INT NOT NULL AUTO_INCREMENT,
-  IposName VARCHAR(45) NOT NULL,
-  TranscriptName VARCHAR(45) NOT NULL,
-  ResumeName VARCHAR(45) NOT NULL,
-  IposUploadDate TIMESTAMP NOT NULL,
-  TranscriptUploadDate TIMESTAMP NOT NULL,
-  ResumeUploadDate TIMESTAMP NOT NULL,
+  IposName VARCHAR(45) DEFAULT NULL,
+  TranscriptName VARCHAR(45) DEFAULT NULL,
+  ResumeName VARCHAR(45) DEFAULT NULL,
+  IposUploadDate TIMESTAMP,
+  TranscriptUploadDate TIMESTAMP,
+  ResumeUploadDate TIMESTAMP,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AttachmentID),
   CONSTRAINT attachment_fk FOREIGN KEY (ASURITE_ID) 
