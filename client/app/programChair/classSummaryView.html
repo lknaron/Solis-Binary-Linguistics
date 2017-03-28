@@ -18,7 +18,7 @@
     <addstatusbutton></addstatusbutton><br>
     
     <h4>Enrollment</h4>
-    <label ng-repeat="enrollment in enrollments">{{enrollment}}<br></label><br>
+    <label ng-repeat="enrollment in enrollments" ng-show='showPastEnrollments'>{{enrollment}}<br></label>
     <label ng-model="previousEnrollment">Previous Enrollment: {{previousEnrollment}}</label><br>
     <label ng-model="enrollmentDifference">Enrollment Difference: {{enrollmentDifference}}</label><br>
     <div id='spaceforenrollment' ng-show='showEnrollmentUpdate'></div><br>
@@ -31,7 +31,7 @@
     <addrequiredhoursbutton></addrequiredhoursbutton><br>
     
     <h4>Assigned Students</h4>
-    <label ng-model='noneAssigned' ng-show='noAssigned'>{{noneAssigned}}</label>
+    <label ng-model='noneAssigned' ng-show='noAssigned'>{{noneAssigned}}</label><br>
     <div ng-show='showTA'>
         TA: <label ng-model='ta' style='padding-right: 10px;'>{{ta}}(<a href='' mg-model='taIdLink' ng-click='goToProfile(taIdLink)'>{{taIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(0); showUpdatedAssignments=true' min='0' max='{{taHoursMax}}'>
         Available Hours:<label ng-model='taAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{taAvailableHours}}</label>
@@ -87,6 +87,7 @@
     <input type='button' ng-click='goToAssignStudent()' value='Assign Student'></input><br>
 
     <h4>Faculty Requests</h4>
+    <label ng-model='noneRequested' ng-show='noRequested'>{{noneRequested}}</label><br><br>
     <div ng-show='showFacultyRequests'>
         <div ng-show='firstChoice'>
             1st Choice: <label ng-model='requestOne' style='padding-right: 10px;'>{{requestOne}}(<a href='' mg-model='requestOneIdLink' ng-click='goToProfile(requestOneIdLink)'>{{requestOneIdLink}}</a>)</label><input type='button' ng-click='addRequestedStudent(requestOneIdLink)' value='Assign'></input><br>

@@ -13,26 +13,29 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
     angular.element(document).ready(function() { 
         var className = { 'class' : SendClassService.getClassNumber() };       
         $http.post('/programChair/getClassInfo', className).then(function successCallback(response) {
-            if (response.data[0][0]) {
+            if (response.data[0]) {
                 $scope.populateSelectedClassInfo(response)
                 $scope.populateClassRequirements(response);                 
             }            
             // Populate Enrollment Section
-            if (response.data[1][0]) {
+            if (response.data[1]) {
                 $scope.populateEnrollment(response);
-            }            
+            } else {
+                $scope.previousEnrollment = response.data[0][0].EnrollmentNumPrev;
+                $scope.enrollmentDifference = 0 - response.data[0][0].EnrollmentNumPrev; 
+            }          
             // Populate Assigned Students Section
-            if (response.data[2][0]) {
+            if (response.data[2]) {
                 $scope.populateAssignedStudents(response);   
             } else {
                 $scope.noneAssigned = 'No Students Currently Assigned';
                 $scope.noAssigned = true;   
             } 
             // Populate Faculty Requests Section
-            if (response.data[3][0]) {
+            if (response.data[3]) {
                 $scope.populateFacultyRequests(response);
             } else {
-                $scope.noneRequested = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName + 'has not made any requests'
+                $scope.noneRequested = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName + ' has not made any requests'
                 $scope.noRequested = true;    
             } 
         }, function errorCallback(response) {
@@ -74,6 +77,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
 
     // Method to populate enrollment section of class summary page
     $scope.populateEnrollment = function(response) {
+        $scope.showPastEnrollments = true;
         for (var i in response.data[1]) {
             var dateObj = new Date(response.data[1][i].DateEntered).toISOString().slice(0, 19).replace('T', ' ').toString();
             var dateArray = dateObj.substr(0,dateObj.indexOf(' ')).split("-");
@@ -254,6 +258,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
     // Method to save enrollment in database
     // Add enrollment thresholds to update required hours
     $scope.saveEnrollment = function(enrollmentUpdate) {
+        $scope.showPastEnrollments = true;
         if (enrollmentUpdate != null) {
             // Possibly set time zone of date object
             var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ').toString();

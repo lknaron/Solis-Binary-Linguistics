@@ -20,5 +20,13 @@
             <input type='submit' value='Save Deadline' ng-click='saveDeadline()'/>
             <div>{{deadlineMessage}}</div>
         </form>
-    </div>
+    </div><br><br>
+    <form enctype='multipart/form-data'>
+        <label>Upload Schedule</label>
+            <input type="text" id="schedule" ng-model='scheduleInput'>
+            <input type="file" name="sfile" id="schedfile" ng-model='scheduleFile' file-input='scheduleFile' onchange="angular.element(this).scope().scheduleFileNameChanged(this.files)" hidden/>
+            <label class='myButton' for="schedfile" id="inline-label" ng-click='uploadErrorMessage = false'>Choose File</label><br><br>
+            <div ng-show='uploadErrorMessage'>{{errorMessage}}<br><br></div>
+            <input type='button' ng-click='uploadSchedule()' value="Save Schedule"/><br><br>
+    </form>
 </div>  
