@@ -17,7 +17,9 @@ directives.directive('pcActionsDirective', function($compile, PCActionsService) 
             angular.element(document.getElementById('pcActions')).append($compile("<div>You have nothing to do!</div>")(scope));
         }
         else {
-            angular.element(document.getElementById('pcActions')).append($compile("<div>You still have some things to do!</div>")(scope));
+            if (PCActionsService.callTo.incompleteClasses.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.incompleteClasses.length + " classes that are indicated as incomplete. Select a class to continue working<select ng-model='incompleteClass' ng-options='class as class.class for class in incompleteClasses' ng-change='go(incompleteClass)'><option value=''>Select Class</option></select></div>")(scope));           
+            }
         }
     }
     return {

@@ -28,22 +28,18 @@ router.get('/', function(req, res) {
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        //var deadlineQuery = 'SELECT CurrentSemester, DeadlineDate FROM Deadline';
-        res.send({hasActions:1});
-        // checks deadline
-        /*function checkDeadline(deadlineQuery) {
-            connection.query(deadlineQuery, function(err2, rows) {
-                if (err2) {
-                    throw err2;
-                }
-                if (rows.length == 0) {
-                    return null;
-                }
-                else {
-                    return {CurrentSemester:rows[0].CurrentSemester, DeadlineDate:rows[0].DeadlineDate};
-                }    
-            });
-        }*/
+        connection.query("SELECT Location, Subject, CatalogNumber, CourseNumber FROM Schedule_ WHERE AssignedStatus = 'Incomplete'", function(err1, rows) {
+            var hasActions = 0;
+            var incompleteClasses = [];
+            for (var i = 0; i < rows.length; i++) {
+                incompleteClasses.push(rows[i]);    
+            }
+            if (rows.length > 0) {
+                hasActions = 1;
+            }
+            res.send({hasActions:hasActions, incompleteClasses:incompleteClasses});
+        });
+        
         connection.release();
     });
 });   

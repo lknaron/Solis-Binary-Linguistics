@@ -31,21 +31,14 @@ user.controller('studentInfoController', function($scope, UserInfoService, Stude
     }       
 });
 
-user.controller('programChairController', function($scope, $http, $location, $route, $timeout, SendClassService, UserInfoService) {
+user.controller('programChairController', function($scope, $http, $location, $route, $timeout, SendClassService, UserInfoService, PCActionsService) {
     $scope.name = UserInfoService.getFullName();
     $scope.classes = [];
     $scope.semesterNames = ['Fall', 'Spring', 'Summer'];
 
     angular.element(document).ready(function() {
         $http.get('/programChair/getClassNames').then(function successCallback(response) {
-            for (var i in response.data) {
-                if (response.data[i].Location === 'ASUOnline') {
-                    var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber + '*';   
-                } else {
-                    var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber;    
-                }
-                $scope.classes.push({'class': className,'courseNumber': response.data[i].CourseNumber});
-            }     
+           $scope.classes = setClassOptions(response.data);     
         }, function errorCallback(response) {
             //TODO
         });
@@ -55,6 +48,8 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         }, function errorCallback(response) {
             // empty
         });
+        
+        $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
     });
 
     $scope.go = function(selectedClass, reload) {
@@ -92,6 +87,19 @@ user.controller('programChairController', function($scope, $http, $location, $ro
             return;
         }           
     } 
+    
+    function setClassOptions(data) {
+        var options = [];
+        for (var i in data) {
+            if (data[i].Location === 'ASUOnline') {
+                var className = data[i].Subject + ' ' + data[i].CatalogNumber + '*';   
+            } else {
+                var className = data[i].Subject + ' ' + data[i].CatalogNumber;    
+            }
+            options.push({'class': className,'courseNumber': data[i].CourseNumber});
+        } 
+        return options;
+    }
 });
 
 user.controller('facultyController', function($scope, $http, $location, $route, UserInfoService) {
