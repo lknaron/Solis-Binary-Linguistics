@@ -198,11 +198,17 @@ application.controller('employmentInfoController', function($scope, $location, $
     $scope.saveEmployment = function(doRoute) {
         var pageStatus = PageCompletionService.checkFields($scope, 'employment');
         var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var hoursParse;
+        if ($scope.hours === 'null hours per week') {
+            hoursParse = null;
+        } else {
+            hoursParse = parseInt($scope.hours.substr(0, $scope.hours.indexOf(' ')));    
+        }
         if ($scope.international === 0) {
             $scope.speakTest = null;
         }
         var employmentData = {
-                TimeCommitment            : $scope.hours,
+                TimeCommitment            : hoursParse,
                 isInternationalStudent    : $scope.international,
                 SpeakTest                 : $scope.speakTest,
                 isTA                      : $scope.ta,

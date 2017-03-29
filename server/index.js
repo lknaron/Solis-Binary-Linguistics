@@ -62,7 +62,7 @@ var httpsOptions = {
 
 // Create https server
 https.createServer(httpsOptions, app).listen(port, function () {
-    console.log('Server running at https://sbltest.ddns.net');
+    console.log('Server running at https://tagraderapp.fulton.asu.edu:3443');
 });
 
 //  Send requests to correct router
