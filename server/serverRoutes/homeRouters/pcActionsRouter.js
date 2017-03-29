@@ -37,7 +37,16 @@ router.get('/', function(req, res) {
             if (rows.length > 0) {
                 hasActions = 1;
             }
-            res.send({hasActions:hasActions, incompleteClasses:incompleteClasses});
+            connection.query("SELECT DISTINCT Placement.TA, Placement.TAStatus, Placement.TATwo, Placement.TATwoStatus, Placement.GraderOne, Placement.GraderOneStatus, Placement.GraderTwo, Placement.GraderTwoStatus, Placement.TAHours, Placement.TATwoHours, Placement.GraderOneHours, Placement.GraderTwoHours, Schedule_.Location, Schedule_.Subject, Schedule_.CatalogNumber, Schedule_.CourseNumber, Schedule_.TARequiredHours, Schedule_.GraderRequiredHours FROM Placement LEFT JOIN Schedule_ ON Placement.ScheduleID = Schedule_.ScheduleID", function(err2, rows) {
+                if (rows.length > 0) {
+                    hasActions = 1;
+                }
+                var placementData = rows;
+                var today = new Date().toISOString().slice(0, 19).replace('T', ' ');
+                console.log(today);
+                // query all application creation dates here
+                res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placementData});
+            });
         });
         
         connection.release();
