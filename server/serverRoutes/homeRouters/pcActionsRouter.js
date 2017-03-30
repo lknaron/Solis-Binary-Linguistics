@@ -21,7 +21,7 @@ var mysql_pool  = mysql.createPool({
     database        : 'sblDB'
 });
 
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -37,15 +37,17 @@ router.get('/', function(req, res) {
             if (rows.length > 0) {
                 hasActions = 1;
             }
-            connection.query("SELECT DISTINCT Placement.TA, Placement.TAStatus, Placement.TATwo, Placement.TATwoStatus, Placement.GraderOne, Placement.GraderOneStatus, Placement.GraderTwo, Placement.GraderTwoStatus, Placement.TAHours, Placement.TATwoHours, Placement.GraderOneHours, Placement.GraderTwoHours, Schedule_.Location, Schedule_.Subject, Schedule_.CatalogNumber, Schedule_.CourseNumber, Schedule_.TARequiredHours, Schedule_.GraderRequiredHours FROM Placement LEFT JOIN Schedule_ ON Placement.ScheduleID = Schedule_.ScheduleID", function(err2, rows) {
+            connection.query("SELECT DISTINCT Placement.TA, Placement.TAStatus, Placement.TATwo, Placement.TATwoStatus, Placement.GraderOne, Placement.GraderOneStatus, Placement.GraderTwo, Placement.GraderTwoStatus, Placement.TAHours, Placement.TATwoHours, Placement.GraderOneHours, Placement.GraderTwoHours, Schedule_.Location, Schedule_.Subject, Schedule_.CatalogNumber, Schedule_.CourseNumber, Schedule_.TARequiredHours, Schedule_.GraderRequiredHours FROM Placement LEFT JOIN Schedule_ ON Placement.ScheduleID = Schedule_.ScheduleID", function(err2, placementData) {
                 if (rows.length > 0) {
                     hasActions = 1;
                 }
-                var placementData = rows;
-                var today = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                console.log(today);
-                // query all application creation dates here
-                res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placementData});
+                connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [req.body.lastLogin], function(err3, newAppsCount) {                 
+                    connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'incomplete'", function(err4, incompleteCount) {
+                        connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'complete'", function(err5, completeCount) {
+                            res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placementData, newApps:newAppsCount.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length});
+                        });
+                    });
+                });
             });
         });
         

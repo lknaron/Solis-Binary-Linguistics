@@ -54,6 +54,9 @@ services.service('UserInfoService', function($window) {
     this.setToken = function(token) {
         $window.sessionStorage.setItem('token', token);
     } 
+    this.setLastLogin = function(lastLogin) {
+        $window.sessionStorage.setItem('lastLogin', lastLogin);
+    }
     this.getUserId = function() {
         return $window.sessionStorage.getItem('userId');
     }   
@@ -69,12 +72,16 @@ services.service('UserInfoService', function($window) {
     this.getToken = function() {
         return $window.sessionStorage.getItem('token');
     }
+    this.getLastLogin = function() {
+        return $window.sessionStorage.getItem('lastLogin');
+    }
     this.clearUserSession = function() {
         $window.sessionStorage.removeItem('userId');   
         $window.sessionStorage.removeItem('userName');   
         $window.sessionStorage.removeItem('userType');          
         $window.sessionStorage.removeItem('appStatus');   
         $window.sessionStorage.removeItem('token');
+        $window.sessionStorage.removeItem('lastLogin');
         $window.sessionStorage.removeItem('className');
         $window.sessionStorage.removeItem('classNumber');
         $window.sessionStorage.removeItem('studentId');

@@ -170,10 +170,11 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             templateUrl : 'app/users/programChairView.html',
             permissions : [USER_ROLES.program_chair],
             resolve : {
-                getPCActions : function($q, $http, PCActionsService) {
+                getPCActions : function($q, $http, UserInfoService, PCActionsService) {
                   var deferred = $q.defer();
-                      $http({method: 'GET', 
-                           url: '/getPCActions'
+                      $http({method: 'POST', 
+                           url: '/getPCActions',
+                           data: {lastLogin: UserInfoService.getLastLogin()}
                       }).then(function(getPCActions) {
                            PCActionsService.callTo = getPCActions.data;
                            deferred.resolve(getPCActions);

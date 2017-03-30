@@ -10,6 +10,19 @@ var directives = angular.module('app.directives',[]);
 /*
  * Displays call to action items for PC
  */
+directives.directive('pcNoticeDirective', function($compile, PCActionsService) {
+    function notices(scope, element, attrs) {
+        console.log(PCActionsService.callTo)
+        angular.element(document.getElementById('pcNoticeCalls')).append($compile("<div>" + PCActionsService.callTo.newApps + " student applications have been started since you last logged in!</div><div>" + PCActionsService.callTo.incompleteApps + " student applications are still incomplete!</div><div>" + PCActionsService.callTo.completeApps + " student applications are complete!</div>")(scope));
+    }
+    return {
+        link: notices
+    };
+});
+
+/*
+ * Displays call to action items for PC
+ */
 directives.directive('pcActionsDirective', function($compile, PCActionsService) {
     function actions(scope, element, attrs) {
         console.log(PCActionsService.callTo)

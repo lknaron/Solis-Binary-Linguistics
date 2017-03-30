@@ -60,7 +60,7 @@ function sendRes(response, req, rows, validation) {
   if (validation) {
     var token = jwt.sign({username:req.body.username}, 'sblapp123');
     response.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 
-           'appStatus' : rows[0].AppStatus, 'token':token});
+           'appStatus' : rows[0].AppStatus, lastLogin:rows[0].LoginTime, 'token':token});
     updateLoginDate(req.body.username);  
   } else {
     response.send({'error' : 1}); // Responds error 1 if incorrect passoword
@@ -69,7 +69,7 @@ function sendRes(response, req, rows, validation) {
 
 // Update users last login date/time
 function updateLoginDate (user) {
-  var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  var dateObj = new Date();
     mysql_pool.getConnection(function(err, connection) {
     if (err) {
       connection.release();
