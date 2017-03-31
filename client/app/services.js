@@ -260,18 +260,20 @@ services.service('AppStatusService', function($window, UserInfoService) {
 
 // performs a check of the set deadline date against the current date 
 services.service('DeadlineDateCheckService', function() {
-   this.deadlineNotice;
+   this.deadlineNotice = 3;
    this.studentDateNotice = function(deadline) {
-       var today =  new Date().toISOString().slice(0, 10);
+       var today =  new Date().toLocaleDateString();
+       today = new Date(today).toISOString();
        var window = new Date();
        window.setDate(window.getDate() + 7);    // window of 7 days from today
-       window = window.toISOString().slice(0, 10);
+       window = window.toISOString();
        if (deadline === today) {
            this.deadlineNotice = 0;     // today is the same as the deadline
        } else if (window >= deadline) {         
            this.deadlineNotice = 1;     // today is within a week of deadline
-       } else {
-           this.deadlineNotice = 2;     // today is not within a week of deadline
+       }
+       if (today > deadline) {
+           this.deadlineNotice = 2;     // today is after the deadline
        }
    }
 });

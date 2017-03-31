@@ -65,7 +65,8 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         $scope.deadlineMessage = '';
         var formatCheck = checkDeadlineDateFormat();
         if (formatCheck) {
-            var data = {semester:$scope.deadline.semester, date:new Date($scope.deadline.date).toISOString().slice(0, 10)};
+            var data = {semester:$scope.deadline.semester, date:new Date($scope.deadline.date)/*.toISOString().slice(0, 10)*/};
+            console.log(new Date($scope.deadline.date).toLocaleString())
             $http.post('programChair/setDeadline', data).then(function successCallback(response) {
                 $scope.deadlineMessage = 'Deadline successfully saved!';
                 $timeout(function() { 

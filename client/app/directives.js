@@ -10,9 +10,11 @@ var directives = angular.module('app.directives',[]);
 /*
  * Displays call to action items for PC
  */
-directives.directive('pcNoticeDirective', function($compile, PCActionsService) {
+directives.directive('pcNoticeDirective', function($compile, DeadlineDateCheckService, PCActionsService) {
     function notices(scope, element, attrs) {
-        console.log(PCActionsService.callTo)
+        if (DeadlineDateCheckService.deadlineNotice === 1) {
+                angular.element(document.getElementById('pcNoticeCalls')).append($compile("<div>The application deadline is coming up soon!</div>")(scope));
+        }
         angular.element(document.getElementById('pcNoticeCalls')).append($compile("<div>" + PCActionsService.callTo.newApps + " student applications have been started since you last logged in!</div><div>" + PCActionsService.callTo.incompleteApps + " student applications are still incomplete!</div><div>" + PCActionsService.callTo.completeApps + " student applications are complete!</div>")(scope));
     }
     return {
@@ -23,13 +25,19 @@ directives.directive('pcNoticeDirective', function($compile, PCActionsService) {
 /*
  * Displays call to action items for PC
  */
-directives.directive('pcActionsDirective', function($compile, PCActionsService) {
+directives.directive('pcActionsDirective', function($compile, DeadlineDateCheckService, PCActionsService, StudentActionsService) {
     function actions(scope, element, attrs) {
         console.log(PCActionsService.callTo)
         if (PCActionsService.callTo.hasActions === 0) {
             angular.element(document.getElementById('pcActions')).append($compile("<div>You have nothing to do!</div>")(scope));
         }
         else {
+            if (DeadlineDateCheckService.deadlineNotice === 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>The application deadline is today! Remember to set a new deadline as soon as possible for the next session of applications!</div>")(scope));
+            }
+            if (DeadlineDateCheckService.deadlineNotice === 2) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>The application deadline has passed! Remember to set a new deadline as soon as possible for the next session of applications!</div>")(scope));
+            }
             if (PCActionsService.callTo.incompleteClasses.length > 0) {
                 angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.incompleteClasses.length + " classes that are indicated as incomplete. Select a class to continue working<select ng-model='incompleteClass' ng-options='class as class.class for class in incompleteClasses' ng-change='go(incompleteClass)'><option value=''>Select Class</option></select></div>")(scope));           
             }
@@ -71,13 +79,13 @@ app.directive('studentNoticeDirective', function($compile, UserInfoService, Stud
             angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due today! Please have your application complete by the deadline!</div>")(scope));
         }
         if (DeadlineDateCheckService.deadlineNotice === 1) {
-            angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due within the next week! Please have your application complete by the deadline!</div>")(scope));
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due within the next 7 days! Please have your application complete by the deadline!</div>")(scope));
         }
         if (StudentActionsService.callTo.onProbation === 1) {
             angular.element(document.getElementById('noticeCalls')).append($compile("<div>You have indicated on your application that you are on academic probation. Your application won't be considered until the academic probation has been cleared!<br><a href='"+ APPLICATION_LINKS.Education +"'>Go to Education page</div>")(scope));
         } 
-        if (StudentActionsService.callTo.onProbation === 0 && DeadlineDateCheckService.deadlineNotice === 2) {
-            angular.element(document.getElementById('noticeCalls')).append($compile("<div>No new notices.</div>")(scope));
+        if (StudentActionsService.callTo.onProbation === 0 && (DeadlineDateCheckService.deadlineNotice === 2 || DeadlineDateCheckService.deadlineNotice === 3)) {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>You have no current notices.</div>")(scope));
         } 
     }
     return {

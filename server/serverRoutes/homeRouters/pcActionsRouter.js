@@ -44,7 +44,9 @@ router.post('/', function(req, res) {
                 connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [req.body.lastLogin], function(err3, newAppsCount) {                 
                     connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'incomplete'", function(err4, incompleteCount) {
                         connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'complete'", function(err5, completeCount) {
-                            res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placementData, newApps:newAppsCount.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length});
+                            connection.query("SELECT DeadlineDate FROM Deadline", function(err5, deadlineDate) {
+                               res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placementData, newApps:newAppsCount.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length, deadline:deadlineDate[0].DeadlineDate}); 
+                            });
                         });
                     });
                 });
