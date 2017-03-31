@@ -257,13 +257,11 @@ CREATE TABLE IF NOT EXISTS Collaborative_Tools (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Course_Competencies (
   CompetenciesID INT NOT NULL AUTO_INCREMENT,
-  isCourse ENUM ('ASU 101', 'SER 421', 'FSE 100', 'SER 422', 'CSE 110', 
-  'CSE 423', 'CSE 120', 'CSE 205', 'SER 432', 'CSE 230', 'SER 450', 
-  'CSE 240', 'SER 456', 'SER 215', 'SER 486', 'SER 216', 'SER 501', 
-  'SER 222', 'SER 502', 'SER 315', 'SER 515', 'SER 316', 'SER 516', 
-  'SER 321', 'SER 517', 'SER 322', 'SER 518', 'SER 332', 'CSE 563', 
-  'SER 334', 'CSE 564', 'SER 401', 'CSE 566', 'SER 402', 'SER 415', 
-  'SER 416') DEFAULT NULL,
+  isCourse ENUM ('SER 100', 'FSE 100', 'ASU 101', 'CSE 110', 'SER 200', 
+  'CSE 205', 'SER 215', 'SER 216', 'SER 221', 'SER 222', 'CSE 230', 'SER 232',
+  'CSE 240', 'SER 334', 'SER 401', 'SER 402', 'SER 415', 'SER 416', 'SER 421', 
+  'SER 422', 'SER 423', 'SER 431', 'SER 432', 'SER 450', 'SER 456', 'SER 486', 
+  'SER 501', 'SER 502', 'SER 515', 'SER 516', 'SER 517', 'SER 518') DEFAULT NULL,
   isPrefer TINYINT(1) DEFAULT NULL,
   isQualified TINYINT(1) DEFAULT NULL,
   isPreviouslyTA TINYINT(1) DEFAULT NULL,

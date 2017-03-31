@@ -68,6 +68,7 @@ application.controller('educationInfoController', function($scope, $location, $h
                       "Ph.D Other",
                       "M.S. Software Engineering",
                       "M.S. Computer Engineering",
+                      "M.S. Computer Science",
                       "M.C.S Computer Science",
                       "M.S. Other"];
     $scope.gradDates = [];
@@ -606,21 +607,19 @@ application.controller('languagesInfoController', function($scope, $location, $h
 
 application.controller('coursesInfoController', function($scope, $location, $http, UserInfoService, AppStatusService) {
     $scope.courses = [
+                        {name:'SER 100', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'FSE 100', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'ASU 101', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'CSE 110', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'CSE 120', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'FSE 100', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 200', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'CSE 205', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'CSE 230', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'CSE 240', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 215', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 216', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 221', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 222', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 315', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 316', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 321', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 322', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 332', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 230', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 232', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'CSE 240', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 334', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 401', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 402', prefer:0, qualified:0, prevTA:0, prevGrader:0},
@@ -633,14 +632,11 @@ application.controller('coursesInfoController', function($scope, $location, $htt
                         {name:'SER 432', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 450', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 456', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 486', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'CSE 563', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
-                        {name:'CSE 564', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
-                        {name:'CSE 566', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 501', prefer:0, qualified:0, prevTA:0, prevGrader:0},
+                        {name:'SER 486', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
+                        {name:'SER 501', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
                         {name:'SER 502', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 515', prefer:0, qualified:0, prevTA:0, prevGrader:0},
-                        {name:'SER 516', prefer:0, qualified:0, prevTA:0, prevGrader:0}, 
+                        {name:'SER 516', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 517', prefer:0, qualified:0, prevTA:0, prevGrader:0},
                         {name:'SER 518', prefer:0, qualified:0, prevTA:0, prevGrader:0}
                        ];
@@ -677,15 +673,15 @@ application.controller('coursesInfoController', function($scope, $location, $htt
         var data = [];
         var courses = [];
         var user = [];
-        // 37 is number of hard coded courses in $scope.courses
-        for (var i = 0; i < 37; i++) {
+        // 32 is number of hard coded courses in $scope.courses
+        for (var i = 0; i < 32; i++) {
             if ($scope.courses[i].prefer === 1 || $scope.courses[i].qualified === 1 || $scope.courses[i].prevTA === 1 || $scope.courses[i].prevGrader === 1) {
                 var arr = [$scope.courses[i].name, $scope.courses[i].prefer, $scope.courses[i].qualified, $scope.courses[i].prevTA, $scope.courses[i].prevGrader, null, null, null, null, null, UserInfoService.getUserId()];
                 courses.push(arr);
             }   
         }
         // Grabs any pre-populated Other Courses
-        for (var j = 37; j < $scope.courses.length; j++) {
+        for (var j = 32; j < $scope.courses.length; j++) {
             if ($scope.courses[j].prefer === 1 || $scope.courses[j].qualified === 1 || $scope.courses[j].prevTA === 1 || $scope.courses[j].prevGrader === 1) {
                 var arr = [null, null, null, null, null, $scope.courses[j].name, $scope.courses[j].prefer, $scope.courses[j].qualified, $scope.courses[j].prevTA, $scope.courses[j].prevGrader, UserInfoService.getUserId()];
                 courses.push(arr);
