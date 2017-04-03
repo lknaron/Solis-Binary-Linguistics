@@ -35,6 +35,13 @@ user.controller('programChairController', function($scope, $http, $location, $ro
     $scope.name = UserInfoService.getFullName();
     $scope.classes = [];
     $scope.semesterNames = ['Fall', 'Spring', 'Summer'];
+    $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
+    $scope.missingTAClasses = setClassOptions(PCActionsService.callTo.placements.missingTA);
+    $scope.missingGraderClasses = setClassOptions(PCActionsService.callTo.placements.missingGrader);
+    $scope.needTAConfirmation = setClassOptions(PCActionsService.callTo.placements.needTAConfirmation);
+    $scope.needGraderConfirmation = setClassOptions(PCActionsService.callTo.placements.needGraderConfirmation);
+    $scope.needTAHours = setClassOptions(PCActionsService.callTo.placements.needTAHours, true);
+    $scope.needGraderHours = setClassOptions(PCActionsService.callTo.placements.needGraderHours, true);
 
     angular.element(document).ready(function() {
         $http.get('/programChair/getClassNames').then(function successCallback(response) {
@@ -48,8 +55,6 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         }, function errorCallback(response) {
             // empty
         });
-        
-        $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
     });
 
     $scope.go = function(selectedClass, reload) {
@@ -65,7 +70,7 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         $scope.deadlineMessage = '';
         var formatCheck = checkDeadlineDateFormat();
         if (formatCheck) {
-            var data = {semester:$scope.deadline.semester, date:new Date($scope.deadline.date)/*.toISOString().slice(0, 10)*/};
+            var data = {semester:$scope.deadline.semester, date:new Date($scope.deadline.date)};
             console.log(new Date($scope.deadline.date).toLocaleString())
             $http.post('programChair/setDeadline', data).then(function successCallback(response) {
                 $scope.deadlineMessage = 'Deadline successfully saved!';
@@ -89,13 +94,16 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         }           
     } 
     
-    function setClassOptions(data) {
+    function setClassOptions(data, hasHours) {
         var options = [];
         for (var i in data) {
             if (data[i].Location === 'ASUOnline') {
                 var className = data[i].Subject + ' ' + data[i].CatalogNumber + '*';   
             } else {
                 var className = data[i].Subject + ' ' + data[i].CatalogNumber;    
+            }
+            if (hasHours) {
+                className += ' ~ ' + data[i].neededHours + ' remaining hours';
             }
             options.push({'class': className,'courseNumber': data[i].CourseNumber});
         } 

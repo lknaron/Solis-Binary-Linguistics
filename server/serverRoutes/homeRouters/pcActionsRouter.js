@@ -38,11 +38,11 @@ router.post('/', function(req, res) {
                 hasActions = 1;
             }
             connection.query("SELECT DISTINCT Placement.TA, Placement.TAStatus, Placement.TATwo, Placement.TATwoStatus, Placement.GraderOne, Placement.GraderOneStatus, Placement.GraderTwo, Placement.GraderTwoStatus, Placement.TAHours, Placement.TATwoHours, Placement.GraderOneHours, Placement.GraderTwoHours, Schedule_.Location, Schedule_.Subject, Schedule_.CatalogNumber, Schedule_.CourseNumber, Schedule_.TARequiredHours, Schedule_.GraderRequiredHours FROM Placement LEFT JOIN Schedule_ ON Placement.ScheduleID = Schedule_.ScheduleID", function(err2, placementData) {
-                if (rows.length > 0) {
-                    hasActions = 1;
-                }
                 var placements = {};
                 placements = courseTAandGraderChecks(placementData);
+                if (placements.missingTA.length > 0 || placements.missingGrader.length > 0 || placements.needTAConfirmation.length > 0 || placements.needGraderConfirmation.length > 0 || placements.needTAHours.length > 0 || placements.needGraderHours.length > 0) {
+                    hasActions = 1;
+                }
                 connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [req.body.lastLogin], function(err3, newAppsCount) {                 
                     connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'incomplete'", function(err4, incompleteCount) {
                         connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'complete'", function(err5, completeCount) {
@@ -63,17 +63,23 @@ router.post('/', function(req, res) {
         var coursesNeedGraderHours = [];
         var coursesNeedTAConfirmation = [];
         var coursesNeedGraderConfirmation = [];
-        var firstTAHours = 0;
-        var secondTAHours = 0;
-        var firstGraderHours = 0;
-        var secondGraderHours = 0;
+        var firstTAHours;
+        var secondTAHours;
+        var firstGraderHours;
+        var secondGraderHours;
         for (var i = 0; i < data.length; i++) {
+            firstTAHours = 0;
+            secondTAHours = 0;
+            firstGraderHours = 0;
+            secondGraderHours = 0;
             // checks if each course is missing a TA assignment
-            if (data[i].TA === null && data[i].TATwo === null) {
+            // if no TA in place and required TA hours are > 0
+            if (data[i].TA === null && data[i].TATwo === null && data[i].TARequiredHours > 0) {
                 coursesMissingTA.push({Location:data[i].Location, Subject:data[i].Subject, CatalogNumber:data[i].CatalogNumber, CourseNumber:data[i].CourseNumber});
             }
             // checks if each course is missing a Grader assignment
-            if (data[i].GraderOne === null && data[i].GraderTwo === null) {
+            // if no Grader in place and required Grader hours are > 0
+            if (data[i].GraderOne === null && data[i].GraderTwo === null && data[i].GraderRequiredHours > 0) {
                 coursesMissingGrader.push({Location:data[i].Location, Subject:data[i].Subject, CatalogNumber:data[i].CatalogNumber, CourseNumber:data[i].CourseNumber});
             }
             // checks if each course is not meeting the required TA hours
@@ -113,12 +119,6 @@ router.post('/', function(req, res) {
                 coursesNeedGraderConfirmation.push({Location:data[i].Location, Subject:data[i].Subject, CatalogNumber:data[i].CatalogNumber, CourseNumber:data[i].CourseNumber});
             }
         }
-        //console.log(coursesMissingTA);
-        //console.log(coursesMissingGrader);
-        //console.log(coursesNeedTAHours);
-        //console.log(coursesNeedGraderHours);
-        //console.log(coursesNeedTAConfirmation);
-        //console.log(coursesNeedGraderConfirmation);
         return {missingTA:coursesMissingTA, missingGrader:coursesMissingGrader, needTAHours:coursesNeedTAHours, needGraderHours:coursesNeedGraderHours, needTAConfirmation:coursesNeedTAConfirmation, needGraderConfirmation:coursesNeedGraderConfirmation};
     }
 });   

@@ -28,7 +28,7 @@ directives.directive('pcNoticeDirective', function($compile, DeadlineDateCheckSe
 directives.directive('pcActionsDirective', function($compile, DeadlineDateCheckService, PCActionsService, StudentActionsService) {
     function actions(scope, element, attrs) {
         console.log(PCActionsService.callTo)
-        if (PCActionsService.callTo.hasActions === 0) {
+        if (PCActionsService.callTo.hasActions === 0 && (DeadlineDateCheckService.deadlineNotice === 1 || DeadlineDateCheckService.deadlineNotice === 3)) {
             angular.element(document.getElementById('pcActions')).append($compile("<div>You have nothing to do!</div>")(scope));
         }
         else {
@@ -39,7 +39,25 @@ directives.directive('pcActionsDirective', function($compile, DeadlineDateCheckS
                 angular.element(document.getElementById('pcActions')).append($compile("<div>The application deadline has passed! Remember to set a new deadline as soon as possible for the next session of applications!</div>")(scope));
             }
             if (PCActionsService.callTo.incompleteClasses.length > 0) {
-                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.incompleteClasses.length + " classes that are indicated as incomplete. Select a class to continue working<select ng-model='incompleteClass' ng-options='class as class.class for class in incompleteClasses' ng-change='go(incompleteClass)'><option value=''>Select Class</option></select></div>")(scope));           
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.incompleteClasses.length + " class(es) indicated as incomplete. Select a class to continue working<select ng-model='incompleteClass' ng-options='class as class.class for class in incompleteClasses' ng-change='go(incompleteClass)'><option value=''>Select Class</option></select></div>")(scope));           
+            }
+            if (PCActionsService.callTo.placements.missingTA.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingTA.length + " class(es) without a TA in place. Select a class to continue working<select ng-model='missingTAClass' ng-options='class as class.class for class in missingTAClasses' ng-change='go(missingTAClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.missingGrader.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingGrader.length + " class(es) without a Grader in place. Select a class to continue working<select ng-model='missingGraderClass' ng-options='class as class.class for class in missingGraderClasses' ng-change='go(missingGraderClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needTAConfirmation.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needTAConfirmation.length + " class(es) without a TA confirmed. Select a class to continue working<select ng-model='needTAConfirmationClass' ng-options='class as class.class for class in needTAConfirmation' ng-change='go(needTAConfirmationClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needGraderConfirmation.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needGraderConfirmation.length + " class(es) without a Grader confirmed. Select a class to continue working<select ng-model='needGraderConfirmationClass' ng-options='class as class.class for class in needGraderConfirmation' ng-change='go(needGraderConfirmationClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needTAHours.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needTAHours.length + " class(es) lacking assigned TA hours. Select a class to continue working<select ng-model='needTAHoursClass' ng-options='class as class.class for class in needTAHours' ng-change='go(needTAHoursClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needGraderHours.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needGraderHours.length + " class(es) lacking assigned Grader hours. Select a class to continue working<select ng-model='needGraderHoursClass' ng-options='class as class.class for class in needGraderHours' ng-change='go(needGraderHoursClass)'><option value=''>Select Class</option></select></div>")(scope));  
             }
         }
     }
