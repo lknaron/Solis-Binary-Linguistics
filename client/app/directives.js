@@ -8,7 +8,8 @@
 var directives = angular.module('app.directives',[]);
 
 /*
- * Displays call to action items for PC
+ * Displays notice items for PC. These include count of newly started applications since last login, count of
+ * incomplete applications, count of complete applications, and a notice if the deadline is within a week. 
  */
 directives.directive('pcNoticeDirective', function($compile, DeadlineDateCheckService, PCActionsService) {
     function notices(scope, element, attrs) {
@@ -23,11 +24,12 @@ directives.directive('pcNoticeDirective', function($compile, DeadlineDateCheckSe
 });
 
 /*
- * Displays call to action items for PC
+ * Displays call to action items for PC. These include if the deadline is that day or the deadline has passed, classes that 
+ * are incomplete, classes missing student assignments, classes without confirmed students, and classes with missinged 
+ * assigned hours. 
  */
 directives.directive('pcActionsDirective', function($compile, DeadlineDateCheckService, PCActionsService, StudentActionsService) {
     function actions(scope, element, attrs) {
-        console.log(PCActionsService.callTo)
         if (PCActionsService.callTo.hasActions === 0 && (DeadlineDateCheckService.deadlineNotice === 1 || DeadlineDateCheckService.deadlineNotice === 3)) {
             angular.element(document.getElementById('pcActions')).append($compile("<div>You have nothing to do!</div>")(scope));
         }

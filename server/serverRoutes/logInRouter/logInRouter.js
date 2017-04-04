@@ -60,7 +60,7 @@ function sendRes(response, req, rows, validation) {
   if (validation) {
     var token = jwt.sign({username:req.body.username}, 'sblapp123');
     response.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 
-           'appStatus' : rows[0].AppStatus, lastLogin:rows[0].LoginTime, 'token':token});
+           'appStatus' : rows[0].AppStatus, lastLogin:rows[0].LoginTime.toUTCString(), 'token':token});
     updateLoginDate(req.body.username);  
   } else {
     response.send({'error' : 1}); // Responds error 1 if incorrect passoword

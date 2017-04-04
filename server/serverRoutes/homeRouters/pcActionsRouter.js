@@ -43,11 +43,11 @@ router.post('/', function(req, res) {
                 if (placements.missingTA.length > 0 || placements.missingGrader.length > 0 || placements.needTAConfirmation.length > 0 || placements.needGraderConfirmation.length > 0 || placements.needTAHours.length > 0 || placements.needGraderHours.length > 0) {
                     hasActions = 1;
                 }
-                connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [req.body.lastLogin], function(err3, newAppsCount) {                 
+                connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [new Date(req.body.lastLogin)], function(err3, apps) { 
                     connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'incomplete'", function(err4, incompleteCount) {
                         connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'complete'", function(err5, completeCount) {
                             connection.query("SELECT DeadlineDate FROM Deadline", function(err5, deadlineDate) {
-                               res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placements, newApps:newAppsCount.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length, deadline:deadlineDate[0].DeadlineDate}); 
+                               res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placements, newApps:apps.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length, deadline:deadlineDate[0].DeadlineDate}); 
                             });
                         });
                     });

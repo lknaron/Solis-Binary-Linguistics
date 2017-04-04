@@ -35,14 +35,21 @@ user.controller('programChairController', function($scope, $http, $location, $ro
     $scope.name = UserInfoService.getFullName();
     $scope.classes = [];
     $scope.semesterNames = ['Fall', 'Spring', 'Summer'];
-    $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
-    $scope.missingTAClasses = setClassOptions(PCActionsService.callTo.placements.missingTA);
-    $scope.missingGraderClasses = setClassOptions(PCActionsService.callTo.placements.missingGrader);
-    $scope.needTAConfirmation = setClassOptions(PCActionsService.callTo.placements.needTAConfirmation);
-    $scope.needGraderConfirmation = setClassOptions(PCActionsService.callTo.placements.needGraderConfirmation);
-    $scope.needTAHours = setClassOptions(PCActionsService.callTo.placements.needTAHours, true);
-    $scope.needGraderHours = setClassOptions(PCActionsService.callTo.placements.needGraderHours, true);
-
+    /*
+     * This creates the dropdowns for classes missing/needing student assignments, student confirmations,
+     * and courses missing assigned hours. The undefined check is there to prevent errors occuring on the
+     * class summary page if the page is refreshed.
+     */
+    if (PCActionsService.callTo.hasActions !== undefined) {
+        $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
+        $scope.missingTAClasses = setClassOptions(PCActionsService.callTo.placements.missingTA);
+        $scope.missingGraderClasses = setClassOptions(PCActionsService.callTo.placements.missingGrader);
+        $scope.needTAConfirmation = setClassOptions(PCActionsService.callTo.placements.needTAConfirmation);
+        $scope.needGraderConfirmation = setClassOptions(PCActionsService.callTo.placements.needGraderConfirmation);
+        $scope.needTAHours = setClassOptions(PCActionsService.callTo.placements.needTAHours, true);
+        $scope.needGraderHours = setClassOptions(PCActionsService.callTo.placements.needGraderHours, true);
+    }
+    
     angular.element(document).ready(function() {
         $http.get('/programChair/getClassNames').then(function successCallback(response) {
            $scope.classes = setClassOptions(response.data);     
@@ -94,6 +101,8 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         }           
     } 
     
+    // adds an indicator to the class name in dropdowns if a class is online and hours needed
+    // for classes missing TA/Grader assigned hours
     function setClassOptions(data, hasHours) {
         var options = [];
         for (var i in data) {
