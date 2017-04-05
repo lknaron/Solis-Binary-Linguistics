@@ -1,106 +1,118 @@
 <div class="form-classSummaryView">
-  <form>	  	  
-    <div ng-controller='programChairController'>
-      <fieldset>
-        <h4> Select a Different Course</h4>
-        An asterisk denotes an online class<br>
-        <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass, 'reload')"><option value="">Select Class</option></select>
-      </fieldset>
-    </div>		
-		<div ng-controller='classSummaryController'>
-      <fieldset>
-			  <h4>Selected Class</h4>
-				<label ng-model='classTitle'>{{classTitle}}</label><br>
-				<label ng-model='instructor'>{{instructor}}</label><br> 
-				<label ng-model='location'>{{location}}</label><br>
-				<div ng-show='showSchedule'>
-				  <label ng-model='days'>{{days}}</label><br> 
-				  <label ng-model='hours'>{{hours}}</label>
-				</div>
-				<label ng-model='classStatus'>Status: {{classStatus}}</label><br>
-				<div id='spaceforstatus' ng-show='showStatusUpdate'></div><br>
-				<addstatusbutton></addstatusbutton><br>
-      </fieldset>
-      <fieldset>
-			  <h4>Enrollment</h4>
-        <label ng-repeat="enrollment in enrollments">{{enrollment}}<br></label><br>
-        <label ng-model="previousEnrollment">Previous Enrollment: {{previousEnrollment}}</label><br>
-        <label ng-model="enrollmentDifference">Enrollment Difference: {{enrollmentDifference}}</label><br>
-        <div id='spaceforenrollment' ng-show='showEnrollmentUpdate'></div><br>
-        <addenrollmentbutton></addenrollmentbutton><br>
-      </fieldset>
-      <fieldset>
-        <h4>Class Requirements</h4>
-        Required TA Hours: <label ng-model='reqTaHours'>{{reqTaHours}}</label><br>
-        Required Grader Hours: <label ng-model='reqGraderHours'>{{reqGraderHours}}</label><br>
-        <div id='spaceforrequiredhours' ng-show='showRequiredHoursUpdate'></div><br>
-        <addrequiredhoursbutton></addrequiredhoursbutton><br>
-      </fieldset>
-      <fieldset>  
-        <h4>Assigned Students</h4>
-        <label ng-model='noneAssigned' ng-show='noAssigned'>{{noneAssigned}}</label>
-        <div ng-show='showTA'>
-          TA: <label ng-model='ta' style='padding-right: 10px;'>{{ta}}(<a href='' mg-model='taIdLink' ng-click='goToProfile(taIdLink)'>{{taIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(0); showUpdatedAssignments=true' min='0' max='{{taHoursMax}}'>
-          Available Hours:<label ng-model='taAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{taAvailableHours}}</label>
-          Assigned Status:<select name="assignedStatusSelect" ng-model="taStatus" ng-change='showUpdatedAssignments=true'>
-                    <option value="Temporary">Temporary</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                  </select>
-          <input type='button' ng-click='deleteStudent(1)' value='Delete' style='margin-left: 10px;'/><br>
+    <form>          
+        <div ng-controller='programChairController'>
+            <header>
+                <nav class="secondary_header" id="menu">
+                    <ul>
+                        <li><a href='' ng-show='displayHome()' ng-click='goHome()'>Home</a></li>
+                        <li><a href="">Change Password</a></li>
+                        <li><a ng-href='#!/createFacultyAdminAccount'>Add Faculty/Admin User</a></li>
+                        <li><a href="#contact">Update Enrollment</a></li>
+                        <li><a href="#about">Run Reports</a></li>
+                        <li><a href='' ng-show='displayLogout()' ng-click='logout()'>Logout</a></li>
+                    </ul>
+                </nav>  
+            </header>
+            <fieldset>
+                <h4> Select a Different Course</h4>
+                An asterisk denotes an online class<br>
+                <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass, 'reload')"><option value="">Select Class</option></select>
+            </fieldset>
+        </div>      
+        <div ng-controller='classSummaryController'>
+            <fieldset>
+                <h4>Selected Class</h4>
+                <label ng-model='classTitle'>{{classTitle}}</label><br>
+                <label ng-model='instructor'>{{instructor}}</label><br> 
+                <label ng-model='location'>{{location}}</label><br>
+                <div ng-show='showSchedule'>
+                    <label ng-model='days'>{{days}}</label><br> 
+                    <label ng-model='hours'>{{hours}}</label>
+                </div>
+                <label ng-model='classStatus'>Status: {{classStatus}}</label><br>
+                <div id='spaceforstatus' ng-show='showStatusUpdate'></div><br>
+                <addstatusbutton></addstatusbutton><br>
+            </fieldset>
+            <fieldset>
+                <h4>Enrollment</h4>
+                <label ng-repeat="enrollment in enrollments">{{enrollment}}<br></label><br>
+                <label ng-model="previousEnrollment">Previous Enrollment: {{previousEnrollment}}</label><br>
+                <label ng-model="enrollmentDifference">Enrollment Difference: {{enrollmentDifference}}</label><br>
+                <div id='spaceforenrollment' ng-show='showEnrollmentUpdate'></div><br>
+                <addenrollmentbutton></addenrollmentbutton><br>
+                </fieldset>
+            <fieldset>
+                <h4>Class Requirements</h4>
+                Required TA Hours: <label ng-model='reqTaHours'>{{reqTaHours}}</label><br>
+                Required Grader Hours: <label ng-model='reqGraderHours'>{{reqGraderHours}}</label><br>
+                <div id='spaceforrequiredhours' ng-show='showRequiredHoursUpdate'></div><br>
+                <addrequiredhoursbutton></addrequiredhoursbutton>
+            </fieldset>
+            <fieldset>  
+                <h4>Assigned Students</h4>
+                <label ng-model='noneAssigned' ng-show='noAssigned'>{{noneAssigned}}</label>
+                <div ng-show='showTA'>
+                    TA: <label ng-model='ta' style='padding-right: 10px;'>{{ta}}(<a href='' mg-model='taIdLink' ng-click='goToProfile(taIdLink)'>{{taIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taAssignedHours' style='width: 45px; margin-right: 10px;'  ng-change='updateAvailableHours(0); showUpdatedAssignments=true' min='0' max='{{taHoursMax}}'>
+                    Available Hours:<label ng-model='taAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{taAvailableHours}}</label>
+                    Assigned Status:<select name="assignedStatusSelect" ng-model="taStatus" ng-change='showUpdatedAssignments=true'>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                    </select>
+                    <input type='button' ng-click='deleteStudent(1)' value='Delete' style='margin-left: 10px;'/><br>
+                </div>
+                <div ng-show='showTATwo'>
+                    TA: <label ng-model='taTwo' style='padding-right: 10px;'>{{taTwo}}(<a href='' mg-model='taTwoIdLink' ng-click='goToProfile(taTwoIdLink)'>{{taTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(1); showUpdatedAssignments=true' min='0' max='{{taTwoHoursMax}}'>
+                    Available Hours:<label ng-model='taTwoAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{taTwoAvailableHours}}</label>
+                    Assigned Status:<select name="assignedStatusSelect" ng-model="taTwoStatus" ng-change='showUpdatedAssignments=true'>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                    </select>
+                    <input type='button' ng-click='deleteStudent(2)' value='Delete' style='margin-left: 10px;'/><br>
+                </div>
+                <div ng-show='showGraderOne'>
+                    Grader: <label ng-model='graderOne' style='padding-right: 10px;'>{{graderOne}}(<a href='' mg-model='graderOneIdLink' ng-click='goToProfile(graderOneIdLink)'>{{graderOneIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderOneAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(2); showUpdatedAssignments=true' min='0' max='{{graderOneHoursMax}}'>
+                    Available Hours:<label ng-model='graderOneAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{graderOneAvailableHours}}</label>
+                    Assigned Status:<select name="assignedStatusSelect" ng-model="graderOneStatus" ng-change='showUpdatedAssignments=true'>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                    </select>
+                    <input type='button' ng-click='deleteStudent(3)' value='Delete' style='margin-left: 10px;'/><br>
+                </div>
+                <div ng-show='showGraderTwo'>
+                    Grader: <label ng-model='graderTwo' style='padding-right: 10px;'>{{graderTwo}}(<a href='' mg-model='graderTwoIdLink' ng-click='goToProfile(graderTwoIdLink)'>{{graderTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(3); showUpdatedAssignments=true' min='0' max='{{graderTwoHoursMax}}'>
+                    Available Hours:<label ng-model='graderTwoAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{graderTwoAvailableHours}}</label>
+                    Assigned Status:<select name="assignedStatusSelect" ng-model="graderTwoStatus" ng-change='showUpdatedAssignments=true'>
+                                        <option value="Temporary">Temporary</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                    </select>
+                    <input type='button' ng-click='deleteStudent(4)' value='Delete' style='margin-left: 10px;'/><br>
+                </div><br>
+                <div ng-show='showUpdatedAssignments'>
+                    <label ng-model='taHoursError' ng-show='taAssignedHoursError'>{{taHoursError}}</label>
+                    <label ng-model='taTwoHoursError' ng-show='taTwoAssignedHoursError'>{{taTwoHoursError}}</label>
+                    <label ng-model='graderOneHoursError' ng-show='graderOneAssignedHoursError'>{{graderOneHoursError}}</label>
+                    <label ng-model='graderTwoHoursError' ng-show='graderTwoAssignedHoursError'>{{graderTwoHoursError}}</label>
+                    <input type='button' ng-click='saveUpdatedAssignments(taIdLink, taAssignedHours, taStatus, taTwoIdLink, taTwoAssignedHours, taTwoStatus, graderOneIdLink, graderOneAssignedHours, graderOneStatus, graderTwoIdLink, graderTwoAssignedHours, graderTwoStatus)' value='Save Updates'/>
+                    <input type='button' ng-click='cancelUpdatedAssignments()' value='Cancel Updates'/><br><br>
+                </div>
+                <input type='button' ng-click='goToAssignStudent()' value='Assign Student'/><br>
+            </fieldset>
+            <fieldset>
+                <h4>Faculty Requests</h4>
+                <label ng-model='noneRequested' ng-show='noRequested'>{{noneRequested}}</label>
+                <div ng-show='showFacultyRequests'>        
+                    <div ng-show='firstChoice'>
+                        1st Choice: <label ng-model='requestOne' style='padding-right: 10px;'>{{requestOne}}(<a href='' mg-model='requestOneIdLink' ng-click='goToProfile(requestOneIdLink)'>{{requestOneIdLink}}</a>)</label><input type='button' ng-click='addRequestedStudent(requestOneIdLink)' value='Assign'/><br>
+                    </div>
+                    <div ng-show='secondChoice'>
+                        2nd Choice: <label ng-model='requestTwo' style='padding-right: 10px;'>{{requestTwo}}(<a href='' mg-model='requestTwoIdLink' ng-click='goToProfile(requestTwoIdLink)'>{{requestTwoIdLink}}</a>)</label><input type='button' ng-click='addRequestedStudent(requestOneIdLink)' value='Assign'/><br>
+                    </div>
+                </div><br>
+            </fieldset>
         </div>
-        <div ng-show='showTATwo'>
-          TA: <label ng-model='taTwo' style='padding-right: 10px;'>{{taTwo}}(<a href='' mg-model='taTwoIdLink' ng-click='goToProfile(taTwoIdLink)'>{{taTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='taTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(1); showUpdatedAssignments=true' min='0' max='{{taTwoHoursMax}}'>
-          Available Hours:<label ng-model='taTwoAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{taTwoAvailableHours}}</label>
-          Assigned Status:<select name="assignedStatusSelect" ng-model="taTwoStatus" ng-change='showUpdatedAssignments=true'>
-                    <option value="Temporary">Temporary</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                  </select>
-          <input type='button' ng-click='deleteStudent(2)' value='Delete' style='margin-left: 10px;'/><br>
-        </div>
-        <div ng-show='showGraderOne'>
-          Grader: <label ng-model='graderOne' style='padding-right: 10px;'>{{graderOne}}(<a href='' mg-model='graderOneIdLink' ng-click='goToProfile(graderOneIdLink)'>{{graderOneIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderOneAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(2); showUpdatedAssignments=true' min='0' max='{{graderOneHoursMax}}'>
-          Available Hours:<label ng-model='graderOneAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{graderOneAvailableHours}}</label>
-          Assigned Status:<select name="assignedStatusSelect" ng-model="graderOneStatus" ng-change='showUpdatedAssignments=true'>
-                    <option value="Temporary">Temporary</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                  </select>
-          <input type='button' ng-click='deleteStudent(3)' value='Delete' style='margin-left: 10px;'/><br>
-        </div>
-        <div ng-show='showGraderTwo'>
-          Grader: <label ng-model='graderTwo' style='padding-right: 10px;'>{{graderTwo}}(<a href='' mg-model='graderTwoIdLink' ng-click='goToProfile(graderTwoIdLink)'>{{graderTwoIdLink}}</a>)</label>Assigned Hours: <input type='number' ng-model='graderTwoAssignedHours' style='width: 45px; margin-right: 10px;' ng-change='updateAvailableHours(3); showUpdatedAssignments=true' min='0' max='{{graderTwoHoursMax}}'>
-          Available Hours:<label ng-model='graderTwoAvailableHours' style='padding-right: 10px; padding-left: 10px;'>{{graderTwoAvailableHours}}</label>
-          Assigned Status:<select name="assignedStatusSelect" ng-model="graderTwoStatus" ng-change='showUpdatedAssignments=true'>
-                    <option value="Temporary">Temporary</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                  </select>
-          <input type='button' ng-click='deleteStudent(4)' value='Delete' style='margin-left: 10px;'/><br>
-        </div><br>
-        <div ng-show='showUpdatedAssignments'>
-          <label ng-model='taHoursError' ng-show='taAssignedHoursError'>{{taHoursError}}</label>
-          <label ng-model='taTwoHoursError' ng-show='taTwoAssignedHoursError'>{{taTwoHoursError}}</label>
-          <label ng-model='graderOneHoursError' ng-show='graderOneAssignedHoursError'>{{graderOneHoursError}}</label>
-          <label ng-model='graderTwoHoursError' ng-show='graderTwoAssignedHoursError'>{{graderTwoHoursError}}</label>
-          <input type='button' ng-click='saveUpdatedAssignments(taIdLink, taAssignedHours, taStatus, taTwoIdLink, taTwoAssignedHours, taTwoStatus, graderOneIdLink, graderOneAssignedHours, graderOneStatus, graderTwoIdLink, graderTwoAssignedHours, graderTwoStatus)' value='Save Updates'/>
-          <input type='button' ng-click='cancelUpdatedAssignments()' value='Cancel Updates'/><br><br>
-        </div>
-        <input type='button' ng-click='goToAssignStudent()' value='Assign Student'/><br>
-      </fieldset>
-      <fieldset>
-        <h4>Faculty Requests</h4>
-        <label ng-model='noneRequested' ng-show='noRequested'>{{noneRequested}}</label><br><br>
-        <div ng-show='showFacultyRequests'>        
-          <div ng-show='firstChoice'>
-            1st Choice: <label ng-model='requestOne' style='padding-right: 10px;'>{{requestOne}}(<a href='' mg-model='requestOneIdLink' ng-click='goToProfile(requestOneIdLink)'>{{requestOneIdLink}}</a>)</label><input type='button' ng-click='addRequestedStudent(requestOneIdLink)' value='Assign'/><br>
-          </div>
-          <div ng-show='secondChoice'>
-            2nd Choice: <label ng-model='requestTwo' style='padding-right: 10px;'>{{requestTwo}}(<a href='' mg-model='requestTwoIdLink' ng-click='goToProfile(requestTwoIdLink)'>{{requestTwoIdLink}}</a>)</label><input type='button' ng-click='addRequestedStudent(requestOneIdLink)' value='Assign'/><br>
-          </div>
-        </div><br>
-      </fieldset>
-		</div>
-	</form>
+    </form>
 </div>
