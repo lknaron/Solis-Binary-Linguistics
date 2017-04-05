@@ -1,42 +1,32 @@
-<div class="container">
-  <div ng-controller='programChairController'>
+<div ng-controller='programChairController'>
+    <li><a href="#!/viewAccount">Account</a><br>
     Program Chair Home
-	  <header>
-		  <div class="primary_header">
-		    <h1 class="title"><li ng-model='name'>{{name}}</li></h1>
-		  </div>
-		  <nav class="secondary_header" id="menu">
-			  <ul>
-				  <li><a href="#!/viewAccount">Account</a>
-				  <li><a href="#news">Change Password</a></li>
-				  <li><a ng-href='#!/createFacultyAdminAccount'>Add Faculty/Admin User</a></li>
-				  <li><a href="#contact">Update Enrollment</a></li>
-				  <li><a href="#about">Run Reports</a></li>
-				  <li>Log Out</li>
-			  </ul>
-	 	  </nav>  
-  	</header>  	
-	  <div class="form-appDeadline">
-		  <form>
-			  <fieldset>
-          <label><h1>View Class</h1></label><br>
-          An asterisk denotes an online class<br>
-		      <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass)"><option value="">Select Class</option></select><br><br>
-				  <label><h1>Application Deadline</h1></label><br>
-          Semester: <select ng-model="deadline.semester" ng-options="name for name in semesterNames" required></select><br>
-					Date: <input type='date' ng-model='deadline.date'/><br>
-					<input type='submit' value='Save Deadline' ng-click='saveDeadline()'/>
-				  <div><center>{{deadlineMessage}}</center></div>
-        </fieldset>
-			</form>
-    </div><br><br><!--form-appDeadline-->
+    <li ng-model='name'>Name is {{name}}</li><br>
+    An asterisk denotes an online class<br>
+    <select ng-model='selectedClass' ng-options="class as class.class for class in classes" id="class" name="class" ng-change="go(selectedClass)"><option value="">Select Class</option></select>
+    <br>
+    <br>
+    <ul>
+		<li><a ng-href='#!/createFacultyAdminAccount'>Add Faculty/Admin User</a></li>
+	  	<li><a href="#news">Change Password</a></li>
+	  	<li><a href="#contact">Update Enrollment</a></li>
+	  	<li><a href="#about">Run Reports</a></li>
+	</ul>
+    <div>
+        <label>Application Deadline</label>
+        <form>
+            Semester: <select ng-model="deadline.semester" ng-options="name for name in semesterNames" required></select><br>
+            Date: <input type='date' ng-model='deadline.date'/><br>
+            <input type='submit' value='Save Deadline' ng-click='saveDeadline()'/>
+            <div>{{deadlineMessage}}</div>
+        </form>
+    </div><br><br>
     <form enctype='multipart/form-data'>
-      <label>Upload Schedule</label>
-      <input type="text" id="schedule" ng-model='scheduleInput'>
-      <input type="file" name="sfile" id="schedfile" ng-model='scheduleFile' file-input='scheduleFile' onchange="angular.element(this).scope().scheduleFileNameChanged(this.files)" hidden/>
-      <label class='myButton' for="schedfile" id="inline-label" ng-click='uploadErrorMessage = false'>Choose File</label><br><br>
-      <div ng-show='uploadErrorMessage'>{{errorMessage}}<br><br></div>
-      <input type='button' ng-click='uploadSchedule()' value="Save Schedule"/><br><br>
+        <label>Upload Schedule</label>
+            <input type="text" id="schedule" ng-model='scheduleInput'>
+            <input type="file" name="sfile" id="schedfile" ng-model='scheduleFile' file-input='scheduleFile' onchange="angular.element(this).scope().scheduleFileNameChanged(this.files)" hidden/>
+            <label class='myButton' for="schedfile" id="inline-label" ng-click='uploadErrorMessage = false'>Choose File</label><br><br>
+            <div ng-show='uploadErrorMessage'>{{errorMessage}}<br><br></div>
+            <input type='button' ng-click='uploadSchedule()' value="Save Schedule"/><br><br>
     </form>
-	</div> <!--programChairController-->
-</div><!--Container-->
+</div>  

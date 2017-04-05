@@ -169,7 +169,6 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/programChairHome', {
             templateUrl : 'app/users/programChairView.html',
             permissions : [USER_ROLES.program_chair],
-            layout : "/app/users/css/programChairView.css",
             resolve : {
                 getPCActions : function($q, $http, UserInfoService) {
                   var deferred = $q.defer();
@@ -191,7 +190,6 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
         .when('/classSummary', {
             templateUrl : 'app/programChair/classSummaryView.html',
             permissions : [USER_ROLES.program_chair],
-            layout : "/app/programChair/css/classSummaryView.css",
             resolve : {
                 'set' : function($rootScope, $timeout) {
                     $rootScope.layout = "";
