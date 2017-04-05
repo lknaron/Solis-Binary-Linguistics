@@ -23,6 +23,7 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                 UserInfoService.setFullName(response.data.firstName + ' ' + response.data.lastName);
                 UserInfoService.setUserType(response.data.type);
                 UserInfoService.setToken(response.data.token);
+                UserInfoService.setLastLogin(response.data.lastLogin);
                 if (response.data.type === 'student') {
                     UserInfoService.setAppStatus(response.data.appStatus);
                     // go to student home

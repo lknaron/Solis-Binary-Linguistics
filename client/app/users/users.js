@@ -31,23 +31,29 @@ user.controller('studentInfoController', function($scope, UserInfoService, Stude
     }       
 });
 
-user.controller('programChairController', function($scope, $http, $location, $route, $timeout, SendClassService, UserInfoService) {
+user.controller('programChairController', function($scope, $http, $location, $route, $timeout, SendClassService, UserInfoService, PCActionsService) {
     $scope.name = UserInfoService.getFullName();
     $scope.classes = [];
     $scope.semesterNames = ['Fall', 'Spring', 'Summer'];
-
+    /*
+     * This creates the dropdowns for classes missing/needing student assignments, student confirmations,
+     * and courses missing assigned hours. The undefined check is there to prevent errors occuring on the
+     * class summary page if the page is refreshed.
+     */
+    if (PCActionsService.callTo.hasActions !== undefined) {
+        $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
+        $scope.missingPlacementClasses = setClassOptions(PCActionsService.callTo.placements.missingPlacements);
+        $scope.missingTAClasses = setClassOptions(PCActionsService.callTo.placements.missingTA);
+        $scope.missingGraderClasses = setClassOptions(PCActionsService.callTo.placements.missingGrader);
+        $scope.needTAConfirmation = setClassOptions(PCActionsService.callTo.placements.needTAConfirmation);
+        $scope.needGraderConfirmation = setClassOptions(PCActionsService.callTo.placements.needGraderConfirmation);
+        $scope.needTAHours = setClassOptions(PCActionsService.callTo.placements.needTAHours, true);
+        $scope.needGraderHours = setClassOptions(PCActionsService.callTo.placements.needGraderHours, true);
+    }
+    
     angular.element(document).ready(function() {
         $http.get('/programChair/getClassNames').then(function successCallback(response) {
-            if (response.data[0].Location) {
-                for (var i in response.data) {
-                    if (response.data[i].Location === 'ASUOnline') {
-                        var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber + '*';   
-                    } else {
-                        var className = response.data[i].Subject + ' ' + response.data[i].CatalogNumber;    
-                    }
-                    $scope.classes.push({'class': className,'courseNumber': response.data[i].CourseNumber});
-                }
-            }    
+           $scope.classes = setClassOptions(response.data);
         }, function errorCallback(response) {
             //TODO
         });
@@ -72,7 +78,8 @@ user.controller('programChairController', function($scope, $http, $location, $ro
         $scope.deadlineMessage = '';
         var formatCheck = checkDeadlineDateFormat();
         if (formatCheck) {
-            var data = {semester:$scope.deadline.semester, date:new Date($scope.deadline.date).toISOString().slice(0, 10)};
+            var data = {semester:$scope.deadline.semester, date:new Date($scope.deadline.date)};
+            console.log(new Date($scope.deadline.date).toLocaleString())
             $http.post('programChair/setDeadline', data).then(function successCallback(response) {
                 $scope.deadlineMessage = 'Deadline successfully saved!';
                 $timeout(function() { 
@@ -94,6 +101,24 @@ user.controller('programChairController', function($scope, $http, $location, $ro
             return;
         }           
     } 
+    
+    // adds an indicator to the class name in dropdowns if a class is online and hours needed
+    // for classes missing TA/Grader assigned hours
+    function setClassOptions(data, hasHours) {
+        var options = [];
+        for (var i in data) {
+            if (data[i].Location === 'ASUOnline') {
+                var className = data[i].Subject + ' ' + data[i].CatalogNumber + '*';   
+            } else {
+                var className = data[i].Subject + ' ' + data[i].CatalogNumber;    
+            }
+            if (hasHours) {
+                className += ' ~ ' + data[i].neededHours + ' remaining hours';
+            }
+            options.push({'class': className,'courseNumber': data[i].CourseNumber});
+        } 
+        return options;
+    }
 
     $scope.scheduleFileNameChanged = function(file) {
         if (file[0]) {

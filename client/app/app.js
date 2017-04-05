@@ -105,7 +105,7 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                                  data: {user: UserInfoService.getUserId()}}).then(function(getActions) {
                                    StudentActionsService.callTo = getActions.data;	
                                    AppStatusService.setStatuses(getActions.data);
-                                   DeadlineDateCheckService.studentDateNotice(new Date(getActions.data.deadlineDate).toISOString().slice(0, 10));
+                                   DeadlineDateCheckService.studentDateNotice(getActions.data.deadlineDate);
                                    deferred.resolve(getActions);
                           });
                     return deferred.promise;
@@ -170,12 +170,15 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             templateUrl : 'app/users/programChairView.html',
             permissions : [USER_ROLES.program_chair],
             resolve : {
-                getPCActions : function($q, $http, UserInfoService) {
+                getPCActions : function($q, $http, DeadlineDateCheckService, UserInfoService, PCActionsService) {
                   var deferred = $q.defer();
                       $http({method: 'POST', 
-                             url: '/getPCActions', 
-                             data: {type: UserInfoService.getUserType()}}).then(function(getPCActions) {
-                               deferred.resolve(getPCActions);
+                           url: '/getPCActions',
+                           data: {lastLogin: UserInfoService.getLastLogin()}
+                      }).then(function(getPCActions) {
+                           PCActionsService.callTo = getPCActions.data;
+                           DeadlineDateCheckService.studentDateNotice(PCActionsService.callTo.deadline);
+                           deferred.resolve(getPCActions);
                       });
                 return deferred.promise;
                 }, 

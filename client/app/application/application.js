@@ -33,7 +33,7 @@ application.controller('contactInfoController', function($scope, $location, $htt
     // Saves Contact Information into Database
     $scope.saveContact = function(doRoute) {
         var pageStatus = PageCompletionService.checkFields($scope, 'contact');
-        var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var dateObj = new Date();
         // Maybe Change do Route to pass a number, 1 for true, 2 for false, 3 for changing status to complete
         var contactInfoData = {
                 PhoneNumber       : $scope.phoneNumber,
@@ -46,7 +46,6 @@ application.controller('contactInfoController', function($scope, $location, $htt
                 AddressZip        : $scope.zip,
                 AppStatus         : AppStatusService.checkStatus('contact', pageStatus),
                 isContactComplete : pageStatus,
-                DateCreated       : dateObj,
                 ModifiedDate      : dateObj,
                 ASURITE_ID        : UserInfoService.getUserId()
             };

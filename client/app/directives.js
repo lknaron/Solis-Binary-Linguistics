@@ -8,6 +8,70 @@
 var directives = angular.module('app.directives',[]);
 
 /*
+ * Displays notice items for PC. These include count of newly started applications since last login, count of
+ * incomplete applications, count of complete applications, and a notice if the deadline is within a week. 
+ */
+directives.directive('pcNoticeDirective', function($compile, DeadlineDateCheckService, PCActionsService) {
+    function notices(scope, element, attrs) {
+        if (DeadlineDateCheckService.deadlineNotice === 1) {
+                angular.element(document.getElementById('pcNoticeCalls')).append($compile("<div>The application deadline is coming up soon!</div>")(scope));
+        }
+        angular.element(document.getElementById('pcNoticeCalls')).append($compile("<div>" + PCActionsService.callTo.newApps + " student applications have been started since you last logged in!</div><div>" + PCActionsService.callTo.incompleteApps + " student applications are still incomplete!</div><div>" + PCActionsService.callTo.completeApps + " student applications are complete!</div>")(scope));
+    }
+    return {
+        link: notices
+    };
+});
+
+/*
+ * Displays call to action items for PC. These include if the deadline is that day or the deadline has passed, classes that 
+ * are incomplete, classes missing student assignments, classes without confirmed students, and classes with missinged 
+ * assigned hours. 
+ */
+directives.directive('pcActionsDirective', function($compile, DeadlineDateCheckService, PCActionsService, StudentActionsService) {
+    function actions(scope, element, attrs) {
+        if (PCActionsService.callTo.hasActions === 0 && (DeadlineDateCheckService.deadlineNotice === 1 || DeadlineDateCheckService.deadlineNotice === 3)) {
+            angular.element(document.getElementById('pcActions')).append($compile("<div>You have nothing to do!</div>")(scope));
+        }
+        else {
+            if (DeadlineDateCheckService.deadlineNotice === 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>The application deadline is today! Remember to set a new deadline as soon as possible for the next session of applications!</div>")(scope));
+            }
+            if (DeadlineDateCheckService.deadlineNotice === 2) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>The application deadline has passed! Remember to set a new deadline as soon as possible for the next session of applications!</div>")(scope));
+            }
+            if (PCActionsService.callTo.incompleteClasses.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.incompleteClasses.length + " class(es) indicated as incomplete. Select a class to continue working<select ng-model='incompleteClass' ng-options='class as class.class for class in incompleteClasses' ng-change='go(incompleteClass)'><option value=''>Select Class</option></select></div>")(scope));           
+            }
+            if (PCActionsService.callTo.placements.missingPlacements.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingPlacements.length + " class(es) with no student assignments. Select a class to continue working<select ng-model='missingPlacementClass' ng-options='class as class.class for class in missingPlacementClasses' ng-change='go(missingPlacementClass)'><option value=''>Select Class</option></select></div>")(scope));           
+            }
+            if (PCActionsService.callTo.placements.missingTA.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingTA.length + " class(es) without a TA in place. Select a class to continue working<select ng-model='missingTAClass' ng-options='class as class.class for class in missingTAClasses' ng-change='go(missingTAClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.missingGrader.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingGrader.length + " class(es) without a Grader in place. Select a class to continue working<select ng-model='missingGraderClass' ng-options='class as class.class for class in missingGraderClasses' ng-change='go(missingGraderClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needTAConfirmation.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needTAConfirmation.length + " class(es) without a TA confirmed. Select a class to continue working<select ng-model='needTAConfirmationClass' ng-options='class as class.class for class in needTAConfirmation' ng-change='go(needTAConfirmationClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needGraderConfirmation.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needGraderConfirmation.length + " class(es) without a Grader confirmed. Select a class to continue working<select ng-model='needGraderConfirmationClass' ng-options='class as class.class for class in needGraderConfirmation' ng-change='go(needGraderConfirmationClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needTAHours.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needTAHours.length + " class(es) lacking assigned TA hours. Select a class to continue working<select ng-model='needTAHoursClass' ng-options='class as class.class for class in needTAHours' ng-change='go(needTAHoursClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+            if (PCActionsService.callTo.placements.needGraderHours.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.needGraderHours.length + " class(es) lacking assigned Grader hours. Select a class to continue working<select ng-model='needGraderHoursClass' ng-options='class as class.class for class in needGraderHours' ng-change='go(needGraderHoursClass)'><option value=''>Select Class</option></select></div>")(scope));  
+            }
+        }
+    }
+    return {
+        link: actions
+    };
+});
+
+/*
  * Displays call to action for application fields
  */
 directives.directive('studentActionsDirective', function($compile, StudentActionsService, APPLICATION_LINKS) {
@@ -38,13 +102,13 @@ app.directive('studentNoticeDirective', function($compile, UserInfoService, Stud
             angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due today! Please have your application complete by the deadline!</div>")(scope));
         }
         if (DeadlineDateCheckService.deadlineNotice === 1) {
-            angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due within the next week! Please have your application complete by the deadline!</div>")(scope));
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>Applications are due within the next 7 days! Please have your application complete by the deadline!</div>")(scope));
         }
         if (StudentActionsService.callTo.onProbation === 1) {
             angular.element(document.getElementById('noticeCalls')).append($compile("<div>You have indicated on your application that you are on academic probation. Your application won't be considered until the academic probation has been cleared!<br><a href='"+ APPLICATION_LINKS.Education +"'>Go to Education page</div>")(scope));
         } 
-        if (StudentActionsService.callTo.onProbation === 0 && DeadlineDateCheckService.deadlineNotice === 2) {
-            angular.element(document.getElementById('noticeCalls')).append($compile("<div>No new notices.</div>")(scope));
+        if (StudentActionsService.callTo.onProbation === 0 && (DeadlineDateCheckService.deadlineNotice === 2 || DeadlineDateCheckService.deadlineNotice === 3)) {
+            angular.element(document.getElementById('noticeCalls')).append($compile("<div>You have no current notices.</div>")(scope));
         } 
     }
     return {
