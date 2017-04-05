@@ -142,8 +142,20 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                }
            }
         })
-        .when('/evaluations', {
-            templateUrl : 'app/faculty/studentEvalView.html',
+        .when('/viewApplications', {
+            templateUrl : 'app/faculty/searchApp.html',
+            permissions : [USER_ROLES.faculty],
+            resolve : {
+               'set' : function($rootScope, $timeout) {
+                   $rootScope.layout = "";
+                   $timeout(function() {
+                       $rootScope.mainDisplay = true;
+                   }, 100);
+               }
+           }
+        })
+        .when('/studentInfo/:studentName', {
+            templateUrl : 'app/faculty/studentApp.html',
             permissions : [USER_ROLES.faculty],
             resolve : {
                'set' : function($rootScope, $timeout) {

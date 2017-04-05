@@ -1,0 +1,146 @@
+<div class="StudentInfo" ng-controller='facultyStudentInfoController'>
+    <h3>{{studentName}}</h3>
+    <fieldset>
+        <h4>Student Background Information</h4>
+        <table>
+            <tr>
+                <th>EducationLevel</th>
+                <th>DegreeProgram</th>
+                <th>4+1 Student</th>
+                <th>GPA</th>
+                <th>International Student</th>
+                <th>Speak Test Score</th>
+                <th>First Session</th>
+                <th>Graduation Date</th>
+                <th>Time Commitment</th>
+                <th>TA</th>
+                <th>Grader</th>
+                <th>Current Employer</th>
+                <th>Current Work Hours</th>
+                <th>Worked for ASU Previously</th>
+            </tr>
+            <tr>
+                <td>{{appInfo.EducationLevel}}</td>
+                <td>{{appInfo.DegreeProgram}}</td>
+                <td>{{appInfo.isFourPlusOne !=0 ? 'Yes':'No'}}</td>
+                <td>{{appInfo.GPA}}</td>
+                <td>{{appInfo.isInternationalStudent !=0 ? 'Yes':'No'}}</td>
+                <td>{{appInfo.SpeakTest !=null ? appInfo.SpeakTest:'NA'}}</td>
+                <td>{{appInfo.FirstSession}}</td>
+                <td>{{appInfo.GraduationDate}}</td>
+                <td>{{appInfo.TimeCommitment}}</td>
+                <td>{{appInfo.isTA !=0 ? 'Yes':'No'}}</td>
+                <td>{{appInfo.isGrader !=0 ? 'Yes':'No'}}</td>
+                <td>{{appInfo.CurrentEmployer !=null ? appInfo.CurrentEmployer:'NA'}}</td>
+                <td>{{appInfo.WorkHours !=null ? appInfo.WorkHours:'NA'}}</td>
+                <td>{{appInfo.isWorkedASU !=0 ? 'Yes':'No'}}</td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h4>Languages</h4>
+        <table>
+            <tr>
+                <th ng-repeat='language in languages'>
+                    {{language.isLanguage}} 
+                    {{language.OtherLanguage}}</th>
+            </tr>
+            <tr>
+                <td ng-repeat='language in languages'>
+                    {{language.LanguageLevel}} 
+                    {{language.OtherLevel}}</td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h4>Integrated Development Environments</h4>
+        <table>
+            <tr>
+                <td ng-repeat='ide in ides'>{{ide.isIDE}} {{ide.OtherIDE}}</td> 
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h4>Collaborative Tools</h4>
+        <table>
+            <tr>
+                <td ng-repeat='tool in tools'>{{tool.isTool}} {{tool.OtherTool}}</td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h4>Courses</h4>
+        <table>
+            <tr>
+                <th>Courses</th>
+                <th>Qualified</th>
+                <th>Prefer</th>
+                <th>Previously TA</th>
+                <th>Previously Grader</th>
+            </tr>
+            <tr ng-repeat='course in courses'>
+                <td>{{course.isCourse}}
+                    {{course.OtherCourse}}</td>
+                <td>{{course.isQualified !=1 ? '':'Yes'}}
+                    {{course.isOtherQualified !=1 ? '':'Yes'}}</td>
+                <td>{{course.isPrefer !=1 ? '':'Yes'}}
+                    {{course.isOtherPrefer !=1 ? '':'Yes'}}</td>
+                <td>{{course.isPreviouslyTA !=1 ? '':'Yes'}}
+                    {{course.isOtherPreviouslyTA !=1 ? '':'Yes'}}</td>
+                <td>{{course.isPreviouslyGrader !=1 ? '':'Yes'}}
+                    {{course.isOtherPreviouslyGrader !=1 ? '':'Yes'}}</td> 
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h4>Calendar</h4>
+        <table>
+            <tr>
+                <th ng-repeat='calendar in calendars'>{{calendar.CalendarDay}}</th> 
+           	</tr>
+            <tr>
+                <td ng-repeat='calendar in calendars'>{{calendar.StartHour}} - {{calendar.StopHour}}</td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <h4>Attachments</h4>
+        <table>
+            <tr>
+                <th>Resume</th>
+                <th>Upload Date</th>
+                <th>Transcript</th>
+                <th>Upload Date</th>
+                <th>iPOS</th>
+                <th>Upload Date</th>
+           	</tr>
+            <tr>
+                <td><button ng-click='openAttachments(1, attachment.ASURITE_ID, attachment.ResumeName)'>{{attachment.ResumeName}}</button></td>
+                <td>{{attachment.ResumeUploadDate}}</td>
+                <td><button ng-click='openAttachments(2, attachment.ASURITE_ID, attachment.TranscriptName)'>{{attachment.TranscriptName}}</button></td>
+                <td>{{attachment.TranscriptUploadDate}}</td>
+                <td><button ng-click='openAttachments(3, attachment.ASURITE_ID, attachment.IposName)'>{{attachment.IposName}}</button></td>
+                <td>{{attachment.IposUploadDate}}</td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <div ng-show='evaluations.length'>
+        <fieldset>
+        	<h4>Evaluations</h4>
+            <div ng-repeat='evaluation in evaluations'>
+                <div>Date: {{evaluation.DateCreated}}</div><br>
+                <div>Student Interaction: {{evaluation.QOneScore}}/5 {{evaluation.QOneComments}}</div><br>
+                <div>Preparedness/Punctuality/Professionalism: {{evaluation.QTwoScore}}/5 {{evaluation.QTwoComments}}</div><br>
+                <div>Grading Diligence: {{evaluation.QThreeScore}}/5 {{evaluation.QThreeComments}}</div><br>
+                <div>I would recommend this student for future TA/grading opportunities: {{evaluation.QFourScore}}/5 {{evaluation.QFourComments}}</div><br>
+            </div>
+        </fieldset>
+    </div>
+</div>

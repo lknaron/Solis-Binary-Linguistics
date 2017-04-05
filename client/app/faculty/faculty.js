@@ -42,23 +42,166 @@ faculty.controller('studentEvalController', function($scope, $http, $location, $
         });
     }
 });
-// View Evaluations
-faculty.controller('studentEvalViewController', function($scope, $http, $location, $route) {
-    // populates dropdown with all names with evaluations
-    $http.get('/faculty/evaluation/names').then(function successCallback(response) {
-        $scope.names = response.data;
-    }, function errorCallback(response) {
+
+// View Applications
+faculty.controller('facultySearchAppController', function($scope, $location, $http) {
+    $http.post('/faculty/applicationNames').then(function successCallback(response) {
+            $scope.names = response.data;
+        }, function errorCallback(response) {
             //TODO
-    });
-    // Searches name in database
-    $scope.searchEval = function() {
-        var studentEvalData = {
-            name : $scope.selectName
+        });
+    // populates dropdown for courses
+    $scope.courses = [
+                        'SER 100', 
+                        'FSE 100', 
+                        'ASU 101', 
+                        'CSE 110',  
+                        'SER 200', 
+                        'CSE 205', 
+                        'SER 215', 
+                        'SER 216', 
+                        'SER 221', 
+                        'SER 222', 
+                        'CSE 230', 
+                        'SER 232', 
+                        'CSE 240', 
+                        'SER 334', 
+                        'SER 401', 
+                        'SER 402', 
+                        'SER 415', 
+                        'SER 416', 
+                        'SER 421', 
+                        'SER 422', 
+                        'SER 423', 
+                        'SER 431',
+                        'SER 432', 
+                        'SER 450', 
+                        'SER 456', 
+                        'SER 486', 
+                        'SER 501', 
+                        'SER 502', 
+                        'SER 515', 
+                        'SER 516', 
+                        'SER 517', 
+                        'SER 518'
+                    ];
+    
+    // Searches applications in database
+    $scope.searchApp = function() {
+        var courseData = {
+            course : $scope.selectCourse
         };
-        $http.post('/faculty/evaluations', studentEvalData).then(function successCallback(response) {
-            $scope.evals = response.data;
+        $http.post('/faculty/applications', courseData).then(function successCallback(response) {
+            $scope.names = response.data;
         }, function errorCallback(response) {
             //TODO
         });
     }
+});
+
+//View Student Application Info
+faculty.controller('facultyStudentInfoController', function($scope, $routeParams, $http) {
+    $scope.studentName = $routeParams.studentName
+    var studentData = {
+            studentName : $scope.studentName
+    };
+    // populates application table
+    $http.post('/faculty/applicationTable', studentData).then(function successCallback(response) {
+        $scope.appInfo = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+    // populates languages table
+    $http.post('/faculty/languagesTable', studentData).then(function successCallback(response) {
+        $scope.languages = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+    // populates IDEs table
+    $http.post('/faculty/ideTable', studentData).then(function successCallback(response) {
+        $scope.ides = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+    // populates collaborative tools table
+    $http.post('/faculty/toolsTable', studentData).then(function successCallback(response) {
+        $scope.tools = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+    // populates course competencies table
+    $http.post('/faculty/coursesTable', studentData).then(function successCallback(response) {
+        $scope.courses = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+    // populates calendar table
+    $http.post('/faculty/calendarTable', studentData).then(function successCallback(response) {
+        $scope.calendars = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+    // populates attachment table
+    $http.post('/faculty/attachmentTable', studentData).then(function successCallback(response) {
+        $scope.attachment = response.data;
+    }, function errorCallback(response) {
+        //TODO
+    });
+     // opens attachments
+    $scope.openAttachments = function(fileType, ID, fileName) {
+        // display resume file
+        if (fileType == 1) {
+            var resumeData = {
+            ID       : ID,
+            fileName : fileName
+            };
+            $http.post('/faculty/resume/', resumeData, {responseType: 'arraybuffer'}).then(function successCallback(response) {
+                var Resume = new Blob([response.data], {type: 'application/pdf'});
+                var ResumeURL = URL.createObjectURL(Resume);
+                window.location.assign(ResumeURL);
+            }, function errorCallback(response) {
+                //TODO
+            });
+        }
+        // display transcript file
+        if (fileType == 2) {
+            var transcriptData = {
+            ID       : ID,
+            fileName : fileName
+            };
+            // display resume file
+            $http.post('/faculty/transcript/', transcriptData, {responseType: 'arraybuffer'}).then(function successCallback(response) {
+                var Transcript = new Blob([response.data], {type: 'application/pdf'});
+                var TranscriptURL = URL.createObjectURL(Transcript);
+                window.location.assign(TranscriptURL);
+            }, function errorCallback(response) {
+                //TODO
+            });
+        }
+        // display iPOS file
+        if (fileType == 3) {
+            var iposData = {
+            ID       : ID,
+            fileName : fileName
+            };
+            // display resume file
+            $http.post('/faculty/ipos/', iposData, {responseType: 'arraybuffer'}).then(function successCallback(response) {
+                var Ipos = new Blob([response.data], {type: 'application/pdf'});
+                var IposURL = URL.createObjectURL(Ipos);
+                window.location.assign(IposURL);
+            }, function errorCallback(response) {
+                //TODO
+            });
+        }
+    }
+    // populates evaluation table
+    $http.post('/faculty/evaluationTable', studentData).then(function successCallback(response) {
+        if(response.data == 'OK') {
+            $scope.evaulations = [];
+        } else {
+            $scope.evaluations = response.data;
+        }
+    }, function errorCallback(response) {
+        //TODO
+    });
 });

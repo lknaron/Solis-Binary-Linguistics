@@ -1,0 +1,12 @@
+<div class="SearchApplications" ng-controller='facultySearchAppController'>
+    <h3>View Applications</h3>
+    <form>
+        Select a Course: <select ng-model='selectCourse' ng-options="c for c in courses"></select>
+        <input type='button' ng-click='searchApp()' value="Submit"></input>
+    </form>
+        <div class="display-apps" ng-repeat="name in names">
+            <br>
+            <div>Name : <a ng-href='#!/studentInfo/{{name.Name}}'>{{name.Name}}</a></div>
+            <br>
+        </div>
+</div>
