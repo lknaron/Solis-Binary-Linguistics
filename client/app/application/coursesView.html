@@ -2,15 +2,14 @@
     <form>
         <fieldset>
             <legend><span class="number">1</span>Course Competancies*</legend>
-            <p>*To deselect a course double click selection</p>
             <div ng-repeat="course in courses">               
-                <span class='bottom' ng-init="courses.group=null">
-                        <label class='left'>{{course.name}}</label>
+                <span ng-init="courses.group=null">
+                        <label><strong>{{course.name}}</strong></label>
                         <div class='right'>
-                          <input type='radio' ng-model='course.level' value='Prefer' ng-dblclick='deselectLevel(this)'>Prefer
-                          <input type='radio' ng-model='course.level' value='Qualified' ng-dblclick='deselectLevel(this)'>Qualified 
-                          <input type='radio' ng-model='course.level' value='Previously TA' ng-dblclick='deselectLevel(this)'>Previously TA
-                          <input type='radio' ng-model='course.level' value='Previously Grader' ng-dblclick='deselectLevel(this)'>Previously Grader
+                          <input type='checkbox' ng-model='course.prefer' ng-true-value='1' ng-false-value='0'>Prefer
+                          <input type='checkbox' ng-model='course.qualified' ng-true-value='1' ng-false-value='0'>Qualified 
+                          <input type='checkbox' ng-model='course.prevTA' ng-true-value='1' ng-false-value='0'>Previously TA
+                          <input type='checkbox' ng-model='course.prevGrader' ng-true-value='1' ng-false-value='0'>Previously Grader
                         </div>
                   <br><br>
                 </span>

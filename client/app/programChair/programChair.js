@@ -13,26 +13,29 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
     angular.element(document).ready(function() { 
         var className = { 'class' : SendClassService.getClassNumber() };       
         $http.post('/programChair/getClassInfo', className).then(function successCallback(response) {
-            if (response.data[0][0]) {
+            if (response.data[0]) {
                 $scope.populateSelectedClassInfo(response)
                 $scope.populateClassRequirements(response);                 
             }            
             // Populate Enrollment Section
-            if (response.data[1][0]) {
+            if (response.data[1]) {
                 $scope.populateEnrollment(response);
-            }            
+            } else {
+                $scope.previousEnrollment = response.data[0][0].EnrollmentNumPrev;
+                $scope.enrollmentDifference = 0 - response.data[0][0].EnrollmentNumPrev; 
+            }          
             // Populate Assigned Students Section
-            if (response.data[2][0]) {
+            if (response.data[2]) {
                 $scope.populateAssignedStudents(response);   
             } else {
                 $scope.noneAssigned = 'No Students Currently Assigned';
                 $scope.noAssigned = true;   
             } 
             // Populate Faculty Requests Section
-            if (response.data[3][0]) {
+            if (response.data[3]) {
                 $scope.populateFacultyRequests(response);
             } else {
-                $scope.noneRequested = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName + 'has not made any requests'
+                $scope.noneRequested = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName + ' has not made any requests'
                 $scope.noRequested = true;    
             } 
         }, function errorCallback(response) {
@@ -74,6 +77,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
 
     // Method to populate enrollment section of class summary page
     $scope.populateEnrollment = function(response) {
+        $scope.showPastEnrollments = true;
         for (var i in response.data[1]) {
             var dateObj = new Date(response.data[1][i].DateEntered).toISOString().slice(0, 19).replace('T', ' ').toString();
             var dateArray = dateObj.substr(0,dateObj.indexOf(' ')).split("-");
@@ -86,7 +90,6 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
 
     // Method to populate assigned students section of page
     $scope.populateAssignedStudents = function(response) {
-        $scope.assignedHours = [];
         // TA 1
         if (response.data[2][0].TA != null) {
             $scope.taIdLink = response.data[2][0].TA;
@@ -108,6 +111,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
                         commitHours += response.data[2][i].GraderOneHours;
                 }
                 $scope.taAvailableHours = response.data[1][0].TimeCommitment - commitHours;
+                $scope.taHoursMax = $scope.taAvailableHours + response.data[2][0].TAHours;
                 $scope.ta = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName;
             }, function errorCallback(response) {
                 //TODO
@@ -136,6 +140,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
                         commitHours += response.data[2][i].GraderOneHours;
                 }
                 $scope.taTwoAvailableHours = response.data[1][0].TimeCommitment - commitHours; 
+                $scope.taTwoHoursMax = $scope.taTwoAvailableHours + response.data[2][0].TATwoHours;
                 $scope.taTwo = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName;
             }, function errorCallback(response) {
                 //TODO
@@ -164,6 +169,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
                         commitHours += response.data[2][i].GraderOneHours;
                 }
                 $scope.graderOneAvailableHours = response.data[1][0].TimeCommitment - commitHours;
+                $scope.graderOneHoursMax = $scope.graderOneAvailableHours + response.data[2][0].GraderOneHours;
                 $scope.graderOne = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName;
             }, function errorCallback(response) {
                 //TODO
@@ -192,6 +198,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
                         commitHours += response.data[2][i].GraderOneHours;
                 }
                 $scope.graderTwoAvailableHours = response.data[1][0].TimeCommitment - commitHours;
+                $scope.graderTwoHoursMax = $scope.graderTwoAvailableHours + response.data[2][0].GraderTwoHours;
                 $scope.graderTwo = response.data[0][0].FirstName + ' ' + response.data[0][0].LastName;
             }, function errorCallback(response) {
                 //TODO
@@ -251,6 +258,7 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
     // Method to save enrollment in database
     // Add enrollment thresholds to update required hours
     $scope.saveEnrollment = function(enrollmentUpdate) {
+        $scope.showPastEnrollments = true;
         if (enrollmentUpdate != null) {
             // Possibly set time zone of date object
             var dateObj = new Date().toISOString().slice(0, 19).replace('T', ' ').toString();
@@ -326,38 +334,22 @@ programChair.controller('classSummaryController', function($scope, $http, $locat
 
     // Method to update available hours when assigned hours changes
     $scope.updateAvailableHours = function(student) {
-        if (student === 0) {
-            if(!$scope.taAssignedHours && $scope.taAssignedHours != 0) {
-                $scope.taAssignedHours = $scope.assignedHours[student];
-            } else {
+        if (student === 0) {              
                 $scope.taHoursMax = $scope.taAvailableHours + $scope.assignedHours[student];
                 $scope.taAvailableHours = $scope.taAvailableHours - ($scope.taAssignedHours - $scope.assignedHours[student]);
-                $scope.assignedHours[student] = $scope.taAssignedHours;    
-            }   
+                $scope.assignedHours[student] = $scope.taAssignedHours;  
         } else if (student === 1) {
-            if(!$scope.taTwoAssignedHours && $scope.taTwoAssignedHours != 0) {
-                $scope.taTwoAssignedHours = $scope.assignedHours[student];
-            } else {
+                $scope.taTwoHoursMax = $scope.taTwoAvailableHours + $scope.assignedHours[student];
                 $scope.taTwoAvailableHours = $scope.taTwoAvailableHours - ($scope.taTwoAssignedHours  - $scope.assignedHours[student]);
-                $scope.assignedHours[student] = $scope.taTwoAssignedHours; 
-                $scope.assignedHours[student] = $scope.taTwoAssignedHours;    
-            }   
+                $scope.assignedHours[student] = $scope.taTwoAssignedHours;        
         } else if (student === 2) {
-            if(!$scope.graderOneAssignedHours && $scope.graderOneAssignedHours != 0) {
-                $scope.graderOneAssignedHours = $scope.assignedHours[student];
-            } else {
+                $scope.graderOneHoursMax = $scope.graderOneAvailableHours + $scope.assignedHours[student];
                 $scope.graderOneAvailableHours = $scope.graderOneAvailableHours - ($scope.graderOneAssignedHours  - $scope.assignedHours[student]);
                 $scope.assignedHours[student] = $scope.graderOneAssignedHours;
-                $scope.assignedHours[student] = $scope.graderOneAssignedHours;
-            }
         } else if (student === 3) {
-            if(!$scope.graderTwoAssignedHours && $scope.graderTwoAssignedHours != 0) {
-                $scope.graderTwoAssignedHours = $scope.assignedHours[student];
-            } else {
+                $scope.graderTwoHoursMax = $scope.graderTwoAvailableHours + $scope.assignedHours[student];
                 $scope.graderTwoAvailableHours = $scope.graderTwoAvailableHours - ($scope.graderTwoAssignedHours  - $scope.assignedHours[student]);
                 $scope.assignedHours[student] = $scope.graderTwoAssignedHours;
-                $scope.assignedHours[student] = $scope.graderTwoAssignedHours;
-            }
         }
     }
 

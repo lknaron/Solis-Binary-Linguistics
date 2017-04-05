@@ -48,14 +48,9 @@ CREATE TABLE IF NOT EXISTS Student_Evaluation (
   QThreeComments VARCHAR(500) DEFAULT NULL,
   QFourScore INT NOT NULL,
   QFourComments VARCHAR(500) DEFAULT NULL,
-  ASURITE_ID_1 VARCHAR(45) NOT NULL,
-  ASURITE_ID_2 VARCHAR(45) NOT NULL,
-  PRIMARY KEY (EvaluationID),
-  CONSTRAINT student_evaluation_fk_1 FOREIGN KEY (ASURITE_ID_1) 
-  REFERENCES User_ (ASURITE_ID),
-  CONSTRAINT student_evaluation_fk_2 FOREIGN KEY (ASURITE_ID_2) 
-  REFERENCES User_ (ASURITE_ID)
-  ON DELETE CASCADE
+  StudentName VARCHAR(45) NOT NULL,
+  InstructorName VARCHAR(45) NOT NULL,
+  PRIMARY KEY (EvaluationID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -93,6 +88,7 @@ CREATE TABLE IF NOT EXISTS Student_Request (
   PRIMARY KEY (RequestID),
   CONSTRAINT student_request_fk_1 FOREIGN KEY (ScheduleID) 
   REFERENCES Schedule_ (ScheduleID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -116,6 +112,7 @@ CREATE TABLE IF NOT EXISTS Placement (
   PRIMARY KEY (PlaceID),
   CONSTRAINT placement_fk FOREIGN KEY (ScheduleID) 
   REFERENCES Schedule_ (ScheduleID)
+  ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -129,6 +126,7 @@ CREATE TABLE IF NOT EXISTS Enrollment (
  PRIMARY KEY (EnrollmentID),
  CONSTRAINT enrollment_fk FOREIGN KEY (ScheduleID)
  REFERENCES Schedule_ (ScheduleID)
+ ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- -----------------------------------------------------
@@ -163,7 +161,6 @@ CREATE TABLE IF NOT EXISTS Application (
   DateCreated TIMESTAMP,
   DateSubmitted TIMESTAMP,
   ModifiedDate TIMESTAMP,
-  LastSaved VARCHAR(100),
   isContactComplete TINYINT(1) DEFAULT NULL,
   isEducationComplete TINYINT(1) DEFAULT NULL,
   isEmploymentComplete TINYINT(1) DEFAULT NULL,
@@ -197,9 +194,12 @@ CREATE TABLE IF NOT EXISTS Calendar (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Attachment (
   AttachmentID INT NOT NULL AUTO_INCREMENT,
-  AttachmentName VARCHAR(45) NOT NULL,
-  AttachmentType ENUM ('IPOS', 'Resume', 'Transcript') NOT NULL,
-  UploadDate TIMESTAMP NOT NULL,
+  IposName VARCHAR(45) DEFAULT NULL,
+  TranscriptName VARCHAR(45) DEFAULT NULL,
+  ResumeName VARCHAR(45) DEFAULT NULL,
+  IposUploadDate TIMESTAMP,
+  TranscriptUploadDate TIMESTAMP,
+  ResumeUploadDate TIMESTAMP,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (AttachmentID),
   CONSTRAINT attachment_fk FOREIGN KEY (ASURITE_ID) 
@@ -264,14 +264,30 @@ CREATE TABLE IF NOT EXISTS Course_Competencies (
   'SER 321', 'SER 517', 'SER 322', 'SER 518', 'SER 332', 'CSE 563', 
   'SER 334', 'CSE 564', 'SER 401', 'CSE 566', 'SER 402', 'SER 415', 
   'SER 416') DEFAULT NULL,
-  CourseLevel ENUM ('Prefer', 'Qualified', 'Previously TA', 'Previously Grader')  DEFAULT NULL,
+  isPrefer TINYINT(1) DEFAULT NULL,
+  isQualified TINYINT(1) DEFAULT NULL,
+  isPreviouslyTA TINYINT(1) DEFAULT NULL,
+  isPreviouslyGrader TINYINT(1) DEFAULT NULL,
   OtherCourse VARCHAR(45) DEFAULT NULL,
-  OtherLevel ENUM ('Prefer', 'Qualified', 'Previously TA', 'Previously Grader')  DEFAULT NULL,
+  isOtherPrefer TINYINT(1) DEFAULT NULL,
+  isOtherQualified TINYINT(1) DEFAULT NULL,
+  isOtherPreviouslyTA TINYINT(1) DEFAULT NULL,
+  isOtherPreviouslyGrader TINYINT(1) DEFAULT NULL,
   ASURITE_ID VARCHAR(45) NOT NULL,
   PRIMARY KEY (CompetenciesID),
   CONSTRAINT course_compentencies_fk FOREIGN KEY (ASURITE_ID) 
   REFERENCES Application (ASURITE_ID)
   ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- -----------------------------------------------------
+-- Deadline Table
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Deadline (
+  DeadlineID INT NOT NULL AUTO_INCREMENT,
+  CurrentSemester ENUM ('Fall', 'Spring', 'Summer') NOT NULL,
+  DeadlineDate DATE NOT NULL,
+  PRIMARY KEY (DeadlineID)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 SET SQL_MODE=@OLD_SQL_MODE;

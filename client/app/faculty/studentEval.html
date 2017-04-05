@@ -1,0 +1,21 @@
+<div class="form-evaluation" ng-controller='studentEvalController'>
+    <form>
+        <h3>Student Evaluation</h3>
+        <div calss="populate names" >
+            Select a Student: <select ng-model='selectName' ng-options="n for n in studentnames"></select>
+        </div>
+        1. Student Interaction:
+        <select ng-model='selectOne' ng-options="r for r in ratings"></select>
+        <input ng-model='commentsOne' type="text" name="comments1" placeholder="Comments"><br>
+        2. Preparedness/Punctuality/Professionalism:
+        <select ng-model='selectTwo' ng-options="r for r in ratings"></select>
+        <input ng-model='commentsTwo' type="text" name="comments2" placeholder="Comments"><br>
+        3. Grading Diligence:
+        <select ng-model='selectThree' ng-options="r for r in ratings"></select>
+        <input ng-model='commentsThree' type="text" name="comments3" placeholder="Comments"><br>
+        4. I would recommend this student for future TA/grading opportunities:
+        <select ng-model='selectFour' ng-options="r for r in ratings"></select>
+        <input ng-model='commentsFour' type="text" name="comments4" placeholder="Comments"><br>
+        <input type='button' ng-click='saveEval(true)' value="Submit"></input>
+    </form>
+</div>

@@ -200,22 +200,15 @@ router.post('/updateEnrollment', function(req, res) {
                     throw err2;
                 } else if (rows[0]) {
                     schedID = rows[0].ScheduleID;
-                    connection.query('SELECT * FROM Enrollment WHERE ScheduleID = ?', [rows[0].ScheduleID], function(err3, rows) {
-                        if(err3) {
-                            console.log('Error performing query: ' + err3);
-                            throw err3;
-                        } else if (rows[0]) {
-                            connection.query('INSERT INTO Enrollment (EnrollmentNumCurrent, DateEntered, ScheduleID) VALUES (?, ?, ?)', [req.body.enrollment, dateObj, schedID], function(err4, rows) {
-                                if(err4) {
-                                    console.log('Error performing query: ' + err4);
-                                    throw err4;
-                                } else {
-                                    connection.release();
-                                    res.sendStatus(200); 
-                                }
-                            });
-                        } 
-                    });                  
+                    connection.query('INSERT INTO Enrollment (EnrollmentNumCurrent, DateEntered, ScheduleID) VALUES (?, ?, ?)', [req.body.enrollment, dateObj, schedID], function(err4, rows) {
+                        if(err4) {
+                            console.log('Error performing query: ' + err4);
+                            throw err4;
+                        } else {
+                            connection.release();
+                            res.sendStatus(200); 
+                        }
+                    });                
                 }
             });    
         }
@@ -327,6 +320,46 @@ router.post('/updateAssignedStudents', function(req, res) {
                     connection.release();                     
                 }
             });    
+        }
+    });
+});
+
+// gets the deadline date
+router.get('/getDeadline', function(req, res) {
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        } else {
+            connection.query('SELECT CurrentSemester, DeadlineDate FROM Deadline', function(err2, rows) {
+                if(err2) {
+                    console.log('Error performing query: ' + err2);
+                    throw err2;
+                }
+                res.send({date:rows[0].DeadlineDate, semester:rows[0].CurrentSemester});
+                connection.release();
+            });
+        }
+    });
+});
+
+// store the deadline date
+router.post('/setDeadline', function(req, res) {
+    mysql_pool.getConnection(function(err, connection) {
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+            throw err;
+        } else {
+            connection.query('UPDATE Deadline SET DeadlineDate = ?, CurrentSemester = ?', [req.body.date, req.body.semester], function(err2, rows) {
+                if(err2) {
+                    console.log('Error performing query: ' + err2);
+                    throw err2;
+                }
+                res.sendStatus(200);
+                connection.release();
+            });
         }
     });
 });

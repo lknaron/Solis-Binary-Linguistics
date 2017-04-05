@@ -14,7 +14,7 @@ services.service('WorkHoursCheckService', function(WORK_HOURS) {
     this.checkHours = function(commitedHours, type, extraHours) {
         var wantedHours = 0;
         var maxHours = 0;
-        if (commitedHours !== null && type !== null && extraHours !== null) {
+        if (commitedHours !== null && extraHours !== null) {
             if (commitedHours === '10 hours per week') {
                 wantedHours = 10;
             }
@@ -48,9 +48,6 @@ services.service('UserInfoService', function($window) {
     this.setUserType = function(type) {
         $window.sessionStorage.setItem('userType', type);
     }   
-    this.setLastSaved = function(last) {
-        $window.sessionStorage.setItem('lastSaved', last);
-    } 
     this.setAppStatus = function(status) {
         $window.sessionStorage.setItem('appStatus', status);
     } 
@@ -66,9 +63,6 @@ services.service('UserInfoService', function($window) {
     this.getUserType = function() {
         return $window.sessionStorage.getItem('userType');
     }
-    this.getLastSaved = function() {
-        return $window.sessionStorage.getItem('lastSaved');
-    }
     this.getAppStatus = function() {
         return $window.sessionStorage.getItem('appStatus');
     }
@@ -78,8 +72,7 @@ services.service('UserInfoService', function($window) {
     this.clearUserSession = function() {
         $window.sessionStorage.removeItem('userId');   
         $window.sessionStorage.removeItem('userName');   
-        $window.sessionStorage.removeItem('userType');   
-        $window.sessionStorage.removeItem('lastSaved');       
+        $window.sessionStorage.removeItem('userType');          
         $window.sessionStorage.removeItem('appStatus');   
         $window.sessionStorage.removeItem('token');
         $window.sessionStorage.removeItem('className');
@@ -219,6 +212,7 @@ services.service('PageCompletionService', function() {
     }
 });
 
+// handles setting the application status based on application page completion status
 services.service('AppStatusService', function($window, UserInfoService) {
     this.pages = ['contact', 'education', 'employment', 'availability', 'languages', 'courses'];
     this.setStatuses = function(data) {
@@ -255,4 +249,22 @@ services.service('AppStatusService', function($window, UserInfoService) {
         }
         return 'complete';
     }
+});
+
+// performs a check of the set deadline date against the current date 
+services.service('DeadlineDateCheckService', function() {
+   this.deadlineNotice;
+   this.studentDateNotice = function(deadline) {
+       var today =  new Date().toISOString().slice(0, 10);
+       var window = new Date();
+       window.setDate(window.getDate() + 7);    // window of 7 days from today
+       window = window.toISOString().slice(0, 10);
+       if (deadline === today) {
+           this.deadlineNotice = 0;     // today is the same as the deadline
+       } else if (window >= deadline) {         
+           this.deadlineNotice = 1;     // today is within a week of deadline
+       } else {
+           this.deadlineNotice = 2;     // today is not within a week of deadline
+       }
+   }
 });

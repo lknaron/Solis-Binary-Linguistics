@@ -49,7 +49,10 @@ var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
     languagesRouter = require('./serverRoutes/applicationRouters/languagesRouter.js'),
     coursesRouter = require('./serverRoutes/applicationRouters/coursesRouter.js'),
     programChairRouter = require('./serverRoutes/programChairRouters/programChairRouter.js'),
-    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js');
+    studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js'),
+    facultyRouter = require('./serverRoutes/facultyRouter/facultyRouter.js'),
+    pcActionsRouter = require('./serverRoutes/homeRouters/pcActionsRouter.js'),
+    classScheduleUploadRouter = require('./serverRoutes/programChairRouters/classScheduleUploadRouter.js');
 
 // Use ssl certificate and key
 var httpsOptions = {
@@ -59,30 +62,21 @@ var httpsOptions = {
 
 // Create https server
 https.createServer(httpsOptions, app).listen(port, function () {
-    console.log('Server running at https://sbltest.ddns.net');
+    console.log('Server running at https://tagraderapp.fulton.asu.edu:3443');
 });
 
 //  Send requests to correct router
 app.use('/login', logInRouter);
 app.use('/createAccount', createAccountRouter);
 app.use('/contactInfo', contactInfoRouter);
-app.use('/contactInfo/getContactInfo', contactInfoRouter);
 app.use('/education', educationRouter);
 app.use('/iposUpload', educationIposUploadRouter);
 app.use('/transcriptUpload', educationTranscriptUploadRouter);
-app.use('/education/getEducationInfo', educationRouter);
-app.use('/education/getIposInfo', educationRouter);
-app.use('/education/getTranscriptInfo', educationRouter);
 app.use('/employment', employmentRouter);
-app.use('/employment/getEmploymentInfo', employmentRouter);
-app.use('/employment/getResumeInfo', employmentRouter);
 app.use('/resumeUpload', employmentResumeUploadRouter);
 app.use('/availability', availabilityRouter);
-app.use('/availability/getAvailabilityInfo', availabilityRouter);
 app.use('/languages', languagesRouter);
-app.use('/languages/getLanguagesInfo', languagesRouter);
 app.use('/courses', coursesRouter);
-app.use('/courses/getCoursesInfo', coursesRouter);
 app.use('/programChair', programChairRouter);
 app.use('/programChair/getClassNames', programChairRouter);
 app.use('/programChair/getClassInfo', programChairRouter);
@@ -91,4 +85,9 @@ app.use('/programChair/updateEnrollment', programChairRouter);
 app.use('/programChair/updateStatus', programChairRouter);
 app.use('/programChair/updateRequiredHours', programChairRouter);
 app.use('/programChair/updateAssignedStudents', programChairRouter);
+app.use('/faculty', facultyRouter);
+app.use('/programChair/getDeadline', programChairRouter);
+app.use('/programChair/setDeadline', programChairRouter);
+app.use('/programChair/scheduleUpload', classScheduleUploadRouter);
 app.use('/getStudentActions', studentActionsRouter);
+app.use('/getPCActions', pcActionsRouter);

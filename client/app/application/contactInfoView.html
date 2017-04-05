@@ -1,4 +1,4 @@
-<div class="form" ng-controller='contactInfoController'>
+<div class="form-contact" ng-controller='contactInfoController'>
     <form>
         <fieldset>
             <legend><span class="number" ng-model="name">1</span>{{name}} Contact Information </legend>
@@ -12,7 +12,7 @@
             <input ng-model='addressTwo' type="text" name="address2" placeholder="Address2"><br>
             <input ng-model='city' type="text" name="city" placeholder="City*"><br>
             <input ng-model='state' type="text" name="field1" placeholder="State, Region, Province*"><br>
-            <input ng-model='zip' type="text" name="code" placeholder="Zip Code, Postal Code*"><br>
+            <input ng-model='zip' type="number" name="code" placeholder="Zip Code, Postal Code*"><br>
         </fieldset>
         <input type='button' ng-click='saveContact(false)' value="Save"></input>
         <input type='button' ng-click='saveContact(true)' value="Save and Continue"></input>

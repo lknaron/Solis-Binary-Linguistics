@@ -22,7 +22,7 @@ var mysql_pool  = mysql.createPool({
 });
 
 // Creates/Updates user course choices
-router.post('/', function(req, res) {
+router.post('/', function(req, res) { 
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
             throw err;
         }
         if (req.body.data[0].length === 0) {
-            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.data[1][0]], function(err2) {
+            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err2) {
                 if(err2) {
                     console.log('Error performing query: ' + err2);
                     throw err2;
@@ -38,12 +38,12 @@ router.post('/', function(req, res) {
             });
         } 
         if (req.body.data[0].length != 0) {
-            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.data[1][0]], function(err3) {
+            connection.query('DELETE FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err3) {
                 if(err3) {
                     console.log('Error performing query: ' + err3);
                     throw err3;
                 } else {
-                    connection.query('INSERT INTO Course_Competencies (isCourse, CourseLevel, OtherCourse, OtherLevel, ASURITE_ID) VALUES ?', [req.body.data[0]], function(err4) { 
+                    connection.query('INSERT INTO Course_Competencies (isCourse, isPrefer, isQualified, isPreviouslyTA, isPreviouslyGrader, OtherCourse, isOtherPrefer, isOtherQualified, isOtherPreviouslyTA, isOtherPreviouslyGrader, ASURITE_ID) VALUES ?', [req.body.data[0]], function(err4) { 
                         if(err4) {
                             console.log('Error performing query: ' + err4);
                             throw err4;
@@ -52,7 +52,7 @@ router.post('/', function(req, res) {
                 } 
             });
         }
-        connection.query('UPDATE Application SET isCoursesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.appStatus, req.body.data[1][0]], function(err5) {
+        connection.query('UPDATE Application SET isCoursesComplete = ?, AppStatus = ? WHERE ASURITE_ID = ?', [req.body.isCoursesComplete, req.body.appStatus, req.user.username], function(err5) {
             if (err5) {
                 throw err5;
             }
@@ -63,20 +63,19 @@ router.post('/', function(req, res) {
 });
 
 // Returns data to populate application page if user already saved courses information
-router.post('/getCoursesInfo', function(req, res) {
+router.get('/', function(req, res) {
     var courses = [];
-
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT isCourse, CourseLevel, OtherCourse, OtherLevel FROM Course_Competencies WHERE ASURITE_ID = ?', [req.body.user], function(err2, rows) { 
+        connection.query('SELECT isCourse, isPrefer, isQualified, isPreviouslyTA, isPreviouslyGrader, OtherCourse, isOtherPrefer, isOtherQualified, isOtherPreviouslyTA, isOtherPreviouslyGrader FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) { 
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;
-            } else if (rows && rows.length != 0) {
+            } else if (rows[0]) {
                 for (var i = 0; i < rows.length; i++) {                 
                     courses.push(rows[i]);
                 }

@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
       throw err;
     }
     //  Use connection to query log in credentials
-    connection.query('SELECT User_.*, Application.LastSaved, Application.AppStatus FROM User_ LEFT JOIN Application ON ' +
+    connection.query('SELECT User_.*, Application.AppStatus FROM User_ LEFT JOIN Application ON ' +
                      'User_.ASURITE_ID = Application.ASURITE_ID WHERE User_.ASURITE_ID = ?', [req.body.username], function(err2, rows){
       if(err2) {
         console.log('Error performing query: ' + err2);
@@ -60,7 +60,7 @@ function sendRes(response, req, rows, validation) {
   if (validation) {
     var token = jwt.sign({username:req.body.username}, 'sblapp123');
     response.send({'error' : 0, 'firstName' : rows[0].FirstName, 'lastName': rows[0].LastName, 'type': rows[0].UserRole, 
-          'lastSaved' : rows[0].LastSaved, 'appStatus' : rows[0].AppStatus, 'token':token});
+           'appStatus' : rows[0].AppStatus, 'token':token});
     updateLoginDate(req.body.username);  
   } else {
     response.send({'error' : 1}); // Responds error 1 if incorrect passoword

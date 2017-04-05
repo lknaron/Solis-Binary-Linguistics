@@ -26,27 +26,29 @@
                 <div class="field-wrap">
                     <div class="help">
                         <label>ASU Email <span class="req">*</span></label><br>
-                        <input type="email" ng-model='email' required autocomplete="off"/>
+                        <input type="email" ng-model='email' ng-change='emailError=false' required autocomplete="off"/>
                         <img src="/assets/images/pwreq.png" alt="Req" style="width:20px;height:20px;" title='Must use ASU email'/>
                     </div>
+                    <p class="error" ng-model='emailErrorMessage' ng-show='emailError'><br><br>{{emailErrorMessage}}</p>
                 </div>
                 <div class="field-wrap">
                     <div class="help">
                         <label>Set A Password<span class="req">*</span></label><br>
-                        <input type="password" ng-model='password1' required autocomplete="off"/>
+                        <input type="password" ng-model='password1' ng-change='passwordError=false' required autocomplete="off"/>
                         <img src="/assets/images/pwreq.png" alt="Req" style="width:20px;height:20px;" 
                         title='Password Requirements:
                         -8-20 Characters
                         -1 Lowercase Letter
                         -1 Uppercase Letter
-                        -1 Special Character(#?!@$%^&*-)'/>
+                        -1 Special Character(#?!@$%^&*-)
+                        -1 Number'/>
                     </div>
                 </div>
                 <div class="field-wrap">
                     <label>Re-enter Password<span class="req">*</span></label><br>
-                    <input type="password" ng-model='password2' required autocomplete="off"/>
-                </div><br>
-                <p class="error" ng-model='message'>{{message}}</p>
+                    <input type="password" ng-model='password2' ng-change='passwordError=false' required autocomplete="off"/>
+                </div>
+                <p class="error" ng-model='passwordErrorMessage' ng-show='passwordError'><br>{{passwordErrorMessage}}</p>
                 <button class="create-button" type="submit">Create Account</button>  
             </form>
         </div>

@@ -24,7 +24,6 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                 UserInfoService.setUserType(response.data.type);
                 UserInfoService.setToken(response.data.token);
                 if (response.data.type === 'student') {
-                    UserInfoService.setLastSaved(response.data.lastSaved);
                     UserInfoService.setAppStatus(response.data.appStatus);
                     // go to student home
                     $location.path('/studentHome');
@@ -32,8 +31,9 @@ login.controller('loginController', function($scope, $location, $http, UserInfoS
                     $location.path('/facultyHome');
                 } else if (response.data.type === 'program chair') {
                     $location.path('/programChairHome');
+                } else if (response.data.type === 'administrative') {
+                    $location.path('/administrationHome');   
                 }
-                /* other types TODO */
             } else if (response.data.error === 1) {
                 // Incorrect Credentials
                 $scope.message = 'Username/Password Incorrect';
