@@ -6,6 +6,7 @@
 var express  = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var fs = require('fs');
 
 // Invoked for any request passed to this router
 router.use(function(req, res, next) {
@@ -197,7 +198,7 @@ router.post('/languagesTable', function(req, res) {
 });
 
 // Student IDE Table
-router.post('/IDETable', function(req, res) {
+router.post('/ideTable', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -227,7 +228,7 @@ router.post('/IDETable', function(req, res) {
 });
 
 // Student Collaborative Tools Table
-router.post('/ToolsTable', function(req, res) {
+router.post('/toolsTable', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -257,7 +258,7 @@ router.post('/ToolsTable', function(req, res) {
 });
 
 // Student Course Competencies Table
-router.post('/CoursesTable', function(req, res) {
+router.post('/coursesTable', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -295,7 +296,7 @@ router.post('/CoursesTable', function(req, res) {
 });
 
 // Student Calendar Table
-router.post('/CalendarTable', function(req, res) {
+router.post('/calendarTable', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -326,7 +327,7 @@ router.post('/CalendarTable', function(req, res) {
 });
 
 // Student Attachment Table
-router.post('/AttachmentTable', function(req, res) {
+router.post('/attachmentTable', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -357,8 +358,35 @@ router.post('/AttachmentTable', function(req, res) {
     });
 });
 
+// View Student's Resume
+router.post('/resume', function(req, res) {
+    var Resume = '../../attachments/' + req.body.ID + '/resume/' + req.body.fileName;
+    fs.readFile(Resume, function (err, data) {
+        res.contentType('application/pdf');
+        res.send(data);
+    });
+});
+
+// View Student's Transcript
+router.post('/transcript', function(req, res) {
+    var Transcript = '../../attachments/' + req.body.ID + '/transcript/' + req.body.fileName;
+    fs.readFile(Transcript, function (err, data) {
+        res.contentType('application/pdf');
+        res.send(data);
+    });
+});
+
+// View Student's iPOS
+router.post('/ipos', function(req, res) {
+    var Ipos = '../../attachments/' + req.body.ID + '/ipos/' + req.body.fileName;
+    fs.readFile(Ipos, function (err, data) {
+        res.contentType('application/pdf');
+        res.send(data);
+    });
+});
+
 // Student Evaluation Table
-router.post('/EvaluationTable', function(req, res) {
+router.post('/evaluationTable', function(req, res) {
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();

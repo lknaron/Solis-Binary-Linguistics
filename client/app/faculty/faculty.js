@@ -118,41 +118,88 @@ faculty.controller('facultyStudentInfoController', function($scope, $routeParams
         //TODO
     });
     // populates IDEs table
-    $http.post('/faculty/IDETable', studentData).then(function successCallback(response) {
-        $scope.IDEs = response.data;
+    $http.post('/faculty/ideTable', studentData).then(function successCallback(response) {
+        $scope.ides = response.data;
     }, function errorCallback(response) {
         //TODO
     });
     // populates collaborative tools table
-    $http.post('/faculty/ToolsTable', studentData).then(function successCallback(response) {
-        $scope.Tools = response.data;
+    $http.post('/faculty/toolsTable', studentData).then(function successCallback(response) {
+        $scope.tools = response.data;
     }, function errorCallback(response) {
         //TODO
     });
     // populates course competencies table
-    $http.post('/faculty/CoursesTable', studentData).then(function successCallback(response) {
-        $scope.Courses = response.data;
+    $http.post('/faculty/coursesTable', studentData).then(function successCallback(response) {
+        $scope.courses = response.data;
     }, function errorCallback(response) {
         //TODO
     });
     // populates calendar table
-    $http.post('/faculty/CalendarTable', studentData).then(function successCallback(response) {
-        $scope.Calendars = response.data;
+    $http.post('/faculty/calendarTable', studentData).then(function successCallback(response) {
+        $scope.calendars = response.data;
     }, function errorCallback(response) {
         //TODO
     });
     // populates attachment table
-    $http.post('/faculty/AttachmentTable', studentData).then(function successCallback(response) {
+    $http.post('/faculty/attachmentTable', studentData).then(function successCallback(response) {
         $scope.attachment = response.data;
     }, function errorCallback(response) {
         //TODO
     });
+     // opens attachments
+    $scope.openAttachments = function(fileType, ID, fileName) {
+        // display resume file
+        if (fileType == 1) {
+            var resumeData = {
+            ID       : ID,
+            fileName : fileName
+            };
+            $http.post('/faculty/resume/', resumeData, {responseType: 'arraybuffer'}).then(function successCallback(response) {
+                var Resume = new Blob([response.data], {type: 'application/pdf'});
+                var ResumeURL = URL.createObjectURL(Resume);
+                window.location.assign(ResumeURL);
+            }, function errorCallback(response) {
+                //TODO
+            });
+        }
+        // display transcript file
+        if (fileType == 2) {
+            var transcriptData = {
+            ID       : ID,
+            fileName : fileName
+            };
+            // display resume file
+            $http.post('/faculty/transcript/', transcriptData, {responseType: 'arraybuffer'}).then(function successCallback(response) {
+                var Transcript = new Blob([response.data], {type: 'application/pdf'});
+                var TranscriptURL = URL.createObjectURL(Transcript);
+                window.location.assign(TranscriptURL);
+            }, function errorCallback(response) {
+                //TODO
+            });
+        }
+        // display iPOS file
+        if (fileType == 3) {
+            var iposData = {
+            ID       : ID,
+            fileName : fileName
+            };
+            // display resume file
+            $http.post('/faculty/ipos/', iposData, {responseType: 'arraybuffer'}).then(function successCallback(response) {
+                var Ipos = new Blob([response.data], {type: 'application/pdf'});
+                var IposURL = URL.createObjectURL(Ipos);
+                window.location.assign(IposURL);
+            }, function errorCallback(response) {
+                //TODO
+            });
+        }
+    }
     // populates evaluation table
-    $http.post('/faculty/EvaluationTable', studentData).then(function successCallback(response) {
+    $http.post('/faculty/evaluationTable', studentData).then(function successCallback(response) {
         if(response.data == 'OK') {
-            $scope.Evaulations = [];
+            $scope.evaulations = [];
         } else {
-            $scope.Evaluations = response.data;
+            $scope.evaluations = response.data;
         }
     }, function errorCallback(response) {
         //TODO

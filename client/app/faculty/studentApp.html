@@ -58,7 +58,7 @@
         <h4>Integrated Development Environments</h4>
         <table>
             <tr>
-                <td ng-repeat='IDE in IDEs'>{{IDE.isIDE}} {{IDE.OtherIDE}}</td> 
+                <td ng-repeat='ide in ides'>{{ide.isIDE}} {{ide.OtherIDE}}</td> 
             </tr>
         </table>
     </fieldset>
@@ -67,7 +67,7 @@
         <h4>Collaborative Tools</h4>
         <table>
             <tr>
-                <td ng-repeat='Tool in Tools'>{{Tool.isTool}} {{Tool.OtherTool}}</td>
+                <td ng-repeat='tool in tools'>{{tool.isTool}} {{tool.OtherTool}}</td>
             </tr>
         </table>
     </fieldset>
@@ -82,17 +82,17 @@
                 <th>Previously TA</th>
                 <th>Previously Grader</th>
             </tr>
-            <tr ng-repeat='Course in Courses'>
-                <td>{{Course.isCourse}}
-                    {{Course.OtherCourse}}</td>
-                <td>{{Course.isQualified !=1 ? '':'Yes'}}
-                    {{Course.isOtherQualified !=1 ? '':'Yes'}}</td>
-                <td>{{Course.isPrefer !=1 ? '':'Yes'}}
-                    {{Course.isOtherPrefer !=1 ? '':'Yes'}}</td>
-                <td>{{Course.isPreviouslyTA !=1 ? '':'Yes'}}
-                    {{Course.isOtherPreviouslyTA !=1 ? '':'Yes'}}</td>
-                <td>{{Course.isPreviouslyGrader !=1 ? '':'Yes'}}
-                    {{Course.isOtherPreviouslyGrader !=1 ? '':'Yes'}}</td> 
+            <tr ng-repeat='course in courses'>
+                <td>{{course.isCourse}}
+                    {{course.OtherCourse}}</td>
+                <td>{{course.isQualified !=1 ? '':'Yes'}}
+                    {{course.isOtherQualified !=1 ? '':'Yes'}}</td>
+                <td>{{course.isPrefer !=1 ? '':'Yes'}}
+                    {{course.isOtherPrefer !=1 ? '':'Yes'}}</td>
+                <td>{{course.isPreviouslyTA !=1 ? '':'Yes'}}
+                    {{course.isOtherPreviouslyTA !=1 ? '':'Yes'}}</td>
+                <td>{{course.isPreviouslyGrader !=1 ? '':'Yes'}}
+                    {{course.isOtherPreviouslyGrader !=1 ? '':'Yes'}}</td> 
             </tr>
         </table>
     </fieldset>
@@ -101,10 +101,10 @@
         <h4>Calendar</h4>
         <table>
             <tr>
-                <th ng-repeat='Calendar in Calendars'>{{Calendar.CalendarDay}}</th> 
+                <th ng-repeat='calendar in calendars'>{{calendar.CalendarDay}}</th> 
            	</tr>
             <tr>
-                <td ng-repeat='Calendar in Calendars'>{{Calendar.StartHour}} - {{Calendar.StopHour}}</td>
+                <td ng-repeat='calendar in calendars'>{{calendar.StartHour}} - {{calendar.StopHour}}</td>
             </tr>
         </table>
     </fieldset>
@@ -121,25 +121,25 @@
                 <th>Upload Date</th>
            	</tr>
             <tr>
-                <td><a ng-href='#!/attachments/{{attachment.ASURITE_ID}}/resume/{{attachment.ResumeName}}'>{{attachment.ResumeName}}</a></td>
+                <td><button ng-click='openAttachments(1, attachment.ASURITE_ID, attachment.ResumeName)'>{{attachment.ResumeName}}</button></td>
                 <td>{{attachment.ResumeUploadDate}}</td>
-                <td><a ng-href='#!/attachments/{{attachment.ASURITE_ID}}/transcript/{{attachment.TranscriptName}}'>{{attachment.TranscriptName}}</a></td>
+                <td><button ng-click='openAttachments(2, attachment.ASURITE_ID, attachment.TranscriptName)'>{{attachment.TranscriptName}}</button></td>
                 <td>{{attachment.TranscriptUploadDate}}</td>
-                <td><a ng-href='#!/attachments/{{attachment.ASURITE_ID}}/ipos/{{attachment.IposName}}'>{{attachment.IposName}}</a></td>
+                <td><button ng-click='openAttachments(3, attachment.ASURITE_ID, attachment.IposName)'>{{attachment.IposName}}</button></td>
                 <td>{{attachment.IposUploadDate}}</td>
             </tr>
         </table>
     </fieldset>
     <br>
-    <div ng-show='Evaluations.length'>
+    <div ng-show='evaluations.length'>
         <fieldset>
-            <div ng-repeat='Evaluation in Evaluations'>
-                <br>
-                <div>Date: {{Evaluation.DateCreated}}</div><br>
-                <div>Student Interaction: {{Evaluation.QOneScore}}/5 {{Evaluation.QOneComments}}</div><br>
-                <div>Preparedness/Punctuality/Professionalism: {{Evaluation.QTwoScore}}/5 {{Evaluation.QTwoComments}}</div><br>
-                <div>Grading Diligence: {{Evaluation.QThreeScore}}/5 {{Evaluation.QThreeComments}}</div><br>
-                <div>I would recommend this student for future TA/grading opportunities: {{Evaluation.QFourScore}}/5 {{Evaluation.QFourComments}}</div><br>
+        	<h4>Evaluations</h4>
+            <div ng-repeat='evaluation in evaluations'>
+                <div>Date: {{evaluation.DateCreated}}</div><br>
+                <div>Student Interaction: {{evaluation.QOneScore}}/5 {{evaluation.QOneComments}}</div><br>
+                <div>Preparedness/Punctuality/Professionalism: {{evaluation.QTwoScore}}/5 {{evaluation.QTwoComments}}</div><br>
+                <div>Grading Diligence: {{evaluation.QThreeScore}}/5 {{evaluation.QThreeComments}}</div><br>
+                <div>I would recommend this student for future TA/grading opportunities: {{evaluation.QFourScore}}/5 {{evaluation.QFourComments}}</div><br>
             </div>
         </fieldset>
     </div>
