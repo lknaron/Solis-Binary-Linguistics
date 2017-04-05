@@ -42,6 +42,7 @@ user.controller('programChairController', function($scope, $http, $location, $ro
      */
     if (PCActionsService.callTo.hasActions !== undefined) {
         $scope.incompleteClasses = setClassOptions(PCActionsService.callTo.incompleteClasses);
+        $scope.missingPlacementClasses = setClassOptions(PCActionsService.callTo.placements.missingPlacements);
         $scope.missingTAClasses = setClassOptions(PCActionsService.callTo.placements.missingTA);
         $scope.missingGraderClasses = setClassOptions(PCActionsService.callTo.placements.missingGrader);
         $scope.needTAConfirmation = setClassOptions(PCActionsService.callTo.placements.needTAConfirmation);

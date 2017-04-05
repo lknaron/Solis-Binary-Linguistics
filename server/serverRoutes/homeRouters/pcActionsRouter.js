@@ -37,17 +37,19 @@ router.post('/', function(req, res) {
             if (rows.length > 0) {
                 hasActions = 1;
             }
-            connection.query("SELECT DISTINCT Placement.TA, Placement.TAStatus, Placement.TATwo, Placement.TATwoStatus, Placement.GraderOne, Placement.GraderOneStatus, Placement.GraderTwo, Placement.GraderTwoStatus, Placement.TAHours, Placement.TATwoHours, Placement.GraderOneHours, Placement.GraderTwoHours, Schedule_.Location, Schedule_.Subject, Schedule_.CatalogNumber, Schedule_.CourseNumber, Schedule_.TARequiredHours, Schedule_.GraderRequiredHours FROM Placement LEFT JOIN Schedule_ ON Placement.ScheduleID = Schedule_.ScheduleID", function(err2, placementData) {
-                var placements = {};
-                placements = courseTAandGraderChecks(placementData);
-                if (placements.missingTA.length > 0 || placements.missingGrader.length > 0 || placements.needTAConfirmation.length > 0 || placements.needGraderConfirmation.length > 0 || placements.needTAHours.length > 0 || placements.needGraderHours.length > 0) {
-                    hasActions = 1;
-                }
-                connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [new Date(req.body.lastLogin)], function(err3, apps) { 
-                    connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'incomplete'", function(err4, incompleteCount) {
-                        connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'complete'", function(err5, completeCount) {
-                            connection.query("SELECT DeadlineDate FROM Deadline", function(err5, deadlineDate) {
-                               res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placements, newApps:apps.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length, deadline:deadlineDate[0].DeadlineDate}); 
+            connection.query("SELECT DISTINCT Placement.TA, Placement.TAStatus, Placement.TATwo, Placement.TATwoStatus, Placement.GraderOne, Placement.GraderOneStatus, Placement.GraderTwo, Placement.GraderTwoStatus, Placement.TAHours, Placement.TATwoHours, Placement.GraderOneHours, Placement.GraderTwoHours, Placement.ScheduleID as 'PlacementScheduleID', Schedule_.Location, Schedule_.Subject, Schedule_.CatalogNumber, Schedule_.CourseNumber, Schedule_.TARequiredHours, Schedule_.GraderRequiredHours, Schedule_.ScheduleID as 'ScheduleScheduleID' FROM Placement LEFT JOIN Schedule_ ON Placement.ScheduleID = Schedule_.ScheduleID", function(err2, placementData) {
+                connection.query("SELECT ScheduleID, Location, Subject, CatalogNumber, CourseNumber From Schedule_", function(err6, scheduleIDs) {
+                    var placements = {};
+                    placements = courseTAandGraderChecks(placementData, scheduleIDs);
+                    if (placements.missingTA.length > 0 || placements.missingGrader.length > 0 || placements.needTAConfirmation.length > 0 || placements.needGraderConfirmation.length > 0 || placements.needTAHours.length > 0 || placements.needGraderHours.length > 0) {
+                        hasActions = 1;
+                    }
+                    connection.query("SELECT DateCreated FROM Application WHERE DateCreated > ? AND AppStatus != 'new'", [new Date(req.body.lastLogin)], function(err3, apps) { 
+                        connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'incomplete'", function(err4, incompleteCount) {
+                            connection.query("SELECT AppStatus FROM Application WHERE AppStatus = 'complete'", function(err5, completeCount) {
+                                connection.query("SELECT DeadlineDate FROM Deadline", function(err5, deadlineDate) {
+                                   res.send({hasActions:hasActions, incompleteClasses:incompleteClasses, placements:placements, newApps:apps.length, incompleteApps:incompleteCount.length, completeApps:completeCount.length, deadline:deadlineDate[0].DeadlineDate}); 
+                                });
                             });
                         });
                     });
@@ -56,7 +58,9 @@ router.post('/', function(req, res) {
         });        
         connection.release();
     });
-    function courseTAandGraderChecks(data) {
+    function courseTAandGraderChecks(data, scheduleIDs) {
+        var placementIDs = [];
+        var coursesMissingPlacements = [];
         var coursesMissingTA = [];
         var coursesMissingGrader = [];
         var coursesNeedTAHours = [];
@@ -67,6 +71,18 @@ router.post('/', function(req, res) {
         var secondTAHours;
         var firstGraderHours;
         var secondGraderHours;
+        var hasPlacement;
+        
+        // searches for course schedules with no placements
+        for (var i = 0; i < data.length; i++) {
+            placementIDs.push(data[i].PlacementScheduleID);
+        }
+        for (var i = 0; i < scheduleIDs.length; i++) {
+            if (placementIDs.indexOf(scheduleIDs[i].ScheduleID) === -1) {
+                coursesMissingPlacements.push({Location:scheduleIDs[i].Location, Subject:scheduleIDs[i].Subject, CatalogNumber:scheduleIDs[i].CatalogNumber, CourseNumber:scheduleIDs[i].CourseNumber});
+            }
+        }
+        // check each entry of schedule and placement with the same schedule id
         for (var i = 0; i < data.length; i++) {
             firstTAHours = 0;
             secondTAHours = 0;
@@ -119,7 +135,7 @@ router.post('/', function(req, res) {
                 coursesNeedGraderConfirmation.push({Location:data[i].Location, Subject:data[i].Subject, CatalogNumber:data[i].CatalogNumber, CourseNumber:data[i].CourseNumber});
             }
         }
-        return {missingTA:coursesMissingTA, missingGrader:coursesMissingGrader, needTAHours:coursesNeedTAHours, needGraderHours:coursesNeedGraderHours, needTAConfirmation:coursesNeedTAConfirmation, needGraderConfirmation:coursesNeedGraderConfirmation};
+        return {missingPlacements:coursesMissingPlacements, missingTA:coursesMissingTA, missingGrader:coursesMissingGrader, needTAHours:coursesNeedTAHours, needGraderHours:coursesNeedGraderHours, needTAConfirmation:coursesNeedTAConfirmation, needGraderConfirmation:coursesNeedGraderConfirmation};
     }
 });   
 module.exports = router;

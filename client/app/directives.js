@@ -43,6 +43,9 @@ directives.directive('pcActionsDirective', function($compile, DeadlineDateCheckS
             if (PCActionsService.callTo.incompleteClasses.length > 0) {
                 angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.incompleteClasses.length + " class(es) indicated as incomplete. Select a class to continue working<select ng-model='incompleteClass' ng-options='class as class.class for class in incompleteClasses' ng-change='go(incompleteClass)'><option value=''>Select Class</option></select></div>")(scope));           
             }
+            if (PCActionsService.callTo.placements.missingPlacements.length > 0) {
+                angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingPlacements.length + " class(es) with no student assignments. Select a class to continue working<select ng-model='missingPlacementClass' ng-options='class as class.class for class in missingPlacementClasses' ng-change='go(missingPlacementClass)'><option value=''>Select Class</option></select></div>")(scope));           
+            }
             if (PCActionsService.callTo.placements.missingTA.length > 0) {
                 angular.element(document.getElementById('pcActions')).append($compile("<div>You still have " + PCActionsService.callTo.placements.missingTA.length + " class(es) without a TA in place. Select a class to continue working<select ng-model='missingTAClass' ng-options='class as class.class for class in missingTAClasses' ng-change='go(missingTAClass)'><option value=''>Select Class</option></select></div>")(scope));  
             }
