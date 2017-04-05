@@ -22,7 +22,7 @@ var mysql_pool  = mysql.createPool({
 });
 
 // Creates/Updates user course choices
-router.post('/', function(req, res) {
+router.post('/', function(req, res) { 
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
                     console.log('Error performing query: ' + err3);
                     throw err3;
                 } else {
-                    connection.query('INSERT INTO Course_Competencies (isCourse, CourseLevel, OtherCourse, OtherLevel, ASURITE_ID) VALUES ?', [req.body.data[0]], function(err4) { 
+                    connection.query('INSERT INTO Course_Competencies (isCourse, isPrefer, isQualified, isPreviouslyTA, isPreviouslyGrader, OtherCourse, isOtherPrefer, isOtherQualified, isOtherPreviouslyTA, isOtherPreviouslyGrader, ASURITE_ID) VALUES ?', [req.body.data[0]], function(err4) { 
                         if(err4) {
                             console.log('Error performing query: ' + err4);
                             throw err4;
@@ -65,14 +65,13 @@ router.post('/', function(req, res) {
 // Returns data to populate application page if user already saved courses information
 router.get('/', function(req, res) {
     var courses = [];
-
     mysql_pool.getConnection(function(err, connection) {
         if (err) {
             connection.release();
             console.log('Error getting mysql_pool connection: ' + err);
             throw err;
         }
-        connection.query('SELECT isCourse, CourseLevel, OtherCourse, OtherLevel FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) { 
+        connection.query('SELECT isCourse, isPrefer, isQualified, isPreviouslyTA, isPreviouslyGrader, OtherCourse, isOtherPrefer, isOtherQualified, isOtherPreviouslyTA, isOtherPreviouslyGrader FROM Course_Competencies WHERE ASURITE_ID = ?', [req.user.username], function(err2, rows) { 
             if(err2) {
                 console.log('Error performing query: ' + err2);
                 throw err2;

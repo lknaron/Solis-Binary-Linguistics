@@ -51,7 +51,8 @@ var logInRouter = require('./serverRoutes/logInRouter/logInRouter.js'),
     programChairRouter = require('./serverRoutes/programChairRouters/programChairRouter.js'),
     studentActionsRouter = require('./serverRoutes/homeRouters/studentActionsRouter.js'),
     facultyRouter = require('./serverRoutes/facultyRouter/facultyRouter.js'),
-    pcActionsRouter = require('./serverRoutes/homeRouters/pcActionsRouter.js');
+    pcActionsRouter = require('./serverRoutes/homeRouters/pcActionsRouter.js'),
+    classScheduleUploadRouter = require('./serverRoutes/programChairRouters/classScheduleUploadRouter.js');
 
 // Use ssl certificate and key
 var httpsOptions = {
@@ -61,7 +62,7 @@ var httpsOptions = {
 
 // Create https server
 https.createServer(httpsOptions, app).listen(port, function () {
-    console.log('Server running at https://sbltest.ddns.net');
+    console.log('Server running at https://tagraderapp.fulton.asu.edu:3443');
 });
 
 //  Send requests to correct router
@@ -87,5 +88,6 @@ app.use('/programChair/updateAssignedStudents', programChairRouter);
 app.use('/faculty', facultyRouter);
 app.use('/programChair/getDeadline', programChairRouter);
 app.use('/programChair/setDeadline', programChairRouter);
+app.use('/programChair/scheduleUpload', classScheduleUploadRouter);
 app.use('/getStudentActions', studentActionsRouter);
 app.use('/getPCActions', pcActionsRouter);
