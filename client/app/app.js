@@ -195,7 +195,7 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                 return deferred.promise;
                 }, 
                 'set' : function($rootScope, $timeout) {
-                    $rootScope.layout = "";
+                    $rootScope.layout = "/app/users/css/programChairView.css";
                     $timeout(function() {
                         $rootScope.mainDisplay = true;
                     }, 100);
@@ -207,7 +207,7 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
             permissions : [USER_ROLES.program_chair],
             resolve : {
                 'set' : function($rootScope, $timeout) {
-                    $rootScope.layout = "";
+                    $rootScope.layout = "/app/programChair/css/classSummaryView.css";
                     $timeout(function() {
                         $rootScope.mainDisplay = true;
                     }, 100);

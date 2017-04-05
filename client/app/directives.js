@@ -226,13 +226,13 @@ directives.directive('addstatusbutton', function () {
     };
 });
 
-// Directive for text input and save/cancel button on click of add enrollment button on program chair class summary page
+// Directive for radio button buttons and save/cancel buttons on click of addsatausbutton on program chair class summary page
 directives.directive("addstatus", function($compile){
-	return function(scope, element, attrs){
-		element.bind("click", function(){
-			angular.element(document.getElementById('spaceforstatus')).append($compile("<br><input type='radio' ng-model=status required value='Incomplete' name='status'>Incomplete</input><input type='radio' ng-model=status value='Complete' name='status'>Complete<br><input type='button' ng-click='saveStatus()' value='Save' style='margin-right: 10px;'></input><input type='button' ng-click='cancelStatusUpdate()' value='Cancel'></input><br>")(scope));    
-		});
-	};
+    return function(scope, element, attrs){
+        element.bind("click", function(){
+            angular.element(document.getElementById('spaceforstatus')).append($compile("<br><input type='radio' ng-model=status required value='Incomplete' name='status'>Incomplete</input><input type='radio' ng-model=status value='Complete' name='status' style='margin-left: 10px;'>Complete<br><br><input type='button' ng-click='saveStatus()' value='Save' style='margin-right: 10px;'></input><input type='button' ng-click='cancelStatusUpdate()' value='Cancel'></input><br>")(scope));    
+        });
+    };
 });
 
 // Directive for add enrollment button on program chair class summary page

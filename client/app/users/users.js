@@ -154,6 +154,25 @@ user.controller('programChairController', function($scope, $http, $location, $ro
             $scope.uploadErrorMessage = true; 
         }  
     };
+
+    $scope.logout = function() {
+        UserInfoService.clearUserSession();
+        $location.path('/login');
+    }
+
+    $scope.displayLogout = function() {
+        return UserAuthService.isAuthenticated();
+    }
+
+    $scope.goHome = function() {
+        $location.path('/programChairHome');
+    }
+    
+    $scope.displayHome = function() {
+        if (UserAuthService.isAuthenticated()) {
+            return true;
+        }
+    }
 });
 
 user.controller('facultyController', function($scope, $http, $location, $route, UserInfoService) {
