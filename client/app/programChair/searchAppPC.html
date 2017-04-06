@@ -1,4 +1,4 @@
-<div class="SearchApplications" ng-controller='facultySearchAppController'>
+<div class="SearchApplications" ng-controller='programChairSearchAppController'>
     <h3>View Applications</h3>
     <form>
         Select a Course: <select ng-model='selectCourse' ng-options="c for c in courses"></select>
@@ -6,7 +6,7 @@
     </form>
         <div class="display-apps" ng-repeat="name in names">
             <br>
-            <div>Name : <a ng-href='#!/studentInfo/{{name.Name}}'>{{name.Name}}</a></div>
+            <div>Name : <a ng-href='#!/studentInfoPC/{{name.Name}}'>{{name.Name}} {{name.AppStatus}}</a></div>
             <br>
         </div>
 </div>

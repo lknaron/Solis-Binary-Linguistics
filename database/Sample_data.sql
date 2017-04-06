@@ -118,7 +118,7 @@ NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', '2017-03-04 10:22:18', NULL, N
 0, 0, 0, NULL, '2015-08-15', 'Spring 2019', NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', 
 '2017-03-05 08:09:28', NULL, NULL, 1, 1, 1, 0, 0, 0, 'bgordon'),
 (7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-03-06 14:12:45', NULL, NULL,
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'incomplete', '2017-03-06 14:12:45', NULL, NULL,
 0, 0, 0, 0, 0, 0, 'srogers'),
 (8, '432-556-1334', '432-556-2231', '145 Maple Street', NULL, 'United States', 
 'Smallville', 'Kansas', 67524, 'Ph.D Computer Science', 4.0, 'Computer Science', 0, 0, 0, 

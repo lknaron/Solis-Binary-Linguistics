@@ -250,6 +250,42 @@ app.config(function($locationProvider, $routeProvider, $httpProvider, USER_ROLES
                 }
             }
         })
+        .when('/evaluationsPC', {
+            templateUrl : 'app/programChair/studentEvalPC.html',
+            permissions : [USER_ROLES.program_chair],
+            resolve : {
+               'set' : function($rootScope, $timeout) {
+                   $rootScope.layout = "";
+                   $timeout(function() {
+                       $rootScope.mainDisplay = true;
+                   }, 100);
+               }
+           }
+        })
+        .when('/viewApplicationsPC', {
+            templateUrl : 'app/programChair/searchAppPC.html',
+            permissions : [USER_ROLES.program_chair],
+            resolve : {
+               'set' : function($rootScope, $timeout) {
+                   $rootScope.layout = "";
+                   $timeout(function() {
+                       $rootScope.mainDisplay = true;
+                   }, 100);
+               }
+           }
+        })
+        .when('/studentInfoPC/:studentName', {
+            templateUrl : 'app/programChair/studentAppPC.html',
+            permissions : [USER_ROLES.program_chair],
+            resolve : {
+               'set' : function($rootScope, $timeout) {
+                   $rootScope.layout = "";
+                   $timeout(function() {
+                       $rootScope.mainDisplay = true;
+                   }, 100);
+               }
+           }
+        })
         .when('/createAccount', {
             templateUrl : 'app/account/createAccountView.html',
             controller : 'createAccountController',

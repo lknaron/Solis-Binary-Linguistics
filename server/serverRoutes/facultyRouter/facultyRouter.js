@@ -360,7 +360,7 @@ router.post('/attachmentTable', function(req, res) {
 
 // View Student's Resume
 router.post('/resume', function(req, res) {
-    var Resume = '../../attachments/' + req.body.ID + '/resume/' + req.body.fileName;
+    var Resume = '../userUploads/attachments/' + req.body.ID + '/resume/' + req.body.fileName;
     fs.readFile(Resume, function (err, data) {
         res.contentType('application/pdf');
         res.send(data);
@@ -369,7 +369,7 @@ router.post('/resume', function(req, res) {
 
 // View Student's Transcript
 router.post('/transcript', function(req, res) {
-    var Transcript = '../../attachments/' + req.body.ID + '/transcript/' + req.body.fileName;
+    var Transcript = '../userUploads/attachments/' + req.body.ID + '/transcript/' + req.body.fileName;
     fs.readFile(Transcript, function (err, data) {
         res.contentType('application/pdf');
         res.send(data);
@@ -378,7 +378,7 @@ router.post('/transcript', function(req, res) {
 
 // View Student's iPOS
 router.post('/ipos', function(req, res) {
-    var Ipos = '../../attachments/' + req.body.ID + '/ipos/' + req.body.fileName;
+    var Ipos = '../userUploads/attachments/' + req.body.ID + '/ipos/' + req.body.fileName;
     fs.readFile(Ipos, function (err, data) {
         res.contentType('application/pdf');
         res.send(data);
